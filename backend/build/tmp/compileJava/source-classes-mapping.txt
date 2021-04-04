@@ -1,6 +1,0 @@
-com/example/backend/TestController.java
- com.example.backend.TestController
-com/example/backend/BackendApplication.java
- com.example.backend.BackendApplication
-com/example/backend/WebConfig.java
- com.example.backend.WebConfig
