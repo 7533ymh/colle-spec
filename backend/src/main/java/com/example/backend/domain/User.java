@@ -20,5 +20,4 @@ public class User {
     private int score;
     private String rank;
 
-
 }
