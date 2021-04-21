@@ -8,6 +8,7 @@ public class User {
     private int idx;
     private String id;
     private String pass;
+    private String name;
     private String college;
     private String major;
     private int grade;
