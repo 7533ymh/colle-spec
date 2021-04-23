@@ -17,26 +17,34 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-   public String register (User user) {
 
-       validateDuplicateUser(user.getId());
+     public String register (User user) {
 
-       userMapper.insert(user);
+       if ( validateDuplicateUser(user.getId())) {
+           userMapper.insert(user);
+           return user.getId();
+       }
+       else {
+           return null;
+       }
 
-       return user.getId();
+     }
 
-   }
-
-    public void validateDuplicateUser(String id) {
-        userMapper.findById(id)
-                .ifPresent(m->{
-                    throw new IllegalStateException("이미 존재하는 회원입니다.");
-                });
+     public boolean validateDuplicateUser(String id) {
+        if( userMapper.findById(id).isPresent() ) {
+            return false;
+        }
+       else {
+           return true;
+        }
     }
 
     public Optional<User> findOne(String id) {
         return userMapper.findById(id);
     }
+
+
+
 
 
 }

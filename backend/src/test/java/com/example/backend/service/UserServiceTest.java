@@ -63,9 +63,8 @@ class UserServiceTest {
         user2.setEnterprise("kakao");
 
         userService.register(user1);
-        IllegalStateException e = assertThrows(IllegalStateException.class , () -> userService.register(user2));
-
-        assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
+        boolean result = userService.validateDuplicateUser(user1.getId());
+        assertThat(result).isEqualTo(false);
 
 
     }
