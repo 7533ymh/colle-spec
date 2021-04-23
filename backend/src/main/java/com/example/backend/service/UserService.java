@@ -18,11 +18,11 @@ public class UserService {
     }
 
 
-     public String register (User user) {
+     public User register (User user) {
 
        if ( validateDuplicateUser(user.getId())) {
            userMapper.insert(user);
-           return user.getId();
+           return user;
        }
        else {
            return null;

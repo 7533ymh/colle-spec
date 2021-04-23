@@ -32,9 +32,9 @@ class UserServiceTest {
         user.setEnterprise("kakao");
 
         //when
-        String saveId = userService.register(user);
+        User saveId = userService.register(user);
         //then
-        User findUser = userService.findOne(saveId).get();
+        User findUser = userService.findOne(saveId.getId()).get();
         assertThat(user.getName()).isEqualTo(findUser.getName());
 
     }
