@@ -32,7 +32,7 @@ public class UserController {
     //회원가입
     @ApiOperation(value = "회원 가입", notes = "회원정보를 입력하여 가입한다.")
     @PostMapping("/register")
-    public SingleResult<User> register(@ApiParam(value = "회원정보객체(id , pass , sex, mail , phone, objective , enterprise , name 만 필요)", required = true) @RequestBody User user) {
+    public SingleResult<User> register(@ApiParam(value = "회원정보객체(id , pass , name, sex, mail , phone, objective , enterprise  만 필요)", required = true) @RequestBody User user) {
         return responseService.getSingleResult(userService.register(user));
 
     }
@@ -42,7 +42,7 @@ public class UserController {
     @GetMapping("/register/check/{id}")
     public CommonResult registerCheck(@ApiParam(value = "회원 아이디", required = true) @PathVariable("id") String id) {
         boolean result = userService.validateDuplicateUser(id);
-        if (result == true)
+        if (result)
             return responseService.getSuccessResult();
         else
             return responseService.getFailResult();
