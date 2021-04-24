@@ -41,11 +41,9 @@ public class UserController {
     @ApiOperation(value = "회원 아이디 중복 체크", notes = "회원 아이디가 중복인지 체크한다.")
     @GetMapping("/register/check/{id}")
     public CommonResult registerCheck(@ApiParam(value = "회원 아이디", required = true) @PathVariable("id") String id) {
-        boolean result = userService.validateDuplicateUser(id);
-        if (result)
-            return responseService.getSuccessResult();
-        else
-            return responseService.getFailResult();
+        userService.validateDuplicateUser(id);
+        return responseService.getSuccessResult();
+
     }
 
 

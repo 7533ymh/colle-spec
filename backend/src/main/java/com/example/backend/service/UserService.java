@@ -10,33 +10,27 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    private final UserMapper userMapper;
-
     @Autowired
-    public UserService(UserMapper userMapper) {
-        this.userMapper = userMapper;
-    }
+    private  UserMapper userMapper;
+
 
 
      public User register (User user) {
 
-       if ( validateDuplicateUser(user.getId())) {
-           userMapper.insert(user);
-           return user;
-       }
-       else {
-           return null;
-       }
+         validateDuplicateUser(user.getId());
+
+         userMapper.insert(user);
+
+         return user;
 
      }
 
-     public boolean validateDuplicateUser(String id) {
-        if( userMapper.findById(id).isPresent() ) {
-            return false;
-        }
-       else {
-           return true;
-        }
+     public void validateDuplicateUser(String id) {
+         userMapper.findById(id)
+                 .ifPresent(m->{
+                     throw new IllegalStateException("이미 존재하는 회원입니다.");
+                 });
+
     }
 
     public Optional<User> findOne(String id) {
