@@ -63,7 +63,7 @@ public class UserService {
         logger.info("로그인요청받은 값으로 회원정보 있는 지 확인");
 
         userMapper.findByIdPass(id, pass)
-                .orElseThrow(() -> new  IllegalStateException("존재하지 않는 회원입니다."));
+                .orElseThrow(() -> new  IllegalStateException("계정이 존재하지 않거나 아아디 또는 비밀번호가 정확하지 않습니다."));
 
     }
 
