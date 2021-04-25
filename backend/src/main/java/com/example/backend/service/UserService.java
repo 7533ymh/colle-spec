@@ -24,7 +24,7 @@ public class UserService {
 
          validateDuplicateUser(user.getId());
 
-         userMapper.insert(user);
+         userMapper.save(user);
 
          return user;
 

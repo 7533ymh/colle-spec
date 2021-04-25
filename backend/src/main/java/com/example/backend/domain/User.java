@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 
-@NoArgsConstructor  //Default Constructor 추가
+@NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder

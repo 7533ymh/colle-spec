@@ -40,9 +40,8 @@ public class UserController {
         if (!passwordEncoder.matches(pass, user.getPassword()))
             throw new IllegalStateException("계정이 존재하지 않거나 아아디 또는 비밀번호가 정확하지 않습니다.");
 
-        ArrayList<String> roles = new ArrayList<>();
-        roles.add(user.getRole());
-        return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getIdx()), roles));
+
+        return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getIdx()), Arrays.asList(user.getRole())));
 
     }
 
