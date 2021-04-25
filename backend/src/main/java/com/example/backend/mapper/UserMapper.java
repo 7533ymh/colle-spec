@@ -17,6 +17,10 @@ public interface UserMapper {
     @Select("SELECT * FROM user WHERE id = #{id}")
     Optional<User> findById(@Param("id") String id);
 
+    @Select("SELECT * FROM user WHERE id = #{id} AND pass = #{pass}")
+    Optional<User> findByIdPass(@Param("id") String id, @Param("pass") String pass);
+
+
 
 
 }
