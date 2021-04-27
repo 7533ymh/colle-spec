@@ -1,4 +1,4 @@
-package com.example.backend.service;
+package com.example.backend.service.user;
 
 import com.example.backend.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;

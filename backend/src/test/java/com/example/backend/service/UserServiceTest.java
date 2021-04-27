@@ -1,13 +1,12 @@
 package com.example.backend.service;
 
 import com.example.backend.domain.User;
-import org.assertj.core.api.Assertions;
+import com.example.backend.service.user.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 class UserServiceTest {
 
-    @Autowired UserService userService;
+    @Autowired
+    UserService userService;
 
 
     @Test
@@ -32,9 +32,9 @@ class UserServiceTest {
         user.setEnterprise("kakao");
 
         //when
-        User saveId = userService.register(user);
+        User saveId = userService.signup(user);
         //then
-        User findUser = userService.findOne(saveId.getId()).get();
+        User findUser = userService.findById(saveId.getId()).get();
         assertThat(user.getName()).isEqualTo(findUser.getName());
 
     }
@@ -62,8 +62,8 @@ class UserServiceTest {
         user2.setObjective("it d");
         user2.setEnterprise("kakao");
 
-        userService.register(user1);
-        IllegalStateException e = assertThrows(IllegalStateException.class , ()->userService.register(user2));
+        userService.signup(user1);
+        IllegalStateException e = assertThrows(IllegalStateException.class , ()->userService.signup(user2));
 
         assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
 
