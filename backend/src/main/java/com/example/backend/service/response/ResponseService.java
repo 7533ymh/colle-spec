@@ -1,4 +1,4 @@
-package com.example.backend.service;
+package com.example.backend.service.response;
 
 import com.example.backend.response.CommonResult;
 import com.example.backend.response.ListResult;
@@ -39,6 +39,14 @@ public class ResponseService {
         ListResult<T> result = new ListResult<>();
         result.setList(list);
         setSuccessResult(result);
+        return result;
+    }
+    public <T> ListResult<T> getListResultMsg(List<T> list,String msg) {
+        ListResult<T> result = new ListResult<>();
+        result.setList(list);
+        result.setSuccess(true);
+        result.setCode(CommonResponse.SUCCESS.getCode());
+        result.setMsg(msg);
         return result;
     }
     // 성공 결과만 처리하는 메소드

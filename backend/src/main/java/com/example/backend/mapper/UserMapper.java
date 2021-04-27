@@ -15,6 +15,16 @@ public interface UserMapper {
     int save(@Param("user") User user);
 
 
+    @Update("UPDATE user SET id = #{user.id}, pass = #{user.pass}, name = #{user.name}, sex = #{user.sex}, mail = #{user.mail}, phone = #{user.phone} ," +
+            "objective = #{user.objective}, enterprise = #{user.enterprise} WHERE idx = #{user.idx}")
+    void update(@Param("user") User user);
+
+    @Delete("DELETE FROM user WHERE idx = #{idx} ")
+    void delete(@Param("idx") int idx);
+
+    @Select("SELECT idx FROM user WHERE id = #{id}")
+    Optional<Integer> findIdxById(@Param("id") String id);
+
     @Select("SELECT * FROM user WHERE id = #{id}")
     Optional<User> findById(@Param("id") String id);
 
@@ -23,6 +33,10 @@ public interface UserMapper {
 
     @Select("SELECT * FROM user WHERE idx = #{idx}")
     Optional<User> findByIdx(@Param("idx") int idx);
+
+
+
+
 
 
 
