@@ -74,17 +74,9 @@ public class UserService {
     public int findIdxById(String id) {
 
          return userMapper.findIdxById(id)
-                 .orElseThrow(() -> new  IllegalStateException("계정이 존재하지 않거나 아아디가 정확하지 않습니다."));
+                 .orElseThrow(() -> new  IllegalStateException("계정이 존재하지 않거나 아이디가 정확하지 않습니다."));
 
     }
-
-
-
-
-
-
-
-
 
 
 }
