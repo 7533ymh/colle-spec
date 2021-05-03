@@ -61,7 +61,7 @@ public class UserController {
                 .phone(phone)
                 .objective(objective)
                 .enterprise(enterprise)
-                .build());
+                .build(),AuthId);
 
         return responseService.getSuccessResultMsg("회원 정보가 수정되었습니다.");
     }

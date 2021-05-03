@@ -38,10 +38,10 @@ public class AwardController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String AuthId = authentication.getName();
-        int idx = userService.findIdxById(AuthId);
+        int user_idx = userService.findIdxById(AuthId);
 
         awardService.save(Award.builder()
-                .user_idx(idx)
+                .user_idx(user_idx)
                 .title(title)
                 .agency(agency)
                 .division(division)
@@ -58,10 +58,10 @@ public class AwardController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String AuthId = authentication.getName();
-        int idx = userService.findIdxById(AuthId);
+        int user_idx = userService.findIdxById(AuthId);
 
 
-        return responseService.getListResultMsg(awardService.findByUserIdx(idx),"수상 정보를 조회하였습니다.");
+        return responseService.getListResultMsg(awardService.findByUserIdx(user_idx),"수상 정보를 조회하였습니다.");
     }
 
     @ApiOperation(value = "수상 수정", notes = "수상정보를 수정한다")

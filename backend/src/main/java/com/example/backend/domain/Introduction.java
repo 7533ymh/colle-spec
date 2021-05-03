@@ -11,17 +11,14 @@ import java.util.Date;
 @AllArgsConstructor
 @Data
 @Builder
-public class Award {
+public class Introduction {
 
     private int idx;
     private int user_idx;
-    private String title;
-    private String agency;
-    private String division;
-    private int year;
-    private String content;
+    private String filepath;
+    private String filename;
+    private String origfilename;
     private Date edit;
-    private int score;
 
 
 }
