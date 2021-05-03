@@ -1,7 +1,6 @@
 package com.example.backend.service.award;
 
 import com.example.backend.domain.Award;
-import com.example.backend.domain.Career;
 import com.example.backend.mapper.AwardMapper;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -43,11 +42,9 @@ public class AwardService {
 
         logger.info("수상 수정");
 
-        checkAwardIdx(award.getIdx());
-
         checkAwardUserIdx(award.getUser_idx());
 
-        checkRealUser(award.getIdx(), award.getUser_idx());
+        checkAll(award.getIdx(), award.getUser_idx());
 
         award.setScore(changetoNumber(award));
 
@@ -61,11 +58,9 @@ public class AwardService {
 
         logger.info("수상 삭제");
 
-        checkAwardIdx(idx);
-
         checkAwardUserIdx(user_idx);
 
-        checkRealUser(idx,user_idx);
+        checkAll(idx,user_idx);
 
         awardMapper.delete(idx, user_idx);
 
@@ -88,18 +83,15 @@ public class AwardService {
 
     }
 
-    public void checkAwardIdx(int idx) {
 
-        awardMapper.finduser_idxByIdx(idx)
-                .orElseThrow(() -> new IllegalStateException("해당 수상 번호의 정보가 없습니다."));
-
-    }
-
-    public void checkRealUser(int idx , int user_idx) {
+    public void checkAll(int idx , int user_idx) {
 
         if (awardMapper.finduser_idxByIdx(idx).isPresent() ) {
             if (awardMapper.finduser_idxByIdx(idx).get() != user_idx)
                 throw new IllegalStateException("해당 회원의 수상 번호가 아닙니다.");
+        }
+        else {
+            throw new IllegalStateException("해당 수상 번호의 정보가 없습니다.");
         }
     }
 

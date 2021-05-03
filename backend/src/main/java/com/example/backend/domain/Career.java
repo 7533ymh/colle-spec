@@ -14,16 +14,16 @@ import java.sql.Date;
 @Builder
 public class Career {
 
-    int idx;
-    int user_idx;
-    String division;
-    String company;
-    String department;
-    Date start_date;
-    Date end_date;
-    String content;
-    java.util.Date edit;
-    int score;
+    private int idx;
+    private int user_idx;
+    private String division;
+    private String company;
+    private String department;
+    private Date start_date;
+    private Date end_date;
+    private String content;
+    private java.util.Date edit;
+    private int score;
 
 
 }

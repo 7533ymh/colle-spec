@@ -39,10 +39,10 @@ public class CareerController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String AuthId = authentication.getName();
-        int idx = userService.findIdxById(AuthId);
+        int user_idx = userService.findIdxById(AuthId);
 
         careerService.save(Career.builder()
-                .user_idx(idx)
+                .user_idx(user_idx)
                 .division(division)
                 .company(company)
                 .department(department)
@@ -60,10 +60,10 @@ public class CareerController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String AuthId = authentication.getName();
-        int idx = userService.findIdxById(AuthId);
+        int user_idx = userService.findIdxById(AuthId);
 
 
-        return responseService.getListResultMsg(careerService.findByUserIdx(idx),"경력 정보를 조회하였습니다.");
+        return responseService.getListResultMsg(careerService.findByUserIdx(user_idx),"경력 정보를 조회하였습니다.");
     }
 
     @ApiOperation(value = "경력 수정", notes = "경력정보를 수정한다")

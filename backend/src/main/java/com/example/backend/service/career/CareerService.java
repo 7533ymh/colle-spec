@@ -43,11 +43,9 @@ public class CareerService {
 
         logger.info("경력 수정");
 
-        checkCareerIdx(career.getIdx());
-
         checkCareerUserIdx(career.getUser_idx());
 
-        checkRealUser(career.getIdx(), career.getUser_idx());
+        checkAll(career.getIdx(), career.getUser_idx());
 
         career.setScore(changetoNumber(career));
 
@@ -61,11 +59,9 @@ public class CareerService {
 
         logger.info("경력 삭제");
 
-        checkCareerIdx(idx);
-
         checkCareerUserIdx(user_idx);
 
-        checkRealUser(idx,user_idx);
+        checkAll(idx,user_idx);
 
         careerMapper.delete(idx, user_idx);
 
@@ -91,18 +87,15 @@ public class CareerService {
 
     }
 
-    public void checkCareerIdx(int idx) {
 
-        careerMapper.finduser_idxByIdx(idx)
-                .orElseThrow(() -> new IllegalStateException("해당 경력 번호의 정보가 없습니다."));
-
-    }
-
-    public void checkRealUser(int idx , int user_idx) {
+    public void checkAll(int idx , int user_idx) {
 
         if (careerMapper.finduser_idxByIdx(idx).isPresent() ) {
             if (careerMapper.finduser_idxByIdx(idx).get() != user_idx)
                 throw new IllegalStateException("해당 회원의 경력 번호가 아닙니다.");
+        }
+        else {
+            throw new IllegalStateException("해당 경력 번호의 정보가 없습니다.");
         }
     }
 

@@ -20,26 +20,26 @@ public class UserService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
 
-     public User signup(User user) {
+    public User signup(User user) {
 
-         logger.info("회원가입");
+        logger.info("회원가입");
 
-         validateDuplicateUser(user.getId());
+        validateDuplicateUser(user.getId());
 
-         userMapper.save(user);
+        userMapper.save(user);
 
-         return user;
+        return user;
 
-     }
+    }
 
-     public void validateDuplicateUser(String id) {
+    public void validateDuplicateUser(String id) {
 
-         logger.info("아이디 중복 검사");
+        logger.info("아이디 중복 검사");
 
-         userMapper.findById(id)
-                 .ifPresent(m->{
-                     throw new IllegalStateException("이미 존재하는 회원입니다.");
-                 });
+        userMapper.findById(id)
+                .ifPresent(m -> {
+                    throw new IllegalStateException("이미 존재하는 회원입니다.");
+                });
 
     }
 
@@ -50,11 +50,13 @@ public class UserService {
         return userMapper.findById(id);
     }
 
-    public User modify(User user) {
+    public User modify(User user, String authId) {
 
-         logger.info("회원정보 수정");
+        logger.info("회원정보 수정");
 
-        validateDuplicateUser(user.getId());
+        if (!authId.equals(user.getId())) {
+            validateDuplicateUser(user.getId());
+        }
 
         userMapper.update(user);
 
@@ -63,18 +65,18 @@ public class UserService {
     }
 
 
-    public void delete (int idx) {
+    public void delete(int idx) {
 
-         logger.info("회원 삭제");
+        logger.info("회원 삭제");
 
-         userMapper.delete(idx);
+        userMapper.delete(idx);
 
     }
 
     public int findIdxById(String id) {
 
-         return userMapper.findIdxById(id)
-                 .orElseThrow(() -> new  IllegalStateException("계정이 존재하지 않거나 아이디가 정확하지 않습니다."));
+        return userMapper.findIdxById(id)
+                .orElseThrow(() -> new IllegalStateException("계정이 존재하지 않거나 아이디가 정확하지 않습니다."));
 
     }
 
