@@ -95,7 +95,7 @@ public class CareerController {
 
     @ApiOperation(value = "경력 삭제", notes = "경력정보를 삭제한다")
     @DeleteMapping(value = "/career")
-    public CommonResult delete_career(@ApiParam(value = "경력 번호 ", required = true) @RequestParam int idx) {
+    public CommonResult delete(@ApiParam(value = "경력 번호 ", required = true) @RequestParam int idx) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String AuthId = authentication.getName();

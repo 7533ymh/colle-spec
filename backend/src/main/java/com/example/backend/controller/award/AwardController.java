@@ -92,7 +92,7 @@ public class AwardController {
 
     @ApiOperation(value = "수상 삭제", notes = "수상정보를 삭제한다")
     @DeleteMapping(value = "/award")
-    public CommonResult delete_award(@ApiParam(value = "수상 번호 ", required = true) @RequestParam int idx) {
+    public CommonResult delete(@ApiParam(value = "수상 번호 ", required = true) @RequestParam int idx) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String AuthId = authentication.getName();
