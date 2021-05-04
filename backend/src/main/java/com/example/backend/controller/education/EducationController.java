@@ -28,7 +28,6 @@ public class EducationController {
     private final ResponseService responseService;
     private final UserService userService;
 
-    //@ApiImplicitParams({@ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")})
     @ApiOperation(value = "교육 입력", notes = "교육정보를 저장한다.")
     @PostMapping(value = "/education")
     public CommonResult insert(@ApiParam(value = "교육 제목 ", required = true) @RequestParam String title,
@@ -93,7 +92,7 @@ public class EducationController {
 
     @ApiOperation(value = "교육 삭제", notes = "교육정보를 삭제한다")
     @DeleteMapping(value = "/education")
-    public CommonResult delete_career(@ApiParam(value = "교육 번호 ", required = true) @RequestParam int idx) {
+    public CommonResult delete_education(@ApiParam(value = "교육 번호 ", required = true) @RequestParam int idx) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String AuthId = authentication.getName();
