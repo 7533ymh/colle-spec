@@ -1,5 +1,6 @@
 package com.example.backend.service.career;
 
+import com.example.backend.advice.exception.CNotFoundCareerException;
 import com.example.backend.domain.Career;
 import com.example.backend.mapper.CareerMapper;
 import lombok.RequiredArgsConstructor;
@@ -82,7 +83,7 @@ public class CareerService {
 
     public void checkCareerUserIdx(int user_idx) {
         if ( careerMapper.findByUserIdx(user_idx).isEmpty()){
-            throw new IllegalStateException("해당 회원의 경력 정보가 없습니다.");
+            throw new CNotFoundCareerException("해당 회원의 경력 정보가 없습니다.");
         }
 
     }
@@ -92,10 +93,10 @@ public class CareerService {
 
         if (careerMapper.finduser_idxByIdx(idx).isPresent() ) {
             if (careerMapper.finduser_idxByIdx(idx).get() != user_idx)
-                throw new IllegalStateException("해당 회원의 경력 번호가 아닙니다.");
+                throw new CNotFoundCareerException("해당 회원의 경력 번호가 아닙니다.");
         }
         else {
-            throw new IllegalStateException("해당 경력 번호의 정보가 없습니다.");
+            throw new CNotFoundCareerException("해당 경력 번호의 정보가 없습니다.");
         }
     }
 

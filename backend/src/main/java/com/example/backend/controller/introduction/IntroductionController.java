@@ -1,6 +1,7 @@
 package com.example.backend.controller.introduction;
 
 
+import com.example.backend.advice.exception.CNotFoundDataTypeException;
 import com.example.backend.domain.Introduction;
 import com.example.backend.response.CommonResult;
 import com.example.backend.response.ListResult;
@@ -27,7 +28,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 
 @Api(tags = {"5. Introduction"})
 @Builder
@@ -81,7 +81,7 @@ public class IntroductionController {
 
     @ApiOperation(value = "자기소개서 파일 다운로드", notes = "자기소개서 파일을 다운로드한다.")
     @GetMapping(value = "/introduction/download")
-    public ResponseEntity<Resource> download(@ApiParam(value = "자기소개서 idx  ", required = true) @RequestParam int idx, HttpServletRequest request) throws MalformedURLException {
+    public ResponseEntity<Resource> download(@ApiParam(value = "자기소개서 idx  ", required = true) @RequestParam int idx, HttpServletRequest request) throws MalformedURLException, CNotFoundDataTypeException {
 
         Introduction introduction = introductionService.findByidx(idx);
         Path filePath = Paths.get(introduction.getFilepath()).toAbsolutePath().normalize();
@@ -94,8 +94,8 @@ public class IntroductionController {
                     resource.getFile().getAbsolutePath()
             );
         }
-        catch (IOException ex) {
-            throw new IllegalStateException("데이터 타입을 알 수 없습니다. 다시 시도해주세요.");
+        catch (IOException e) {
+            throw new CNotFoundDataTypeException("데이터 타입을 알 수 없습니다. 다시 시도해주세요.");
         }
 
         return ResponseEntity.ok()

@@ -1,5 +1,6 @@
 package com.example.backend.controller.user;
 
+import com.example.backend.advice.exception.CUserLoginFailException;
 import com.example.backend.config.security.JwtTokenProvider;
 import com.example.backend.domain.User;
 import com.example.backend.response.*;
@@ -33,10 +34,9 @@ public class SignController {
     @GetMapping("/signin")
     public SingleResult<String> signin(@ApiParam(value = "회원 아이디(id) ", required = true) @RequestParam String id , @ApiParam(value = "회원 비밀번호(pass) ", required = true) @RequestParam String pass) {
 
-        User user = userService.findById(id)
-                .orElseThrow(() -> new  IllegalStateException("계정이 존재하지 않거나 아아디 또는 비밀번호가 정확하지 않습니다."));
+        User user = userService.findById(id);
         if (!passwordEncoder.matches(pass, user.getPassword()))
-            throw new IllegalStateException("계정이 존재하지 않거나 아아디 또는 비밀번호가 정확하지 않습니다.");
+            throw new CUserLoginFailException("계정이 존재하지 않거나 아아디 또는 비밀번호가 정확하지 않습니다.");
 
 
         return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getIdx()), Arrays.asList(user.getRole())));
@@ -67,7 +67,7 @@ public class SignController {
                 .role("ROLE_USER")
                 .build());
 
-        return responseService.getSuccessResultMsg("회원가입 성공");
+        return responseService.getSuccessResultMsg("회원가입이 성공하였습니다.");
 
     }
 
@@ -79,10 +79,6 @@ public class SignController {
         return responseService.getSuccessResultMsg("해당 아이디 사용이 가능합니다.");
 
     }
-
-
-
-
 
 
 }

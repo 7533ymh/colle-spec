@@ -31,8 +31,7 @@ public class UserController {
         // SecurityContext에서 인증받은 회원의 정보를 얻어온다.
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
-        return responseService.getSingleResult(userService.findById(id)
-                .orElseThrow(() -> new  IllegalStateException("존재하지 않는 회원입니다.")));
+        return responseService.getSingleResult(userService.findById(id));
     }
 
     //@ApiImplicitParams({@ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")})
