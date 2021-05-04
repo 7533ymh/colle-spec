@@ -79,9 +79,6 @@ public class IntroductionController {
         return responseService.getSuccessResultMsg("자기소개서 삭제가 완료되었습니다.");
     }
 
-
-
-
     @ApiOperation(value = "자기소개서 파일 다운로드", notes = "자기소개서 파일을 다운로드한다.")
     @GetMapping(value = "/introduction/download")
     public ResponseEntity<Resource> download(@ApiParam(value = "자기소개서 idx  ", required = true) @RequestParam int idx, HttpServletRequest request) throws MalformedURLException {
