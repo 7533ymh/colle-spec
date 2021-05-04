@@ -1,7 +1,6 @@
 package com.example.backend.mapper;
 
 import com.example.backend.domain.Award;
-import com.example.backend.domain.Career;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

@@ -1,8 +1,6 @@
 package com.example.backend.mapper;
 
-import com.example.backend.domain.Career;
 import com.example.backend.domain.Education;
-import com.example.backend.domain.Introduction;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -23,7 +21,7 @@ public interface EducationMapper {
     Optional<Integer> finduser_idxByIdx(@Param("idx") int idx);
 
     @Update("UPDATE education SET title = #{education.title}, agency = #{education.agency}, start_date = #{education.start_date}, end_date = #{education.end_date}, " +
-            "content = #{education.content}, edit = NOW(), score = #{career.score} WHERE idx = #{education.idx} AND user_idx = #{education.user_idx}")
+            "content = #{education.content}, edit = NOW(), score = #{education.score} WHERE idx = #{education.idx} AND user_idx = #{education.user_idx}")
     void update(@Param("education") Education education);
 
     @Delete("DELETE FROM education WHERE idx = #{idx} and user_idx = #{user_idx} ")

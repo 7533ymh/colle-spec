@@ -1,7 +1,6 @@
 package com.example.backend.mapper;
 
 import com.example.backend.domain.Certificate;
-import com.example.backend.domain.Language;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
