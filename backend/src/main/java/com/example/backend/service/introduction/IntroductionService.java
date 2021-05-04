@@ -35,7 +35,7 @@ public class IntroductionService {
         }
         // 파일에 대해 DB에 저장하고 가지고 있을 것
         else {
-            introductionMapper.upload(introduction);
+            introductionMapper.save(introduction);
         }
 
     }
