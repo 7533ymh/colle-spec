@@ -68,7 +68,7 @@ public class IntroductionController {
 
     @ApiOperation(value = "자기소개서 삭제", notes = "자기소개서를 삭제한다")
     @DeleteMapping(value = "/introduction")
-    public CommonResult delete_introduction(@ApiParam(value = "자기소개서 번호 ", required = true) @RequestParam int idx) throws IOException {
+    public CommonResult delete(@ApiParam(value = "자기소개서 번호 ", required = true) @RequestParam int idx) throws IOException {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String AuthId = authentication.getName();

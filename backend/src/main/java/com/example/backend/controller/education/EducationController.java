@@ -70,7 +70,7 @@ public class EducationController {
                                @ApiParam(value = "교육 제목 ", required = true) @RequestParam String title,
                                @ApiParam(value = "교육 기관", required = true) @RequestParam String agency,
                                @ApiParam(value = "교육 시작년월", required = true) @RequestParam Date start_date,
-                               @ApiParam(value = "교육 퇴사년월", required = true) @RequestParam Date end_date,
+                               @ApiParam(value = "교육 마감년월", required = true) @RequestParam Date end_date,
                                @ApiParam(value = "교육 내용", required = true) @RequestParam String content) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -92,7 +92,7 @@ public class EducationController {
 
     @ApiOperation(value = "교육 삭제", notes = "교육정보를 삭제한다")
     @DeleteMapping(value = "/education")
-    public CommonResult delete_education(@ApiParam(value = "교육 번호 ", required = true) @RequestParam int idx) {
+    public CommonResult delete(@ApiParam(value = "교육 번호 ", required = true) @RequestParam int idx) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String AuthId = authentication.getName();

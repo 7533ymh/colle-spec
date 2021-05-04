@@ -68,7 +68,7 @@ public class UserController {
     //@ApiImplicitParams({@ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")})
     @ApiOperation(value = "회원 삭제", notes = "회원을 삭제한다")
     @DeleteMapping(value = "/user")
-    public CommonResult delete_user( ) {
+    public CommonResult delete( ) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String AuthId = authentication.getName();
