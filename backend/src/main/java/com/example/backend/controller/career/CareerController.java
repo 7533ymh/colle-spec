@@ -27,7 +27,6 @@ public class CareerController {
     private final ResponseService responseService;
     private final UserService userService;
 
-    //@ApiImplicitParams({@ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")})
     @ApiOperation(value = "경력 입력", notes = "경력정보를 저장한다.")
     @PostMapping(value = "/career")
     public CommonResult insert(@ApiParam(value = "경력 구분 ", required = true) @RequestParam String division,

@@ -1,5 +1,7 @@
 package com.example.backend.service.introduction;
 
+import com.example.backend.advice.exception.CNotFoundDataTypeException;
+import com.example.backend.advice.exception.CNotRightFileException;
 import com.example.backend.domain.Introduction;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -7,8 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Component
 public class FileHandler {
@@ -48,7 +48,7 @@ public class FileHandler {
             String originalFileExtension;
             // 확장자 명이 없으면 이 파일은 잘 못 된 것이다
             if (ObjectUtils.isEmpty(contentType)) {
-                throw new IllegalStateException("파일이 잘못되었습니다. 다시 시도해주세요.");
+                throw new CNotFoundDataTypeException("파일이 잘못되었습니다. 다시 시도해주세요.");
             }
             else {
                 if (contentType.contains("application/pdf")) {
@@ -59,7 +59,7 @@ public class FileHandler {
                 }
                 // 다른 파일 명이면 아무 일 하지 않는다
                 else {
-                    throw new IllegalStateException("PDF,HWP파일이 아닙니다. 다시 확인해주세요.");
+                    throw new CNotRightFileException("PDF,HWP파일이 아닙니다. 다시 확인해주세요.");
                 }
                 // 각 이름은 겹치면 안되므로 나노 초까지 동원하여 지정
                 String new_file_name = Long.toString(System.nanoTime()) + originalFileExtension;

@@ -1,5 +1,7 @@
 package com.example.backend.service.user;
 
+import com.example.backend.advice.exception.CUserExistException;
+import com.example.backend.advice.exception.CUserNotFoundException;
 import com.example.backend.domain.User;
 import com.example.backend.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
@@ -38,16 +40,17 @@ public class UserService {
 
         userMapper.findById(id)
                 .ifPresent(m -> {
-                    throw new IllegalStateException("이미 존재하는 회원입니다.");
+                    throw new CUserExistException("이미 존재하는 회원입니다.");
                 });
 
     }
 
-    public Optional<User> findById(String id) {
+    public User findById(String id) {
 
         logger.info("아이디를 통해 회원찾기");
 
-        return userMapper.findById(id);
+        return userMapper.findById(id)
+                .orElseThrow(() -> new CUserNotFoundException("해당 아이디의 계정 정보가 없습니다."));
     }
 
     public User modify(User user, String authId) {
@@ -76,7 +79,7 @@ public class UserService {
     public int findIdxById(String id) {
 
         return userMapper.findIdxById(id)
-                .orElseThrow(() -> new IllegalStateException("계정이 존재하지 않거나 아이디가 정확하지 않습니다."));
+                .orElseThrow(() -> new CUserNotFoundException("해당 아이디의 계정 정보가 없습니다."));
 
     }
 
