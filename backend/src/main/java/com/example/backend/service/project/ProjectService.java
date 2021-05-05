@@ -101,7 +101,7 @@ public class ProjectService {
 
     public void delete (int idx , int user_idx) throws IOException {
 
-        logger.info("어학 삭제");
+        logger.info("프로젝트 삭제");
 
         checkProjectUserIdx(user_idx);
 
