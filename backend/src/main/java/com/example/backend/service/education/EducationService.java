@@ -1,7 +1,8 @@
 package com.example.backend.service.education;
 
-import com.example.backend.advice.exception.CNotFoundCareerException;
-import com.example.backend.advice.exception.CNotFoundEducationException;
+import com.example.backend.advice.exception.CNotFoundInfoByIdxException;
+import com.example.backend.advice.exception.CNotFoundInfoByUserException;
+import com.example.backend.advice.exception.CNotHaveAccessInfoException;
 import com.example.backend.domain.Education;
 import com.example.backend.mapper.EducationMapper;
 import lombok.RequiredArgsConstructor;
@@ -86,7 +87,7 @@ public class EducationService {
 
     public void checkEducationUserIdx(int user_idx) {
         if ( educationMapper.findByUserIdx(user_idx).isEmpty()){
-            throw new CNotFoundEducationException("해당 회원의 교육 정보가 없습니다.");
+            throw new CNotFoundInfoByUserException("해당 회원의 교육 정보가 없습니다.");
         }
 
     }
@@ -96,10 +97,10 @@ public class EducationService {
 
         if (educationMapper.finduser_idxByIdx(idx).isPresent() ) {
             if (educationMapper.finduser_idxByIdx(idx).get() != user_idx)
-                throw new CNotFoundCareerException("해당 회원의 교육 번호가 아닙니다.");
+                throw new CNotHaveAccessInfoException("해당 회원의 교육 번호가 아닙니다.");
         }
         else {
-            throw new CNotFoundCareerException("해당 교육 번호의 정보가 없습니다.");
+            throw new CNotFoundInfoByIdxException("해당 교육 번호의 정보가 없습니다.");
         }
     }
 

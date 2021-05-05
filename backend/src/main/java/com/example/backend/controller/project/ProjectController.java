@@ -140,7 +140,7 @@ public class ProjectController {
             );
         }
         catch (IOException e) {
-            throw new CNotFoundDataTypeException("데이터 타입을 알 수 없습니다. 다시 시도해주세요.");
+            throw new CNotFoundDataTypeException();
         }
 
         return ResponseEntity.ok()

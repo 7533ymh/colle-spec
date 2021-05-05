@@ -24,7 +24,6 @@ public class UserController {
     private final ResponseService responseService;
     private final PasswordEncoder passwordEncoder;
 
-   //@ApiImplicitParams({@ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")})
     @ApiOperation(value = "회원 정보 조회", notes = "회원번호(idx)로 회원을 조회한다")
     @GetMapping("/user")
     public SingleResult<User> findUserById() {
@@ -34,7 +33,6 @@ public class UserController {
         return responseService.getSingleResult(userService.findById(id));
     }
 
-    //@ApiImplicitParams({@ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")})
     @ApiOperation(value = "회원 수정", notes = "회원정보를 수정한다")
     @PutMapping(value = "/user")
     public CommonResult modify(@ApiParam(value = "회원 아이디", required = true) @RequestParam String id,
@@ -65,7 +63,6 @@ public class UserController {
         return responseService.getSuccessResultMsg("회원 정보가 수정되었습니다.");
     }
 
-    //@ApiImplicitParams({@ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")})
     @ApiOperation(value = "회원 삭제", notes = "회원을 삭제한다")
     @DeleteMapping(value = "/user")
     public CommonResult delete( ) {

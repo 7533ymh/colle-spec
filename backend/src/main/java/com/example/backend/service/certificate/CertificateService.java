@@ -1,9 +1,9 @@
 package com.example.backend.service.certificate;
 
-import com.example.backend.advice.exception.CNotFoundCareerException;
-import com.example.backend.advice.exception.CNotFoundEducationException;
+import com.example.backend.advice.exception.CNotFoundInfoByIdxException;
+import com.example.backend.advice.exception.CNotFoundInfoByUserException;
+import com.example.backend.advice.exception.CNotHaveAccessInfoException;
 import com.example.backend.domain.Certificate;
-import com.example.backend.domain.Language;
 import com.example.backend.mapper.CertificateMapper;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -88,7 +88,7 @@ public class CertificateService {
 
     public void checkCertificateUserIdx(int user_idx) {
         if ( certificateMapper.findByUserIdx(user_idx).isEmpty()){
-            throw new CNotFoundEducationException("해당 회원의 자격증 정보가 없습니다.");
+            throw new CNotFoundInfoByUserException("해당 회원의 자격증 정보가 없습니다.");
         }
 
     }
@@ -98,10 +98,10 @@ public class CertificateService {
 
         if (certificateMapper.finduser_idxByIdx(idx).isPresent() ) {
             if (certificateMapper.finduser_idxByIdx(idx).get() != user_idx)
-                throw new CNotFoundCareerException("해당 회원의 자격증 번호가 아닙니다.");
+                throw new CNotHaveAccessInfoException("해당 회원의 자격증 번호가 아닙니다.");
         }
         else {
-            throw new CNotFoundCareerException("해당 자격증 번호의 정보가 없습니다.");
+            throw new CNotFoundInfoByIdxException("해당 자격증 번호의 정보가 없습니다.");
         }
     }
 

@@ -1,6 +1,8 @@
 package com.example.backend.service.award;
 
-import com.example.backend.advice.exception.CNotFoundAwardException;
+import com.example.backend.advice.exception.CNotFoundInfoByIdxException;
+import com.example.backend.advice.exception.CNotFoundInfoByUserException;
+import com.example.backend.advice.exception.CNotHaveAccessInfoException;
 import com.example.backend.domain.Award;
 import com.example.backend.mapper.AwardMapper;
 import lombok.RequiredArgsConstructor;
@@ -79,7 +81,7 @@ public class AwardService {
 
     public void checkAwardUserIdx(int user_idx) {
         if ( awardMapper.findByUserIdx(user_idx).isEmpty()){
-            throw new CNotFoundAwardException("해당 회원의 수상 정보가 없습니다.");
+            throw new CNotFoundInfoByUserException("해당 회원의 수상 정보가 없습니다.");
         }
 
     }
@@ -89,10 +91,10 @@ public class AwardService {
 
         if (awardMapper.finduser_idxByIdx(idx).isPresent() ) {
             if (awardMapper.finduser_idxByIdx(idx).get() != user_idx)
-                throw new CNotFoundAwardException("해당 회원의 수상 번호가 아닙니다.");
+                throw new CNotHaveAccessInfoException("해당 회원의 수상 번호가 아닙니다.");
         }
         else {
-            throw new CNotFoundAwardException("해당 수상 번호의 정보가 없습니다.");
+            throw new CNotFoundInfoByIdxException("해당 수상 번호의 정보가 없습니다.");
         }
     }
 

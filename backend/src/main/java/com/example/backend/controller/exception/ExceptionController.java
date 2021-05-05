@@ -1,6 +1,7 @@
 package com.example.backend.controller.exception;
 
 
+import com.example.backend.advice.exception.CNotHaveAccessException;
 import com.example.backend.response.CommonResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,7 @@ public class ExceptionController {
 
     @GetMapping(value = "/entrypoint")
     public CommonResult entrypointException() {
-        throw new IllegalStateException("해당 리소스에 접근하기 위한 권한이 없습니다.");
+        throw new CNotHaveAccessException();
     }
 
 }

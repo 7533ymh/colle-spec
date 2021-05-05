@@ -21,7 +21,7 @@ public class IntroductionHandler {
 
         // 파일이 빈 것이 들어오면 빈 것을 반환
         if (introductions.isEmpty()) {
-            return fileList;
+           throw new CNotFoundDataTypeException();
         }
 
         // 프로젝트 폴더에 저장하기 위해 절대경로를 설정 (Window 의 Tomcat 은 Temp 파일을 이용한다)
@@ -45,7 +45,7 @@ public class IntroductionHandler {
                 String originalFileExtension;
                 // 확장자 명이 없으면 이 파일은 잘 못 된 것이다
                 if (ObjectUtils.isEmpty(contentType)) {
-                    throw new CNotFoundDataTypeException("파일이 잘못되었습니다. 다시 시도해주세요.");
+                    throw new CNotFoundDataTypeException();
                 } else {
                     if (contentType.contains("application/pdf")) {
                         originalFileExtension = ".pdf";

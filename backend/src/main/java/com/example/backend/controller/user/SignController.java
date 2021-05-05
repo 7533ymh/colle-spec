@@ -32,11 +32,15 @@ public class SignController {
     //로그인
     @ApiOperation(value = "로그인", notes = "아이디와 비밀번호를 입력하면 회원 정보를 반환해준다.")
     @GetMapping("/signin")
-    public SingleResult<String> signin(@ApiParam(value = "회원 아이디(id) ", required = true) @RequestParam String id , @ApiParam(value = "회원 비밀번호(pass) ", required = true) @RequestParam String pass) {
+    public SingleResult<String> signin(@ApiParam(value = "회원 아이디(id) ", required = true) @RequestParam String id ,
+                                       @ApiParam(value = "회원 비밀번호(pass) ", required = true) @RequestParam String pass) {
+
+
+
 
         User user = userService.findById(id);
         if (!passwordEncoder.matches(pass, user.getPassword()))
-            throw new CUserLoginFailException("계정이 존재하지 않거나 아아디 또는 비밀번호가 정확하지 않습니다.");
+            throw new CUserLoginFailException();
 
 
         return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getIdx()), Arrays.asList(user.getRole())));
