@@ -1,6 +1,5 @@
 package com.example.backend.controller.language;
 
-import com.example.backend.domain.Education;
 import com.example.backend.domain.Language;
 import com.example.backend.response.CommonResult;
 import com.example.backend.response.ListResult;
@@ -62,7 +61,7 @@ public class LanguageController {
         int user_idx = userService.findIdxById(AuthId);
 
 
-        return responseService.getListResultMsg(languageService.findByUserIdx(user_idx),"교육 정보를 조회하였습니다.");
+        return responseService.getListResultMsg(languageService.findByUserIdx(user_idx),"어학학 정보를 조회하였습니다.");
     }
 
     @ApiOperation(value = "어학 수정", notes = "어학정보를 수정한다")

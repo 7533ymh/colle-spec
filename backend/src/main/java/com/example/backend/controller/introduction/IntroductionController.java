@@ -2,6 +2,7 @@ package com.example.backend.controller.introduction;
 
 
 import com.example.backend.advice.exception.CNotFoundDataTypeException;
+import com.example.backend.config.EncodeFileName;
 import com.example.backend.domain.Introduction;
 import com.example.backend.response.CommonResult;
 import com.example.backend.response.ListResult;
@@ -25,9 +26,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 @Api(tags = {"5. Introduction"})
 @Builder
@@ -39,16 +42,17 @@ public class IntroductionController {
     private final IntroductionService introductionService;
     private final ResponseService responseService;
     private final UserService userService;
+    private final EncodeFileName encodeFileName;
 
     @ApiOperation(value = "자기소개서 업로드", notes = "자기소개서를 저장한다.")
     @PostMapping(value = "/introduction/uplode")
-    public CommonResult upload(@ApiParam(value = "자기소개서 파일 ", required = true) MultipartFile introduction) throws IOException {
+    public CommonResult upload(@ApiParam(value = "자기소개서 파일들 ", required = true) List<MultipartFile> files) throws IOException {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String AuthId = authentication.getName();
         int user_idx = userService.findIdxById(AuthId);
 
-        introductionService.upload(user_idx, introduction);
+        introductionService.upload(user_idx, files);
 
         return responseService.getSuccessResultMsg("자기소개서가 등록되었습니다.");
     }
@@ -81,11 +85,13 @@ public class IntroductionController {
 
     @ApiOperation(value = "자기소개서 파일 다운로드", notes = "자기소개서 파일을 다운로드한다.")
     @GetMapping(value = "/introduction/download")
-    public ResponseEntity<Resource> download(@ApiParam(value = "자기소개서 idx  ", required = true) @RequestParam int idx, HttpServletRequest request) throws MalformedURLException, CNotFoundDataTypeException {
+    public ResponseEntity<Resource> download(@ApiParam(value = "자기소개서 idx  ", required = true) @RequestParam int idx, HttpServletRequest request) throws MalformedURLException, CNotFoundDataTypeException, UnsupportedEncodingException {
 
         Introduction introduction = introductionService.findByidx(idx);
         Path filePath = Paths.get(introduction.getFilepath()).toAbsolutePath().normalize();
         Resource resource = new UrlResource(filePath.toUri());
+        String filename =  introduction.getOrigfilename();
+        String encodedFilename = encodeFileName.getEncodeFileName(request, filename);
 
         String contentType = null;
 
@@ -102,10 +108,9 @@ public class IntroductionController {
                 .contentType(MediaType.parseMediaType(contentType))
                 .header(
                         HttpHeaders.CONTENT_DISPOSITION,
-                        "attachment; filename=\"" + introduction.getOrigfilename() + "\""
+                        "attachment; filename=\"" + encodedFilename + "\""
                 )
                 .body(resource);
     }
-
 
 }

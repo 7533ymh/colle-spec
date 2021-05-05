@@ -21,21 +21,23 @@ import java.util.List;
 public class IntroductionService {
 
     private final IntroductionMapper introductionMapper;
-    private final FileHandler fileHandler;
+    private final IntroductionHandler introductionHandler;
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
-    public void upload(int user_idx, MultipartFile file) throws IOException {
+    public void upload(int user_idx, List <MultipartFile> files) throws IOException {
 
         logger.info("자기소개서 업로드");
 
-        Introduction introduction = fileHandler.parseFileInfo(user_idx, file);
+        List<Introduction> introductions = introductionHandler.parseFileInfo(user_idx, files);
 
-        if (introduction.getFilename().isEmpty()) {
+        if (introductions.isEmpty()) {
             throw new CNotRightFileException("파일이 존재하지 않습니다. 다시 업로드 해주세요.");
         }
         // 파일에 대해 DB에 저장하고 가지고 있을 것
         else {
-            introductionMapper.save(introduction);
+            for(Introduction introduction : introductions) {
+                introductionMapper.save(introduction);
+            }
         }
 
     }
