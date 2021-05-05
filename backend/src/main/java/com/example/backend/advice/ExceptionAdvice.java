@@ -91,6 +91,12 @@ public class ExceptionAdvice {
         return responseService.getFailResult(Integer.parseInt(getMessage("NotRightFile.code")), e.getMessage());
     }
 
+    @ExceptionHandler(CDateException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult userNotFoundException(HttpServletRequest request, CDateException e) {
+        return responseService.getFailResult(Integer.parseInt(getMessage("Date.code")), getMessage("Date.msg"));
+    }
+
 
 
 

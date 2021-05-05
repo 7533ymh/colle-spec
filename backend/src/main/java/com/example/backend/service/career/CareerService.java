@@ -1,5 +1,6 @@
 package com.example.backend.service.career;
 
+import com.example.backend.advice.exception.CDateException;
 import com.example.backend.advice.exception.CNotFoundInfoByIdxException;
 import com.example.backend.advice.exception.CNotFoundInfoByUserException;
 import com.example.backend.advice.exception.CNotHaveAccessInfoException;
@@ -24,6 +25,8 @@ public class CareerService {
 
         logger.info("경력 등록");
 
+        checkDate(career);
+
         career.setScore(changetoNumber(career));
 
         careerMapper.save(career);
@@ -31,6 +34,7 @@ public class CareerService {
         return career;
 
     }
+
 
     public List<Career> findByUserIdx(int user_idx) {
 
@@ -45,6 +49,8 @@ public class CareerService {
     public Career modify(Career career) {
 
         logger.info("경력 수정");
+
+        checkDate(career);
 
         checkCareerUserIdx(career.getUser_idx());
 
@@ -70,11 +76,15 @@ public class CareerService {
 
     }
 
+    private void checkDate(Career career) {
+        if (career.getStart_date().after(career.getEnd_date())) {
+            throw new CDateException();
+        }
+    }
 
     //수치화 알고리즘 부분
     public int changetoNumber (Career career) {
 
-        int score;
 
         long baseDay = 24 * 60 * 60 * 1000; 	// 일
         long baseMonth = baseDay * 30;          // 월
@@ -82,20 +92,17 @@ public class CareerService {
         long cal = (career.getEnd_date().getTime() - career.getStart_date().getTime()) / baseMonth;
 
         if(cal >= 12 ) {
-            score = 100;
+            return 100;
         }
         else if ( cal >= 6) {
-            score = 80;
+            return 80;
         }
         else if ( cal >= 3) {
-            score = 60;
+            return 60;
         }
         else {
-            score = 30;
+            return 30;
         }
-
-
-        return score;
 
     }
 
