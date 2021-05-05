@@ -1,7 +1,6 @@
 package com.example.backend.service.introduction;
 
-import com.example.backend.advice.exception.CNotFoundIntroductionException;
-import com.example.backend.advice.exception.CNotRightFileException;
+import com.example.backend.advice.exception.*;
 import com.example.backend.domain.Introduction;
 import com.example.backend.mapper.IntroductionMapper;
 import lombok.RequiredArgsConstructor;
@@ -30,15 +29,12 @@ public class IntroductionService {
 
         List<Introduction> introductions = introductionHandler.parseFileInfo(user_idx, files);
 
-        if (introductions.isEmpty()) {
-            throw new CNotRightFileException("파일이 존재하지 않습니다. 다시 업로드 해주세요.");
-        }
-        // 파일에 대해 DB에 저장하고 가지고 있을 것
-        else {
+        if (!introductions.isEmpty()) {
             for(Introduction introduction : introductions) {
                 introductionMapper.save(introduction);
             }
         }
+
 
     }
 
@@ -55,7 +51,7 @@ public class IntroductionService {
     public Introduction findByidx(int idx)  {
 
        return introductionMapper.findByidx(idx)
-               .orElseThrow(() -> new CNotFoundIntroductionException("해당하는 파일번호에 대한 파일이 없습니다."));
+               .orElseThrow(() -> new CNotFoundInfoByIdxException("해당하는 파일번호에 대한 파일이 없습니다."));
 
     }
 
@@ -80,7 +76,7 @@ public class IntroductionService {
 
     public void checkIntroductionUserIdx(int user_idx) {
         if (introductionMapper.findByuser_idx(user_idx).isEmpty()) {
-            throw new CNotFoundIntroductionException("해당 회원의 자기소개서파일이 없습니다.");
+            throw new CNotFoundInfoByUserException("해당 회원의 자기소개서파일이 없습니다.");
         }
     }
 
@@ -88,9 +84,9 @@ public class IntroductionService {
 
         if (introductionMapper.findByidx(idx).isPresent() ) {
             if (introductionMapper.finduser_idxByIdx(idx).get() != user_idx)
-                throw new CNotFoundIntroductionException("해당 회원의 자기소개서 번호가 아닙니다.");
+                throw new CNotHaveAccessInfoException("해당 회원의 자기소개서 번호가 아닙니다.");
         } else {
-            throw new CNotFoundIntroductionException("해당 자기소개서 번호의 정보가 없습니다.");
+            throw new CNotFoundInfoByIdxException("해당 자기소개서 번호의 정보가 없습니다.");
         }
 
     }

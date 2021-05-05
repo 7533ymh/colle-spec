@@ -1,5 +1,6 @@
 package com.example.backend.service.user;
 
+import com.example.backend.advice.exception.CUserLoginFailException;
 import com.example.backend.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +16,7 @@ public class CustomUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userPK)  {
         return userMapper.findByIdx(Integer.parseInt(userPK))
-                .orElseThrow(() -> new  IllegalStateException("계정이 존재하지 않거나 아이디 또는 비밀번호가 정확하지 않습니다."));
+                .orElseThrow(CUserLoginFailException::new);
     }
 
 

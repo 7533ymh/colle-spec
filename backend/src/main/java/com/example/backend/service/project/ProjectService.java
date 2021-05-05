@@ -1,6 +1,8 @@
 package com.example.backend.service.project;
 
-import com.example.backend.advice.exception.CNotFoundProjectException;
+import com.example.backend.advice.exception.CNotFoundInfoByIdxException;
+import com.example.backend.advice.exception.CNotFoundInfoByUserException;
+import com.example.backend.advice.exception.CNotHaveAccessInfoException;
 import com.example.backend.domain.Project;
 import com.example.backend.domain.Project_img;
 import com.example.backend.mapper.ProjectMapper;
@@ -32,7 +34,6 @@ public class ProjectService {
         project.setScore(changetoNumber(project));
 
         projectMapper.save(project);
-
 
         int project_idx = project.getIdx();
 
@@ -124,7 +125,7 @@ public class ProjectService {
     public Project_img findProjectImgByidx(int idx)  {
 
         return project_imgMapper.findByidx(idx)
-                .orElseThrow(() -> new CNotFoundProjectException("해당하는 파일번호에 대한 파일이 없습니다."));
+                .orElseThrow(() -> new CNotFoundInfoByIdxException("해당하는 파일번호에 대한 파일이 없습니다."));
 
     }
 
@@ -134,10 +135,14 @@ public class ProjectService {
     //수치화 알고리즘 부분
     public int changetoNumber (Project project) {
 
+        int score = 50;
+
+        if (project.getSuccess()==1) {
+            score += 50;
+        }
 
 
-
-        return 10;
+        return score;
 
     }
 
@@ -145,7 +150,7 @@ public class ProjectService {
 
     public void checkProjectUserIdx(int user_idx) {
         if ( projectMapper.findByUserIdx(user_idx).isEmpty()){
-            throw new CNotFoundProjectException("해당 회원의 프로젝트 정보가 없습니다.");
+            throw new CNotFoundInfoByUserException("해당 회원의 프로젝트 정보가 없습니다.");
         }
 
     }
@@ -155,10 +160,10 @@ public class ProjectService {
 
         if (projectMapper.finduser_idxByIdx(idx).isPresent() ) {
             if (projectMapper.finduser_idxByIdx(idx).get() != user_idx)
-                throw new CNotFoundProjectException("해당 회원의 프로젝트 번호가 아닙니다.");
+                throw new CNotHaveAccessInfoException("해당 회원의 프로젝트 번호가 아닙니다.");
         }
         else {
-            throw new CNotFoundProjectException("해당 프로젝트 번호의 정보가 없습니다.");
+            throw new CNotFoundInfoByIdxException("해당 프로젝트 번호의 정보가 없습니다.");
         }
     }
 

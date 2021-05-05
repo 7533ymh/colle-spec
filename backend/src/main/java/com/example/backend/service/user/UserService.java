@@ -9,8 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @RequiredArgsConstructor
 @Service
 public class UserService {
@@ -39,7 +37,7 @@ public class UserService {
 
         userMapper.findById(id)
                 .ifPresent(m -> {
-                    throw new CUserExistException("이미 존재하는 회원입니다.");
+                    throw new CUserExistException();
                 });
 
     }
@@ -49,7 +47,7 @@ public class UserService {
         logger.info("아이디를 통해 회원찾기");
 
         return userMapper.findById(id)
-                .orElseThrow(() -> new CUserNotFoundException("해당 아이디의 계정 정보가 없습니다."));
+                .orElseThrow(CUserNotFoundException::new);
     }
 
     public User modify(User user, String authId) {
@@ -78,7 +76,7 @@ public class UserService {
     public int findIdxById(String id) {
 
         return userMapper.findIdxById(id)
-                .orElseThrow(() -> new CUserNotFoundException("해당 아이디의 계정 정보가 없습니다."));
+                .orElseThrow(CUserNotFoundException::new);
 
     }
 

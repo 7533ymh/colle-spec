@@ -48,7 +48,7 @@ public class ImgHandler {
                 String originalFileExtension;
                 // 확장자 명이 없으면 이 파일은 잘 못 된 것이다
                 if (ObjectUtils.isEmpty(contentType)) {
-                    throw new CNotFoundDataTypeException("파일이 잘못되었습니다. 다시 시도해주세요.");
+                    throw new CNotFoundDataTypeException();
                 } else {
                     if (contentType.contains("image/jpeg")) {
                         originalFileExtension = ".jpg";
