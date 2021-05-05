@@ -73,9 +73,26 @@ public class AwardService {
     public int changetoNumber (Award award) {
 
 
+        switch (award.getDivision()) {
+            case "대상":
+                return 100;
 
+            case "최우수":
+            case "금상":
+                return 80;
 
-        return 10;
+            case "우수":
+            case "은상":
+                return 60;
+
+            case "동상":
+                return 50;
+
+            default:
+                return 30;
+
+        }
+
 
     }
 

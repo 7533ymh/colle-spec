@@ -1,5 +1,6 @@
 package com.example.backend.service.experience;
 
+import com.example.backend.advice.exception.CDateException;
 import com.example.backend.advice.exception.CNotFoundInfoByIdxException;
 import com.example.backend.advice.exception.CNotFoundInfoByUserException;
 import com.example.backend.advice.exception.CNotHaveAccessInfoException;
@@ -22,6 +23,8 @@ public class ExperienceService {
     public Experience save(Experience experience) {
 
         logger.info("해외경험 등록");
+
+        checkDate(experience);
 
         experience.setScore(changetoNumber(experience));
 
@@ -47,6 +50,8 @@ public class ExperienceService {
 
         logger.info("해외경험 수정");
 
+        checkDate(experience);
+
         checkExperienceUserIdx(experience.getUser_idx());
 
         checkAll(experience.getIdx(), experience.getUser_idx());
@@ -71,15 +76,36 @@ public class ExperienceService {
 
     }
 
+    private void checkDate(Experience experience) {
+        if (experience.getStart_date().after(experience.getEnd_date())) {
+            throw new CDateException();
+        }
+    }
+
 
 
     //수치화 알고리즘 부분
     public int changetoNumber (Experience experience) {
 
+        long baseDay = 24 * 60 * 60 * 1000; 	// 일
+        long baseMonth = baseDay * 30;          // 월
+
+        long cal = (experience.getEnd_date().getTime() - experience.getStart_date().getTime()) / baseMonth;
+
+        if(cal >= 12 ) {
+            return 100;
+        }
+        else if ( cal >= 6) {
+            return 80;
+        }
+        else if ( cal >= 3) {
+            return 60;
+        }
+        else {
+            return 30;
+        }
 
 
-
-        return 10;
 
     }
 

@@ -1,5 +1,6 @@
 package com.example.backend.service.education;
 
+import com.example.backend.advice.exception.CDateException;
 import com.example.backend.advice.exception.CNotFoundInfoByIdxException;
 import com.example.backend.advice.exception.CNotFoundInfoByUserException;
 import com.example.backend.advice.exception.CNotHaveAccessInfoException;
@@ -23,6 +24,8 @@ public class EducationService {
     public Education save(Education education) {
 
         logger.info("교육 등록");
+
+        checkDate(education);
 
         education.setScore(changetoNumber(education));
 
@@ -48,6 +51,8 @@ public class EducationService {
 
         logger.info("교육 수정");
 
+        checkDate(education);
+
         checkEducationUserIdx(education.getUser_idx());
 
         checkAll(education.getIdx(), education.getUser_idx());
@@ -72,6 +77,13 @@ public class EducationService {
 
     }
 
+    private void checkDate(Education education) {
+        if (education.getStart_date().after(education.getEnd_date())) {
+            throw new CDateException();
+        }
+    }
+
+
 
     //수치화 알고리즘 부분
     public int changetoNumber (Education education) {
@@ -79,7 +91,7 @@ public class EducationService {
 
 
 
-        return 10;
+        return 100;
 
     }
 

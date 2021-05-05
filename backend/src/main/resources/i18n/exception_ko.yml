@@ -30,6 +30,9 @@ NotFoundDataType:
   msg: "파일이 없거나 잘못되었습니다. 다시 시도해주세요."
 NotRightFile:
   code: "-1010"
+Date:
+  code: "-1011"
+  msg: "날짜가 잘못되었습니다. 다시 시도해주세요."
 
 
 

@@ -1,5 +1,6 @@
 package com.example.backend.service.project;
 
+import com.example.backend.advice.exception.CDateException;
 import com.example.backend.advice.exception.CNotFoundInfoByIdxException;
 import com.example.backend.advice.exception.CNotFoundInfoByUserException;
 import com.example.backend.advice.exception.CNotHaveAccessInfoException;
@@ -30,6 +31,8 @@ public class ProjectService {
     public Project save(Project project, List <MultipartFile> files) throws Exception {
 
         logger.info("프로젝트 등록");
+
+        checkDate(project);
 
         project.setScore(changetoNumber(project));
 
@@ -64,6 +67,8 @@ public class ProjectService {
     public Project modify(Project project , List <MultipartFile> files ) throws IOException {
 
         logger.info("프로젝트 수정");
+
+        checkDate(project);
 
         checkProjectUserIdx(project.getUser_idx());
 
@@ -130,19 +135,25 @@ public class ProjectService {
     }
 
 
+    private void checkDate(Project project) {
+        if (project.getStart_date().after(project.getEnd_date())) {
+            throw new CDateException();
+        }
+    }
+
+
 
 
     //수치화 알고리즘 부분
     public int changetoNumber (Project project) {
 
-        int score = 50;
-
         if (project.getSuccess()==1) {
-            score += 50;
+            return 100;
+        }
+        else {
+            return 30;
         }
 
-
-        return score;
 
     }
 
