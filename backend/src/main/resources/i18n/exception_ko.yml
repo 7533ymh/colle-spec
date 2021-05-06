@@ -1,0 +1,38 @@
+unKnown:
+  code: "-9999"
+  msg: "알수 없는 오류가 발생하였습니다."
+NotHaveAccess:
+  code: "-1000"
+  msg: "해당 리소스에 접근하기 위한 권한이 없습니다. 로그인을 먼저 해주세요."
+NotFoundParam:
+  code: "-1001"
+  msg: "필요한 값이 없습니다. 다시 시도해주세요."
+NotMatchParam:
+  code: "-1002"
+  msg: "필요한 값의 타입이 다릅니다. 다시 시도해주세요."
+UserExist:
+  code: "-1003"
+  msg: "이미 존재하는 회원 아이디입니다."
+UserNotFound:
+  code: "-1004"
+  msg: "해당 아이디의 계정 정보가 없습니다."
+UserLoginFail:
+  code: "-1005"
+  msg: "계정이 존재하지 않거나 아아디 또는 비밀번호가 정확하지 않습니다. 다시 로그인해주세요."
+NotFoundInfoByUser:
+  code: "-1006"
+NotFoundInfoByIdx:
+  code: "-1007"
+NotHaveAccessInfo:
+  code: "-1008"
+NotFoundDataType:
+  code: "-1009"
+  msg: "파일이 없거나 잘못되었습니다. 다시 시도해주세요."
+NotRightFile:
+  code: "-1010"
+Date:
+  code: "-1011"
+  msg: "날짜가 잘못되었습니다. 다시 시도해주세요."
+
+
+
