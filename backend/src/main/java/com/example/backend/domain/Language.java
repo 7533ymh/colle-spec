@@ -17,7 +17,7 @@ public class Language {
     private int user_idx;
     private String divsion;
     private String exam;
-    private int exam_score;
+    private String exam_score;
     private Date date;
     private String content;
     private java.util.Date edit;

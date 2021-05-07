@@ -33,7 +33,7 @@ import java.nio.file.Paths;
 import java.sql.Date;
 import java.util.List;
 
-@Api(tags = {"90. Project"})
+@Api(tags = {"3-8. Project"})
 @Builder
 @RestController
 @RequiredArgsConstructor
