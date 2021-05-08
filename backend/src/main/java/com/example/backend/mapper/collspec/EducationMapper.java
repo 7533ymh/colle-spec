@@ -1,4 +1,4 @@
-package com.example.backend.mapper;
+package com.example.backend.mapper.collspec;
 
 import com.example.backend.domain.Education;
 import org.apache.ibatis.annotations.*;
@@ -11,14 +11,14 @@ public interface EducationMapper {
 
     @Insert("INSERT INTO education(user_idx, title, agency, start_date, end_date, content, edit, score) VALUES (#{education.user_idx}, #{education.title}, #{education.agency}," +
             "#{education.start_date}, #{education.end_date}, #{education.content}, NOW(), #{education.score})")
-    @Options(useGeneratedKeys = true, keyProperty = "idx")
+    @Options(useGeneratedKeys = true, keyProperty = "education.idx")
     int save(@Param("education") Education education);
 
     @Select("SELECT * FROM education WHERE user_idx = #{user_idx} ORDER BY start_date")
     List<Education> findByUserIdx(@Param("user_idx") int user_idx);
 
-    @Select("SELECT user_idx FROM education WHERE idx = #{idx}")
-    Optional<Integer> finduser_idxByIdx(@Param("idx") int idx);
+    @Select("SELECT * FROM education WHERE idx = #{idx}")
+    Optional<Education> findByIdx(@Param("idx") int idx);
 
     @Update("UPDATE education SET title = #{education.title}, agency = #{education.agency}, start_date = #{education.start_date}, end_date = #{education.end_date}, " +
             "content = #{education.content}, edit = NOW(), score = #{education.score} WHERE idx = #{education.idx} AND user_idx = #{education.user_idx}")

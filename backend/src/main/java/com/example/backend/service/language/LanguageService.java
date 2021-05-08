@@ -1,10 +1,11 @@
 package com.example.backend.service.language;
 
+import com.example.backend.advice.exception.CFindSameExamException;
 import com.example.backend.advice.exception.CNotFoundInfoByIdxException;
 import com.example.backend.advice.exception.CNotFoundInfoByUserException;
 import com.example.backend.advice.exception.CNotHaveAccessInfoException;
 import com.example.backend.domain.Language;
-import com.example.backend.mapper.LanguageMapper;
+import com.example.backend.mapper.collspec.LanguageMapper;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,10 +26,21 @@ public class LanguageService {
 
         language.setScore(changetoNumber(language));
 
+        checkSameLanguage(language);
+
         languageMapper.save(language);
 
         return language;
 
+    }
+
+    public void checkSameLanguage(Language language) {
+        logger.info("학점 중복 체크");
+
+        languageMapper.findsame(language)
+                .ifPresent(m -> {
+                    throw new CFindSameExamException();
+                });
     }
 
     public List<Language> findByUserIdx(int user_idx) {
@@ -49,6 +61,8 @@ public class LanguageService {
         checkLanguageUserIdx(language.getUser_idx());
 
         checkAll(language.getIdx(), language.getUser_idx());
+
+        checkSameLanguage(language);
 
         language.setScore(changetoNumber(language));
 
@@ -73,13 +87,16 @@ public class LanguageService {
 
     public int changetoNumber(Language language) {
 
+        logger.info("어학 알고리즘");
+
+
         int score;
         String rating;
 
         switch (language.getExam()) {
 
             case "TOEIC":
-                score = Integer.getInteger(language.getExam_score());
+                score = Integer.parseInt(language.getExam_score());
                 if (score >= 860)
                     return 100;
                 else if (score >= 730)
@@ -92,7 +109,7 @@ public class LanguageService {
                     return 30;
 
             case "TOEFL Reading":
-                score = Integer.getInteger(language.getExam_score());
+                score = Integer.parseInt(language.getExam_score());
                 if (score >= 24)
                     return 100;
                 else if (score >= 18)
@@ -103,7 +120,7 @@ public class LanguageService {
                     return 30;
 
             case "TOEFL Listening":
-                score = Integer.getInteger(language.getExam_score());
+                score = Integer.parseInt(language.getExam_score());
                 if (score >= 22)
                     return 100;
                 else if (score >= 17)
@@ -114,7 +131,7 @@ public class LanguageService {
                     return 30;
 
             case "TOEFL Speaking":
-                score = Integer.getInteger(language.getExam_score());
+                score = Integer.parseInt(language.getExam_score());
                 if (score >= 25)
                     return 100;
                 else if (score >= 20)
@@ -127,7 +144,7 @@ public class LanguageService {
                     return 30;
 
             case "TOEFL Writing":
-                score = Integer.getInteger(language.getExam_score());
+                score = Integer.parseInt(language.getExam_score());
                 if (score >= 24)
                     return 100;
                 else if (score >= 17)
@@ -140,7 +157,7 @@ public class LanguageService {
                     return 30;
 
             case "TEPS":
-                score = Integer.getInteger(language.getExam_score());
+                score = Integer.parseInt(language.getExam_score());
                 if (score >= 901)
                     return 100;
                 else if (score >= 801)
@@ -164,49 +181,57 @@ public class LanguageService {
 
             case "OPIC":
                 rating = language.getExam_score();
-                if (rating.equals("AL"))
-                    return 100;
-                else if (rating.equals("IH") || rating.equals("IM3"))
-                    return 80;
-                else if (rating.equals("IM1") || rating.equals("IM2"))
-                    return 60;
-                else if (rating.equals("IL"))
-                    return 40;
-                else
-                    return 30;
+                switch (rating) {
+                    case "AL":
+                        return 100;
+                    case "IH":
+                    case "IM3":
+                        return 80;
+                    case "IM1":
+                    case "IM2":
+                        return 60;
+                    case "IL":
+                        return 40;
+                    default:
+                        return 30;
+                }
 
             case "ILPT":
                 rating = language.getExam_score();
-                if (rating.equals("N1"))
-                    return 100;
-                else if (rating.equals("N2"))
-                    return 80;
-                else if (rating.equals("N3"))
-                    return 60;
-                else if (rating.equals("N4"))
-                    return 40;
-                else
-                    return 30;
+                switch (rating) {
+                    case "N1":
+                        return 100;
+                    case "N2":
+                        return 80;
+                    case "N3":
+                        return 60;
+                    case "N4":
+                        return 40;
+                    default:
+                        return 30;
+                }
 
             case "HSK":
                 rating = language.getExam_score();
-                if (rating.equals("6급"))
-                    return 100;
-                else if (rating.equals("5급"))
-                    return 80;
-                else if (rating.equals("4급"))
-                    return 60;
-                else if (rating.equals("3급"))
-                    return 50;
-                else if (rating.equals("2급"))
-                    return 40;
-                else
-                    return 30;
+                switch (rating) {
+                    case "6급":
+                        return 100;
+                    case "5급":
+                        return 80;
+                    case "4급":
+                        return 60;
+                    case "3급":
+                        return 50;
+                    case "2급":
+                        return 40;
+                    default:
+                        return 30;
+                }
 
         }
 
 
-        return 10;
+        return 0;
 
     }
 
@@ -221,8 +246,8 @@ public class LanguageService {
 
     public void checkAll(int idx, int user_idx) {
 
-        if (languageMapper.finduser_idxByIdx(idx).isPresent()) {
-            if (languageMapper.finduser_idxByIdx(idx).get() != user_idx)
+        if (languageMapper.findByIdx(idx).isPresent()) {
+            if (languageMapper.findByIdx(idx).get().getUser_idx() != user_idx)
                 throw new CNotHaveAccessInfoException("해당 회원의 어학 번호가 아닙니다.");
         } else {
             throw new CNotFoundInfoByIdxException("해당 어학 번호의 정보가 없습니다.");

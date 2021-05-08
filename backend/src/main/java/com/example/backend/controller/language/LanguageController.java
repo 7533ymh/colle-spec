@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 
-@Api(tags = {"3-7. Language"})
+@Api(tags = {"3-8. Language"})
 @Builder
 @RestController
 @RequiredArgsConstructor

@@ -1,4 +1,4 @@
-package com.example.backend.mapper;
+package com.example.backend.mapper.collspec;
 
 import com.example.backend.domain.User;
 import org.apache.ibatis.annotations.*;
@@ -9,13 +9,13 @@ import java.util.Optional;
 @Mapper
 public interface UserMapper {
 
-    @Insert("INSERT INTO user(id, pass, name, sex, mail, phone, objective, enterprise, role) VALUES (#{user.id}, #{user.pass}, #{user.name}, #{user.sex}, " +
+    @Insert("INSERT INTO user(id, pass, name,grade ,sex, mail, phone, objective, enterprise, role) VALUES (#{user.id}, #{user.pass}, #{user.name}, #{user.grade}, #{user.sex}, " +
             "#{user.mail}, #{user.phone} ,#{user.objective}, #{user.enterprise}, #{user.role})")
-    @Options(useGeneratedKeys = true, keyProperty = "idx")
+    @Options(useGeneratedKeys = true, keyProperty = "user.idx")
     int save(@Param("user") User user);
 
 
-    @Update("UPDATE user SET id = #{user.id}, pass = #{user.pass}, name = #{user.name}, sex = #{user.sex}, mail = #{user.mail}, phone = #{user.phone} ," +
+    @Update("UPDATE user SET id = #{user.id}, pass = #{user.pass}, name = #{user.name}, grade={user.grade}, sex = #{user.sex}, mail = #{user.mail}, phone = #{user.phone} ," +
             "objective = #{user.objective}, enterprise = #{user.enterprise} WHERE idx = #{user.idx}")
     void update(@Param("user") User user);
 

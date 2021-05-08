@@ -1,4 +1,4 @@
-package com.example.backend.mapper;
+package com.example.backend.mapper.collspec;
 
 import com.example.backend.domain.Project;
 import org.apache.ibatis.annotations.*;
@@ -16,7 +16,7 @@ public interface ProjectMapper {
 
     @Select("SELECT * FROM project WHERE user_idx = #{user_idx} ORDER BY start_date")
     @Result(property = "idx", column = "idx", id = true)
-    @Result(property = "project_imgList", column = "idx", many = @Many(select = "com.example.backend.mapper.Project_imgMapper.findByProject_Idx"))
+    @Result(property = "project_imgList", column = "idx", many = @Many(select = "com.example.backend.mapper.collspec.Project_imgMapper.findByProject_Idx"))
     List<Project> findByUserIdx(@Param("user_idx") int user_idx);
 
     @Select("SELECT idx FROM project WHERE content = #{content}")

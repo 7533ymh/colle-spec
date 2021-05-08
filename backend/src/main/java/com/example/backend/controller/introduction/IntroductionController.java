@@ -32,7 +32,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-@Api(tags = {"3-6. Introduction"})
+@Api(tags = {"3-7. Introduction"})
 @Builder
 @RestController
 @RequiredArgsConstructor

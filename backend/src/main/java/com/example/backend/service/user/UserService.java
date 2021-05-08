@@ -3,7 +3,7 @@ package com.example.backend.service.user;
 import com.example.backend.advice.exception.CUserExistException;
 import com.example.backend.advice.exception.CUserNotFoundException;
 import com.example.backend.domain.User;
-import com.example.backend.mapper.UserMapper;
+import com.example.backend.mapper.collspec.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

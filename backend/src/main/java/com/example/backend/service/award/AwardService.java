@@ -4,7 +4,7 @@ import com.example.backend.advice.exception.CNotFoundInfoByIdxException;
 import com.example.backend.advice.exception.CNotFoundInfoByUserException;
 import com.example.backend.advice.exception.CNotHaveAccessInfoException;
 import com.example.backend.domain.Award;
-import com.example.backend.mapper.AwardMapper;
+import com.example.backend.mapper.collspec.AwardMapper;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -106,8 +106,8 @@ public class AwardService {
 
     public void checkAll(int idx , int user_idx) {
 
-        if (awardMapper.finduser_idxByIdx(idx).isPresent() ) {
-            if (awardMapper.finduser_idxByIdx(idx).get() != user_idx)
+        if (awardMapper.findByIdx(idx).isPresent() ) {
+            if (awardMapper.findByIdx(idx).get().getUser_idx() != user_idx)
                 throw new CNotHaveAccessInfoException("해당 회원의 수상 번호가 아닙니다.");
         }
         else {
