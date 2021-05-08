@@ -33,6 +33,13 @@ NotRightFile:
 Date:
   code: "-1011"
   msg: "날짜가 잘못되었습니다. 다시 시도해주세요."
+FindSameGrade:
+  code: "-1012"
+  msg: "해당하는 학년,학기의 학점 정보가 있습니다. 다시 시도해주세요."
+FindSameExam:
+  code: "-1013"
+  msg: "해당하는 시험의 점수 정보가 있습니다. 다시 시도해주세요."
+
 
 
 

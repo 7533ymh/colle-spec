@@ -1,4 +1,4 @@
-package com.example.backend.mapper;
+package com.example.backend.mapper.collspec;
 
 import com.example.backend.domain.Project_img;
 import org.apache.ibatis.annotations.*;
@@ -11,7 +11,7 @@ public interface Project_imgMapper {
 
     @Insert("INSERT INTO project_img(project_idx, filepath, filename, origfilename) VALUES (#{project_img.project_idx}, #{project_img.filepath}, #{project_img.filename}," +
             "#{project_img.origfilename})")
-    @Options(useGeneratedKeys = true, keyProperty = "idx")
+    @Options(useGeneratedKeys = true, keyProperty = "project_img.idx")
     int save(@Param("project_img") Project_img project_img);
 
     @Select("SELECT * FROM project_img WHERE project_idx = #{project_idx}")

@@ -1,7 +1,7 @@
 package com.example.backend.service.user;
 
 import com.example.backend.advice.exception.CUserLoginFailException;
-import com.example.backend.mapper.UserMapper;
+import com.example.backend.mapper.collspec.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

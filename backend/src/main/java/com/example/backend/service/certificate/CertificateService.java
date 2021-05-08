@@ -4,7 +4,7 @@ import com.example.backend.advice.exception.CNotFoundInfoByIdxException;
 import com.example.backend.advice.exception.CNotFoundInfoByUserException;
 import com.example.backend.advice.exception.CNotHaveAccessInfoException;
 import com.example.backend.domain.Certificate;
-import com.example.backend.mapper.CertificateMapper;
+import com.example.backend.mapper.collspec.CertificateMapper;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,9 +77,6 @@ public class CertificateService {
 
     public int changetoNumber (Certificate certificate) {
 
-
-
-
         return 100;
 
     }
@@ -96,8 +93,8 @@ public class CertificateService {
 
     public void checkAll(int idx , int user_idx) {
 
-        if (certificateMapper.finduser_idxByIdx(idx).isPresent() ) {
-            if (certificateMapper.finduser_idxByIdx(idx).get() != user_idx)
+        if (certificateMapper.findByIdx(idx).isPresent() ) {
+            if (certificateMapper.findByIdx(idx).get().getUser_idx() != user_idx)
                 throw new CNotHaveAccessInfoException("해당 회원의 자격증 번호가 아닙니다.");
         }
         else {
