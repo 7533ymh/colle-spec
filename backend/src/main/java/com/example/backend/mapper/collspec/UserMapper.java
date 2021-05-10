@@ -19,6 +19,9 @@ public interface UserMapper {
             "objective = #{user.objective}, enterprise = #{user.enterprise} WHERE idx = #{user.idx}")
     void update(@Param("user") User user);
 
+    @Update("UPDATE user SET grade_score = #{score} WHERE idx = #{user_idx}")
+    void updateGrade(@Param("score") double score , @Param("user_idx") int user_idx );
+
     @Delete("DELETE FROM user WHERE idx = #{idx} ")
     void delete(@Param("idx") int idx);
 
