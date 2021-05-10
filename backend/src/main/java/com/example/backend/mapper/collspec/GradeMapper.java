@@ -22,10 +22,12 @@ public interface GradeMapper {
     @Select("SELECT * FROM grade WHERE user_idx = #{grade.user_idx} and grade = #{grade.grade} and semester=#{grade.semester}")
     Optional<Grade> findsame(@Param("grade") Grade grade);
 
+    @Select("SELECT IFNULL(AVG(avg_score),0) FROM grade WHERE user_idx = #{user_idx}")
+    double checkAvg(@Param("user_idx") int user_idx);
+
     @Update("UPDATE grade SET grade = #{grade.grade}, semester = #{grade.semester}, avg_score = #{grade.avg_score}, " +
             "edit = NOW() WHERE idx = #{grade.idx} AND user_idx = #{grade.user_idx}")
     void update(@Param("grade") Grade grade);
-
 
     @Delete("DELETE FROM grade WHERE idx = #{idx} and user_idx = #{user_idx} ")
     void delete(@Param("idx") int idx , @Param("user_idx") int user_idx);

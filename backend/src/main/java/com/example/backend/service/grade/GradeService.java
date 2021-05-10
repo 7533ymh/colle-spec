@@ -5,9 +5,8 @@ import com.example.backend.advice.exception.CNotFoundInfoByIdxException;
 import com.example.backend.advice.exception.CNotFoundInfoByUserException;
 import com.example.backend.advice.exception.CNotHaveAccessInfoException;
 import com.example.backend.domain.Grade;
-import com.example.backend.domain.GradeCal;
-import com.example.backend.mapper.collspec.GradeCalMapper;
 import com.example.backend.mapper.collspec.GradeMapper;
+import com.example.backend.mapper.collspec.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,8 +18,8 @@ import java.util.List;
 @Service
 public class GradeService {
 
+    private final UserMapper userMapper;
     private final GradeMapper gradeMapper;
-    private final GradeCalMapper gradeCalMapper;
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
 
@@ -45,8 +44,8 @@ public class GradeService {
 
         gradeMapper.findsame(grade)
                 .ifPresent(m -> {
-            throw new CFindSameGradeException();
-        });
+                    throw new CFindSameGradeException();
+                });
     }
 
 
@@ -93,7 +92,9 @@ public class GradeService {
 
         changeSemester(grade);
 
-        checkSameGrade(grade);
+        if (!gradeMapper.findByIdx(grade.getIdx()).get().getGrade().equals(grade.getGrade()) && !gradeMapper.findByIdx(grade.getIdx()).get().getSemester().equals(grade.getSemester())) {
+            checkSameGrade(grade);
+        }
 
         gradeMapper.update(grade);
 
@@ -144,33 +145,30 @@ public class GradeService {
 
         logger.info("학점 알고리즘 ");
 
-
-        GradeCal gradeCal = gradeCalMapper.findByUserIdx(user_idx);
-
-        double avg_score = gradeCal.getAll_avg_score() / gradeCal.getAll_semester();
+        int score;
+        double avg_score = gradeMapper.checkAvg(user_idx);
 
 
-        if(avg_score >= 4.5)
-            gradeCal.setScore(100);
-        else if(avg_score >= 4.0)
-            gradeCal.setScore(90);
-        else if(avg_score >= 3.5)
-            gradeCal.setScore(80);
-        else if(avg_score >= 3.0)
-            gradeCal.setScore(70);
-        else if(avg_score >= 2.5)
-            gradeCal.setScore(60);
-        else if(avg_score >= 2.0)
-            gradeCal.setScore(50);
-        else if(avg_score >= 1.5)
-            gradeCal.setScore(40);
-        else if(avg_score > 0.0)
-            gradeCal.setScore(30);
+        if (avg_score >= 4.5)
+            score = 100;
+        else if (avg_score >= 4.0)
+            score = 90;
+        else if (avg_score >= 3.5)
+            score = 80;
+        else if (avg_score >= 3.0)
+            score = 70;
+        else if (avg_score >= 2.5)
+            score = 60;
+        else if (avg_score >= 2.0)
+            score = 50;
+        else if (avg_score >= 1.5)
+            score = 40;
+        else if (avg_score > 0.0)
+            score = 30;
         else
-            gradeCal.setScore(0);
+            score = 0;
 
-        gradeCalMapper.update(gradeCal);
-
+        userMapper.updateGrade(score,user_idx);
     }
 
 

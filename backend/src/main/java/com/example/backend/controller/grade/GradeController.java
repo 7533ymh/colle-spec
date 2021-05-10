@@ -44,7 +44,7 @@ public class GradeController {
                 .avg_score(avg_score)
                 .build());
 
-        return responseService.getSuccessResultMsg("수상 정보가 입력되었습니다.");
+        return responseService.getSuccessResultMsg("학점 정보가 입력되었습니다.");
     }
 
     @ApiOperation(value = "학점 조회", notes = "학점정보를 조회한다.")
