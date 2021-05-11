@@ -22,6 +22,9 @@ public interface UserMapper {
     @Update("UPDATE user SET grade_score = #{score} WHERE idx = #{user_idx}")
     void updateGrade(@Param("score") double score , @Param("user_idx") int user_idx );
 
+    @Update("UPDATE user SET college = #{user.college}, major= #{user.major}, grade=#{user.grade} WHERE idx = #{user.idx} ")
+    void updateLink(@Param("user") User user);
+
     @Delete("DELETE FROM user WHERE idx = #{idx} ")
     void delete(@Param("idx") int idx);
 
