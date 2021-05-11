@@ -14,10 +14,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional
-class LinkserviceTest {
+class LinkServiceTest {
 
     @Autowired
-    Linkservice linkservice;
+    LinkService linkservice;
 
     @Autowired
     UserMapper userMapper;
@@ -69,9 +69,9 @@ class LinkserviceTest {
 
         //given
         int appidx = 1;
-        int idx = 25;
+        int idx = 23;
         Grade test = new Grade();
-        test.setUser_idx(25);
+        test.setUser_idx(23);
         test.setGrade("1");
         test.setSemester("1");
         test.setAvg_score(4.5);
@@ -83,7 +83,7 @@ class LinkserviceTest {
 
         //then
 
-        assertThat(4).isEqualTo(gradeService.findByUserIdx(25).size());
+        assertThat(4).isEqualTo(gradeService.findByUserIdx(23).size());
 
 
     }

@@ -80,5 +80,14 @@ public class UserService {
 
     }
 
+    public User findByIdx(int idx) {
+
+
+        return userMapper.findByIdx(idx)
+                .orElseThrow(CUserNotFoundException::new);
+
+
+    }
+
 
 }
