@@ -51,13 +51,22 @@
                 <b-button type="reset" variant="danger">Reset</b-button>
             </b-form-group>
             </b-form>
-            <b-form @submit="getcareer" v-if="show">
+            <!-- <b-form @submit="getcareer" v-if="show">
 
 
                 <b-button type="button" variant="primary" @click="getcareer">조회하기</b-button>
-            </b-form>  
+            </b-form>   -->
             <div>
-              <b-table striped hover :items="mycareer"></b-table>
+              <b-table responsive="sm" striped :fields="fields" hover :items="mycareer" @row-clicked="click">
+                  <template #cell(edit&Del)="row">
+                    <b-button size="sm" @click="edit(row)" class="mr-2">
+                    수정
+                    </b-button>
+                    <b-button size="sm" @click="deleteCareer(row)" class="mr-2">
+                    삭제
+                    </b-button>
+                </template>
+              </b-table>
               </div> 
             <b-card class="mt-3" header="Form Data Result">
                 <pre class="m-0">{{ career }}</pre>
@@ -80,8 +89,10 @@ export default {
                     department: '',
                     division:'',
                     start_date:'',
-                    end_date:''
+                    end_date:'',
+                    score:'',
                 },
+                fields:['company','content','department','division','score','start_date','end_date','edit&Del'],
                 mycareer:[{}]
                 ,
                 show:true
@@ -111,19 +122,20 @@ export default {
                     console.log(career.data.msg)
                     console.log(career)
                     alert(career.data.msg)
+                    window.location.reload()
                 })
                 .catch(err=>{
                     console.log(err)
                 })
             },
             //경력조회
-            getcareer(){
-                axios.get(`${url}/career`)
-                .then(get=>{
-                    console.log('get.data:',get.data)
-                    console.log('get.data.list:',get.data.list)
-                })
-            },
+            // getcareer(){
+            //     axios.get(`${url}/career`)
+            //     .then(get=>{
+            //         console.log('get.data:',get.data)
+            //         console.log('get.data.list:',get.data.list)
+            //     })
+            // },
             //리셋
             onReset(event) {
                 event.preventDefault()
@@ -140,7 +152,52 @@ export default {
                 this.$nextTick(() => {
                     this.show = true
                 })
-            }
+            },
+            click(item,index,e){
+                console.log('index: ',index)
+                console.log('item: ',item)
+            },
+            edit(item,index,event) {
+                var params = new URLSearchParams(); //파일업로드가 포함되어 formdata를 이용한다
+                params.append('company', this.career.company);
+                params.append('content', this.career.content);
+                params.append('department', this.career.department);
+                params.append('division', this.career.division);
+                params.append('end_date', this.career.end_date);
+                params.append('start_date', this.career.start_date);
+                axios.put(`${url}/career`,params,{
+                    headers:{
+                        'Content-Type' : 'multipart/form-data' //다중파일 업로드하기 위해 헤더 추가
+                    }
+                })
+                .then(career=>{
+                    console.log(career)
+                    alert(career.data.msg)
+                    window.location.reload()
+                    
+                })
+                
+                .catch(err=>{
+                    console.log(err)
+                    alert(err.response.data.msg)
+                })    
+            },
+            deleteCareer(item,index,e){
+                let del=item.item.idx
+                
+                console.log('del idx: ',del)
+                axios.delete(`${url}/career`,{params:{
+                    idx:del
+                }})
+                .then(res=>{
+                    alert(res.data.msg)
+                })
+                .catch(err=>{
+                    alert(err.response.data.msg)
+                })
+                console.log('delitem: ',item)
+
+            },
         }
     }
 </script>

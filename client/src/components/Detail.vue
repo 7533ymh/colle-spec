@@ -4,7 +4,7 @@
             <b-form-group id="input-group-1" label="프로젝트제목" label-for="input-1">
                     <b-form-input
                         id="title"
-                        v-model="project.title"
+                        v-model="detail.title"
                         type="text"
                         placeholder="제목입력"
                         required="required"></b-form-input>
@@ -13,21 +13,21 @@
                 <b-form-group id="input-group-1" label="프로젝트내용" label-for="input-1">
                     <textarea
                         id="content"
-                        v-model="project.content"
+                        v-model="detail.content"
                         placeholder="교육내용을 입력하세요"
                         required="required"></textarea>
                 </b-form-group>
 
                 <b-form-group label="성공여부" v-slot="{ ariaDescribedby }">
-                    <b-form-radio v-model="project.success" :aria-describedby="ariaDescribedby" name="someradios" value=1>구현성공</b-form-radio>
-                    <b-form-radio v-model="project.success" :aria-describedby="ariaDescribedby" name="someradios" value=0>구현실패</b-form-radio>
+                    <b-form-radio v-model="detail.success" :aria-describedby="ariaDescribedby" name="someradios" value=1>구현성공</b-form-radio>
+                    <b-form-radio v-model="detail.success" :aria-describedby="ariaDescribedby" name="someradios" value=0>구현실패</b-form-radio>
                 </b-form-group>
 
                 <b-form-group id="input-group-1" label="시작년도" label-for="input-1">
                 <div id="span_date">
                     <b-form-input
                         id="year"
-                        v-model="project.start_date"
+                        v-model="detail.start_date"
                         type="date"
                         required="required"></b-form-input>
                 </div>
@@ -36,14 +36,13 @@
                 <div id="span_date">
                     <b-form-input
                         id="year"
-                        v-model="project.end_date"
+                        v-model="detail.end_date"
                         type="date"
                         required="required"></b-form-input>
                 </div>
                 </b-form-group>
                 <div>
-                    <b-form-file v-model="project.files" class="mt-3" plain></b-form-file>
-                   <b-form-file multiple v-model="project.files">
+                   <b-form-file multiple v-model="detail.files">
                         <template slot="file-name" slot-scope="{ names }">
                             <b-badge variant="dark">{{ names[0] }}</b-badge>
                             <b-badge v-if="names.length > 1" variant="dark" class="ml-1">
@@ -58,61 +57,76 @@
                 <b-button type="reset" variant="danger">Reset</b-button>
                 </div>
         </b-form>
+        <b-card class="mt-3" header="Form Data Result">
+                <pre class="m-0">{{ detail }}</pre>
+            </b-card>
         </div>
+        
 </template>
 <script>
 import axios from 'axios';
 import store from '../store';
-
+import {eventBus} from '../main.js'
 
 let url=store.state.resourceHost; //서버주소 api
 export default {
         data() {
             return {
-                project: {
-                    title: '',
-                    content: '',
+                detail:{
+                    idx:null,
+                    title:'',
+                    content:'',
                     success:'',
                     start_date:'',
                     end_date:'',
                     files:[]
-                },
-                fields:['idx','title','content','score','success','start_date','end_date','edit&Del'],
+                    }
+                ,
                 myproject:[{}]
                 ,
                 show:true
             }
         },
           created(){
-                    
-                    axios.get(`${url}/project`,{params:{
-                        idx:17
-                    }})
-                    .then(get=>{
-                    this.project.title=get.data.list.title
-                    this.project.content=get.data.list.content
-                    this.project.success=get.data.list.success
-                    this.project.start_date=get.data.list.start_date
-                    this.project.end_date=get.data.list.end_date
-                    this.project.files=get.data.list.files
-                    console.log('myproject: ',this.myproject)
-                    console.log("get.data:",get.data.list[0])
-                })
+                eventBus.$on('senddata',function(value){
+                    this.detail.idx=value.idx
+                    this.detail.title=value.title
+                    this.detail.content=value.content
+                    this.detail.success=value.success
+                    this.detail.start_date=value.start_date
+                    this.detail.end_date=value.end_date
+                    // this.detail.files=value.project_imgList
+                    //this.detail=value
+                    console.log('detail 값: ', this.detail)
+
+                        console.log('idx 값: ', this.detail.idx)
+                        console.log('title 값: ', this.detail.title)
+                        console.log('content 값: ', this.detail.content)
+                        console.log('success 값: ', this.detail.success)
+                        console.log('start_date 값: ', this.detail.start_date)
+                        console.log('end_Date 값: ', this.detail.end_date)
+                        // for (var i = 0; i < this.value.project_imgList[i].filename.length; i++) {
+                        //     console.log('detail.files 값: ', this.detail.files[i])
+                        //  } 
+                }.bind(this));
+                console.log('idxxxxx:',this.detail.idx)
+          
                 },
                 
         methods: {
             //프로젝트내용작성
             edit(event) {
+        
                 event.preventDefault() //submit버튼 클릭시 초기화되지않도록
                 var params = new FormData(); //파일업로드가 포함되어 formdata를 이용한다
-                
-                params.append('title', this.project.title);
-                params.append('success', this.project.success);
-                params.append('content', this.project.content);
-                params.append('start_date', this.project.start_date);
-                params.append('end_date', this.project.end_date);
-                 for (var i = 0; i < this.project.files.length; i++) {
-                params.append('files', this.project.files[i]);
+                params.append('idx',this.detail.idx);
+                params.append('title', this.detail.title);
+                params.append('success', this.detail.success);
+                params.append('content', this.detail.content);
+                params.append('start_date', this.detail.start_date);
+                params.append('end_date', this.detail.end_date);
+                 for (var i = 0; i < this.detail.files.length; i++) {
+                params.append('files', this.detail.files[i]);
                  }
                 axios.put(`${url}/project`,params,{
                     headers:{
@@ -134,12 +148,12 @@ export default {
             onReset(event) {
                 event.preventDefault()
                 // Reset our form values
-                this.title = ''
-                this.content = ''
-                this.start_date = ''
-                this.end_date =''
-                this.success =''
-                this.files=''
+                this.detail.title = ''
+                this.detail.content = ''
+                this.detail.start_date = ''
+                this.detail.end_date =''
+                this.detail.success =''
+                this.detail.files=''
 
                 // Trick to reset/clear native browser form validation state
                 this.show = false

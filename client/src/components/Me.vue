@@ -13,17 +13,12 @@
         <p>번호: {{phone}}</p>
         <p>희망직종: {{objective}}</p>
         <p>희망기업: {{enterprise}}</p>
-        <p>학점: {{grade}}</p>
+        <p>학년: {{grade}}</p>
         <p>등급: {{rank}}</p>
         <p>점수: {{score}}</p>
       </form>
    </div>
-   <div>
-     <h2>회원탈퇴</h2>
-     <div>
-       <button type="button" @click='deleteuser'>계정삭제하기</button>
-     </div>
-   </div>
+   
   </div>
 
 </template>
@@ -73,13 +68,7 @@ export default {
           })
     },
     methods: {
-        deleteuser(){
-          axios.delete("http://49.50.166.108:4000/api/user")
-          .then(()=>{
-            alert('성공적으로 데이터를 삭제했습니다.')
-            this.$router.push(returnPath)
-          })
-        },
+       
     }
 }
 </script>

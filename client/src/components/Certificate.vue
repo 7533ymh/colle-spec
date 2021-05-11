@@ -42,11 +42,20 @@
                 <b-button type="reset" variant="danger">Reset</b-button>
             </b-form-group>
             </b-form>
-            <b-form @submit="getcertificate" v-if="show">
+            <!-- <b-form @submit="getcertificate" v-if="show">
                 <b-button type="button" variant="primary" @click="getcertificate">조회하기</b-button>
-            </b-form>  
+            </b-form>   -->
             <div>
-              <b-table striped hover :items="mycertificate"></b-table>
+                <b-table responsive="sm" striped :fields="fields" hover :items="mycertificate" @row-clicked="click">
+                  <template #cell(edit&Del)="row">
+                    <b-button size="sm" @click="edit(row)" class="mr-2">
+                    수정
+                    </b-button>
+                    <b-button size="sm" @click="deleteCert(row)" class="mr-2">
+                    삭제
+                    </b-button>
+                </template>
+              </b-table>
               </div> 
             <b-card class="mt-3" header="Form Data Result">
                 <pre class="m-0">{{ certificate }}</pre>
@@ -68,7 +77,9 @@ export default {
                     content: '',
                     publisher:'',
                     date:'',
+                    score:''
                 },
+                fields:['title','content','publisher','date','score','edit&Del'],
                 mycertificate:[{}]
                 ,
                 show:true
@@ -83,7 +94,7 @@ export default {
                 },
                 
         methods: {
-            //수상내용작성
+            //자격증업로드
             onSubmit(event) {
                 event.preventDefault()
                 var params = new URLSearchParams();
@@ -93,24 +104,24 @@ export default {
                 params.append('date', this.certificate.date);
                 axios.post(`${url}/certificate`,params)
                 .then(certificate=>{
-                    console.log(certificate.msg)
                     console.log(certificate)
                     alert(certificate.data.msg)
+                    window.location.reload()
                 })
                 .catch(err=>{
                     console.log(err)
-                    alert("등록 실패")
+                    alert(err.response.data.msg)
 
                 })
             },
-            //수상조회
-            getcertificate(){
-                axios.get(`${url}/certificate`)
-                .then(get=>{
-                    console.log('get.data:',get.data)
-                    console.log('get.data.list:',get.data.list)
-                })
-            },
+            //자격증조회
+            // getcertificate(){
+            //     axios.get(`${url}/certificate`)
+            //     .then(get=>{
+            //         console.log('get.data:',get.data)
+            //         console.log('get.data.list:',get.data.list)
+            //     })
+            // },
             //리셋
             onReset(event) {
                 event.preventDefault()
@@ -125,7 +136,50 @@ export default {
                 this.$nextTick(() => {
                     this.show = true
                 })
-            }
+            },
+            click(item,index,e){
+                console.log('index: ',index)
+                console.log('item: ',item)
+            },
+            edit(item,index,event) {
+                var params = new URLSearchParams(); //파일업로드가 포함되어 formdata를 이용한다
+                params.append('title', this.certificate.title);
+                params.append('content', this.certificate.content);
+                params.append('publisher', this.certificate.publisher);
+                params.append('date', this.certificate.date);
+                axios.put(`${url}/certificate`,params,{
+                    headers:{
+                        'Content-Type' : 'multipart/form-data' //다중파일 업로드하기 위해 헤더 추가
+                    }
+                })
+                .then(certificate=>{
+                    console.log(certificate)
+                    alert(certificate.data.msg)
+                    window.location.reload()
+                    
+                })
+                
+                .catch(err=>{
+                    console.log(err)
+                    alert(err.response.data.msg)
+                })    
+            },
+            deleteCert(item,index,e){
+                let del=item.item.idx
+                
+                console.log('del idx: ',del)
+                axios.delete(`${url}/certificate`,{params:{
+                    idx:del
+                }})
+                .then(res=>{
+                    alert(res.data.msg)
+                })
+                .catch(err=>{
+                    alert(err.response.data.msg)
+                })
+                console.log('delitem: ',item)
+
+            },
         }
     }
 </script>

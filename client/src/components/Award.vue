@@ -49,11 +49,20 @@
                 <b-button type="reset" variant="danger">Reset</b-button>
             </b-form-group>
             </b-form>
-            <b-form @submit="getaward" v-if="show">
+            <!-- <b-form @submit="getaward" v-if="show">
                 <b-button type="button" variant="primary" @click="getaward">조회하기</b-button>
-            </b-form>  
+            </b-form>   -->
             <div>
-              <b-table striped hover :items="myaward"></b-table>
+                <b-table responsive="sm" striped :fields="fields" hover :items="myaward" @row-clicked="click">
+                  <template #cell(edit&Del)="row">
+                    <b-button size="sm" @click="edit(row)" class="mr-2">
+                    수정
+                    </b-button>
+                    <b-button size="sm" @click="deleteAward(row)" class="mr-2">
+                    삭제
+                    </b-button>
+                </template>
+              </b-table>
               </div> 
             <b-card class="mt-3" header="Form Data Result">
                 <pre class="m-0">{{ award }}</pre>
@@ -75,8 +84,10 @@ export default {
                     content: '',
                     division:'',
                     title:'',
-                    year:''
+                    year:'',
+                    score:'',
                 },
+                fields:['title','content','agency','division','year','score','edit&Del'],
                 myaward:[{}]
                 ,
                 show:true
@@ -102,22 +113,23 @@ export default {
                 params.append('year', this.award.year);
                 axios.post(`${url}/award`,params)
                 .then(award=>{
-                    console.log(data.msg)
                     console.log(award)
-                    alert(data.msg)
+                    alert(award.data.msg)
+                    window.location.reload()
                 })
                 .catch(err=>{
                     console.log(err)
+                    alert(err.response.data.msg)
                 })
             },
             //수상조회
-            getaward(){
-                axios.get(`${url}/award`)
-                .then(get=>{
-                    console.log('get.data:',get.data)
-                    console.log('get.data.list:',get.data.list)
-                })
-            },
+            // getaward(){
+            //     axios.get(`${url}/award`)
+            //     .then(get=>{
+            //         console.log('get.data:',get.data)
+            //         console.log('get.data.list:',get.data.list)
+            //     })
+            // },
             //리셋
             onReset(event) {
                 event.preventDefault()
@@ -133,7 +145,51 @@ export default {
                 this.$nextTick(() => {
                     this.show = true
                 })
-            }
+            },
+            click(item,index,e){
+                console.log('index: ',index)
+                console.log('item: ',item)
+            },
+            edit(item,index,event) {
+                var params = new URLSearchParams(); //파일업로드가 포함되어 formdata를 이용한다
+                params.append('agency', this.award.agency);
+                params.append('content', this.award.content);
+                params.append('division', this.award.division);
+                params.append('title', this.award.title);
+                params.append('year', this.award.year);
+                axios.put(`${url}/award`,params,{
+                    headers:{
+                        'Content-Type' : 'multipart/form-data' //다중파일 업로드하기 위해 헤더 추가
+                    }
+                })
+                .then(award=>{
+                    console.log(award)
+                    alert(award.data.msg)
+                    window.location.reload()
+                    
+                })
+                
+                .catch(err=>{
+                    console.log(err)
+                    alert(err.response.data.msg)
+                })    
+            },
+            deleteAward(item,index,e){
+                let del=item.item.idx
+                
+                console.log('del idx: ',del)
+                axios.delete(`${url}/award`,{params:{
+                    idx:del
+                }})
+                .then(res=>{
+                    alert(res.data.msg)
+                })
+                .catch(err=>{
+                    alert(err.response.data.msg)
+                })
+                console.log('delitem: ',item)
+
+            },
         }
     }
 </script>

@@ -44,11 +44,20 @@
                 <b-button type="reset" variant="danger">Reset</b-button>
             </b-form>
             <br>
-            <b-form @submit="getexperience" v-if="show">
+            <!-- <b-form @submit="getexperience" v-if="show">
                 <b-button type="button" variant="primary" @click="getexperience">조회하기</b-button>
-            </b-form>  
+            </b-form>   -->
             <div>
-              <b-table striped hover :items="myexperience"></b-table>
+              <b-table responsive="sm" striped :fields="fields" hover :items="myexperience" @row-clicked="click">
+                  <template #cell(edit&Del)="row">
+                    <b-button size="sm" @click="edit(row)" class="mr-2">
+                    수정
+                    </b-button>
+                    <b-button size="sm" @click="deleteExp(row)" class="mr-2">
+                    삭제
+                    </b-button>
+                </template>
+              </b-table>
               </div> 
             <b-card class="mt-3" header="Form Data Result">
                 <pre class="m-0">{{ experience }}</pre>
@@ -70,7 +79,9 @@ export default {
                     content: '',
                     start_date:'',
                     end_date:'',
+                    score:''
                 },
+                fields:['country','content','start_date','end_date','score','edit&Del'],
                 myexperience:[{}]
                 ,
                 show:true
@@ -95,24 +106,24 @@ export default {
                 params.append('end_date', this.experience.end_date);
                 axios.post(`${url}/experience`,params)
                 .then(experience=>{
-                    console.log(experience.msg)
                     console.log(experience)
                     alert(experience.data.msg)
+                    window.location.reload()
                 })
                 .catch(err=>{
                     console.log(err)
-                    alert("등록 실패")
+                    alert(err.response.data.msg)
 
                 })
             },
-            //자격증조회
-            getexperience(){
-                axios.get(`${url}/experience`)
-                .then(get=>{
-                    console.log('get.data:',get.data)
-                    console.log('get.data.list:',get.data.list)
-                })
-            },
+            //해외경험조회
+            // getexperience(){
+            //     axios.get(`${url}/experience`)
+            //     .then(get=>{
+            //         console.log('get.data:',get.data)
+            //         console.log('get.data.list:',get.data.list)
+            //     })
+            // },
             //리셋
             onReset(event) {
                 event.preventDefault()
@@ -127,7 +138,50 @@ export default {
                 this.$nextTick(() => {
                     this.show = true
                 })
-            }
+            },
+            click(item,index,e){
+                console.log('index: ',index)
+                console.log('item: ',item)
+            },
+            edit(item,index,event) {
+                var params = new URLSearchParams(); //파일업로드가 포함되어 formdata를 이용한다
+                params.append('country', this.experience.country);
+                params.append('content', this.experience.content);
+                params.append('start_date', this.experience.start_date);
+                params.append('end_date', this.experience.end_date);
+                axios.put(`${url}/experience`,params,{
+                    headers:{
+                        'Content-Type' : 'multipart/form-data' //다중파일 업로드하기 위해 헤더 추가
+                    }
+                })
+                .then(exp=>{
+                    console.log(exp)
+                    alert(exp.data.msg)
+                    window.location.reload()
+                    
+                })
+                
+                .catch(err=>{
+                    console.log(err)
+                    alert(err.response.data.msg)
+                })    
+            },
+            deleteExp(item,index,e){
+                let del=item.item.idx
+                
+                console.log('del idx: ',del)
+                axios.delete(`${url}/experience`,{params:{
+                    idx:del
+                }})
+                .then(res=>{
+                    alert(res.data.msg)
+                })
+                .catch(err=>{
+                    alert(err.response.data.msg)
+                })
+                console.log('delitem: ',item)
+
+            },
         }
     }
 </script>

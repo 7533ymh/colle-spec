@@ -4,11 +4,13 @@
             <form >
                 <div class="form-group">
                     <input type="text" size='50px' v-model="id" placeholder="아이디를 입력합니다"/>
-                    <button type="submit" v-on:submit.prevent="check" @click="check">아이디중복체크</button>
+                    <button type="submit" @click="check">아이디중복체크1</button>
                     <div id="c">
                     <input type="password" size='50px' v-model="pass" placeholder="비밀번호를 입력합니다"/>
                     </div>
-                    
+                    <div id="c">
+                    <input type="text" size='50px' v-model="grade" placeholder="학년을 입력합니다"/>
+                    </div>
                     <input type="text" size='50px' v-model="name" placeholder="이름을 입력합니다"/>
                     <div id="c">
                     <input type="text" size='50px' v-model="sex" placeholder="성별을 입력합니다"/>
@@ -36,6 +38,7 @@
             return {
                 id: '',
                 pass: '',
+                grade:'',
                 name: '',
                 sex: '',
                 mail: '',
@@ -47,24 +50,16 @@
         },
        
         methods: {
-            //회원가입 함수
+            //회원가입 기능
             btn_register(event) {
                 event.preventDefault();
-                console.log(
-                    this.id,
-                    this.pass,
-                    this.name,
-                    this.sex,
-                    this.mail,
-                    this.phone,
-                    this.objective,
-                    this.enterprise
-                );
+                
                 var url = "http://49.50.166.108:4000/api/signup";
 
                 var params = new URLSearchParams();
                 params.append('id', this.id);
                 params.append('pass', this.pass);
+                params.append('grade', this.grade);
                 params.append('name', this.name);
                 params.append('sex', this.sex);
                 params.append('mail', this.mail);
@@ -75,16 +70,18 @@
                     .post(url, params)
                     .then(response => {
                         if (response.status === 200) {
+                            alert(response.data.msg)
                             // 성공적으로 회원가입이 되었을 경우
                             this
                                 .$router
-                                .push({name: 'Login'});
+                                .push({name: 'Login'}); //로그인화면으로 넘어간다.
                         }
                         console.log(response);
                     })
                     .catch(error => {
                         //console.error(error);
-                        console.log(error.response)
+                        console.log(error.response.data.msg)
+                        alert(error.response.data.msg) //회원가입 실패시 에러메시지
                     });
             },
 
@@ -99,8 +96,8 @@
                         console.log(response);
                     })
                     .catch(err => {
-                        alert("이미 존재하는 아이디입니다.")
-                        console.log(err)
+                        alert(err.response.data.msg)
+                        console.log(err.response.data.msg)
                     });
             },
         }

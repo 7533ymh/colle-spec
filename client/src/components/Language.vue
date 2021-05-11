@@ -49,11 +49,20 @@
                 <b-button type="reset" variant="danger">Reset</b-button>
             </b-form-group>
             </b-form>
-            <b-form @submit="getlang" v-if="show">
+            <!-- <b-form @submit="getlang" v-if="show">
                 <b-button type="button" variant="primary" @click="getlang">조회하기</b-button>
-            </b-form>  
+            </b-form>   -->
             <div>
-              <b-table striped hover :items="mylang"></b-table>
+              <b-table responsive="sm" striped :fields="fields" hover :items="mylang" @row-clicked="click">
+                  <template #cell(edit&Del)="row">
+                    <b-button size="sm" @click="edit(row)" class="mr-2">
+                    수정
+                    </b-button>
+                    <b-button size="sm" @click="deletelang(row)" class="mr-2">
+                    삭제
+                    </b-button>
+                </template>
+              </b-table>
               </div> 
             <b-card class="mt-3" header="Form Data Result">
                 <pre class="m-0">{{ lang }}</pre>
@@ -77,6 +86,8 @@ export default {
                     date:'',
                     exam_score:'',
                 },
+                fields:['exam','content','division','date','exam_score','edit&Del'],
+
                 mylang:[{}]
                 ,
                 show:true
@@ -91,7 +102,7 @@ export default {
                 },
                 
         methods: {
-            //수상내용작성
+            //어학시험작성
             onSubmit(event) {
                 event.preventDefault()
                 var params = new URLSearchParams();
@@ -102,24 +113,24 @@ export default {
                 params.append('date', this.lang.date);
                 axios.post(`${url}/language`,params)
                 .then(lang=>{
-                    console.log(lang.msg)
                     console.log(lang)
                     alert(lang.data.msg)
+                    window.location.reload()
                 })
                 .catch(err=>{
                     console.log(err)
-                    alert("등록 실패")
+                    alert(err.response.data.msg)
 
                 })
             },
-            //수상조회
-            getlang(){
-                axios.get(`${url}/language`)
-                .then(get=>{
-                    console.log('get.data:',get.data)
-                    console.log('get.data.list:',get.data.list)
-                })
-            },
+            //어학내용조회
+            // getlang(){
+            //     axios.get(`${url}/language`)
+            //     .then(get=>{
+            //         console.log('get.data:',get.data)
+            //         console.log('get.data.list:',get.data.list)
+            //     })
+            // },
             //리셋
             onReset(event) {
                 event.preventDefault()
@@ -135,7 +146,51 @@ export default {
                 this.$nextTick(() => {
                     this.show = true
                 })
-            }
+            },
+            click(item,index,e){
+                console.log('index: ',index)
+                console.log('item: ',item)
+            },
+            edit(item,index,event) {
+                var params = new URLSearchParams();
+                params.append('exam', this.lang.exam);
+                params.append('content', this.lang.content);
+                params.append('division', this.lang.division);
+                params.append('exam_score', this.lang.exam_score);
+                params.append('date', this.lang.date);
+                axios.put(`${url}/language`,params,{
+                    headers:{
+                        'Content-Type' : 'multipart/form-data' //다중파일 업로드하기 위해 헤더 추가
+                    }
+                })
+                .then(res=>{
+                    console.log(res)
+                    alert(res.data.msg)
+                    window.location.reload()
+                    
+                })
+                
+                .catch(err=>{
+                    console.log(err)
+                    alert(err.response.data.msg)
+                })    
+            },
+            deletelang(item,index,e){
+                let del=item.item.idx
+                
+                console.log('del idx: ',del)
+                axios.delete(`${url}/language`,{params:{
+                    idx:del
+                }})
+                .then(res=>{
+                    alert(res.data.msg)
+                })
+                .catch(err=>{
+                    alert(err.response.data.msg)
+                })
+                console.log('delitem: ',item)
+
+            },
         }
     }
 </script>
