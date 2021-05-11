@@ -1,7 +1,7 @@
 package com.example.backend.controller.link;
 
 import com.example.backend.response.CommonResult;
-import com.example.backend.service.link.Linkservice;
+import com.example.backend.service.link.LinkService;
 import com.example.backend.service.response.ResponseService;
 import com.example.backend.service.user.UserService;
 import io.swagger.annotations.Api;
@@ -23,11 +23,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class LinkController {
 
-    private final Linkservice linkservice;
+    private final LinkService linkservice;
     private final ResponseService responseService;
     private final UserService userService;
 
-    @ApiOperation(value = "연동 로그인 ", notes = "아이디와 비밀번호를 입력하면 연동정보를 데이터베이스에 입력한다.")
+    @ApiOperation(value = "연동 로그인 ", notes = "아이디와 비밀번호를 입력하면 연동정보를 데이터베이스에 입력한다. ( 로그인은 한번만 하면 됨 )")
     @GetMapping("/link")
     public CommonResult linksignin(@ApiParam(value = "어플 회원 아이디(id) ", required = true) @RequestParam String id,
                                    @ApiParam(value = "어플 회원 비밀번호(pass) ", required = true) @RequestParam String pass) {
@@ -43,6 +43,24 @@ public class LinkController {
 
 
         return responseService.getSuccessResultMsg("연동이 완료되었습니다.");
+
+    }
+
+    @ApiOperation(value = "연동 업데이트 ", notes = "연동정보를 데이터베이스에 업데이트한다.")
+    @GetMapping("/link/update")
+    public CommonResult linkupdate() {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String AuthId = authentication.getName();
+        int idx = userService.findIdxById(AuthId);
+
+
+        int appidx = userService.findByIdx(idx).getLink();
+        linkservice.linkInfo(appidx, idx);
+        linkservice.linkGrade(appidx, idx);
+
+
+        return responseService.getSuccessResultMsg("연동정보가 업데이트되었습니다.");
 
     }
 

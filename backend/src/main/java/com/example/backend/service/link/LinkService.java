@@ -15,7 +15,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class Linkservice {
+public class LinkService {
 
     private final LinkMapper linkMapper;
     private final UserMapper userMapper;
@@ -38,6 +38,7 @@ public class Linkservice {
     public void linkInfo(int appidx , int idx){
 
         User user = linkMapper.InfoFindByIdx(appidx);
+        user.setLink(appidx);
 
         if ( user.getGrade() == 0 || user.getCollege().isEmpty() || user.getMajor().isEmpty()){
             throw new CNotFoundInfoByUserException("연동 회원의 기본 정보가 없습니다. 어플을 확인해주세요.");

@@ -35,7 +35,7 @@ class AwardServiceTest {
 
         //given
         Award award = new Award();
-        award.setUser_idx(6);
+        award.setUser_idx(23);
         award.setTitle("abc");
         award.setAgency("abc");
         award.setDivision("은상");
@@ -119,7 +119,7 @@ class AwardServiceTest {
 
         //given
         Award award = new Award();
-        award.setUser_idx(25);
+        award.setUser_idx(6);
         award.setTitle("abc");
         award.setAgency("abc");
         award.setDivision("은상");
