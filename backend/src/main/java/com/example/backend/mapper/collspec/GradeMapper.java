@@ -32,4 +32,7 @@ public interface GradeMapper {
     @Delete("DELETE FROM grade WHERE idx = #{idx} and user_idx = #{user_idx} ")
     void delete(@Param("idx") int idx , @Param("user_idx") int user_idx);
 
+    @Delete("DELETE FROM grade WHERE user_idx = #{user_idx} ")
+    void delete_all(@Param("user_idx") int user_idx);
+
 }

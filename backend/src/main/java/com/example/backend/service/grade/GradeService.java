@@ -118,6 +118,16 @@ public class GradeService {
 
     }
 
+    public void delete_all(int user_idx) {
+
+        logger.info("연동 전 기존 학점 삭제");
+
+        gradeMapper.delete_all(user_idx);
+
+        changetoNumber(user_idx);
+
+    }
+
     public void changeSemester(Grade grade) {
         logger.info("학점 학기 변경");
 
