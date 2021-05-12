@@ -1,6 +1,8 @@
 package com.example.backend.service.rank;
 
+import com.example.backend.domain.RankResult;
 import com.example.backend.domain.User;
+import com.example.backend.mapper.collspec.RankMapper;
 import com.example.backend.mapper.collspec.UserMapper;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,7 +18,62 @@ class RankServiceTest {
     RankService rankService;
 
     @Autowired
+    RankMapper rankMapper;
+
+    @Autowired
     UserMapper userMapper;
+
+    @Test
+    void 학년비교등급() {
+
+        //given
+        int idx = 25;
+
+        //when
+        RankResult rank = rankService.change_Rank_Grade(25);
+
+        //then
+
+        Assertions.assertThat("3등급").isEqualTo(rank.getAll_rank());
+
+
+    }
+
+    @Test
+    void 학교비교등급() {
+
+        //given
+        int idx = 25;
+
+        //when
+        RankResult rank = rankService.change_Rank_College(25);
+
+        //then
+
+        Assertions.assertThat("3등급").isEqualTo(rank.getAll_rank());
+
+
+    }
+
+    @Test
+    void 학교학년비교등급() {
+
+        //given
+        int idx = 25;
+
+        //when
+        RankResult rank = rankService.change_Rank_College_Grade(25);
+
+        //then
+
+        Assertions.assertThat("5등급").isEqualTo(rank.getAll_rank());
+
+
+    }
+
+
+
+
 
 
     @Test
@@ -26,7 +83,7 @@ class RankServiceTest {
         int idx = 25;
 
         //when
-        rankService.changetoRank(25);
+        rankService.change_Rank_All(25);
 
         //then
         User user = userMapper.findByIdx(25).get();
@@ -39,9 +96,6 @@ class RankServiceTest {
         Assertions.assertThat("2등급").isEqualTo(user.getGrade_rank());
         Assertions.assertThat("5등급").isEqualTo(user.getLanguage_rank());
         Assertions.assertThat("5등급").isEqualTo(user.getProject_rank());
-
-
-
 
 
     }

@@ -1,6 +1,6 @@
 package com.example.backend.service.link;
 
-import com.example.backend.advice.exception.CNotFoundInfoByUserException;
+import com.example.backend.advice.exception.CNotFoundInfoByLinkException;
 import com.example.backend.advice.exception.CUserLoginFailException;
 import com.example.backend.advice.exception.CUserNotFoundException;
 import com.example.backend.domain.Grade;
@@ -25,6 +25,7 @@ public class LinkService {
 
         User user = linkMapper.findById(id)
                 .orElseThrow(CUserNotFoundException::new);
+
         if (!pass.matches(user.getPass())) {
             throw new CUserLoginFailException();
         }
@@ -37,11 +38,12 @@ public class LinkService {
 
     public void linkInfo(int appidx , int idx){
 
-        User user = linkMapper.InfoFindByIdx(appidx);
+        User user = linkMapper.InfoFindByIdx(appidx)
+                .orElseThrow(CNotFoundInfoByLinkException::new);
         user.setLink(appidx);
 
         if ( user.getGrade() == 0 || user.getCollege().isEmpty() || user.getMajor().isEmpty()){
-            throw new CNotFoundInfoByUserException("연동 회원의 기본 정보가 없습니다. 어플을 확인해주세요.");
+            throw new CNotFoundInfoByLinkException();
         }
 
         user.setIdx(idx);
@@ -56,7 +58,7 @@ public class LinkService {
         List<Grade> gradeList = linkMapper.gradeFindByIdx(appidx);
 
         if (gradeList.isEmpty()) {
-            throw new CNotFoundInfoByUserException("연동 회원의 학점 정보가 없습니다. 어플을 확인해주세요.");
+            throw new CNotFoundInfoByLinkException();
         }
 
         gradeService.delete_all(idx);

@@ -1,10 +1,11 @@
 package com.example.backend.service.rank;
 
-import com.example.backend.advice.exception.CUserNotFoundException;
+import com.example.backend.advice.exception.CLinkException;
 import com.example.backend.domain.Rank;
-import com.example.backend.domain.User;
+import com.example.backend.domain.RankResult;
 import com.example.backend.mapper.collspec.RankMapper;
 import com.example.backend.mapper.collspec.UserMapper;
+import com.example.backend.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,20 +15,87 @@ public class RankService {
 
     private final RankMapper rankMapper;
     private final UserMapper userMapper;
+    private final UserService userService;
 
-    public void changetoRank(int idx) {
+    public void change_Rank_All(int idx) {
 
-        Rank rank = rankMapper.checkRank(idx);
-        User user = userMapper.findByIdx(idx)
-                .orElseThrow(CUserNotFoundException::new);
+        Rank rank = rankMapper.checkRankAll(idx);
+        RankResult rankResult =  changeResult(rank);
+        rankResult.setIdx(rank.getIdx());
 
-        rankSet(rank, user);
-
-        userMapper.updateRank(user);
+        userMapper.updateRank(rankResult);
 
     }
 
-    private void rankSet(Rank rank, User user) {
+    public RankResult change_Rank_Grade(int idx) {
+
+        Rank rank = rankMapper.checkRankByGrade(idx);
+        RankResult rankResult =  changeResult(rank);
+        rankResult.setIdx(rank.getIdx());
+
+        return rankResult;
+
+    }
+
+    public RankResult change_Rank_College(int idx) {
+
+        if (userService.findByIdx(idx).getLink() == 0 )
+            throw new CLinkException("잘못된 접근입니다. 연동을 먼저 해주세요.");
+
+        Rank rank = rankMapper.checkRankByCollege(idx);
+        RankResult rankResult =  changeResult(rank);
+        rankResult.setIdx(rank.getIdx());
+
+
+        return rankResult;
+
+    }
+
+    public RankResult change_Rank_College_Grade(int idx) {
+
+        if (userService.findByIdx(idx).getLink() == 0 )
+            throw new CLinkException("잘못된 접근입니다. 연동을 먼저 해주세요.");
+
+        Rank rank = rankMapper.checkRankByCollegeGrade(idx);
+        RankResult rankResult =  changeResult(rank);
+        rankResult.setIdx(rank.getIdx());
+
+        return rankResult;
+
+    }
+
+
+    private RankResult changeResult(Rank rank) {
+
+        RankResult result = new RankResult();
+
+        result.setAll_rank(rankchange(rank.getAll_rank()));
+        result.setAward_rank(rankchange(rank.getAward_rank()));
+        result.setCareer_rank(rankchange(rank.getCareer_rank()));
+        result.setCertificate_rank(rankchange(rank.getCertificate_rank()));
+        result.setEducation_rank(rankchange(rank.getEducation_rank()));
+        result.setExperience_rank(rankchange(rank.getExperience_rank()));
+        result.setGrade_rank(rankchange(rank.getGrade_rank()));
+        result.setLanguage_rank(rankchange(rank.getLanguage_rank()));
+        result.setProject_rank(rankchange(rank.getProject_rank()));
+
+        return result;
+    }
+
+    private String rankchange(double rank) {
+        if (rank <= 0.05)
+            return "1등급";
+        else if (rank <= 0.25)
+            return "2등급";
+        else if (rank <= 0.75)
+            return "3등급";
+        else if (rank <= 0.95)
+            return "4등급";
+        else
+            return "5등급";
+    }
+
+   /* private void rankSet(Rank rank, User user) {
         if (rank.getAll_rank() <= 0.05)
             user.setAll_rank("1등급");
         else if (rank.getAll_rank() <= 0.25)
@@ -126,7 +194,9 @@ public class RankService {
             user.setProject_rank("4등급");
         else
             user.setProject_rank("5등급");
-    }
+    } */
+
+
 
 
 }

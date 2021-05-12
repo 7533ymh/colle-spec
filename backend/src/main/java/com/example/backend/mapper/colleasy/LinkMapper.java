@@ -24,7 +24,7 @@ public interface LinkMapper {
             @Result(property = "major", column = "student_major"),
             @Result(property = "grade", column = "student_grade")
     })
-    User InfoFindByIdx(@Param("idx") int idx);
+    Optional<User> InfoFindByIdx(@Param("idx") int idx);
 
     @Select("SELECT year,semester,avg_rating FROM sic_grade WHERE idx = #{idx} ORDER BY year")
     @Results(value = {
