@@ -84,7 +84,6 @@ public class UserService {
 
     public User findByIdx(int idx) {
 
-
         return userMapper.findByIdx(idx)
                 .orElseThrow(CUserNotFoundException::new);
 
@@ -93,10 +92,10 @@ public class UserService {
 
     public Optional<User> findByLink(int link) {
 
-
         return userMapper.findByLink(link);
 
     }
+
 
 
 }
