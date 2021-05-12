@@ -44,6 +44,9 @@ public interface UserMapper {
     @Select("SELECT * FROM user WHERE idx = #{idx}")
     Optional<User> findByIdx(@Param("idx") int idx);
 
+    @Select("SELECT * FROM user WHERE link = #{link}")
+    Optional<User> findByLink(@Param("link") int link);
+
 
 
 

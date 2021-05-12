@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 public class UserService {
@@ -86,6 +88,13 @@ public class UserService {
         return userMapper.findByIdx(idx)
                 .orElseThrow(CUserNotFoundException::new);
 
+
+    }
+
+    public Optional<User> findByLink(int link) {
+
+
+        return userMapper.findByLink(link);
 
     }
 
