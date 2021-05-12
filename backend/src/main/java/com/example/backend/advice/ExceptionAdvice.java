@@ -112,7 +112,13 @@ public class ExceptionAdvice {
     @ExceptionHandler(CLinkException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     protected CommonResult CLinkException(HttpServletRequest request, CLinkException e) {
-        return responseService.getFailResult(-1014, e.getMessage());
+        return responseService.getFailResult(Integer.parseInt(getMessage("Link.code")), e.getMessage());
+    }
+
+    @ExceptionHandler(CNotFoundInfoByLinkException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult CNotFoundInfoByLinkException(HttpServletRequest request, CNotFoundInfoByLinkException e) {
+        return responseService.getFailResult(Integer.parseInt(getMessage("NotFoundInfoByLink.code")), getMessage("NotFoundInfoByLink.msg"));
     }
 
 

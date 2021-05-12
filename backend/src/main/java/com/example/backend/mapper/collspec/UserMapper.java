@@ -1,5 +1,6 @@
 package com.example.backend.mapper.collspec;
 
+import com.example.backend.domain.RankResult;
 import com.example.backend.domain.User;
 import org.apache.ibatis.annotations.*;
 
@@ -24,10 +25,10 @@ public interface UserMapper {
     @Update("UPDATE user SET college = #{user.college}, major= #{user.major}, grade=#{user.grade}, link=#{user.link} WHERE idx = #{user.idx} ")
     void updateLink(@Param("user") User user);
 
-    @Update("UPDATE user SET award_rank = #{user.award_rank}, career_rank = #{user.career_rank}, certificate_rank = #{user.certificate_rank}, education_rank = #{user.education_rank}," +
-            "experience_rank = #{user.experience_rank}, language_rank = #{user.language_rank}, grade_rank = #{user.grade_rank}, project_rank = #{user.project_rank}, all_rank = #{user.all_rank}" +
-            "WHERE idx = #{user.idx}")
-    void updateRank(@Param("user") User user);
+    @Update("UPDATE user SET award_rank = #{rank.award_rank}, career_rank = #{rank.career_rank}, certificate_rank = #{rank.certificate_rank}, education_rank = #{rank.education_rank}," +
+            "experience_rank = #{rank.experience_rank}, language_rank = #{rank.language_rank}, grade_rank = #{rank.grade_rank}, project_rank = #{rank.project_rank}, all_rank = #{rank.all_rank}" +
+            "WHERE idx = #{rank.idx}")
+    void updateRank(@Param("rank") RankResult rank);
 
     @Delete("DELETE FROM user WHERE idx = #{idx} ")
     void delete(@Param("idx") int idx);
