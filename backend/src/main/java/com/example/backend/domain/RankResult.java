@@ -11,16 +11,16 @@ import lombok.NoArgsConstructor;
 @Builder
 public class RankResult {
 
-    int idx;
-    String award_rank;
-    String career_rank;
-    String certificate_rank;
-    String education_rank;
-    String experience_rank;
-    String grade_rank;
-    String language_rank;
-    String project_rank;
-    String all_rank;
+    private int idx;
+    private String award_rank;
+    private String career_rank;
+    private String certificate_rank;
+    private String education_rank;
+    private String experience_rank;
+    private String grade_rank;
+    private String language_rank;
+    private String project_rank;
+    private String all_rank;
 
 
 }

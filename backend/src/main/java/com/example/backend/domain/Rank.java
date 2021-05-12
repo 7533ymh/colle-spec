@@ -11,15 +11,15 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Rank {
 
-    int idx;
-    double award_rank;
-    double career_rank;
-    double certificate_rank;
-    double education_rank;
-    double experience_rank;
-    double grade_rank;
-    double language_rank;
-    double project_rank;
-    double all_rank;
+    private int idx;
+    private double award_rank;
+    private double career_rank;
+    private double certificate_rank;
+    private double education_rank;
+    private double experience_rank;
+    private double grade_rank;
+    private double language_rank;
+    private double project_rank;
+    private double all_rank;
 
 }

@@ -12,10 +12,7 @@ import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Api(tags = {"4. Link"})
 @Builder
@@ -29,7 +26,7 @@ public class LinkController {
     private final UserService userService;
 
     @ApiOperation(value = "연동 로그인 ", notes = "아이디와 비밀번호를 입력하면 연동정보를 데이터베이스에 입력한다. ( 로그인은 한번만 하면 됨 )")
-    @GetMapping("/link")
+    @PostMapping("/link")
     public CommonResult linksignin(@ApiParam(value = "어플 회원 아이디(id) ", required = true) @RequestParam String id,
                                    @ApiParam(value = "어플 회원 비밀번호(pass) ", required = true) @RequestParam String pass) {
 

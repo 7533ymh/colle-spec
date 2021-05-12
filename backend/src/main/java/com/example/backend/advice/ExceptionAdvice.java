@@ -121,6 +121,12 @@ public class ExceptionAdvice {
         return responseService.getFailResult(Integer.parseInt(getMessage("NotFoundInfoByLink.code")), getMessage("NotFoundInfoByLink.msg"));
     }
 
+    @ExceptionHandler(CNotFoundDataException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult CNotFoundDataException(HttpServletRequest request, CNotFoundDataException e) {
+        return responseService.getFailResult(Integer.parseInt(getMessage("NotFoundData.code")), getMessage("NotFoundData.msg"));
+    }
+
 
 
 
