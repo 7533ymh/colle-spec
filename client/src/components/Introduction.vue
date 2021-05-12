@@ -82,28 +82,19 @@
                 let idxx=item.item.idx
                 axios.get(`${url}/introduction/download`,{params:{
                     idx:idxx,
-                    headers: { responseType: 'arraybuffer' }
+                    responseType: "blob",
                 }})
                 .then(res=>{
-                    //header content-disposition에서 filename 추출.
-                    const name = res.headers['content-disposition'].split('filename=')[1]
-                    //IE11에서 blob처리 오류로 인해 분기처리
-                    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-                    const blob = res.data
-                    window.navigator.msSaveOrOpenBlob(blob, name)
-                    } else{
-                                        //IE 이외 다운로드 처리
-                    const url = window.URL.createObjectURL(new Blob([res.data],
-                    { type: res.headers['content-type']}
-                    ))
-                    const link = document.createElement('a')
-                    link.href = url
-                    link.setAttribute('download', name)
-                    document.body.appendChild(link)
-                    link.click()
-                    } 
+                     console.log(res)
+                    const url = window.URL.createObjectURL(new Blob([res.data], { type: 'application/pdf' }));
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', 'filename');
+                    document.body.appendChild(link);
+                    link.click();
+                     
                 }).catch(err=>{
-                    alert(err.response.data.msg)
+                    alert(err)
                 })
             },
             click(item,index,e){

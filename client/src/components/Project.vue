@@ -62,7 +62,11 @@
             
             <div>
               <b-table responsive="sm" striped :fields="fields" hover :items="myproject" @row-clicked="pjclick" >
-                    
+                    <template #cell(down)="row">
+        <b-button size="sm" @click="download(row)" class="mr-2">
+          내려받기
+        </b-button>
+                    </template>
                     <template #cell(edit&Del)="row">
         <b-button size="sm" @click="edit(row)" class="mr-2">
           수정
@@ -98,10 +102,11 @@ export default {
                     end_date:'',
                     files:[]
                 },
-                fields:['title','content','score','success','start_date','end_date','filename','edit&Del'],
+                fields:['title','content','score','success','start_date','end_date','filename','down','edit&Del'],
                 
                 myproject:[{}],
                 filename:[],
+                filelist:[],
                 
                 
                 show:true
@@ -236,6 +241,39 @@ export default {
                 .catch(err=>{
                     console.log(err)
                     alert(err.response.data.msg)
+                })
+            },
+            download(item,index,e){
+                let idxx=item.item.idx
+                console.log('idxx: ',idxx)
+                for (var i = 0; i < item.item.project_imgList.length; i++){ 
+                this.filelist=item.item.project_imgList[i].idx
+                }
+                axios.get(`${url}/project_img/download`,{params:{
+                    idx:idxx,
+                    //idx:this.filelist,
+                    responseType: "blob",
+                    headers: { responseType: 'arraybuffer' }
+                }})
+                .then(res=>{
+                     console.log(res)
+                    const url = window.URL.createObjectURL(new Blob([res.data]));
+                    const link = document.createElement('a');
+                    const contentDisposition = res.headers['content-disposition']; // 파일 이름
+                    let fileName = 'unknown';
+                    if (contentDisposition) {
+                    const [ fileNameMatch ] = contentDisposition.split(';').filter(str => str.includes('filename'));
+                    if (fileNameMatch)
+                        [ , fileName ] = fileNameMatch.split('=');
+                    }
+                    link.href = url;
+                    link.setAttribute('download', `${fileName}`);
+                    link.style.cssText = 'display:none';
+                    document.body.appendChild(link);
+                    link.click();
+                    link.remove();
+                }).catch(err=>{
+                    alert(err)
                 })
             },
             
