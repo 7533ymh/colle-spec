@@ -1,5 +1,6 @@
 package com.example.backend.controller.link;
 
+import com.example.backend.advice.exception.CLinkException;
 import com.example.backend.response.CommonResult;
 import com.example.backend.service.link.LinkService;
 import com.example.backend.service.response.ResponseService;
@@ -36,8 +37,18 @@ public class LinkController {
         String AuthId = authentication.getName();
         int idx = userService.findIdxById(AuthId);
 
+        if (userService.findByIdx(idx).getLink() != 0){
+            throw new CLinkException("잘못된 접근입니다. 이미 연동되어있습니다.");
+        }
 
         int appidx = linkservice.linkLogin(id, pass);
+
+        if(userService.findByLink(appidx).isPresent()){
+            throw new CLinkException("이미 다른아이디에서 연동된 계정입니다. 다시 시도해주세요.");
+        }
+
+
+
         linkservice.linkInfo(appidx, idx);
         linkservice.linkGrade(appidx, idx);
 
@@ -56,6 +67,9 @@ public class LinkController {
 
 
         int appidx = userService.findByIdx(idx).getLink();
+        if (appidx == 0 ){
+            throw new CLinkException("잘못된 접근입니다. 연동을 먼저 해주세요.");
+        }
         linkservice.linkInfo(appidx, idx);
         linkservice.linkGrade(appidx, idx);
 

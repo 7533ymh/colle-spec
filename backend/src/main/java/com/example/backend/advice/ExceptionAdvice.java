@@ -109,6 +109,12 @@ public class ExceptionAdvice {
         return responseService.getFailResult(Integer.parseInt(getMessage("FindSameExam.code")), getMessage("FindSameExam.msg"));
     }
 
+    @ExceptionHandler(CLinkException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult CLinkException(HttpServletRequest request, CLinkException e) {
+        return responseService.getFailResult(-1014, e.getMessage());
+    }
+
 
 
 
