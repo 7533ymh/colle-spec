@@ -19,6 +19,11 @@ public interface BoardMapper {
     @Result(property = "commentList", column = "idx", many = @Many(select = "com.example.backend.mapper.collspec.CommentMapper.findByBoard_idx"))
     List<Board> findByProgram_idx(@Param("program_idx") int program_idx);
 
+    @Select("SELECT * FROM board WHERE program_idx = #{program_idx} ORDER BY idx")
+    @Result(property = "idx", column = "idx", id = true)
+    List<Board> findByProgram_idx_NoComment(@Param("program_idx") int program_idx);
+
+
     @Update("UPDATE board SET title = #{board.title}, content = #{board.content}, " +
             "edit = NOW() WHERE idx = #{board.idx} AND user_id = #{board.user_id}")
     void update(@Param("board") Board board);
