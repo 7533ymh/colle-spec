@@ -149,11 +149,8 @@ export default {
                 params.append('content', this.experience.content);
                 params.append('start_date', this.experience.start_date);
                 params.append('end_date', this.experience.end_date);
-                axios.put(`${url}/experience`,params,{
-                    headers:{
-                        'Content-Type' : 'multipart/form-data' //다중파일 업로드하기 위해 헤더 추가
-                    }
-                })
+                axios.put(`${url}/experience`,params
+                )
                 .then(exp=>{
                     console.log(exp)
                     alert(exp.data.msg)

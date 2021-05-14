@@ -16,7 +16,10 @@ import Experience from '../components/Experience.vue'
 import Project from '../components/Project.vue'
 import Detail from '../components/Detail.vue'
 import test from '../components/test.vue'
-
+import List from '../components/board/List'; //게시판 리스트 컴포넌트 호출
+import Write from '../components/board/Write'; //게시판 리스트 컴포넌트 호출
+import Program from '../components/board/Program'; //프로그램 리스트 컴포넌트 호출
+import AllList from '../components/board/AllList'; //프로그램 리스트 컴포넌트 호출
 
 
 
@@ -120,11 +123,31 @@ export default new Router({
       component:test
     },
     {
+      path: '/board/alllist',
+      name: 'alllist',
+      component:AllList
+    },
+    {
+      path: '/board/program',
+      name: 'program',
+      component:Program
+    },
+    {
+      path: '/board/list',
+      name: 'list',
+      component:List
+    },
+    {
+      path: '/board/write',
+      name: 'write',
+      component:Write
+    },
+    {
       path: '/me',
       name: 'Me',
       component: Me,
       //beforeEnter: requireAuth(),
-      beforeEnter: accessloginAuth //마이페이지는 로그인없이 접근 불가
+      //beforeEnter: accessloginAuth //마이페이지는 로그인없이 접근 불가
     }
   ]
 })

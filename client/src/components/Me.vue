@@ -4,6 +4,7 @@
     <div>
             <label>User Info:</label>
       <form>
+        연동: {{myinfo.link}}
         idx: {{myinfo.idx}}
         id: {{myinfo.id}}
         <div>
@@ -33,6 +34,9 @@
         </div>
         점수: {{myinfo.score}}
       </form>
+      <div>
+        {{myinfo}}
+      </div>
    </div>
    
   </div>
@@ -41,7 +45,9 @@
 
 <script>
 import axios from 'axios'
+import store from '../store';
 
+let url=store.state.resourceHost; //서버주소 api
 export default {
     data() {
         return {
@@ -61,61 +67,78 @@ export default {
             // score: '',
             // sex: '',
             
-            myinfo:[]
+            myinfo:[],
+            college_rank:[],
+            college_grade_rank:[],
+            grade_rank:[]
+
         }
     },
     //페이지에 접근하면 자동으로 실행 새로고침해도 데이터갱신
     created(){
-      axios.get("http://49.50.166.108:4000/api/user")
+      axios.get("http://49.50.166.108:4000/api/user") //유저정보 조회
           .then(user=>{
+            console.log('유저정보조회: ',user.data.data)
             this.myinfo=user.data.data
-            // this.idx = user.data.data.idx
-            // this.id = user.data.data.id
-            // this.name = user.data.data.name
-            // this.sex = user.data.data.sex
-            // this.phone = user.data.data.phone
-            // this.objective = user.data.data.objective
-            // this.enterprise = user.data.data.enterprise
-            // this.rank = user.data.data.all_rank
-            // this.score = user.data.data.score
-            // this.grade = user.data.data.grade
-            // this.mail = user.data.data.mail
+            //연동되었을 때
+            if(this.myinfo.link===1){
+              axios.get(`${url}/rank/college`,{params:{
+                idx:this.myinfo.idx
+              }})
+              .then(link=>{
+                console.log('연동됨 college rank: ',link.data.data)
+                this.college_rank=link.data.data
+                axios.get(`${url}/rank/college/grade`,{params:{
+                  idx:this.myinfo.idx
+                }})
+                .then(link=>{
+                  console.log('연동됨 college grade rank: ',link.data.data)
+                  this.college_grade_rank=link.data.data
+                  axios.get("http://49.50.166.108:4000/api/user")
+                  .then(user=>{
+                    console.log('유저정보업데이트: ',user.data.data)
+                    this.myinfo=user.data.data
+                    
+                  })
+                  .catch(err=>{
+                    console.log(err)
+                  })
+                })
+              })
+            }else{
+            //연동안했을 때
+            //유저정보 조회 성공시 등급알고리즘 요청하여 등급적용
             axios.get("http://49.50.166.108:4000/api/rank",{params:{
               idx:this.myinfo.idx
             }})
-      .then(rank=>{
-        console.log('rank: ',rank)
-        axios.get("http://49.50.166.108:4000/api/user")
-          .then(user=>{
-            this.myinfo=user.data.data
-            // this.idx = user.data.data.idx
-            // this.id = user.data.data.id
-            // this.name = user.data.data.name
-            // this.sex = user.data.data.sex
-            // this.phone = user.data.data.phone
-            // this.objective = user.data.data.objective
-            // this.enterprise = user.data.data.enterprise
-            // this.rank = user.data.data.all_rank
-            // this.score = user.data.data.score
-            // this.grade = user.data.data.grade
-            // this.mail = user.data.data.mail
-
+              .then(rank=>{
+                console.log('연동안됨 rank: ',rank.data)
+                //등급적용 성공시 다시 유저정보 요청
+                axios.get(`${url}/rank/grade`,{params:{
+                  idx:this.myinfo.idx
+                }})
+                .then(res=>{
+                  console.log('연동안됨 grade_rank: ',res.data.data)
+                  this.grade_rank=res.data.data
+                  axios.get("http://49.50.166.108:4000/api/user")
+                  .then(user=>{
+                    console.log('유저정보 조회: ',user.data.data)
+                    this.myinfo=user.data.data
+                    
+                  })
+                  .catch(err=>{
+                    console.log(err)
+                  })
+                })
+              })        
+              .catch(err=>{
+                console.log(err)
+              })
+            }
           })
           .catch(err=>{
             console.log(err)
-          })
-        
-      })
-      .catch(err=>{
-            console.log(err)
-          })
-
-          })
-          .catch(err=>{
-            console.log(err)
-          })
-      
-          
+          })     
     },
     methods: {
        

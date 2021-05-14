@@ -3,14 +3,23 @@
         <div class="container">
             <form >
                 <div class="form-group">
-                    <input type="text" v-model="id" placeholder="아이디를 입력합니다"/>
-                    <input type="password" v-model="pass" placeholder="비밀번호를 입력합니다"/>
-                    <input type="text" v-model="name" placeholder="이름을 입력합니다"/>
-                    <input type="text" v-model="sex" placeholder="성별을 입력합니다"/>
-                    <input type="text" v-model="mail" placeholder="이메일주소 입력합니다"/>
-                    <input type="text" v-model="phone" placeholder="폰번호 입력합니다"/>
-                    <input type="text" v-model="objective" placeholder="희망직종 입력합니다"/>
-                    <input type="text" v-model="enterprise" placeholder="희망기업 입력합니다"/>
+                    <input type="text" size='50px' v-model="id" placeholder="아이디를 입력합니다" disabled/>
+                    <div id="c">
+                    <input type="password" size='50px' v-model="pass" placeholder="비밀번호를 입력합니다"/>
+                    </div>
+                    <div id="c">
+                    <input type="text" size='50px' v-model="grade" placeholder="학년을 입력합니다" disabled/>
+                    </div>
+                    <input type="text" size='50px' v-model="name" placeholder="이름을 입력합니다"/>
+                    <div id="c">
+                    <input type="text" size='50px' v-model="sex" placeholder="성별을 입력합니다"/>
+                    </div>
+                    <input type="text" size='50px' v-model="mail" placeholder="이메일주소 입력합니다"/>
+                    <div id="c">
+                    <input type="text" size='50px' v-model="phone" placeholder="폰번호 입력합니다"/>
+                    </div>
+                    <input type="text" size='50px' v-model="objective" placeholder="희망직종 입력합니다"/>
+                    <input type="text" size='50px' v-model="enterprise" placeholder="희망기업 입력합니다"/>
                     <button type="submit" v-on:submit.prevent="updateuser" @click="updateuser">회원수정</button>
                 </div>
             </form>
@@ -36,6 +45,7 @@
                 id: '',
                 pass: '',
                 name: '',
+                grade:'',
                 sex: '',
                 mail: '',
                 phone: '',
@@ -50,6 +60,7 @@
             this.id = user.data.data.id
             this.pass=user.data.data.pass
             this.name = user.data.data.name
+            this.grade =user.data.data.grade
             this.sex = user.data.data.sex
             this.phone = user.data.data.phone
             this.objective = user.data.data.objective
@@ -67,9 +78,10 @@
                 event.preventDefault();
                 var url = "http://49.50.166.108:4000/api/user";
                 var params = new URLSearchParams();
-                params.append('id', this.id); //모든컬럼이다 선언되야 수정이됨 아이디를 무조건바꿔야바낌..
-                params.append('pass', this.pass);//선택한값만 바꿀수있도록해야함
+                params.append('id', this.id); 
+                params.append('pass', this.pass);
                 params.append('name', this.name);
+                //params.append('grade', this.grade);
                 params.append('sex', this.sex);
                 params.append('mail', this.mail);
                 params.append('phone', this.phone);
@@ -83,7 +95,7 @@
                         console.log(response);
                     })
                     .catch(err => {
-                        alert("실패.")
+                        alert(err.response.data.msg)
                         console.log(err)
                     });
             },

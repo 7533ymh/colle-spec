@@ -62,9 +62,13 @@
             
             <div>
               <b-table responsive="sm" striped :fields="fields" hover :items="myproject" @row-clicked="pjclick" >
-                    <template #cell(down)="row">
-        <b-button size="sm" @click="download(row)" class="mr-2">
-          내려받기
+                    <template #cell(view)="row">
+                        
+        <!-- <b-button size="sm" @click="imageview(row)" class="mr-2">
+          이미지보기
+        </b-button> -->
+        <b-button size="sm" @click="row.toggleDetails" class="mr-2">
+          {{ row.detailsShowing ? 'Hide' : 'Show'}}
         </b-button>
                     </template>
                     <template #cell(edit&Del)="row">
@@ -76,11 +80,34 @@
         </b-button>
        
                     </template>
+
+        <template #row-details="row">
+        <b-card>
+          <b-row class="mb-2">
+            <b-col sm="3" class="text-sm-right"><b>title:</b></b-col>
+            <b-col>{{ row.item.title }}</b-col>
+          </b-row>
+
+          <b-row class="mb-2">
+            <b-col sm="3" class="text-sm-right"><b>content:</b></b-col>
+            <b-col>{{ row.item.content }}</b-col>
+          </b-row>
+
+          <b-row class="mb-2">
+            <b-col sm="3" class="text-sm-right"><b>img:</b></b-col>
+            <!-- {{row.item.project_imgList[0].filepath}} -->
+            <b-col><img src="../assets/logo.png" alt=""></b-col>
+          </b-row>
+
+          <b-button size="sm" @click="row.toggleDetails">Hide Details</b-button>
+        </b-card>
+      </template>
                     
               </b-table>             
               </div> 
             <b-card class="mt-3" header="Form Data Result">
                 <pre class="m-0">{{ project }}</pre>
+                        
             </b-card>
         </div>
 </template>
@@ -102,11 +129,12 @@ export default {
                     end_date:'',
                     files:[]
                 },
-                fields:['title','content','score','success','start_date','end_date','filename','down','edit&Del'],
+                fields:['title','content','score','success','start_date','end_date','filename','view','edit&Del'],
                 
                 myproject:[{}],
                 filename:[],
                 filelist:[],
+                fileimg:[{}],
                 
                 
                 show:true
@@ -117,6 +145,7 @@ export default {
                     .then(get=>{
                     for(var i=0; i<get.data.list.length; i++){
                     this.myproject.filename=get.data.list[i].project_imgList
+                    this.fileimg=get.data.list[i].project_imgList
                     }
                     this.myproject=get.data.list
                 })
@@ -243,38 +272,14 @@ export default {
                     alert(err.response.data.msg)
                 })
             },
-            download(item,index,e){
-                let idxx=item.item.idx
-                console.log('idxx: ',idxx)
-                for (var i = 0; i < item.item.project_imgList.length; i++){ 
-                this.filelist=item.item.project_imgList[i].idx
+            imageview(item,index,e){
+                console.log('item:::',item)
+                for (var i = 0; i < item.item.project_imgList.length; i++) {
+                console.log('rrr',item.item.project_imgList[i].filepath)
+                this.imgsrc[i]=item.item.project_imgList[i].filepath
                 }
-                axios.get(`${url}/project_img/download`,{params:{
-                    idx:idxx,
-                    //idx:this.filelist,
-                    responseType: "blob",
-                    headers: { responseType: 'arraybuffer' }
-                }})
-                .then(res=>{
-                     console.log(res)
-                    const url = window.URL.createObjectURL(new Blob([res.data]));
-                    const link = document.createElement('a');
-                    const contentDisposition = res.headers['content-disposition']; // 파일 이름
-                    let fileName = 'unknown';
-                    if (contentDisposition) {
-                    const [ fileNameMatch ] = contentDisposition.split(';').filter(str => str.includes('filename'));
-                    if (fileNameMatch)
-                        [ , fileName ] = fileNameMatch.split('=');
-                    }
-                    link.href = url;
-                    link.setAttribute('download', `${fileName}`);
-                    link.style.cssText = 'display:none';
-                    document.body.appendChild(link);
-                    link.click();
-                    link.remove();
-                }).catch(err=>{
-                    alert(err)
-                })
+                console.log('imgsrc:',this.imgsrc)
+                
             },
             
 

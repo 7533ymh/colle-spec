@@ -15,6 +15,11 @@
     <router-link to="/certificate">Certificate</router-link>
     <router-link to="/experience">Experience</router-link>
     <router-link to="/project">Project</router-link>
+    <router-link to="/board/alllist">전체목록</router-link>
+
+    <router-link to="/board/program">프로그램목록</router-link>
+    <router-link to="/board/list">게시판목록</router-link>
+    <router-link to="/board/write">게시판작성</router-link>
 
 
     

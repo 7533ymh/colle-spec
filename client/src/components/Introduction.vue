@@ -19,7 +19,7 @@
               <b-table responsive="sm" :fields ="fields" striped hover :items="myintroduction" @row-clicked="click">
                   <template #cell(down)="row">
                     <b-button size="sm" @click="download(row)" class="mr-2">
-                    내려받기
+                        다운
                     </b-button>
                 
                 </template>
@@ -80,19 +80,27 @@
             },
             download(item,index,e){
                 let idxx=item.item.idx
+                let name=item.item.origfilename
+                //let file=item.item
                 axios.get(`${url}/introduction/download`,{params:{
-                    idx:idxx,
-                    responseType: "blob",
-                }})
+                    idx:idxx
+                }
+                ,responseType: 'blob' }
+                  
+              )
                 .then(res=>{
-                     console.log(res)
-                    const url = window.URL.createObjectURL(new Blob([res.data], { type: 'application/pdf' }));
+                    console.log('res:',res)
+                    console.log('name',this.myintroduction)
+                    //const name=name
+                    const downurl = window.URL.createObjectURL(new Blob([res.data]));
                     const link = document.createElement('a');
-                    link.href = url;
-                    link.setAttribute('download', 'filename');
+                    link.href = downurl;
+                    link.setAttribute('download', name);
                     document.body.appendChild(link);
                     link.click();
-                     
+                    link.remove();
+                    console.log('url:', downurl)
+                    console.log('link:', link)
                 }).catch(err=>{
                     alert(err)
                 })
