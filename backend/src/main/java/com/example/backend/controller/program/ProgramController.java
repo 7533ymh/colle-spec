@@ -30,7 +30,7 @@ public class ProgramController {
 
     @ApiOperation(value = "프로그램 조회", notes = "프로그램 정보를 조회한다.")
     @GetMapping(value = "/program")
-    public ListResult<Program> showProgram(@ApiParam(value = "프로그램 구분(공모전, 대회, 프로그램, 봉사활동, 기타)", required = true) @RequestParam String division) {
+    public ListResult<Program> showProgram(@ApiParam(value = "프로그램 구분(공모전&대회, 프로그램, 봉사활동, 기타)", required = true) @RequestParam String division) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String AuthId = authentication.getName();
