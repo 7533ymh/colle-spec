@@ -1,7 +1,6 @@
 package com.example.backend.controller.rank;
 
 import com.example.backend.domain.RankResult;
-import com.example.backend.response.CommonResult;
 import com.example.backend.response.SingleResult;
 import com.example.backend.service.rank.RankService;
 import com.example.backend.service.response.ResponseService;
@@ -29,16 +28,13 @@ public class RankController {
 
     @ApiOperation(value = "전체회원 랭크 ", notes = "랭크정보(전체회원기준)를 데이터베이스에 업데이트한다.")
     @GetMapping("/rank")
-    public CommonResult rankAll() {
+    public SingleResult<RankResult> rankAll() {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String AuthId = authentication.getName();
         int idx = userService.findIdxById(AuthId);
 
-        rankService.change_Rank_All(idx);
-
-
-        return responseService.getSuccessResultMsg("랭크정보가 업데이트되었습니다.");
+        return responseService.getSingleResult(rankService.change_Rank_All(idx));
 
     }
 
