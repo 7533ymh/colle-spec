@@ -49,12 +49,17 @@ public class IntroductionHandler {
                 } else {
                     if (contentType.contains("application/pdf")) {
                         originalFileExtension = ".pdf";
-                    } else if (contentType.contains("application/vnd.hancom.hwp")) {
+                    } else if (contentType.contains("application/octet-stream")) {
                         originalFileExtension = ".hwp";
+                    }else if (contentType.contains("application/msword")) {
+                        originalFileExtension = ".docx";
+                    }
+                    else if (contentType.contains("application/vnd.ms-powerpoint")) {
+                        originalFileExtension = ".pptx";
                     }
                     // 다른 파일 명이면 아무 일 하지 않는다
                     else {
-                        throw new CNotRightFileException("PDF,HWP파일이 아닙니다. 다시 확인해주세요.");
+                        throw new CNotRightFileException("PDF,HWP,DOC,PPT 파일이 아닙니다. 다시 확인해주세요.");
                     }
                     // 각 이름은 겹치면 안되므로 나노 초까지 동원하여 지정
                     String new_file_name = Long.toString(System.nanoTime()) + originalFileExtension;

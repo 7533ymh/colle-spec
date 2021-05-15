@@ -32,7 +32,7 @@ public class SignController {
 
     //로그인
     @ApiOperation(value = "로그인", notes = "아이디와 비밀번호를 입력하면 회원 정보를 반환해준다.")
-    @GetMapping("/signin")
+    @PostMapping("/signin")
     public SingleResult<String> signin(@ApiParam(value = "회원 아이디(id) ", required = true) @RequestParam String id,
                                        @ApiParam(value = "회원 비밀번호(pass) ", required = true) @RequestParam String pass) {
 

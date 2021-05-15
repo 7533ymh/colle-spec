@@ -4,9 +4,9 @@ import com.example.backend.advice.exception.CNotFoundInfoByIdxException;
 import com.example.backend.advice.exception.CNotFoundInfoByUserException;
 import com.example.backend.advice.exception.CNotHaveAccessInfoException;
 import com.example.backend.domain.Career;
-import com.example.backend.domain.User;
+import com.example.backend.domain.Score;
 import com.example.backend.mapper.collspec.CareerMapper;
-import com.example.backend.mapper.collspec.UserMapper;
+import com.example.backend.mapper.collspec.RankMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,14 +29,14 @@ class CareerServiceTest {
     CareerMapper careerMapper;
 
     @Autowired
-    UserMapper userMapper;
+    RankMapper rankMapper;
 
     @Test
     void save() {
 
         //given
         Career career = new Career();
-        career.setUser_idx(25);
+        career.setUser_idx(37);
         career.setDivision("aaa");
         career.setCompany("aaa");
         career.setDepartment("aaa");
@@ -44,7 +44,7 @@ class CareerServiceTest {
         career.setEnd_date(Date.valueOf("2017-05-01"));
         career.setContent("aaa");
 
-        User finduser = userMapper.findByIdx(career.getUser_idx()).get();
+        Score finduser = rankMapper.testFindScore(career.getUser_idx());
 
         //when
         careerService.save(career);
@@ -53,7 +53,7 @@ class CareerServiceTest {
         Career findCareer = careerMapper.findByIdx(career.getIdx()).get();
         assertThat(career.getContent()).isEqualTo(findCareer.getContent());
 
-        User checkuser = userMapper.findByIdx(career.getUser_idx()).get();
+        Score checkuser = rankMapper.testFindScore(career.getUser_idx());
         assertThat(finduser.getAward_score() + findCareer.getScore()).isEqualTo(checkuser.getCareer_score());
         assertThat(finduser.getScore() + findCareer.getScore()).isEqualTo(checkuser.getScore());
 
@@ -65,7 +65,7 @@ class CareerServiceTest {
 
         //given
         Career career = new Career();
-        career.setUser_idx(25);
+        career.setUser_idx(37);
         career.setDivision("aaa");
         career.setCompany("aaa");
         career.setDepartment("aaa");
@@ -89,7 +89,7 @@ class CareerServiceTest {
 
         //given
         Career career = new Career();
-        career.setUser_idx(25);
+        career.setUser_idx(37);
         career.setDivision("aaa");
         career.setCompany("aaa");
         career.setDepartment("aaa");
@@ -98,7 +98,7 @@ class CareerServiceTest {
         career.setContent("aaa");
 
         Career changeCareer = new Career();
-        changeCareer.setUser_idx(25);
+        changeCareer.setUser_idx(37);
         changeCareer.setDivision("abc");
         changeCareer.setCompany("abc");
         changeCareer.setDepartment("abc");
@@ -106,7 +106,8 @@ class CareerServiceTest {
         changeCareer.setEnd_date(Date.valueOf("2018-01-01"));
         changeCareer.setContent("abc");
 
-        User finduser = userMapper.findByIdx(career.getUser_idx()).get();
+        Score finduser = rankMapper.testFindScore(career.getUser_idx());
+
 
         //when
         careerService.save(career);
@@ -117,7 +118,7 @@ class CareerServiceTest {
         Career findCareer = careerMapper.findByIdx(career.getIdx()).get();
         assertThat("abc").isEqualTo(findCareer.getContent());
 
-        User checkuser = userMapper.findByIdx(career.getUser_idx()).get();
+        Score checkuser = rankMapper.testFindScore(career.getUser_idx());
         assertThat(finduser.getAward_score() + findCareer.getScore()).isEqualTo(checkuser.getCareer_score());
         assertThat(finduser.getScore() + findCareer.getScore()).isEqualTo(checkuser.getScore());
 
@@ -129,7 +130,7 @@ class CareerServiceTest {
 
         //given
         Career career = new Career();
-        career.setUser_idx(25);
+        career.setUser_idx(37);
         career.setDivision("aaa");
         career.setCompany("aaa");
         career.setDepartment("aaa");
@@ -138,7 +139,7 @@ class CareerServiceTest {
         career.setContent("aaa");
 
         Career changeCareer = new Career();
-        changeCareer.setUser_idx(25);
+        changeCareer.setUser_idx(37);
         changeCareer.setDivision("abc");
         changeCareer.setCompany("abc");
         changeCareer.setDepartment("abc");
@@ -148,7 +149,7 @@ class CareerServiceTest {
 
         //when
         careerService.save(career);
-        User finduser = userMapper.findByIdx(career.getUser_idx()).get();
+        Score finduser = rankMapper.testFindScore(career.getUser_idx());
         careerService.save(changeCareer);
         careerService.delete(changeCareer.getIdx(), changeCareer.getUser_idx());
 
@@ -156,7 +157,7 @@ class CareerServiceTest {
         List<Career> careerList = careerService.findByUserIdx(career.getUser_idx());
         assertThat(1).isEqualTo(careerList.size());
 
-        User checkuser = userMapper.findByIdx(career.getUser_idx()).get();
+        Score checkuser = rankMapper.testFindScore(career.getUser_idx());
         assertThat(finduser.getAward_score()).isEqualTo(checkuser.getAward_score());
         assertThat(finduser.getScore()).isEqualTo(checkuser.getScore());
 
@@ -170,7 +171,7 @@ class CareerServiceTest {
 
 
         Career career1 = new Career();
-        career1.setUser_idx(25);
+        career1.setUser_idx(37);
         career1.setDivision("aaa");
         career1.setCompany("aaa");
         career1.setDepartment("aaa");
@@ -179,7 +180,7 @@ class CareerServiceTest {
         career1.setEnd_date(Date.valueOf("2017-02-01"));
 
         Career career2 = new Career();
-        career2.setUser_idx(25);
+        career2.setUser_idx(37);
         career2.setDivision("aaa");
         career2.setCompany("aaa");
         career2.setDepartment("aaa");
@@ -188,7 +189,7 @@ class CareerServiceTest {
         career2.setEnd_date(Date.valueOf("2017-04-01"));
 
         Career career3 = new Career();
-        career3.setUser_idx(25);
+        career3.setUser_idx(37);
         career3.setDivision("aaa");
         career3.setCompany("aaa");
         career3.setDepartment("aaa");
@@ -197,7 +198,7 @@ class CareerServiceTest {
         career3.setEnd_date(Date.valueOf("2017-07-01"));
 
         Career career4 = new Career();
-        career4.setUser_idx(25);
+        career4.setUser_idx(37);
         career4.setDivision("aaa");
         career4.setCompany("aaa");
         career4.setDepartment("aaa");
@@ -225,7 +226,7 @@ class CareerServiceTest {
     void checkCareerUserIdx() {
 
         //given
-        int user_idx = 25;
+        int user_idx = 37;
 
 
         //when
@@ -242,7 +243,7 @@ class CareerServiceTest {
 
         //given
         Career career = new Career();
-        career.setUser_idx(25);
+        career.setUser_idx(37);
         career.setDivision("aaa");
         career.setCompany("aaa");
         career.setDepartment("aaa");
@@ -253,7 +254,7 @@ class CareerServiceTest {
         //when
         careerService.save(career);
         CNotHaveAccessInfoException e = assertThrows(CNotHaveAccessInfoException.class , () -> careerService.delete(career.getIdx(),6));
-        CNotFoundInfoByIdxException ex = assertThrows(CNotFoundInfoByIdxException.class , () -> careerService.delete(222,25));
+        CNotFoundInfoByIdxException ex = assertThrows(CNotFoundInfoByIdxException.class , () -> careerService.delete(222,37));
 
 
         //then

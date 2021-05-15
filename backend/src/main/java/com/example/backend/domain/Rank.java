@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Rank {
 
-    private int idx;
+    private int user_idx; //user_idx
     private double award_rank;
     private double career_rank;
     private double certificate_rank;

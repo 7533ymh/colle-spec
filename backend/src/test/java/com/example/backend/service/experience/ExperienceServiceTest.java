@@ -4,9 +4,9 @@ import com.example.backend.advice.exception.CNotFoundInfoByIdxException;
 import com.example.backend.advice.exception.CNotFoundInfoByUserException;
 import com.example.backend.advice.exception.CNotHaveAccessInfoException;
 import com.example.backend.domain.Experience;
-import com.example.backend.domain.User;
+import com.example.backend.domain.Score;
 import com.example.backend.mapper.collspec.ExperienceMapper;
-import com.example.backend.mapper.collspec.UserMapper;
+import com.example.backend.mapper.collspec.RankMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class ExperienceServiceTest {
 
     @Autowired
-    UserMapper userMapper;
+    RankMapper rankMapper;
 
     @Autowired
     ExperienceService experienceService;
@@ -35,13 +35,13 @@ class ExperienceServiceTest {
 
         //given
         Experience test = new Experience();
-        test.setUser_idx(25);
+        test.setUser_idx(37);
         test.setCountry("abc");
         test.setStart_date(Date.valueOf("2017-02-01"));
         test.setEnd_date(Date.valueOf("2017-05-01"));
         test.setContent("abc");
 
-        User finduser = userMapper.findByIdx(test.getUser_idx()).get();
+        Score finduser =rankMapper.testFindScore(test.getUser_idx());
 
 
         //when
@@ -50,7 +50,7 @@ class ExperienceServiceTest {
         //then
         assertThat(test.getContent()).isEqualTo(experienceMapper.findByIdx(test.getIdx()).get().getContent());
 
-        User checkuser = userMapper.findByIdx(test.getUser_idx()).get();
+        Score checkuser = rankMapper.testFindScore(test.getUser_idx());
         assertThat(finduser.getExperience_score() + experienceMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getExperience_score());
         assertThat(finduser.getScore() + experienceMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getScore());
 
@@ -63,7 +63,7 @@ class ExperienceServiceTest {
 
         //given
         Experience test = new Experience();
-        test.setUser_idx(25);
+        test.setUser_idx(37);
         test.setCountry("abc");
         test.setStart_date(Date.valueOf("2017-02-01"));
         test.setEnd_date(Date.valueOf("2017-05-01"));
@@ -81,7 +81,7 @@ class ExperienceServiceTest {
     void modify() {
         //given
         Experience test = new Experience();
-        test.setUser_idx(25);
+        test.setUser_idx(37);
         test.setCountry("abc");
         test.setStart_date(Date.valueOf("2017-02-01"));
         test.setEnd_date(Date.valueOf("2017-05-01"));
@@ -89,13 +89,13 @@ class ExperienceServiceTest {
 
 
         Experience change = new Experience();
-        change.setUser_idx(25);
+        change.setUser_idx(37);
         change.setCountry("abcde");
         change.setStart_date(Date.valueOf("2017-05-01"));
         change.setEnd_date(Date.valueOf("2017-07-01"));
         change.setContent("abcde");
 
-        User finduser = userMapper.findByIdx(test.getUser_idx()).get();
+        Score finduser = rankMapper.testFindScore(test.getUser_idx());
 
         //when
         experienceService.save(test);
@@ -105,7 +105,7 @@ class ExperienceServiceTest {
         //then
         assertThat("abcde").isEqualTo(experienceMapper.findByIdx(test.getIdx()).get().getContent());
 
-        User checkuser = userMapper.findByIdx(test.getUser_idx()).get();
+        Score checkuser = rankMapper.testFindScore(test.getUser_idx());
         assertThat(finduser.getExperience_score() + experienceMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getExperience_score());
         assertThat(finduser.getScore() + experienceMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getScore());
 
@@ -116,7 +116,7 @@ class ExperienceServiceTest {
 
         //given
         Experience test = new Experience();
-        test.setUser_idx(25);
+        test.setUser_idx(37);
         test.setCountry("abc");
         test.setStart_date(Date.valueOf("2017-02-01"));
         test.setEnd_date(Date.valueOf("2017-05-01"));
@@ -124,7 +124,7 @@ class ExperienceServiceTest {
 
 
         Experience change = new Experience();
-        change.setUser_idx(25);
+        change.setUser_idx(37);
         change.setCountry("abcde");
         change.setStart_date(Date.valueOf("2017-05-01"));
         change.setEnd_date(Date.valueOf("2017-07-01"));
@@ -132,14 +132,14 @@ class ExperienceServiceTest {
 
         //when
         experienceService.save(test);
-        User finduser = userMapper.findByIdx(test.getUser_idx()).get();
+        Score finduser = rankMapper.testFindScore(test.getUser_idx());
         experienceService.save(change);
         experienceService.delete(change.getIdx(), change.getUser_idx());
 
         //then
         assertThat(1).isEqualTo(experienceService.findByUserIdx(test.getUser_idx()).size());
 
-        User checkuser = userMapper.findByIdx(test.getUser_idx()).get();
+        Score checkuser = rankMapper.testFindScore(test.getUser_idx());
         assertThat(finduser.getExperience_score()).isEqualTo(checkuser.getExperience_score());
         assertThat(finduser.getScore()).isEqualTo(checkuser.getScore());
     }
@@ -148,28 +148,28 @@ class ExperienceServiceTest {
     void changetoNumber() {
 
         Experience test = new Experience();
-        test.setUser_idx(25);
+        test.setUser_idx(37);
         test.setCountry("abc");
         test.setStart_date(Date.valueOf("2017-01-01"));
         test.setEnd_date(Date.valueOf("2017-02-01"));
         test.setContent("abc");
 
         Experience test2 = new Experience();
-        test2.setUser_idx(25);
+        test2.setUser_idx(37);
         test2.setCountry("abc");
         test2.setStart_date(Date.valueOf("2017-01-01"));
         test2.setEnd_date(Date.valueOf("2017-04-01"));
         test2.setContent("abc");
 
         Experience test3 = new Experience();
-        test3.setUser_idx(25);
+        test3.setUser_idx(37);
         test3.setCountry("abc");
         test3.setStart_date(Date.valueOf("2017-01-01"));
         test3.setEnd_date(Date.valueOf("2017-07-01"));
         test3.setContent("abc");
 
         Experience test4 = new Experience();
-        test4.setUser_idx(25);
+        test4.setUser_idx(37);
         test4.setCountry("abc");
         test4.setStart_date(Date.valueOf("2017-01-01"));
         test4.setEnd_date(Date.valueOf("2018-01-01"));
@@ -196,7 +196,7 @@ class ExperienceServiceTest {
     void checkExperienceUserIdx() {
 
         //given
-        int user_idx = 25;
+        int user_idx = 37;
 
 
         //when
@@ -213,7 +213,7 @@ class ExperienceServiceTest {
     void checkAll() {
         //given
         Experience test = new Experience();
-        test.setUser_idx(25);
+        test.setUser_idx(37);
         test.setCountry("abc");
         test.setStart_date(Date.valueOf("2017-02-01"));
         test.setEnd_date(Date.valueOf("2017-05-01"));
@@ -222,7 +222,7 @@ class ExperienceServiceTest {
         //when
         experienceService.save(test);
         CNotHaveAccessInfoException e = assertThrows(CNotHaveAccessInfoException.class , () -> experienceService.delete(test.getIdx(),14));
-        CNotFoundInfoByIdxException ex = assertThrows(CNotFoundInfoByIdxException.class , () -> experienceService.delete(222,25));
+        CNotFoundInfoByIdxException ex = assertThrows(CNotFoundInfoByIdxException.class , () -> experienceService.delete(222,37));
 
 
         //then

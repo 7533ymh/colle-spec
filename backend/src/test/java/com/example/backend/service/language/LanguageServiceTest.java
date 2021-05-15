@@ -5,9 +5,9 @@ import com.example.backend.advice.exception.CNotFoundInfoByIdxException;
 import com.example.backend.advice.exception.CNotFoundInfoByUserException;
 import com.example.backend.advice.exception.CNotHaveAccessInfoException;
 import com.example.backend.domain.Language;
-import com.example.backend.domain.User;
+import com.example.backend.domain.Score;
 import com.example.backend.mapper.collspec.LanguageMapper;
-import com.example.backend.mapper.collspec.UserMapper;
+import com.example.backend.mapper.collspec.RankMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class LanguageServiceTest {
 
     @Autowired
-    UserMapper userMapper;
+    RankMapper rankMapper;
 
     @Autowired
     LanguageService languageService;
@@ -36,14 +36,14 @@ class LanguageServiceTest {
 
         //given
         Language test = new Language();
-        test.setUser_idx(25);
+        test.setUser_idx(37);
         test.setDivsion("abc");
         test.setExam("TOEIC");
         test.setExam_score("800");
         test.setDate(Date.valueOf("2017-05-01"));
         test.setContent("abc");
 
-        User finduser = userMapper.findByIdx(test.getUser_idx()).get();
+        Score finduser = rankMapper.testFindScore(test.getUser_idx());
 
         //when
         languageService.save(test);
@@ -51,7 +51,7 @@ class LanguageServiceTest {
         //then
         assertThat(test.getExam()).isEqualTo(languageMapper.findByIdx(test.getIdx()).get().getExam());
 
-        User checkuser = userMapper.findByIdx(test.getUser_idx()).get();
+        Score checkuser = rankMapper.testFindScore(test.getUser_idx());
         assertThat(finduser.getLanguage_score() + languageMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getLanguage_score());
         assertThat(finduser.getScore() + languageMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getScore());
 
@@ -63,14 +63,14 @@ class LanguageServiceTest {
 
         //given
         Language test = new Language();
-        test.setUser_idx(25);
+        test.setUser_idx(37);
         test.setDivsion("abc");
         test.setExam("TOEIC");
         test.setExam_score("800");
         test.setDate(Date.valueOf("2017-05-01"));
         test.setContent("abc");
 
-        User finduser = userMapper.findByIdx(test.getUser_idx()).get();
+        Score finduser = rankMapper.testFindScore(test.getUser_idx());
 
         //when
         languageService.save(test);
@@ -84,7 +84,7 @@ class LanguageServiceTest {
     void modify() {
         //given
         Language test = new Language();
-        test.setUser_idx(25);
+        test.setUser_idx(37);
         test.setDivsion("abc");
         test.setExam("TOEIC");
         test.setExam_score("800");
@@ -92,14 +92,14 @@ class LanguageServiceTest {
         test.setContent("abc");
 
         Language change = new Language();
-        change.setUser_idx(25);
+        change.setUser_idx(37);
         change.setDivsion("abc");
-        change.setExam("TOEFL Reading");
+        change.setExam("TOEIC");
         change.setExam_score("24");
         change.setDate(Date.valueOf("2017-07-01"));
         change.setContent("abcde");
 
-        User finduser = userMapper.findByIdx(test.getUser_idx()).get();
+        Score finduser = rankMapper.testFindScore(test.getUser_idx());
 
         //when
         languageService.save(test);
@@ -107,9 +107,9 @@ class LanguageServiceTest {
         languageService.modify(change);
 
         //then
-        assertThat("TOEFL Reading").isEqualTo(languageMapper.findByIdx(test.getIdx()).get().getExam());
+        assertThat("TOEIC").isEqualTo(languageMapper.findByIdx(test.getIdx()).get().getExam());
 
-        User checkuser = userMapper.findByIdx(test.getUser_idx()).get();
+        Score checkuser = rankMapper.testFindScore(test.getUser_idx());
         assertThat(finduser.getLanguage_score() + languageMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getLanguage_score());
         assertThat(finduser.getScore() + languageMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getScore());
 
@@ -121,7 +121,7 @@ class LanguageServiceTest {
 
         //given
         Language test = new Language();
-        test.setUser_idx(25);
+        test.setUser_idx(37);
         test.setDivsion("abc");
         test.setExam("TOEIC");
         test.setExam_score("800");
@@ -129,7 +129,7 @@ class LanguageServiceTest {
         test.setContent("abc");
 
         Language change = new Language();
-        change.setUser_idx(25);
+        change.setUser_idx(37);
         change.setDivsion("abc");
         change.setExam("TOEFL Reading");
         change.setExam_score("24");
@@ -138,14 +138,14 @@ class LanguageServiceTest {
 
         //when
         languageService.save(test);
-        User finduser = userMapper.findByIdx(test.getUser_idx()).get();
+        Score finduser = rankMapper.testFindScore(test.getUser_idx());
         languageService.save(change);
         languageService.delete(change.getIdx(), change.getUser_idx());
 
         //then
         assertThat(1).isEqualTo(languageService.findByUserIdx(test.getUser_idx()).size());
 
-        User checkuser = userMapper.findByIdx(test.getUser_idx()).get();
+        Score checkuser = rankMapper.testFindScore(test.getUser_idx());
         assertThat(finduser.getLanguage_score()).isEqualTo(checkuser.getLanguage_score());
         assertThat(finduser.getScore()).isEqualTo(checkuser.getScore());
 
@@ -157,7 +157,7 @@ class LanguageServiceTest {
     void changetoNumber() {
 
         Language test = new Language();
-        test.setUser_idx(25);
+        test.setUser_idx(37);
         test.setDivsion("abc");
         test.setExam("TOEIC");
         test.setExam_score("800");
@@ -165,7 +165,7 @@ class LanguageServiceTest {
         test.setContent("abc");
 
         Language test2 = new Language();
-        test2.setUser_idx(25);
+        test2.setUser_idx(37);
         test2.setDivsion("abc");
         test2.setExam("TOEIC");
         test2.setExam_score("450");
@@ -173,7 +173,7 @@ class LanguageServiceTest {
         test2.setContent("abc");
 
         Language test3 = new Language();
-        test3.setUser_idx(25);
+        test3.setUser_idx(37);
         test3.setDivsion("abc");
         test3.setExam("TOEFL Reading");
         test3.setExam_score("24");
@@ -181,7 +181,7 @@ class LanguageServiceTest {
         test3.setContent("abc");
 
         Language test4 = new Language();
-        test4.setUser_idx(25);
+        test4.setUser_idx(37);
         test4.setDivsion("abc");
         test4.setExam("TOEFL Reading");
         test4.setExam_score("17");
@@ -189,15 +189,15 @@ class LanguageServiceTest {
         test4.setContent("abc");
 
         Language test5 = new Language();
-        test5.setUser_idx(25);
+        test5.setUser_idx(37);
         test5.setDivsion("abc");
         test5.setExam("TOEFL Listening");
-        test5.setExam_score("25");
+        test5.setExam_score("37");
         test5.setDate(Date.valueOf("2017-05-01"));
         test5.setContent("abc");
 
         Language test6 = new Language();
-        test6.setUser_idx(25);
+        test6.setUser_idx(37);
         test6.setDivsion("abc");
         test6.setExam("TOEFL Listening");
         test6.setExam_score("12");
@@ -205,7 +205,7 @@ class LanguageServiceTest {
         test6.setContent("abc");
 
         Language test7 = new Language();
-        test7.setUser_idx(25);
+        test7.setUser_idx(37);
         test7.setDivsion("abc");
         test7.setExam("TOEFL Speaking");
         test7.setExam_score("22");
@@ -213,7 +213,7 @@ class LanguageServiceTest {
         test7.setContent("abc");
 
         Language test8 = new Language();
-        test8.setUser_idx(25);
+        test8.setUser_idx(37);
         test8.setDivsion("abc");
         test8.setExam("TOEFL Speaking");
         test8.setExam_score("13");
@@ -221,7 +221,7 @@ class LanguageServiceTest {
         test8.setContent("abc");
 
         Language test9 = new Language();
-        test9.setUser_idx(25);
+        test9.setUser_idx(37);
         test9.setDivsion("abc");
         test9.setExam("TOEFL Writing");
         test9.setExam_score("15");
@@ -229,7 +229,7 @@ class LanguageServiceTest {
         test9.setContent("abc");
 
         Language test10 = new Language();
-        test10.setUser_idx(25);
+        test10.setUser_idx(37);
         test10.setDivsion("abc");
         test10.setExam("TEPS");
         test10.setExam_score("550");
@@ -237,7 +237,7 @@ class LanguageServiceTest {
         test10.setContent("abc");
 
         Language test11 = new Language();
-        test11.setUser_idx(25);
+        test11.setUser_idx(37);
         test11.setDivsion("abc");
         test11.setExam("OPIC");
         test11.setExam_score("IM1");
@@ -245,7 +245,7 @@ class LanguageServiceTest {
         test11.setContent("abc");
 
         Language test12 = new Language();
-        test12.setUser_idx(25);
+        test12.setUser_idx(37);
         test12.setDivsion("abc");
         test12.setExam("ILPT");
         test12.setExam_score("N2");
@@ -253,7 +253,7 @@ class LanguageServiceTest {
         test12.setContent("abc");
 
         Language test13 = new Language();
-        test13.setUser_idx(25);
+        test13.setUser_idx(37);
         test13.setDivsion("abc");
         test13.setExam("HSK");
         test13.setExam_score("4급");
@@ -292,7 +292,7 @@ class LanguageServiceTest {
         assertThat(80).isEqualTo(languageMapper.findByIdx(test12.getIdx()).get().getScore());
         assertThat(60).isEqualTo(languageMapper.findByIdx(test13.getIdx()).get().getScore());
 
-        User checkuser = userMapper.findByIdx(test.getUser_idx()).get();
+        Score checkuser = rankMapper.testFindScore(test.getUser_idx());
         assertThat(875).isEqualTo(checkuser.getScore());
 
     }
@@ -301,7 +301,7 @@ class LanguageServiceTest {
     void checkLanguageUserIdx() {
 
         //given
-        int user_idx = 25;
+        int user_idx = 37;
 
 
         //when
@@ -316,7 +316,7 @@ class LanguageServiceTest {
     void checkAll() {
 
         Language test = new Language();
-        test.setUser_idx(25);
+        test.setUser_idx(37);
         test.setDivsion("abc");
         test.setExam("TOEIC");
         test.setExam_score("800");
@@ -324,7 +324,7 @@ class LanguageServiceTest {
         test.setContent("abc");
 
         Language test2 = new Language();
-        test2.setUser_idx(25);
+        test2.setUser_idx(37);
         test2.setDivsion("abc");
         test2.setExam("TOEIC");
         test2.setExam_score("800");
@@ -334,7 +334,7 @@ class LanguageServiceTest {
         //when
         languageService.save(test);
         CNotHaveAccessInfoException e = assertThrows(CNotHaveAccessInfoException.class , () -> languageService.delete(test.getIdx(),14));
-        CNotFoundInfoByIdxException ex = assertThrows(CNotFoundInfoByIdxException.class , () -> languageService.delete(222,25));
+        CNotFoundInfoByIdxException ex = assertThrows(CNotFoundInfoByIdxException.class , () -> languageService.delete(222,37));
         CFindSameExamException ey = assertThrows(CFindSameExamException.class, () -> languageService.save(test2));
 
 

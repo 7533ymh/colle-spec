@@ -13,6 +13,9 @@ public interface GradeMapper {
     @Options(useGeneratedKeys = true, keyProperty = "grade.idx")
     int save(@Param("grade") Grade grade) ;
 
+    @Update("UPDATE score SET grade_score = #{score} WHERE user_idx = #{user_idx}")
+    void updateGrade(@Param("score") double score , @Param("user_idx") int user_idx );
+
     @Select("SELECT * FROM grade WHERE user_idx = #{user_idx} ORDER BY grade,semester ")
     List<Grade> findByUserIdx(@Param("user_idx") int user_idx);
 

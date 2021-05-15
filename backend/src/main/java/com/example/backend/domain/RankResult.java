@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 public class RankResult {
 
     private int idx;
+    private int user_idx;
+    private int division;
     private String award_rank;
     private String career_rank;
     private String certificate_rank;
