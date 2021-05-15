@@ -46,7 +46,7 @@ class LinkServiceTest {
 
         //given
         int appidx = 1;
-        int idx = 25;
+        int idx = 35;
 
 
         //when
@@ -69,7 +69,7 @@ class LinkServiceTest {
 
         //given
         int appidx = 1;
-        int idx = 23;
+        int idx = 35;
         Grade test = new Grade();
         test.setUser_idx(23);
         test.setGrade("1");
@@ -83,7 +83,7 @@ class LinkServiceTest {
 
         //then
 
-        assertThat(4).isEqualTo(gradeService.findByUserIdx(23).size());
+        assertThat(4).isEqualTo(gradeService.findByUserIdx(35).size());
 
 
     }

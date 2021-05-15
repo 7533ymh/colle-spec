@@ -41,6 +41,8 @@ public class LanguageService {
                 .ifPresent(m -> {
                     throw new CFindSameExamException();
                 });
+
+
     }
 
     public List<Language> findByUserIdx(int user_idx) {
@@ -62,7 +64,9 @@ public class LanguageService {
 
         checkAll(language.getIdx(), language.getUser_idx());
 
-        checkSameLanguage(language);
+        if (!languageMapper.findByIdx(language.getIdx()).get().getExam().equals(language.getExam())) {
+            checkSameLanguage(language);
+        }
 
         language.setScore(changetoNumber(language));
 

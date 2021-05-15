@@ -31,21 +31,16 @@ class ProgramServiceTest {
     void 프로그램조회(){
 
         //given
-        String division = "공모전";
+        String division = "공모전&대회";
 
         //when
         List<Program> programs = programService.findByDivision(division);
 
 
         //then
-        assertThat("2021-05-12~2021-05-13").isEqualTo(programs.get(1).getReceive_date());
+        assertThat(18).isEqualTo(programs.size());
 
-        /*String date = programs.get(1).getReceive_date();
 
-        String result2 = date.substring(0, date.indexOf("~"));
-        String result = date.substring(date.lastIndexOf("~")+1);
-
-        System.out.println(result2 + result);*/
 
     }
 

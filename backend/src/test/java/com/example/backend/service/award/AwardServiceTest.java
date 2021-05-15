@@ -4,9 +4,9 @@ import com.example.backend.advice.exception.CNotFoundInfoByIdxException;
 import com.example.backend.advice.exception.CNotFoundInfoByUserException;
 import com.example.backend.advice.exception.CNotHaveAccessInfoException;
 import com.example.backend.domain.Award;
-import com.example.backend.domain.User;
+import com.example.backend.domain.Score;
 import com.example.backend.mapper.collspec.AwardMapper;
-import com.example.backend.mapper.collspec.UserMapper;
+import com.example.backend.mapper.collspec.RankMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,21 +28,21 @@ class AwardServiceTest {
     AwardMapper awardMapper;
 
     @Autowired
-    UserMapper userMapper;
+    RankMapper rankMapper;
 
     @Test
     void 수상저장() {
 
         //given
         Award award = new Award();
-        award.setUser_idx(23);
+        award.setUser_idx(37);
         award.setTitle("abc");
         award.setAgency("abc");
         award.setDivision("은상");
         award.setYear(2017);
         award.setContent("블라블라");
 
-        User finduser = userMapper.findByIdx(award.getUser_idx()).get();
+        Score finduser = rankMapper.testFindScore(award.getUser_idx());
 
         //when
         awardService.save(award);
@@ -50,7 +50,8 @@ class AwardServiceTest {
         //then
         Award findaward = awardMapper.findByIdx(award.getIdx()).get();
         assertThat(award.getIdx()).isEqualTo(findaward.getIdx());
-        User checkuser = userMapper.findByIdx(award.getUser_idx()).get();
+
+        Score checkuser = rankMapper.testFindScore(award.getUser_idx());
         assertThat(finduser.getAward_score() + findaward.getScore()).isEqualTo(checkuser.getAward_score());
         assertThat(finduser.getScore() + findaward.getScore()).isEqualTo(checkuser.getScore());
 
@@ -61,7 +62,7 @@ class AwardServiceTest {
 
         //given
         Award award = new Award();
-        award.setUser_idx(6);
+        award.setUser_idx(37);
         award.setTitle("abc");
         award.setAgency("abc");
         award.setDivision("은상");
@@ -73,8 +74,7 @@ class AwardServiceTest {
         List<Award> awards = awardService.findByUserIdx(award.getUser_idx());
 
         //then
-        assertThat(awards.size()).isEqualTo(4);
-
+        assertThat(awards.size()).isEqualTo(1);
 
     }
 
@@ -83,7 +83,7 @@ class AwardServiceTest {
 
         //given
         Award award = new Award();
-        award.setUser_idx(6);
+        award.setUser_idx(37);
         award.setTitle("abc");
         award.setAgency("abc");
         award.setDivision("은상");
@@ -91,14 +91,14 @@ class AwardServiceTest {
         award.setContent("블라블라");
 
         Award changeAward = new Award();
-        changeAward.setUser_idx(6);
+        changeAward.setUser_idx(37);
         changeAward.setTitle("수정");
         changeAward.setAgency("수정");
         changeAward.setDivision("수정");
         changeAward.setYear(2017);
         changeAward.setContent("수정");
 
-        User finduser = userMapper.findByIdx(award.getUser_idx()).get();
+        Score finduser = rankMapper.testFindScore(award.getUser_idx());
 
         //when
         awardService.save(award);
@@ -109,7 +109,7 @@ class AwardServiceTest {
         Award findaward = awardMapper.findByIdx(award.getIdx()).get();
         assertThat(changeAward.getTitle()).isEqualTo(findaward.getTitle());
 
-        User checkuser = userMapper.findByIdx(award.getUser_idx()).get();
+        Score checkuser = rankMapper.testFindScore(award.getUser_idx());
         assertThat(finduser.getAward_score() + findaward.getScore()).isEqualTo(checkuser.getAward_score());
         assertThat(finduser.getScore() + findaward.getScore()).isEqualTo(checkuser.getScore());
     }
@@ -119,7 +119,7 @@ class AwardServiceTest {
 
         //given
         Award award = new Award();
-        award.setUser_idx(6);
+        award.setUser_idx(37);
         award.setTitle("abc");
         award.setAgency("abc");
         award.setDivision("은상");
@@ -127,7 +127,7 @@ class AwardServiceTest {
         award.setContent("블라블라");
 
         Award changeAward = new Award();
-        changeAward.setUser_idx(6);
+        changeAward.setUser_idx(37);
         changeAward.setTitle("수정");
         changeAward.setAgency("수정");
         changeAward.setDivision("수정");
@@ -137,7 +137,7 @@ class AwardServiceTest {
 
         //when
         awardService.save(award);
-        User finduser = userMapper.findByIdx(award.getUser_idx()).get();
+        Score finduser = rankMapper.testFindScore(award.getUser_idx());
         awardService.save(changeAward);
         awardService.delete(changeAward.getIdx(), changeAward.getUser_idx());
 
@@ -148,7 +148,7 @@ class AwardServiceTest {
         assertThat(awards.size()).isEqualTo(1);
 
 
-        User checkuser = userMapper.findByIdx(award.getUser_idx()).get();
+        Score checkuser = rankMapper.testFindScore(award.getUser_idx());
         assertThat(finduser.getAward_score()).isEqualTo(checkuser.getAward_score());
         assertThat(finduser.getScore()).isEqualTo(checkuser.getScore());
 
@@ -160,7 +160,7 @@ class AwardServiceTest {
 
         //given
         Award award = new Award();
-        award.setUser_idx(6);
+        award.setUser_idx(37);
         award.setTitle("abc");
         award.setAgency("abc");
         award.setDivision("동상");
@@ -168,7 +168,7 @@ class AwardServiceTest {
         award.setContent("블라블라");
 
         Award twice = new Award();
-        twice.setUser_idx(6);
+        twice.setUser_idx(37);
         twice.setTitle("abc");
         twice.setAgency("abc");
         twice.setDivision("장려상");
@@ -194,7 +194,7 @@ class AwardServiceTest {
     void checkAwardUserIdx() {
 
         //given
-        int user_idx = 25;
+        int user_idx = 37;
 
 
         //when
@@ -210,7 +210,7 @@ class AwardServiceTest {
 
         //given
         Award award = new Award();
-        award.setUser_idx(25);
+        award.setUser_idx(37);
         award.setTitle("abc");
         award.setAgency("abc");
         award.setDivision("은상");
@@ -220,7 +220,7 @@ class AwardServiceTest {
         //when
         awardService.save(award);
         CNotHaveAccessInfoException e = assertThrows(CNotHaveAccessInfoException.class , () -> awardService.delete(award.getIdx(),6));
-        CNotFoundInfoByIdxException ex = assertThrows(CNotFoundInfoByIdxException.class , () -> awardService.delete(222,25));
+        CNotFoundInfoByIdxException ex = assertThrows(CNotFoundInfoByIdxException.class , () -> awardService.delete(222,37));
 
 
         //then

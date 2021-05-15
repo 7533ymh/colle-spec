@@ -6,7 +6,6 @@ import com.example.backend.advice.exception.CNotFoundInfoByUserException;
 import com.example.backend.advice.exception.CNotHaveAccessInfoException;
 import com.example.backend.domain.Grade;
 import com.example.backend.mapper.collspec.GradeMapper;
-import com.example.backend.mapper.collspec.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +17,6 @@ import java.util.List;
 @Service
 public class GradeService {
 
-    private final UserMapper userMapper;
     private final GradeMapper gradeMapper;
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
@@ -178,7 +176,7 @@ public class GradeService {
         else
             score = 0;
 
-        userMapper.updateGrade(score,user_idx);
+        gradeMapper.updateGrade(score,user_idx);
     }
 
 

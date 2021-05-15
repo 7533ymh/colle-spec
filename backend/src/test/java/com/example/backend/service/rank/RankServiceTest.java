@@ -1,7 +1,6 @@
 package com.example.backend.service.rank;
 
 import com.example.backend.domain.RankResult;
-import com.example.backend.domain.User;
 import com.example.backend.mapper.collspec.RankMapper;
 import com.example.backend.mapper.collspec.UserMapper;
 import org.assertj.core.api.Assertions;
@@ -27,14 +26,14 @@ class RankServiceTest {
     void 학년비교등급() {
 
         //given
-        int idx = 25;
+        int idx = 37;
 
         //when
-        RankResult rank = rankService.change_Rank_Grade(25);
+        RankResult rank = rankService.change_Rank_Grade(37);
 
         //then
 
-        Assertions.assertThat("3등급").isEqualTo(rank.getAll_rank());
+        Assertions.assertThat("5등급").isEqualTo(rankMapper.findByUser_idxDivision(idx,2).get().getAll_rank());
 
 
     }
@@ -43,14 +42,14 @@ class RankServiceTest {
     void 학교비교등급() {
 
         //given
-        int idx = 25;
+        int idx = 37;
 
         //when
-        RankResult rank = rankService.change_Rank_College(25);
+        RankResult rank = rankService.change_Rank_College(37);
 
         //then
 
-        Assertions.assertThat("3등급").isEqualTo(rank.getAll_rank());
+        Assertions.assertThat("5등급").isEqualTo(rankMapper.findByUser_idxDivision(idx,3).get().getAll_rank());
 
 
     }
@@ -59,14 +58,14 @@ class RankServiceTest {
     void 학교학년비교등급() {
 
         //given
-        int idx = 25;
+        int idx = 37;
 
         //when
-        RankResult rank = rankService.change_Rank_College_Grade(25);
+        RankResult rank = rankService.change_Rank_College_Grade(37);
 
         //then
 
-        Assertions.assertThat("5등급").isEqualTo(rank.getAll_rank());
+        Assertions.assertThat("5등급").isEqualTo(rankMapper.findByUser_idxDivision(idx,4).get().getAll_rank());
 
 
     }
@@ -80,246 +79,17 @@ class RankServiceTest {
     void 전체등급제알고리즘() {
 
         //given
-        int idx = 25;
+        int idx = 37;
 
         //when
-        rankService.change_Rank_All(25);
+        rankService.change_Rank_All(37);
 
         //then
-        User user = userMapper.findByIdx(25).get();
-        Assertions.assertThat("2등급").isEqualTo(user.getAll_rank());
-        Assertions.assertThat("2등급").isEqualTo(user.getAward_rank());
-        Assertions.assertThat("2등급").isEqualTo(user.getCareer_rank());
-        Assertions.assertThat("5등급").isEqualTo(user.getCertificate_rank());
-        Assertions.assertThat("5등급").isEqualTo(user.getEducation_rank());
-        Assertions.assertThat("5등급").isEqualTo(user.getExperience_rank());
-        Assertions.assertThat("2등급").isEqualTo(user.getGrade_rank());
-        Assertions.assertThat("5등급").isEqualTo(user.getLanguage_rank());
-        Assertions.assertThat("5등급").isEqualTo(user.getProject_rank());
+        Assertions.assertThat("5등급").isEqualTo(rankMapper.findByUser_idxDivision(idx,1).get().getAll_rank());
+
 
 
     }
-/*
-    @Test
-    void 수상등급제알고리즘() {
-
-        //given
-        int idx = 25;
-
-        //when
-        Rank rankScore = rankMapper.checkRank(idx);
-        String rank;
-        if(rankScore.getAward_rank() <= 0.05)
-            rank = "1등급";
-        else if (rankScore.getAward_rank() <= 0.25)
-            rank = "2등급";
-        else if (rankScore.getAward_rank() <= 0.75)
-            rank = "3등급";
-        else if (rankScore.getAward_rank() <= 0.95)
-            rank = "4등급";
-        else
-            rank = "5등급";
-
-        //then
-
-        Assertions.assertThat("2등급").isEqualTo(rank);
-
-
-    }
-
-    @Test
-    void 경력등급제알고리즘() {
-
-        //given
-        int idx = 25;
-
-        //when
-        Rank rankScore = rankMapper.checkRank(idx);
-        String rank;
-        if(rankScore.getCareer_rank() <= 0.05)
-            rank = "1등급";
-        else if (rankScore.getCareer_rank() <= 0.25)
-            rank = "2등급";
-        else if (rankScore.getCareer_rank() <= 0.75)
-            rank = "3등급";
-        else if (rankScore.getCareer_rank() <= 0.95)
-            rank = "4등급";
-        else
-            rank = "5등급";
-
-        //then
-
-        Assertions.assertThat("2등급").isEqualTo(rank);
-
-
-    }
-
-    @Test
-    void 자격증등급제알고리즘() {
-
-        //given
-        int idx = 25;
-
-        //when
-        Rank rankScore = rankMapper.checkRank(idx);
-        String rank;
-        if(rankScore.getCertificate_rank() <= 0.05)
-            rank = "1등급";
-        else if (rankScore.getCertificate_rank() <= 0.25)
-            rank = "2등급";
-        else if (rankScore.getCertificate_rank() <= 0.75)
-            rank = "3등급";
-        else if (rankScore.getCertificate_rank() <= 0.95)
-            rank = "4등급";
-        else
-            rank = "5등급";
-
-        //then
-
-        Assertions.assertThat("5등급").isEqualTo(rank);
-
-
-    }
-
-    @Test
-    void 교육등급제알고리즘() {
-
-        //given
-        int idx = 25;
-
-        //when
-        Rank rankScore = rankMapper.checkRank(idx);
-        String rank;
-        if(rankScore.getEducation_rank() <= 0.05)
-            rank = "1등급";
-        else if (rankScore.getEducation_rank() <= 0.25)
-            rank = "2등급";
-        else if (rankScore.getEducation_rank() <= 0.75)
-            rank = "3등급";
-        else if (rankScore.getEducation_rank() <= 0.95)
-            rank = "4등급";
-        else
-            rank = "5등급";
-
-        //then
-
-        Assertions.assertThat("5등급").isEqualTo(rank);
-
-
-    }
-
-    @Test
-    void 해외경험등급제알고리즘() {
-
-        //given
-        int idx = 25;
-
-        //when
-        Rank rankScore = rankMapper.checkRank(idx);
-        String rank;
-        if(rankScore.getExperience_rank() <= 0.05)
-            rank = "1등급";
-        else if (rankScore.getExperience_rank() <= 0.25)
-            rank = "2등급";
-        else if (rankScore.getExperience_rank() <= 0.75)
-            rank = "3등급";
-        else if (rankScore.getExperience_rank() <= 0.95)
-            rank = "4등급";
-        else
-            rank = "5등급";
-
-        //then
-
-        Assertions.assertThat("5등급").isEqualTo(rank);
-
-
-    }
-
-    @Test
-    void 학점등급제알고리즘() {
-
-        //given
-        int idx = 25;
-
-        //when
-        Rank rankScore = rankMapper.checkRank(idx);
-        String rank;
-        if(rankScore.getGrade_rank() <= 0.05)
-            rank = "1등급";
-        else if (rankScore.getGrade_rank() <= 0.25)
-            rank = "2등급";
-        else if (rankScore.getGrade_rank() <= 0.75)
-            rank = "3등급";
-        else if (rankScore.getGrade_rank() <= 0.95)
-            rank = "4등급";
-        else
-            rank = "5등급";
-
-        //then
-
-        Assertions.assertThat("2등급").isEqualTo(rank);
-
-
-    }
-
-    @Test
-    void 어학등급제알고리즘() {
-
-        //given
-        int idx = 25;
-
-        //when
-        Rank rankScore = rankMapper.checkRank(idx);
-        String rank;
-        if(rankScore.getLanguage_rank() <= 0.05)
-            rank = "1등급";
-        else if (rankScore.getLanguage_rank() <= 0.25)
-            rank = "2등급";
-        else if (rankScore.getLanguage_rank() <= 0.75)
-            rank = "3등급";
-        else if (rankScore.getLanguage_rank() <= 0.95)
-            rank = "4등급";
-        else
-            rank = "5등급";
-
-        //then
-
-        Assertions.assertThat("5등급").isEqualTo(rank);
-
-
-    }
-
-    @Test
-    void 프로젝트등급제알고리즘() {
-
-        //given
-        int idx = 25;
-
-        //when
-        Rank rankScore = rankMapper.checkRank(idx);
-        String rank;
-        if(rankScore.getProject_rank() <= 0.05)
-            rank = "1등급";
-        else if (rankScore.getProject_rank() <= 0.25)
-            rank = "2등급";
-        else if (rankScore.getProject_rank() <= 0.75)
-            rank = "3등급";
-        else if (rankScore.getProject_rank() <= 0.95)
-            rank = "4등급";
-        else
-            rank = "5등급";
-
-        //then
-
-        Assertions.assertThat("5등급").isEqualTo(rank);
-
-
-    }
-*/
-
-
-
-
 
 
 }
