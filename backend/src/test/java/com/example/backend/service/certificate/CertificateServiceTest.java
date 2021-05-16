@@ -44,7 +44,7 @@ class CertificateServiceTest {
         certificate.setDate(Date.valueOf("2017-02-01"));
         certificate.setContent("abc");
 
-        Score finduser = rankMapper.testFindScore(certificate.getUser_idx());
+        Score finduser = rankMapper.FindScore(certificate.getUser_idx());
 
         //when
         certificateService.save(certificate);
@@ -52,7 +52,7 @@ class CertificateServiceTest {
         //then
         assertThat(certificate.getContent()).isEqualTo(certificateMapper.findByIdx(certificate.getIdx()).get().getContent());
 
-        Score checkuser = rankMapper.testFindScore(certificate.getUser_idx());
+        Score checkuser = rankMapper.FindScore(certificate.getUser_idx());
         assertThat(finduser.getCertificate_score() + certificateMapper.findByIdx(certificate.getIdx()).get().getScore()).isEqualTo(checkuser.getCertificate_score());
         assertThat(finduser.getScore() + certificateMapper.findByIdx(certificate.getIdx()).get().getScore()).isEqualTo(checkuser.getScore());
 
@@ -95,7 +95,7 @@ class CertificateServiceTest {
         change.setDate(Date.valueOf("2017-05-01"));
         change.setContent("abcde");
 
-        Score finduser = rankMapper.testFindScore(test.getUser_idx());
+        Score finduser = rankMapper.FindScore(test.getUser_idx());
 
         //when
         certificateService.save(test);
@@ -105,7 +105,7 @@ class CertificateServiceTest {
         //then
         assertThat("abcde").isEqualTo(certificateMapper.findByIdx(test.getIdx()).get().getContent());
 
-        Score checkuser = rankMapper.testFindScore(test.getUser_idx());
+        Score checkuser = rankMapper.FindScore(test.getUser_idx());
         assertThat(finduser.getCertificate_score() + certificateMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getCertificate_score());
         assertThat(finduser.getScore() + certificateMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getScore());
 
@@ -130,7 +130,7 @@ class CertificateServiceTest {
 
         //when
         certificateService.save(test);
-        Score finduser = rankMapper.testFindScore(test.getUser_idx());
+        Score finduser = rankMapper.FindScore(test.getUser_idx());
         certificateService.save(change);
         certificateService.delete(change.getIdx(), change.getUser_idx());
 
@@ -139,7 +139,7 @@ class CertificateServiceTest {
         List<Certificate> list = certificateMapper.findByUserIdx(test.getUser_idx());
         assertThat(1).isEqualTo(list.size());
 
-        Score checkuser = rankMapper.testFindScore(test.getUser_idx());
+        Score checkuser = rankMapper.FindScore(test.getUser_idx());
         assertThat(finduser.getCertificate_score()).isEqualTo(checkuser.getCertificate_score());
         assertThat(finduser.getScore()).isEqualTo(checkuser.getScore());
 

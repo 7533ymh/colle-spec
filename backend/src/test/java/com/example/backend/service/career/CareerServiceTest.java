@@ -44,7 +44,7 @@ class CareerServiceTest {
         career.setEnd_date(Date.valueOf("2017-05-01"));
         career.setContent("aaa");
 
-        Score finduser = rankMapper.testFindScore(career.getUser_idx());
+        Score finduser = rankMapper.FindScore(career.getUser_idx());
 
         //when
         careerService.save(career);
@@ -53,7 +53,7 @@ class CareerServiceTest {
         Career findCareer = careerMapper.findByIdx(career.getIdx()).get();
         assertThat(career.getContent()).isEqualTo(findCareer.getContent());
 
-        Score checkuser = rankMapper.testFindScore(career.getUser_idx());
+        Score checkuser = rankMapper.FindScore(career.getUser_idx());
         assertThat(finduser.getAward_score() + findCareer.getScore()).isEqualTo(checkuser.getCareer_score());
         assertThat(finduser.getScore() + findCareer.getScore()).isEqualTo(checkuser.getScore());
 
@@ -106,7 +106,7 @@ class CareerServiceTest {
         changeCareer.setEnd_date(Date.valueOf("2018-01-01"));
         changeCareer.setContent("abc");
 
-        Score finduser = rankMapper.testFindScore(career.getUser_idx());
+        Score finduser = rankMapper.FindScore(career.getUser_idx());
 
 
         //when
@@ -118,7 +118,7 @@ class CareerServiceTest {
         Career findCareer = careerMapper.findByIdx(career.getIdx()).get();
         assertThat("abc").isEqualTo(findCareer.getContent());
 
-        Score checkuser = rankMapper.testFindScore(career.getUser_idx());
+        Score checkuser = rankMapper.FindScore(career.getUser_idx());
         assertThat(finduser.getAward_score() + findCareer.getScore()).isEqualTo(checkuser.getCareer_score());
         assertThat(finduser.getScore() + findCareer.getScore()).isEqualTo(checkuser.getScore());
 
@@ -149,7 +149,7 @@ class CareerServiceTest {
 
         //when
         careerService.save(career);
-        Score finduser = rankMapper.testFindScore(career.getUser_idx());
+        Score finduser = rankMapper.FindScore(career.getUser_idx());
         careerService.save(changeCareer);
         careerService.delete(changeCareer.getIdx(), changeCareer.getUser_idx());
 
@@ -157,7 +157,7 @@ class CareerServiceTest {
         List<Career> careerList = careerService.findByUserIdx(career.getUser_idx());
         assertThat(1).isEqualTo(careerList.size());
 
-        Score checkuser = rankMapper.testFindScore(career.getUser_idx());
+        Score checkuser = rankMapper.FindScore(career.getUser_idx());
         assertThat(finduser.getAward_score()).isEqualTo(checkuser.getAward_score());
         assertThat(finduser.getScore()).isEqualTo(checkuser.getScore());
 

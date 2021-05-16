@@ -57,8 +57,10 @@ public interface RankMapper {
     Optional<RankResult> findByUser_idxDivision(@Param("user_idx") int user_idx, @Param("division") int division);
 
     @Select("SELECT * FROM score WHERE user_idx = #{user_idx}")
-    Score testFindScore(@Param("user_idx") int user_idx);
+    Score FindScore(@Param("user_idx") int user_idx);
 
+    @Select("SELECT certificate_score + education_score + experience_score + grade_score + language_score + project_score FROM score WHERE user_idx = #{user_idx}")
+    int checkScore(@Param("user_idx") int user_idx);
 
 
 

@@ -44,7 +44,7 @@ class EducationServiceTest {
         test.setEnd_date(Date.valueOf("2017-05-01"));
         test.setContent("abc");
 
-        Score finduser = rankMapper.testFindScore(test.getUser_idx());
+        Score finduser = rankMapper.FindScore(test.getUser_idx());
 
 
         //when
@@ -53,7 +53,7 @@ class EducationServiceTest {
         //then
         assertThat(test.getContent()).isEqualTo(educationMapper.findByIdx(test.getIdx()).get().getContent());
 
-        Score checkuser = rankMapper.testFindScore(test.getUser_idx());
+        Score checkuser = rankMapper.FindScore(test.getUser_idx());
         assertThat(finduser.getEducation_score() + educationMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getEducation_score());
         assertThat(finduser.getScore() + educationMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getScore());
 
@@ -103,7 +103,7 @@ class EducationServiceTest {
         change.setEnd_date(Date.valueOf("2017-07-01"));
         change.setContent("abcde");
 
-        Score finduser = rankMapper.testFindScore(test.getUser_idx());
+        Score finduser = rankMapper.FindScore(test.getUser_idx());
 
         //when
         educationService.save(test);
@@ -113,7 +113,7 @@ class EducationServiceTest {
         //then
         assertThat("abcde").isEqualTo(educationMapper.findByIdx(test.getIdx()).get().getContent());
 
-        Score checkuser = rankMapper.testFindScore(test.getUser_idx());
+        Score checkuser = rankMapper.FindScore(test.getUser_idx());
         assertThat(finduser.getEducation_score() + educationMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getEducation_score());
         assertThat(finduser.getScore() + educationMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getScore());
 
@@ -142,7 +142,7 @@ class EducationServiceTest {
 
         //when
         educationService.save(test);
-        Score finduser = rankMapper.testFindScore(test.getUser_idx());
+        Score finduser = rankMapper.FindScore(test.getUser_idx());
         educationService.save(change);
         educationService.delete(change.getIdx(), change.getUser_idx());
 
@@ -151,7 +151,7 @@ class EducationServiceTest {
         List<Education> list = educationMapper.findByUserIdx(test.getUser_idx());
         assertThat(1).isEqualTo(list.size());
 
-        Score checkuser = rankMapper.testFindScore(test.getUser_idx());
+        Score checkuser = rankMapper.FindScore(test.getUser_idx());
         assertThat(finduser.getEducation_score()).isEqualTo(checkuser.getEducation_score());
         assertThat(finduser.getScore()).isEqualTo(checkuser.getScore());
 

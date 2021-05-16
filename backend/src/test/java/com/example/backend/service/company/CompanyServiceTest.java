@@ -46,4 +46,18 @@ class CompanyServiceTest {
 
 
     }
+
+    @Test
+    void 점수비교() {
+
+
+
+
+
+
+
+
+
+
+    }
 }

@@ -32,9 +32,9 @@ public class RankController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String AuthId = authentication.getName();
-        int idx = userService.findIdxById(AuthId);
+        int user_idx = userService.findIdxById(AuthId);
 
-        return responseService.getSingleResult(rankService.change_Rank_All(idx));
+        return responseService.getSingleResult(rankService.change_Rank_All(user_idx));
 
     }
 
@@ -44,9 +44,9 @@ public class RankController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String AuthId = authentication.getName();
-        int idx = userService.findIdxById(AuthId);
+        int user_idx = userService.findIdxById(AuthId);
 
-        return  responseService.getSingleResult(rankService.change_Rank_Grade(idx));
+        return  responseService.getSingleResult(rankService.change_Rank_Grade(user_idx));
 
     }
 
@@ -56,9 +56,9 @@ public class RankController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String AuthId = authentication.getName();
-        int idx = userService.findIdxById(AuthId);
+        int user_idx = userService.findIdxById(AuthId);
 
-        return  responseService.getSingleResult(rankService.change_Rank_College(idx));
+        return  responseService.getSingleResult(rankService.change_Rank_College(user_idx));
 
     }
 
@@ -68,9 +68,9 @@ public class RankController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String AuthId = authentication.getName();
-        int idx = userService.findIdxById(AuthId);
+        int user_idx = userService.findIdxById(AuthId);
 
-        return  responseService.getSingleResult(rankService.change_Rank_College_Grade(idx));
+        return  responseService.getSingleResult(rankService.change_Rank_College_Grade(user_idx));
 
     }
 
