@@ -1,6 +1,7 @@
 package com.example.backend.mapper.collspec;
 
 import com.example.backend.domain.Board;
+import com.example.backend.domain.BoardList;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -14,14 +15,9 @@ public interface BoardMapper {
     @Options(useGeneratedKeys = true, keyProperty = "board.idx")
     void save(@Param("board") Board board);
 
-    @Select("SELECT * FROM board WHERE program_idx = #{program_idx} ORDER BY idx")
+    @Select("SELECT user_id, title, edit FROM board WHERE program_idx = #{program_idx} ORDER BY idx")
     @Result(property = "idx", column = "idx", id = true)
-    @Result(property = "commentList", column = "idx", many = @Many(select = "com.example.backend.mapper.collspec.CommentMapper.findByBoard_idx"))
-    List<Board> findByProgram_idx(@Param("program_idx") int program_idx);
-
-    @Select("SELECT * FROM board WHERE program_idx = #{program_idx} ORDER BY idx")
-    @Result(property = "idx", column = "idx", id = true)
-    List<Board> findByProgram_idx_NoComment(@Param("program_idx") int program_idx);
+    List<BoardList> findByProgram_idx_NoComment(@Param("program_idx") int program_idx);
 
 
     @Update("UPDATE board SET title = #{board.title}, content = #{board.content}, " +

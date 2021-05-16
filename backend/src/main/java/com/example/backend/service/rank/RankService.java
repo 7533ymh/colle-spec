@@ -6,6 +6,8 @@ import com.example.backend.domain.RankResult;
 import com.example.backend.mapper.collspec.RankMapper;
 import com.example.backend.service.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -14,8 +16,12 @@ public class RankService {
 
     private final RankMapper rankMapper;
     private final UserService userService;
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
+
 
     public RankResult change_Rank_All(int idx) {
+
+        logger.info("전체 랭크 조회");
 
         Rank rank = rankMapper.checkRankAll(idx);
         RankResult rankResult =  changeResult(rank);
@@ -31,6 +37,8 @@ public class RankService {
 
     public RankResult change_Rank_Grade(int idx) {
 
+        logger.info("학년 랭크 조회");
+
         Rank rank = rankMapper.checkRankByGrade(idx);
         RankResult rankResult =  changeResult(rank);
         rankResult.setUser_idx(rank.getUser_idx());
@@ -44,6 +52,8 @@ public class RankService {
     }
 
     public RankResult change_Rank_College(int idx) {
+
+        logger.info("대학교 랭크 조회");
 
         if (userService.findByIdx(idx).getLink() == 0 )
             throw new CLinkException("잘못된 접근입니다. 연동을 먼저 해주세요.");
@@ -61,6 +71,8 @@ public class RankService {
     }
 
     public RankResult change_Rank_College_Grade(int idx) {
+
+        logger.info("대학교&학년 랭크 조회");
 
         if (userService.findByIdx(idx).getLink() == 0 )
             throw new CLinkException("잘못된 접근입니다. 연동을 먼저 해주세요.");

@@ -38,7 +38,6 @@ public class GradeService {
     }
 
     public void checkSameGrade(Grade grade) {
-        logger.info("학점 중복 체크");
 
         gradeMapper.findsame(grade)
                 .ifPresent(m -> {
@@ -127,7 +126,6 @@ public class GradeService {
     }
 
     public void changeSemester(Grade grade) {
-        logger.info("학점 학기 변경");
 
         switch (grade.getSemester()) {
             case "1":
@@ -150,8 +148,6 @@ public class GradeService {
     }
 
     public void changetoNumber(int user_idx) {
-
-        logger.info("학점 알고리즘 ");
 
         int score;
         double avg_score = gradeMapper.checkAvg(user_idx);
