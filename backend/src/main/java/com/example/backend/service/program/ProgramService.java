@@ -4,6 +4,7 @@ import com.example.backend.advice.exception.CNotFoundDataException;
 import com.example.backend.advice.exception.CNotFoundInfoByIdxException;
 import com.example.backend.advice.exception.CNotHaveAccessInfoException;
 import com.example.backend.domain.Board;
+import com.example.backend.domain.BoardList;
 import com.example.backend.domain.Comment;
 import com.example.backend.domain.Program;
 import com.example.backend.mapper.collspec.BoardMapper;
@@ -48,17 +49,22 @@ public class ProgramService {
 
     }
 
-    public List<Board> findByProgram_idx(int program_idx){
+    public List<BoardList> findByProgram_idx(int program_idx){
 
-        List<Board> boardList = boardMapper.findByProgram_idx(program_idx);
-
+        List<BoardList> boardList = boardMapper.findByProgram_idx_NoComment(program_idx);
 
         if(boardList.isEmpty()) {
             throw new CNotFoundDataException();
         }
 
-
         return boardList;
+    }
+
+    public Board findOneByIdx(int idx) {
+
+        return boardMapper.findByIdx(idx).orElseThrow(
+                () -> new CNotFoundInfoByIdxException("해당 게시판 번호의 정보가 없습니다. 다시 시도해주세요."));
+
     }
 
     public void updateBoard(Board board) {
