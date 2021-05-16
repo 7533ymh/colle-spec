@@ -37,7 +37,7 @@ class GradeServiceTest {
         test.setSemester("하계계절");
         test.setAvg_score(4.5);
 
-        Score finduser = rankMapper.testFindScore(test.getUser_idx());
+        Score finduser = rankMapper.FindScore(test.getUser_idx());
 
         //when
         gradeService.save(test);
@@ -46,7 +46,7 @@ class GradeServiceTest {
         assertThat(4.5).isEqualTo(gradeMapper.findByIdx(test.getIdx()).get().getAvg_score());
 
 
-        Score checkuser = rankMapper.testFindScore(test.getUser_idx());
+        Score checkuser = rankMapper.FindScore(test.getUser_idx());
         assertThat(100).isEqualTo(checkuser.getGrade_score());
         assertThat(100).isEqualTo(checkuser.getScore());
 
@@ -87,7 +87,7 @@ class GradeServiceTest {
         change.setSemester("1");
         change.setAvg_score(3.0);
 
-        Score finduser = rankMapper.testFindScore(test.getUser_idx());
+        Score finduser = rankMapper.FindScore(test.getUser_idx());
 
         //when
         gradeService.save(test);
@@ -97,7 +97,7 @@ class GradeServiceTest {
         //then
         assertThat(3.0).isEqualTo(gradeMapper.findByIdx(test.getIdx()).get().getAvg_score());
 
-        Score checkuser = rankMapper.testFindScore(test.getUser_idx());
+        Score checkuser = rankMapper.FindScore(test.getUser_idx());
         assertThat(70).isEqualTo(checkuser.getGrade_score());
         assertThat(70).isEqualTo(checkuser.getScore());
 
@@ -122,14 +122,14 @@ class GradeServiceTest {
 
         //when
         gradeService.save(test);
-        Score finduser = rankMapper.testFindScore(test.getUser_idx());
+        Score finduser = rankMapper.FindScore(test.getUser_idx());
         gradeService.save(change);
         gradeService.delete(change.getIdx(), change.getUser_idx());
 
         //then
         assertThat(1).isEqualTo(gradeService.findByUserIdx(test.getUser_idx()).size());
 
-        Score checkuser = rankMapper.testFindScore(test.getUser_idx());
+        Score checkuser = rankMapper.FindScore(test.getUser_idx());
         assertThat(finduser.getGrade_score()).isEqualTo(checkuser.getGrade_score());
         assertThat(finduser.getScore()).isEqualTo(checkuser.getScore());
 
@@ -211,55 +211,55 @@ class GradeServiceTest {
         gradeService.save(test);
 
         //then
-        assertThat(100).isEqualTo(rankMapper.testFindScore(37).getGrade_score());
+        assertThat(100).isEqualTo(rankMapper.FindScore(37).getGrade_score());
         gradeService.delete(test.getIdx(), test.getUser_idx());
 
 
         gradeService.save(test2);
         //then
-        assertThat(90).isEqualTo(rankMapper.testFindScore(37).getGrade_score());
+        assertThat(90).isEqualTo(rankMapper.FindScore(37).getGrade_score());
 
         gradeService.delete(test2.getIdx(), test2.getUser_idx());
 
 
         gradeService.save(test3);
         //then
-        assertThat(80).isEqualTo(rankMapper.testFindScore(37).getGrade_score());
+        assertThat(80).isEqualTo(rankMapper.FindScore(37).getGrade_score());
 
         gradeService.delete(test3.getIdx(), test3.getUser_idx());
 
 
         gradeService.save(test4);
         //then
-        assertThat(70).isEqualTo(rankMapper.testFindScore(37).getGrade_score());
+        assertThat(70).isEqualTo(rankMapper.FindScore(37).getGrade_score());
 
         gradeService.delete(test4.getIdx(), test4.getUser_idx());
 
 
         gradeService.save(test5);
         //then
-        assertThat(60).isEqualTo(rankMapper.testFindScore(37).getGrade_score());
+        assertThat(60).isEqualTo(rankMapper.FindScore(37).getGrade_score());
 
         gradeService.delete(test5.getIdx(), test5.getUser_idx());
 
 
         gradeService.save(test6);
         //then
-        assertThat(50).isEqualTo(rankMapper.testFindScore(37).getGrade_score());
+        assertThat(50).isEqualTo(rankMapper.FindScore(37).getGrade_score());
 
         gradeService.delete(test6.getIdx(), test6.getUser_idx());
 
 
         gradeService.save(test7);
         //then
-        assertThat(40).isEqualTo(rankMapper.testFindScore(37).getGrade_score());
+        assertThat(40).isEqualTo(rankMapper.FindScore(37).getGrade_score());
 
         gradeService.delete(test7.getIdx(), test7.getUser_idx());
 
 
         gradeService.save(test8);
         //then
-        assertThat(30).isEqualTo(rankMapper.testFindScore(37).getGrade_score());
+        assertThat(30).isEqualTo(rankMapper.FindScore(37).getGrade_score());
 
         gradeService.delete(test8.getIdx(), test8.getUser_idx());
 
@@ -268,11 +268,11 @@ class GradeServiceTest {
         gradeService.save(test);
         gradeService.save(test5);
 
-        assertThat(80).isEqualTo(rankMapper.testFindScore(37).getGrade_score());
+        assertThat(80).isEqualTo(rankMapper.FindScore(37).getGrade_score());
 
         //when
         gradeService.save(test8);
-        assertThat(60).isEqualTo(rankMapper.testFindScore(37).getGrade_score());
+        assertThat(60).isEqualTo(rankMapper.FindScore(37).getGrade_score());
 
 
     }

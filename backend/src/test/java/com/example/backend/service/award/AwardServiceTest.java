@@ -42,7 +42,7 @@ class AwardServiceTest {
         award.setYear(2017);
         award.setContent("블라블라");
 
-        Score finduser = rankMapper.testFindScore(award.getUser_idx());
+        Score finduser = rankMapper.FindScore(award.getUser_idx());
 
         //when
         awardService.save(award);
@@ -51,7 +51,7 @@ class AwardServiceTest {
         Award findaward = awardMapper.findByIdx(award.getIdx()).get();
         assertThat(award.getIdx()).isEqualTo(findaward.getIdx());
 
-        Score checkuser = rankMapper.testFindScore(award.getUser_idx());
+        Score checkuser = rankMapper.FindScore(award.getUser_idx());
         assertThat(finduser.getAward_score() + findaward.getScore()).isEqualTo(checkuser.getAward_score());
         assertThat(finduser.getScore() + findaward.getScore()).isEqualTo(checkuser.getScore());
 
@@ -98,7 +98,7 @@ class AwardServiceTest {
         changeAward.setYear(2017);
         changeAward.setContent("수정");
 
-        Score finduser = rankMapper.testFindScore(award.getUser_idx());
+        Score finduser = rankMapper.FindScore(award.getUser_idx());
 
         //when
         awardService.save(award);
@@ -109,7 +109,7 @@ class AwardServiceTest {
         Award findaward = awardMapper.findByIdx(award.getIdx()).get();
         assertThat(changeAward.getTitle()).isEqualTo(findaward.getTitle());
 
-        Score checkuser = rankMapper.testFindScore(award.getUser_idx());
+        Score checkuser = rankMapper.FindScore(award.getUser_idx());
         assertThat(finduser.getAward_score() + findaward.getScore()).isEqualTo(checkuser.getAward_score());
         assertThat(finduser.getScore() + findaward.getScore()).isEqualTo(checkuser.getScore());
     }
@@ -137,7 +137,7 @@ class AwardServiceTest {
 
         //when
         awardService.save(award);
-        Score finduser = rankMapper.testFindScore(award.getUser_idx());
+        Score finduser = rankMapper.FindScore(award.getUser_idx());
         awardService.save(changeAward);
         awardService.delete(changeAward.getIdx(), changeAward.getUser_idx());
 
@@ -148,7 +148,7 @@ class AwardServiceTest {
         assertThat(awards.size()).isEqualTo(1);
 
 
-        Score checkuser = rankMapper.testFindScore(award.getUser_idx());
+        Score checkuser = rankMapper.FindScore(award.getUser_idx());
         assertThat(finduser.getAward_score()).isEqualTo(checkuser.getAward_score());
         assertThat(finduser.getScore()).isEqualTo(checkuser.getScore());
 

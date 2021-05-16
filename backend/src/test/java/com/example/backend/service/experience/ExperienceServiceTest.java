@@ -41,7 +41,7 @@ class ExperienceServiceTest {
         test.setEnd_date(Date.valueOf("2017-05-01"));
         test.setContent("abc");
 
-        Score finduser =rankMapper.testFindScore(test.getUser_idx());
+        Score finduser =rankMapper.FindScore(test.getUser_idx());
 
 
         //when
@@ -50,7 +50,7 @@ class ExperienceServiceTest {
         //then
         assertThat(test.getContent()).isEqualTo(experienceMapper.findByIdx(test.getIdx()).get().getContent());
 
-        Score checkuser = rankMapper.testFindScore(test.getUser_idx());
+        Score checkuser = rankMapper.FindScore(test.getUser_idx());
         assertThat(finduser.getExperience_score() + experienceMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getExperience_score());
         assertThat(finduser.getScore() + experienceMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getScore());
 
@@ -95,7 +95,7 @@ class ExperienceServiceTest {
         change.setEnd_date(Date.valueOf("2017-07-01"));
         change.setContent("abcde");
 
-        Score finduser = rankMapper.testFindScore(test.getUser_idx());
+        Score finduser = rankMapper.FindScore(test.getUser_idx());
 
         //when
         experienceService.save(test);
@@ -105,7 +105,7 @@ class ExperienceServiceTest {
         //then
         assertThat("abcde").isEqualTo(experienceMapper.findByIdx(test.getIdx()).get().getContent());
 
-        Score checkuser = rankMapper.testFindScore(test.getUser_idx());
+        Score checkuser = rankMapper.FindScore(test.getUser_idx());
         assertThat(finduser.getExperience_score() + experienceMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getExperience_score());
         assertThat(finduser.getScore() + experienceMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getScore());
 
@@ -132,14 +132,14 @@ class ExperienceServiceTest {
 
         //when
         experienceService.save(test);
-        Score finduser = rankMapper.testFindScore(test.getUser_idx());
+        Score finduser = rankMapper.FindScore(test.getUser_idx());
         experienceService.save(change);
         experienceService.delete(change.getIdx(), change.getUser_idx());
 
         //then
         assertThat(1).isEqualTo(experienceService.findByUserIdx(test.getUser_idx()).size());
 
-        Score checkuser = rankMapper.testFindScore(test.getUser_idx());
+        Score checkuser = rankMapper.FindScore(test.getUser_idx());
         assertThat(finduser.getExperience_score()).isEqualTo(checkuser.getExperience_score());
         assertThat(finduser.getScore()).isEqualTo(checkuser.getScore());
     }

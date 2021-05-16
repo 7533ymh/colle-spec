@@ -43,7 +43,7 @@ class LanguageServiceTest {
         test.setDate(Date.valueOf("2017-05-01"));
         test.setContent("abc");
 
-        Score finduser = rankMapper.testFindScore(test.getUser_idx());
+        Score finduser = rankMapper.FindScore(test.getUser_idx());
 
         //when
         languageService.save(test);
@@ -51,7 +51,7 @@ class LanguageServiceTest {
         //then
         assertThat(test.getExam()).isEqualTo(languageMapper.findByIdx(test.getIdx()).get().getExam());
 
-        Score checkuser = rankMapper.testFindScore(test.getUser_idx());
+        Score checkuser = rankMapper.FindScore(test.getUser_idx());
         assertThat(finduser.getLanguage_score() + languageMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getLanguage_score());
         assertThat(finduser.getScore() + languageMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getScore());
 
@@ -70,7 +70,7 @@ class LanguageServiceTest {
         test.setDate(Date.valueOf("2017-05-01"));
         test.setContent("abc");
 
-        Score finduser = rankMapper.testFindScore(test.getUser_idx());
+        Score finduser = rankMapper.FindScore(test.getUser_idx());
 
         //when
         languageService.save(test);
@@ -99,7 +99,7 @@ class LanguageServiceTest {
         change.setDate(Date.valueOf("2017-07-01"));
         change.setContent("abcde");
 
-        Score finduser = rankMapper.testFindScore(test.getUser_idx());
+        Score finduser = rankMapper.FindScore(test.getUser_idx());
 
         //when
         languageService.save(test);
@@ -109,7 +109,7 @@ class LanguageServiceTest {
         //then
         assertThat("TOEIC").isEqualTo(languageMapper.findByIdx(test.getIdx()).get().getExam());
 
-        Score checkuser = rankMapper.testFindScore(test.getUser_idx());
+        Score checkuser = rankMapper.FindScore(test.getUser_idx());
         assertThat(finduser.getLanguage_score() + languageMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getLanguage_score());
         assertThat(finduser.getScore() + languageMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getScore());
 
@@ -138,14 +138,14 @@ class LanguageServiceTest {
 
         //when
         languageService.save(test);
-        Score finduser = rankMapper.testFindScore(test.getUser_idx());
+        Score finduser = rankMapper.FindScore(test.getUser_idx());
         languageService.save(change);
         languageService.delete(change.getIdx(), change.getUser_idx());
 
         //then
         assertThat(1).isEqualTo(languageService.findByUserIdx(test.getUser_idx()).size());
 
-        Score checkuser = rankMapper.testFindScore(test.getUser_idx());
+        Score checkuser = rankMapper.FindScore(test.getUser_idx());
         assertThat(finduser.getLanguage_score()).isEqualTo(checkuser.getLanguage_score());
         assertThat(finduser.getScore()).isEqualTo(checkuser.getScore());
 
@@ -292,7 +292,7 @@ class LanguageServiceTest {
         assertThat(80).isEqualTo(languageMapper.findByIdx(test12.getIdx()).get().getScore());
         assertThat(60).isEqualTo(languageMapper.findByIdx(test13.getIdx()).get().getScore());
 
-        Score checkuser = rankMapper.testFindScore(test.getUser_idx());
+        Score checkuser = rankMapper.FindScore(test.getUser_idx());
         assertThat(875).isEqualTo(checkuser.getScore());
 
     }
