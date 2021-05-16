@@ -27,10 +27,10 @@ public class UserController {
     @ApiOperation(value = "회원 정보 조회", notes = "회원번호(idx)로 회원을 조회한다")
     @GetMapping("/user")
     public SingleResult<User> findUserById() {
-        // SecurityContext에서 인증받은 회원의 정보를 얻어온다.
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
         return responseService.getSingleResult(userService.findById(id));
+
     }
 
     @ApiOperation(value = "회원 수정", notes = "회원정보를 수정한다")

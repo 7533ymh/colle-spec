@@ -45,7 +45,6 @@ public class LinkController {
         }
 
 
-
         linkservice.linkInfo(appidx, idx);
         linkservice.linkGrade(appidx, idx);
 

@@ -20,9 +20,6 @@ public interface Project_imgMapper {
     @Select("SELECT * FROM project_img WHERE idx = #{idx}")
     Optional<Project_img> findByidx (@Param("idx") int idx);
 
-    @Select("SELECT project_idx FROM project_img WHERE idx = #{idx}")
-    Optional<Integer> findproject_idxByIdx(@Param("idx") int idx);
-
     @Delete("DELETE FROM project_img WHERE project_idx = #{project_idx} ")
     void delete( @Param("project_idx") int project_idx);
 

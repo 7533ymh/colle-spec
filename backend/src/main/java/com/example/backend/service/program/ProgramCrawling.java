@@ -7,6 +7,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +23,14 @@ import java.util.Date;
 public class ProgramCrawling {
 
     private final ProgramMapper programMapper;
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
 
     //매일 0시에 크롤링 데이터 업데이트
     @Scheduled(cron = "0 0 0 * * *")
     public void Crawling() throws IOException {
+
+        logger.info("크롤링 시작");
 
         System.setProperty("jsse.enableSNIExtension", "false");
 
@@ -37,6 +42,8 @@ public class ProgramCrawling {
 
         //결과값이 없어져 마감기간이 지나도 삭제가 안되는 데이터 삭제 ( 크롤링하는 날짜 기준 )
         programMapper.deleteOverDate();
+
+        logger.info("크롤링 종료");
 
 
     }

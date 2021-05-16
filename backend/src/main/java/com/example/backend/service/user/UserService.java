@@ -46,8 +46,6 @@ public class UserService {
 
     public User findById(String id) {
 
-        logger.info("아이디를 통해 회원찾기");
-
         return userMapper.findById(id)
                 .orElseThrow(CUserNotFoundException::new);
     }

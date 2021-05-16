@@ -9,6 +9,8 @@ import com.example.backend.mapper.colleasy.LinkMapper;
 import com.example.backend.mapper.collspec.UserMapper;
 import com.example.backend.service.grade.GradeService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,8 +22,12 @@ public class LinkService {
     private final LinkMapper linkMapper;
     private final UserMapper userMapper;
     private final GradeService gradeService;
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
+
 
     public int linkLogin(String id , String pass){
+
+        logger.info("연동 어플 로그인");
 
         User user = linkMapper.findById(id)
                 .orElseThrow(CUserNotFoundException::new);
@@ -37,6 +43,8 @@ public class LinkService {
 
 
     public void linkInfo(int appidx , int idx){
+
+        logger.info("연동 어플 정보 저장");
 
         User user = linkMapper.InfoFindByIdx(appidx)
                 .orElseThrow(CNotFoundInfoByLinkException::new);
@@ -54,6 +62,8 @@ public class LinkService {
 
 
     public void linkGrade(int appidx , int idx) {
+
+        logger.info("연동 어플 학점 정보 저장");
 
         List<Grade> gradeList = linkMapper.gradeFindByIdx(appidx);
 

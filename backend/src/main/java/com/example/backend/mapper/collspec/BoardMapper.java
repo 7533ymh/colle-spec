@@ -15,11 +15,6 @@ public interface BoardMapper {
     @Options(useGeneratedKeys = true, keyProperty = "board.idx")
     void save(@Param("board") Board board);
 
-    @Select("SELECT * FROM board WHERE program_idx = #{program_idx} ORDER BY idx")
-    @Result(property = "idx", column = "idx", id = true)
-    @Result(property = "commentList", column = "idx", many = @Many(select = "com.example.backend.mapper.collspec.CommentMapper.findByBoard_idx"))
-    List<Board> findByProgram_idx(@Param("program_idx") int program_idx);
-
     @Select("SELECT user_id, title, edit FROM board WHERE program_idx = #{program_idx} ORDER BY idx")
     @Result(property = "idx", column = "idx", id = true)
     List<BoardList> findByProgram_idx_NoComment(@Param("program_idx") int program_idx);
