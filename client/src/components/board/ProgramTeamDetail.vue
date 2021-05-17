@@ -19,6 +19,16 @@
 					</tr>
                     
 				</table>
+				<div>
+				<template v-if="authorized">
+					<a class="btn" @click="edit_board">수정</a>&nbsp;
+					<a class="btn red" @click="remove = true" v-if="!remove">삭제</a>
+					<template v-else>
+					<button class="grey" @click="remove = false">취소</button>&nbsp;
+					<button class="red" @click="del_board">삭제</button>
+					</template>&nbsp;
+				</template>
+				</div>
 				<form>
 					<textarea class="comment" v-model="comment"  placeholder="댓글입력"></textarea>
 					<button type="submit" @click="commWrite">댓글작성</button>
@@ -41,8 +51,8 @@
 			<tr v-for="(row, i) in view.view" :key="i">
 					<td>{{view.view[i].user_id}}: </td>
 					<td>{{view.view[i].content}} </td>
-					<td><button @click="delcomm(row)">삭제</button></td>
-					<td><button @click="btn_edit(row)">수정</button></td>
+					<td v-if="commauthorized"><button @click="delcomm(row)">삭제</button></td>
+					<td v-if="commauthorized"><button @click="btn_edit(row)">수정</button></td>
 					<td>작성날짜:{{view.view[i].edit}}</td>
 				</tr>
 				<tr v-if="view.length == 0">
@@ -77,24 +87,55 @@ export default {
 				user:{},
 				view:{}
 				},
-			
+			remove: false,
 
 		}
 	}
 	,mounted() {
-		
 		this.comment_view()
-	}
+		console.log('board_idx:',this.items.idx)
+	},
+	computed: {
+    authorized() {	
+      return this.$store.getters.userid === this.items.user_id;
+    },
+	commauthorized() {	
+	
+      return this.$store.getters.userid==='user11';
+    },
+  }
 	,methods:{
 		
 		fnList(){
-			//
 			this.$router.push({path:'/board/list'});
 		},
 		
 		handleNewLine(str) {    
        return String(str).replace(/(?:\r\n|\r|\n)/g,"</br>");
-   },
+		},
+		fnList(){
+			this.$router.push({path:'/board/list'});
+		},
+		del_board(){
+			axios.delete(`${url}/program/board`,{params:{
+						idx:this.items.idx
+					}})
+					.then(res=>{
+						console.log(res.data.msg)
+						alert(res.data.msg);
+						this.fnList();
+					})
+		},
+		edit_board(){
+			var params=new URLSearchParams();
+					params.append('idx',this.items.idx)
+					params.append('title',this.title)
+					params.append('content',this.comment)
+			axios.put(`${url}/program/board`,params)
+					.then(res=>{
+						console.log(res.data.msg)
+					})
+		},
 		comment_view(){
 			axios.get(`${url}/program/board`,{params:{
 				board_idx:this.items.idx
@@ -102,7 +143,6 @@ export default {
 			.then(res=>{
 				console.log(res.data.data.commentList)
 				this.view.view=res.data.data.commentList
-				this.view.user=this.$store.state.userinfo.name
 			})
 		},
 		commWrite(){
@@ -115,11 +155,10 @@ export default {
 			axios.post(`${url}/program/board/comment`,params)
 			.then(res=>{
 				console.log('res',res.data.msg)
-				alert('성공')
 			})
 			.catch(err=>{
 				console.log(err)
-				alert('실패')
+				alert(err.response.data.msg)
 			})
 			}
 		},
@@ -130,6 +169,9 @@ export default {
 			.then(res=>{
 				alert(res.data.msg)
 				location.reload()
+			})
+			.catch(err=>{
+				alert(err.response.data.msg)
 			})
 		},
 		btn_edit(item){
@@ -148,11 +190,10 @@ export default {
 			axios.put(`${url}/program/board/comment`,params)
 			.then(res=>{
 				console.log('res',res.data.msg)
-				alert('성공')
+				alert(res.data.msg)
 			})
 			.catch(err=>{
-				console.log(err)
-				alert('실패')
+				alert(err.response.data.msg)
 			})
 			}
 		},

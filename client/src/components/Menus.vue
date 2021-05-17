@@ -32,6 +32,7 @@
     methods: {
       onClickLogout() {
         store.dispatch('LOGOUT').then(() => this.$router.push('/'))
+        location.reload()
       }
     }
   }

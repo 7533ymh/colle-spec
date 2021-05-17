@@ -2,7 +2,7 @@ package com.example.backend.service.introduction;
 
 import com.example.backend.advice.exception.*;
 import com.example.backend.domain.Introduction;
-import com.example.backend.mapper.IntroductionMapper;
+import com.example.backend.mapper.collspec.IntroductionMapper;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,7 +83,7 @@ public class IntroductionService {
     public void checkRealUser(int idx , int user_idx) {
 
         if (introductionMapper.findByidx(idx).isPresent() ) {
-            if (introductionMapper.finduser_idxByIdx(idx).get() != user_idx)
+            if (introductionMapper.findByidx(idx).get().getUser_idx() != user_idx)
                 throw new CNotHaveAccessInfoException("해당 회원의 자기소개서 번호가 아닙니다.");
         } else {
             throw new CNotFoundInfoByIdxException("해당 자기소개서 번호의 정보가 없습니다.");

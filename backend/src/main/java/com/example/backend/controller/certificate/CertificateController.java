@@ -1,7 +1,6 @@
 package com.example.backend.controller.certificate;
 
 import com.example.backend.domain.Certificate;
-import com.example.backend.domain.Language;
 import com.example.backend.response.CommonResult;
 import com.example.backend.response.ListResult;
 import com.example.backend.service.certificate.CertificateService;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 
-@Api(tags = {"8. Certificate"})
+@Api(tags = {"3-3. Certificate"})
 @Builder
 @RestController
 @RequiredArgsConstructor

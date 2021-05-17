@@ -29,7 +29,10 @@ export default new Vuex.Store({
     isAuthenticated (state) {
       state.accessToken = state.accessToken || localStorage.accessToken
       return state.accessToken
-    }
+    },
+    userid(state) {
+      return state.accessToken ? state.userinfo.id : null;
+    },
   },
   mutations: {
     LOGIN (state, accessToken) {

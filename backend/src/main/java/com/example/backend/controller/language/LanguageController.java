@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 
-@Api(tags = {"7. Language"})
+@Api(tags = {"3-8. Language"})
 @Builder
 @RestController
 @RequiredArgsConstructor
@@ -32,7 +32,7 @@ public class LanguageController {
     @PostMapping(value = "/language")
     public CommonResult insert(@ApiParam(value = "어학 구분(영어, 중국어 등) ", required = true) @RequestParam String division,
                                @ApiParam(value = "어학 시험", required = true) @RequestParam String exam,
-                               @ApiParam(value = "어학 시험점수", required = true) @RequestParam int exam_score,
+                               @ApiParam(value = "어학 시험점수", required = true) @RequestParam String exam_score,
                                @ApiParam(value = "어학 취득 일자", required = true) @RequestParam Date date,
                                @ApiParam(value = "어학 내용", required = true) @RequestParam String content) {
 
@@ -69,7 +69,7 @@ public class LanguageController {
     public CommonResult modify(@ApiParam(value = "어학 번호 ", required = true) @RequestParam int idx,
                                @ApiParam(value = "어학 구분(영어, 중국어 등) ", required = true) @RequestParam String division,
                                @ApiParam(value = "어학 시험", required = true) @RequestParam String exam,
-                               @ApiParam(value = "어학 시험점수", required = true) @RequestParam int exam_score,
+                               @ApiParam(value = "어학 시험점수", required = true) @RequestParam String exam_score,
                                @ApiParam(value = "어학 취득 일자", required = true) @RequestParam Date date,
                                @ApiParam(value = "어학 내용", required = true) @RequestParam String content) {
 

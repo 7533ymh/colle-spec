@@ -13,6 +13,7 @@ import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.Arrays;
 
 
@@ -31,11 +32,9 @@ public class SignController {
 
     //로그인
     @ApiOperation(value = "로그인", notes = "아이디와 비밀번호를 입력하면 회원 정보를 반환해준다.")
-    @GetMapping("/signin")
-    public SingleResult<String> signin(@ApiParam(value = "회원 아이디(id) ", required = true) @RequestParam String id ,
+    @PostMapping("/signin")
+    public SingleResult<String> signin(@ApiParam(value = "회원 아이디(id) ", required = true) @RequestParam String id,
                                        @ApiParam(value = "회원 비밀번호(pass) ", required = true) @RequestParam String pass) {
-
-
 
 
         User user = userService.findById(id);
@@ -51,18 +50,20 @@ public class SignController {
     @ApiOperation(value = "회원 가입", notes = "회원정보를 입력하여 가입한다.")
     @PostMapping("/signup")
     public CommonResult signup(@ApiParam(value = "회원 아이디", required = true) @RequestParam String id,
-                                 @ApiParam(value = "회원 비밀번호", required = true) @RequestParam String pass,
-                                 @ApiParam(value = "회원 이름", required = true) @RequestParam String name,
-                                 @ApiParam(value = "회원 성별", required = true) @RequestParam String sex,
-                                 @ApiParam(value = "회원 이메일", required = true) @RequestParam String mail,
-                                 @ApiParam(value = "회원 휴대폰 번호", required = true) @RequestParam String phone,
-                                 @ApiParam(value = "회원 목표직종", required = true) @RequestParam String objective,
-                                 @ApiParam(value = "회원 목표기업", required = true) @RequestParam String enterprise)  {
+                               @ApiParam(value = "회원 비밀번호", required = true) @RequestParam String pass,
+                               @ApiParam(value = "회원 이름", required = true) @RequestParam String name,
+                               @ApiParam(value = "회원 학년", required = true) @RequestParam int grade,
+                               @ApiParam(value = "회원 성별", required = true) @RequestParam String sex,
+                               @ApiParam(value = "회원 이메일", required = true) @RequestParam String mail,
+                               @ApiParam(value = "회원 휴대폰 번호", required = true) @RequestParam String phone,
+                               @ApiParam(value = "회원 목표직종", required = true) @RequestParam String objective,
+                               @ApiParam(value = "회원 목표기업", required = true) @RequestParam String enterprise) {
 
         userService.signup(User.builder()
                 .id(id)
                 .pass(passwordEncoder.encode(pass))
                 .name(name)
+                .grade(grade)
                 .sex(sex)
                 .mail(mail)
                 .phone(phone)

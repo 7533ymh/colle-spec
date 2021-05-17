@@ -32,8 +32,6 @@ public class User implements UserDetails {
     private String objective; // 목표 직종
     private String enterprise; // 목표 기업
     private int link; // 연동 유무
-    private int score;
-    private String rank;
     private String role;
 
 

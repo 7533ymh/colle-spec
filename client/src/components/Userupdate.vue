@@ -81,13 +81,12 @@
                 params.append('id', this.id); 
                 params.append('pass', this.pass);
                 params.append('name', this.name);
-                //params.append('grade', this.grade);
+                params.append('grade', this.grade);
                 params.append('sex', this.sex);
                 params.append('mail', this.mail);
                 params.append('phone', this.phone);
                 params.append('objective', this.objective);
                 params.append('enterprise', this.enterprise);
-
                 axios
                     .put(url, params)
                     .then(response => {
