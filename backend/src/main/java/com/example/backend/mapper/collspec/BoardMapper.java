@@ -15,8 +15,7 @@ public interface BoardMapper {
     @Options(useGeneratedKeys = true, keyProperty = "board.idx")
     void save(@Param("board") Board board);
 
-    @Select("SELECT user_id, title, edit FROM board WHERE program_idx = #{program_idx} ORDER BY idx")
-    @Result(property = "idx", column = "idx", id = true)
+    @Select("SELECT idx,user_id, title, edit FROM board WHERE program_idx = #{program_idx} ORDER BY idx")
     List<BoardList> findByProgram_idx_NoComment(@Param("program_idx") int program_idx);
 
 
