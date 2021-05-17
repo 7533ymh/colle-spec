@@ -1,10 +1,9 @@
 <template>
 	<div>
 		<h2>프로그램 리스트</h2>
-		<a href="javascript:;" @click="getList1">공모전조회</a>
-        <a href="javascript:;" @click="getList2">프로그램조회</a>
-		<a href="javascript:;" @click="getList3">대회조회</a>
-		<a href="javascript:;" @click="getList4">봉사활동조회</a>
+		<a href="javascript:;" @click="getList1">공모전&대회</a>
+        <a href="javascript:;" @click="getList2">프로그램</a>
+		<a href="javascript:;" @click="getList3">봉사활동조회</a>
 
 
 	
@@ -18,26 +17,34 @@
 			<table class="tbList">
 				<colgroup>
 					<col width="5%" />
-					<col width="10%" />
-					<col width="*" />
-					<!-- <col width="15%" /> -->
+					<col width="30%" />
+					<col width="5%" />
+					<col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />
+					<col width="5%" />
 				</colgroup>
 				<tr>
 					<th>no</th>
 					<th>제목</th>
-                    <th>내용</th>
-					<!-- <th>아이디</th> -->
-					<!-- <th>날짜</th> -->
+                    <th>팀구하기</th>
+                    <th>프로그램시작</th>
+                    <th>프로그램종료</th>
+                    <th>접수시작</th>
+                    <th>접수마감</th>
+        
 				</tr>
 				<tr v-for="(row, i) in view" :key="i">
                     
-					<td>{{view[i].idx}}</td>
-					<td class="txt_left"><a href="javascript:;">{{view[i].title}}</a></td>
-                    <!-- <td>{{view[i].title}}</td> -->
-                    <td>{{view[i].content}}</td>
-
-					<!-- <td>{{row.view.d1.list[0].idx}}</td> -->
-					<!-- <td>{{row.regdate.substring(0,10)}}</td> -->
+					<td>{{i}}</td>
+                    <td><a v-bind:href="view[i].url" target="link.place">{{view[i].title}}</a></td>
+                    <td><b-button size="sm" @click="team(row)" class="mr-2">
+          팀구하기
+        </b-button></td>
+                    <td>{{view[i].program_date_start}}</td>
+                    <td>{{view[i].program_date_end}}</td>
+                    <td>{{view[i].receive_date_start}}</td>
+                    <td>{{view[i].receive_date_end}}</td>
 				</tr>
 				<tr v-if="view.length == 0">
 					<td colspan="4">데이터가 없습니다.</td>
@@ -67,52 +74,30 @@
 let url = store.state.resourceHost;
 import axios from 'axios';
 import store from '../../store';
-
 export default {
     data(){
     return{
       division:{
-          d1:"공모전",
+          d1:"공모전&대회",
           d2:"프로그램",
-          d3:"대회",
-          d4:"봉사활동"
+          d3:"봉사활동",
+          //d4:"봉사활동"
       },
       view:{
-        //   d1:[],
-        //   d2:[],
-        //   d3:[],
-        //   d4:[]
+       //각 division(분류)로 조회한 리스트들이 저장되는 곳
       },
-      d1:'',
-      d2:'',
-      d3:'',
-      d4:'',
-    //   body:'' //리스트 페이지 데이터전송
-	// 		,list:'' //리스트 데이터
-	// 		,no:'' //게시판 숫자처리
-	// 		,paging:'' //페이징 데이터
-	// 		,start_page:'' //시작페이지
-	// 		,page:this.$route.query.page ? this.$route.query.page:1
-	// 		,keyword:this.$route.query.keyword
-	// 		,paginavigation:function() { //페이징 처리 for문 커스텀
-	// 			var pageNumber = [];
-	// 			var start_page = this.paging.start_page;
-	// 			var end_page = this.paging.end_page;
-	// 			for (var i = start_page; i <= end_page; i++) pageNumber.push(i);
-	// 			return pageNumber;
-	// 		}  
+      data:{
+        //   board_idx:'',
+      },
+
      }
+
     },
     mounted() { //페이지 시작하면은 자동 함수 실행
 		this.getList1()
 	},
 	methods:{
 		getList1() {
-            // this.body = { // 데이터 전송
-			// 	board_code:this.board_code
-			// 	,keyword:this.keyword
-			// 	,page:this.page
-			// }
 			axios.get(`${url}/program`,{params:{
                 division:this.division.d1
             }})
@@ -157,75 +142,13 @@ export default {
 				console.log(err);
 			})
 		},
-        getList4() {
-			axios.get(`${url}/program`,{params:{
-                division:this.division.d4
-            }})
-			.then((res)=>{
-				console.log(res.data.list);
-                //this.view.d4=res.data.list
-                this.view=res.data.list;
-			})
-			.then((err)=>{
-				console.log(err);
-			})
-		},
-        getAllList() {
-			axios.get(`${url}/program`,{params:{
-                division:this.division.d1,
-            }})
-			.then((res)=>{
-				console.log(res.data.list);
-                //this.view.d3=res.data.list
-                this.d1=res.data.list;
-                console.log('this.d1: ',this.d1)
+            team(item,index){
+            console.log('item',item)
+            this.data=item
+            localStorage.setItem('program',JSON.stringify(this.data))
+            this.$router.push({path:'./list',query:this.data});
 
-			})
-			.then((err)=>{
-				console.log(err);
-			})
-            axios.get(`${url}/program`,{params:{
-                division:this.division.d2,
-            }})
-			.then((res)=>{
-				console.log(res.data.list);
-                //this.view.d3=res.data.list
-                this.d2=res.data.list;
-                console.log('this.d2: ',this.d2)
-			})
-			.then((err)=>{
-				console.log(err);
-			})
-            axios.get(`${url}/program`,{params:{
-                division:this.division.d3,
-            }})
-			.then((res)=>{
-				console.log(res.data.list);
-                //this.view.d3=res.data.list
-                this.d3=res.data.list;
-                console.log('this.d3: ',this.d3)
-			})
-			.then((err)=>{
-				console.log(err);
-			})
-            axios.get(`${url}/program`,{params:{
-                division:this.division.d4,
-            }})
-			.then((res)=>{
-				console.log(res.data.list);
-                //this.view.d3=res.data.list
-                this.d4=res.data.list;
-                console.log('this.d4: ',this.d4)
-			})
-			.then((err)=>{
-				console.log(err);
-			})
-            .then(()=>{
-            this.view= [this.d1,this.d2,this.d3,this.d4]
-            console.log('total.this.view: ',this.view)
-
-            })
-		},
+        },
         fnSearch() { //검색
 			this.paging.page = 1;
 			this.fnGetList();

@@ -61,12 +61,13 @@
             </b-form>
             
             <div>
-              <b-table responsive="sm" striped :fields="fields" hover :items="myproject" @row-clicked="pjclick" >
+              <b-table responsive="sm" striped :fields="fields" hover :items="myproject" @row-clicked="fnView" >
                     <template #cell(view)="row">
                         
-        <!-- <b-button size="sm" @click="imageview(row)" class="mr-2">
+        <b-button size="sm" @click="imagedown(row)" class="mr-2">
           이미지보기
-        </b-button> -->
+        </b-button>
+
         <b-button size="sm" @click="row.toggleDetails" class="mr-2">
           {{ row.detailsShowing ? 'Hide' : 'Show'}}
         </b-button>
@@ -96,7 +97,10 @@
           <b-row class="mb-2">
             <b-col sm="3" class="text-sm-right"><b>img:</b></b-col>
             <!-- {{row.item.project_imgList[0].filepath}} -->
-            <b-col><img src="../assets/logo.png" alt=""></b-col>
+            <!-- <b-col><img class="product-thumb" v-bind:src="'/upload/'+scndhand.urlInfo" /></b-col> -->
+            <b-col>
+                <img v-for="(row, i) in datacode" :key="i" :src="'data:image/png;base64,'+datacode[i]">
+            </b-col>
           </b-row>
 
           <b-button size="sm" @click="row.toggleDetails">Hide Details</b-button>
@@ -118,6 +122,8 @@ import store from '../store';
 
 import {eventBus} from '../main.js'
 let url=store.state.resourceHost; //서버주소 api
+
+
 export default {
         data() {
             return {
@@ -129,13 +135,25 @@ export default {
                     end_date:'',
                     files:[]
                 },
-                fields:['title','content','score','success','start_date','end_date','filename','view','edit&Del'],
+                fields:['title','content','score','success','start_date','end_date','view','edit&Del'],
                 
                 myproject:[{}],
-                filename:[],
-                filelist:[],
-                fileimg:[{}],
-                
+                send:{
+                    imglist:{
+                        // imgdata1:'',
+                        // imgdata2:'',
+                        // imgdata3:'',
+                        // imgdata4:'',
+                    },
+                    data:[]
+                    }
+                ,
+                datacode:[{}]
+                    // a1:'',
+                    // a2:'',
+                    // a3:''
+                ,
+                imgsrc:`data:image/png;base64,${this.datacode}`,
                 
                 show:true
             }
@@ -148,10 +166,34 @@ export default {
                     this.fileimg=get.data.list[i].project_imgList
                     }
                     this.myproject=get.data.list
+                    console.log('myproject',this.myproject)
                 })
                 },
                 
         methods: {
+            async fnView(item,index) {
+			this.send.data=item
+            console.log('idxxxx',this.send.idx)
+            console.log('item', item)
+            console.log('length111: ', item.project_imgList.length)
+            console.log('data1',this.send.imglist.imgdata1)
+
+                for (var i = 0; i < item.project_imgList.length; i++) {
+                    console.log(i)
+                let idxx=item.project_imgList[i].idx
+                await axios.get(`${url}/project_img/download`,{params:{
+                    idx:idxx
+                },responseType: 'arraybuffer'})
+                .then(res=>{
+                    this.send.imglist[i]=Buffer.from(res.data, 'binary').toString('base64')
+                    //this.send.imglist[i]=Buffer.from(res.data, 'binary').toString('base64')
+
+                })
+                }
+                localStorage.setItem('items',JSON.stringify(this.send)); //클릭한 행의 데이터를 로컬스토리지 저장
+                this.$router.push({path:'./board/ProjectDetail'}); //추가한 상세페이지 라우터
+                
+	},
             //프로젝트내용작성
             onSubmit(event) {
                 event.preventDefault() //submit버튼 클릭시 초기화되지않도록
@@ -181,14 +223,7 @@ export default {
                     alert(err.response.data.msg)
                 })
             },
-            //프로젝트내용조회
-            // getproject(){
-            //     axios.get(`${url}/project`)
-            //     .then(get=>{
-            //         console.log('get.data:',get.data)
-            //         console.log('get.data.list:',get.data.list)
-            //     })
-            // },
+            
             //리셋
             onReset(event) {
                 event.preventDefault()
@@ -211,15 +246,31 @@ export default {
                 console.log('index: ',index)
                 console.log('item: ',item)
             },
-            //이벤트버스를 이용한 데이터 전달.
-            // edit(item,index,e){
-            //     let sendpj=item
-            //     console.log('sendpj: ',sendpj)
-            //     eventBus.$emit('senddata',sendpj)
-            //     console.log('전달한 값: ',sendpj )
-            //     this.$router.push('/Detail')
-                
-            // },
+            //이미지
+            imagedown(item){
+                console.log('item', item)
+                console.log('length: ', item.item.project_imgList.length)
+                for (var i = 0; i < item.item.project_imgList.length; i++) {
+                let idxx=item.item.project_imgList[i].idx
+                console.log(idxx)
+                axios.get(`${url}/project_img/download`,{params:{
+                    idx:idxx
+                },responseType: 'arraybuffer'})
+                .then(res=>{
+                    // console.log('res',res)
+                    // const downurl = window.URL.createObjectURL(new Blob([res.data]));
+                    // const link = document.createElement('a');
+                    // link.href = downurl;
+                    // link.setAttribute('download', 'test.png');
+                    // document.body.appendChild(link);
+                    // link.click();
+                    // link.remove();
+                    this.datacode[i]=Buffer.from(res.data, 'binary').toString('base64')
+                    //console.log(this.datacode[i])
+                })
+                }
+                console.log('aaa',this.datacode)
+            },
             deletepj(item,index,e){
                 let del=item.item.idx
                 
@@ -280,16 +331,6 @@ export default {
                 }
                 console.log('imgsrc:',this.imgsrc)
                 
-            },
-            
-
-            detail(item,index,event){
-                this.$router.push({
-                    name:'Detail',
-                    params:{
-                        idx:index
-                    }
-                })
             },
          }
     }

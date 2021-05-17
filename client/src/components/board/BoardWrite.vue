@@ -23,7 +23,7 @@
 
 		<div class="btnWrap">
 			<a href="javascript:;" @click="fnList" class="btn">목록</a>
-			<a href="javascript:;" @click="fnAddProc" class="btnAdd btn">등록</a>
+			<a href="javascript:;" @click="write" class="btnAdd btn">등록</a>
 		</div>	
 	</div>
 </template>
@@ -37,31 +37,34 @@ export default {
 	data() { //변수 생성
 		return{
 			board:{
-                id:'',
-			title:''
-			,content:''
-            }
+                id:JSON.parse(localStorage.getItem('program')), //프로그램 idx
+			    title:'', //팀구하기 게시판 제목
+			    content:''//팀구하기 게시판 내용
+            },
+            // singledata:'',
 		}
 	}
 	,methods:{
 		fnList(){ //리스트 화면으로 이동 함수
-			this.$router.push({path:'/board/list',query:this.body});
+			this.$router.push({path:'/board/list'});
 			
 		}
-		,fnAddProc() { //등록 프로세스
+		,write() { //등록 프로세스
 			if(!this.board.title) { //제목이 없다면 값을 입력하라고 알려준다.
 				alert("제목을 입력해 주세요");
-				this.$refs.title.focus(); //방식으로 선택자를 찾는다.
+				//this.$refs.title.focus(); //방식으로 선택자를 찾는다.
 				return;
 			}
             var params = new URLSearchParams();
+                params.append('program_idx',this.board.id.idx) //게시글 등록위해 필요한 프로그램idx
                 params.append('title', this.board.title);
                 params.append('content', this.board.content);
 			
-			axios.post(`${url}/program/board`,params,{program_idx:this.id})
+			axios.post(`${url}/program/board`,params)
 			.then((res)=>{
 				if(res.data.success) {
 					alert('등록되었습니다.');
+                    // localStorage.setItem('board_singlelist',JSON.stringify(this.singledata))
 					this.fnList();
 				} else {
 					alert("실행중 실패했습니다.\n다시 이용해 주세요");

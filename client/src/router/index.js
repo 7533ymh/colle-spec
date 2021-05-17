@@ -16,10 +16,13 @@ import Experience from '../components/Experience.vue'
 import Project from '../components/Project.vue'
 import Detail from '../components/Detail.vue'
 import test from '../components/test.vue'
-import List from '../components/board/List'; //게시판 리스트 컴포넌트 호출
-import Write from '../components/board/Write'; //게시판 리스트 컴포넌트 호출
+import BoardList from '../components/board/BoardList'; //게시판 리스트 컴포넌트 호출
+import BoardWrite from '../components/board/BoardWrite'; //게시판 리스트 컴포넌트 호출
 import Program from '../components/board/Program'; //프로그램 리스트 컴포넌트 호출
 import AllList from '../components/board/AllList'; //프로그램 리스트 컴포넌트 호출
+import ProjectDetail from '../components/board/ProjectDetail'; //프로그램 리스트 상세페이지 호출
+import ProgramTeamDetail from '../components/board/ProgramTeamDetail'; //프로그램 리스트 상세페이지 호출
+
 
 
 
@@ -134,14 +137,25 @@ export default new Router({
     },
     {
       path: '/board/list',
-      name: 'list',
-      component:List
+      name: 'BoardList',
+      component:BoardList
     },
+    {
+      path: '/board/ProgramTeamDetail',
+      name: 'ProgramTeamDetail',
+      component:ProgramTeamDetail
+    },
+    
     {
       path: '/board/write',
       name: 'write',
-      component:Write
+      component:BoardWrite
     },
+    {
+			path:'/board/ProjectDetail'  //상세페이지 추가
+			,name:'ProjectDetail'
+			,component:ProjectDetail
+		},
     {
       path: '/me',
       name: 'Me',
