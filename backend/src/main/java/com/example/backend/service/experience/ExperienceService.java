@@ -5,7 +5,7 @@ import com.example.backend.advice.exception.CNotFoundInfoByIdxException;
 import com.example.backend.advice.exception.CNotFoundInfoByUserException;
 import com.example.backend.advice.exception.CNotHaveAccessInfoException;
 import com.example.backend.domain.Experience;
-import com.example.backend.mapper.ExperienceMapper;
+import com.example.backend.mapper.collspec.ExperienceMapper;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -121,8 +121,8 @@ public class ExperienceService {
 
     public void checkAll(int idx , int user_idx) {
 
-        if (experienceMapper.finduser_idxByIdx(idx).isPresent() ) {
-            if (experienceMapper.finduser_idxByIdx(idx).get() != user_idx)
+        if (experienceMapper.findByIdx(idx).isPresent() ) {
+            if (experienceMapper.findByIdx(idx).get().getUser_idx() != user_idx)
                 throw new CNotHaveAccessInfoException("해당 회원의 해외경험 번호가 아닙니다.");
         }
         else {

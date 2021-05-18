@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 
-@Api(tags = {"9. Experience"})
+@Api(tags = {"3-5. Experience"})
 @Builder
 @RestController
 @RequiredArgsConstructor

@@ -42,7 +42,7 @@ public class MessageConfiguration implements WebMvcConfigurer {
     private static class YamlMessageSource extends ResourceBundleMessageSource {
         @Override
         protected ResourceBundle doGetBundle(String basename, Locale locale) throws MissingResourceException {
-            return ResourceBundle.getBundle(basename, locale, YamlResourceBundle.Control.INSTANCE);
+            return ResourceBundle.getBundle(basename, Locale.KOREAN, YamlResourceBundle.Control.INSTANCE);
         }
     }
 

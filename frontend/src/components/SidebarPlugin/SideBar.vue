@@ -6,7 +6,7 @@
             <navbar-toggle-button @click.native="showSidebar">
                 
             </navbar-toggle-button>
-            <router-link class="navbar-brand" to="/">
+            <router-link class="navbar-brand" to="/Main">
                 <img :src="logo" class="navbar-brand-img" alt="...">
             </router-link>
 
@@ -79,11 +79,14 @@
                     <slot name="links">
                     </slot>
                 </ul>
+
+
                 <!--Divider-->
                 <hr class="my-3">
-                <!--Heading-->
-                <h6 class="navbar-heading text-muted">Documentation</h6>
+              
+              
                 <!--Navigation-->
+    <!--
                 <ul class="navbar-nav mb-md-3">
                     <li class="nav-item">
                         <a class="nav-link"
@@ -104,6 +107,8 @@
                         </a>
                     </li>
                 </ul>
+
+-->
             </div>
             </div>
     </nav>
@@ -119,7 +124,7 @@
     props: {
       logo: {
         type: String,
-        default: 'img/brand/green.png',
+        default: 'img/brand/Colle-SpecLogo.png',
         description: 'Sidebar app logo'
       },
       autoClose: {

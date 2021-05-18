@@ -61,10 +61,15 @@
             </b-form>
             
             <div>
-              <b-table responsive="sm" striped :fields="fields" hover :items="myproject" @row-clicked="pjclick" >
-                    <template #cell(down)="row">
-        <b-button size="sm" @click="download(row)" class="mr-2">
-          내려받기
+              <b-table responsive="sm" striped :fields="fields" hover :items="myproject" @row-clicked="fnView" >
+                    <template #cell(view)="row">
+                        
+        <b-button size="sm" @click="imagedown(row)" class="mr-2">
+          이미지보기
+        </b-button>
+
+        <b-button size="sm" @click="row.toggleDetails" class="mr-2">
+          {{ row.detailsShowing ? 'Hide' : 'Show'}}
         </b-button>
                     </template>
                     <template #cell(edit&Del)="row">
@@ -76,11 +81,37 @@
         </b-button>
        
                     </template>
+
+        <template #row-details="row">
+        <b-card>
+          <b-row class="mb-2">
+            <b-col sm="3" class="text-sm-right"><b>title:</b></b-col>
+            <b-col>{{ row.item.title }}</b-col>
+          </b-row>
+
+          <b-row class="mb-2">
+            <b-col sm="3" class="text-sm-right"><b>content:</b></b-col>
+            <b-col>{{ row.item.content }}</b-col>
+          </b-row>
+
+          <b-row class="mb-2">
+            <b-col sm="3" class="text-sm-right"><b>img:</b></b-col>
+            <!-- {{row.item.project_imgList[0].filepath}} -->
+            <!-- <b-col><img class="product-thumb" v-bind:src="'/upload/'+scndhand.urlInfo" /></b-col> -->
+            <b-col>
+                <img v-for="(row, i) in datacode" :key="i" :src="'data:image/png;base64,'+datacode[i]">
+            </b-col>
+          </b-row>
+
+          <b-button size="sm" @click="row.toggleDetails">Hide Details</b-button>
+        </b-card>
+      </template>
                     
               </b-table>             
               </div> 
             <b-card class="mt-3" header="Form Data Result">
                 <pre class="m-0">{{ project }}</pre>
+                        
             </b-card>
         </div>
 </template>
@@ -91,6 +122,8 @@ import store from '../store';
 
 import {eventBus} from '../main.js'
 let url=store.state.resourceHost; //서버주소 api
+
+
 export default {
         data() {
             return {
@@ -102,12 +135,25 @@ export default {
                     end_date:'',
                     files:[]
                 },
-                fields:['title','content','score','success','start_date','end_date','filename','down','edit&Del'],
+                fields:['title','content','score','success','start_date','end_date','view','edit&Del'],
                 
                 myproject:[{}],
-                filename:[],
-                filelist:[],
-                
+                send:{
+                    imglist:{
+                        // imgdata1:'',
+                        // imgdata2:'',
+                        // imgdata3:'',
+                        // imgdata4:'',
+                    },
+                    data:[]
+                    }
+                ,
+                datacode:[{}]
+                    // a1:'',
+                    // a2:'',
+                    // a3:''
+                ,
+                imgsrc:`data:image/png;base64,${this.datacode}`,
                 
                 show:true
             }
@@ -117,12 +163,37 @@ export default {
                     .then(get=>{
                     for(var i=0; i<get.data.list.length; i++){
                     this.myproject.filename=get.data.list[i].project_imgList
+                    this.fileimg=get.data.list[i].project_imgList
                     }
                     this.myproject=get.data.list
+                    console.log('myproject',this.myproject)
                 })
                 },
                 
         methods: {
+            async fnView(item,index) {
+			this.send.data=item
+            console.log('idxxxx',this.send.idx)
+            console.log('item', item)
+            console.log('length111: ', item.project_imgList.length)
+            console.log('data1',this.send.imglist.imgdata1)
+
+                for (var i = 0; i < item.project_imgList.length; i++) {
+                    console.log(i)
+                let idxx=item.project_imgList[i].idx
+                await axios.get(`${url}/project_img/download`,{params:{
+                    idx:idxx
+                },responseType: 'arraybuffer'})
+                .then(res=>{
+                    this.send.imglist[i]=Buffer.from(res.data, 'binary').toString('base64')
+                    //this.send.imglist[i]=Buffer.from(res.data, 'binary').toString('base64')
+
+                })
+                }
+                localStorage.setItem('items',JSON.stringify(this.send)); //클릭한 행의 데이터를 로컬스토리지 저장
+                this.$router.push({path:'./board/ProjectDetail'}); //추가한 상세페이지 라우터
+                
+	},
             //프로젝트내용작성
             onSubmit(event) {
                 event.preventDefault() //submit버튼 클릭시 초기화되지않도록
@@ -152,14 +223,7 @@ export default {
                     alert(err.response.data.msg)
                 })
             },
-            //프로젝트내용조회
-            // getproject(){
-            //     axios.get(`${url}/project`)
-            //     .then(get=>{
-            //         console.log('get.data:',get.data)
-            //         console.log('get.data.list:',get.data.list)
-            //     })
-            // },
+            
             //리셋
             onReset(event) {
                 event.preventDefault()
@@ -182,15 +246,31 @@ export default {
                 console.log('index: ',index)
                 console.log('item: ',item)
             },
-            //이벤트버스를 이용한 데이터 전달.
-            // edit(item,index,e){
-            //     let sendpj=item
-            //     console.log('sendpj: ',sendpj)
-            //     eventBus.$emit('senddata',sendpj)
-            //     console.log('전달한 값: ',sendpj )
-            //     this.$router.push('/Detail')
-                
-            // },
+            //이미지
+            imagedown(item){
+                console.log('item', item)
+                console.log('length: ', item.item.project_imgList.length)
+                for (var i = 0; i < item.item.project_imgList.length; i++) {
+                let idxx=item.item.project_imgList[i].idx
+                console.log(idxx)
+                axios.get(`${url}/project_img/download`,{params:{
+                    idx:idxx
+                },responseType: 'arraybuffer'})
+                .then(res=>{
+                    // console.log('res',res)
+                    // const downurl = window.URL.createObjectURL(new Blob([res.data]));
+                    // const link = document.createElement('a');
+                    // link.href = downurl;
+                    // link.setAttribute('download', 'test.png');
+                    // document.body.appendChild(link);
+                    // link.click();
+                    // link.remove();
+                    this.datacode[i]=Buffer.from(res.data, 'binary').toString('base64')
+                    //console.log(this.datacode[i])
+                })
+                }
+                console.log('aaa',this.datacode)
+            },
             deletepj(item,index,e){
                 let del=item.item.idx
                 
@@ -243,48 +323,14 @@ export default {
                     alert(err.response.data.msg)
                 })
             },
-            download(item,index,e){
-                let idxx=item.item.idx
-                console.log('idxx: ',idxx)
-                for (var i = 0; i < item.item.project_imgList.length; i++){ 
-                this.filelist=item.item.project_imgList[i].idx
+            imageview(item,index,e){
+                console.log('item:::',item)
+                for (var i = 0; i < item.item.project_imgList.length; i++) {
+                console.log('rrr',item.item.project_imgList[i].filepath)
+                this.imgsrc[i]=item.item.project_imgList[i].filepath
                 }
-                axios.get(`${url}/project_img/download`,{params:{
-                    idx:idxx,
-                    //idx:this.filelist,
-                    responseType: "blob",
-                    headers: { responseType: 'arraybuffer' }
-                }})
-                .then(res=>{
-                     console.log(res)
-                    const url = window.URL.createObjectURL(new Blob([res.data]));
-                    const link = document.createElement('a');
-                    const contentDisposition = res.headers['content-disposition']; // 파일 이름
-                    let fileName = 'unknown';
-                    if (contentDisposition) {
-                    const [ fileNameMatch ] = contentDisposition.split(';').filter(str => str.includes('filename'));
-                    if (fileNameMatch)
-                        [ , fileName ] = fileNameMatch.split('=');
-                    }
-                    link.href = url;
-                    link.setAttribute('download', `${fileName}`);
-                    link.style.cssText = 'display:none';
-                    document.body.appendChild(link);
-                    link.click();
-                    link.remove();
-                }).catch(err=>{
-                    alert(err)
-                })
-            },
-            
-
-            detail(item,index,event){
-                this.$router.push({
-                    name:'Detail',
-                    params:{
-                        idx:index
-                    }
-                })
+                console.log('imgsrc:',this.imgsrc)
+                
             },
          }
     }

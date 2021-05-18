@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 
-@Api(tags = {"4. Award"})
+@Api(tags = {"3-1. Award"})
 @Builder
 @RestController
 @RequiredArgsConstructor

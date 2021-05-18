@@ -3,65 +3,70 @@
     <notifications></notifications>
     <side-bar>
       <template slot="links">
+        
+
         <sidebar-item
           :link="{
-            name: 'Dashboard',
-            path: '/dashboard',
-            icon: 'ni ni-tv-2 text-primary',
+            name: '메인',
+            path: '/main',
+            
           }"
         >
         </sidebar-item>
 
         <sidebar-item
-            :link="{
-              name: 'Icons',
-              path: '/icons',
-              icon: 'ni ni-planet text-blue'
-              }"
-            >
+          :link="{
+            name: '포트폴리오',
+            path: '/Basic_Information',
+            
+          }"
+          >
+        </sidebar-item>
+
+        
+
+        <sidebar-item
+          :link="{
+            name: '나의 등급제',
+            path: '/RatingSystem',
+            
+          }"
+        >
         </sidebar-item>
 
         <sidebar-item
-              :link="{
-                name: 'Maps',
-                path: '/maps',
-                icon: 'ni ni-pin-3 text-orange'
-              }">
+          :link="{
+            name: '공모전, 대회, 프로그램',
+            path: '/Competition1',
+            
+          }"
+        >
         </sidebar-item>
 
-        <sidebar-item
-              :link="{
-                name: 'User Profile',
-                path: '/profile',
-                icon: 'ni ni-single-02 text-yellow'
-                }">
-        </sidebar-item>
 
         <sidebar-item
-                :link="{
-                  name: 'Tables',
-                  path: '/tables',
-                  icon: 'ni ni-bullet-list-67 text-red'
-                }">
+          :link="{
+            name: '기업에서 요구하는 스펙',
+            path: '/Company',
+            
+          }"
+        >
         </sidebar-item>
 
-        <sidebar-item
-                  :link="{
-                    name: 'Login',
-                    path: '/login',
-                    icon: 'ni ni-key-25 text-info'
-                  }">
-        </sidebar-item>
-        <sidebar-item
-                  :link="{
-                    name: 'Register',
-                    path: '/register',
-                    icon: 'ni ni-circle-08 text-pink'
-                  }">
-        </sidebar-item>
+
+     <a href="" v-if="isAuthenticated" @click.prevent="onClickLogout" >
+           <sidebar-item :link="{name:'로그아웃',path:'/'}"></sidebar-item>
+           </a>  
+            <router-link to="/Login1" v-else>
+            <sidebar-item  :link="{name:'로그인',path:'/Login1'}"></sidebar-item>
+        
+        </router-link>
+    
       </template>
 
       <template slot="links-after">
+
+        
         <hr class="my-3">
         <h6 class="navbar-heading p-0 text-muted">Documentation</h6>
 
@@ -81,7 +86,11 @@
               <b-nav-text class="p-0">Components</b-nav-text>
           </b-nav-item>
         </b-nav>
+
+-
       </template>
+
+
     </side-bar>
     <div class="main-content">
       <dashboard-navbar :type="$route.meta.navbarType"></dashboard-navbar>
@@ -116,10 +125,13 @@
     }
   }
 
+
   import DashboardNavbar from './DashboardNavbar.vue';
   import ContentFooter from './ContentFooter.vue';
   import DashboardContent from './Content.vue';
   import { FadeTransition } from 'vue2-transitions';
+
+  import store from '@/store';
 
   export default {
     components: {
@@ -134,10 +146,20 @@
         if (isWindows) {
           initScrollbar('sidenav');
         }
+      },
+      //로그아웃 메소드
+      onClickLogout(){
+        store.dispatch('LOGOUT').then(()=>this.$routes.routes.push('/'))
       }
     },
     mounted() {
       this.initScrollbar()
+    },
+    computed:{
+     //로그인 로그아웃 : 로그인 되있으면 로그아웃으로 변함 
+    isAuthenticated(){
+      return store.getters.isAuthenticated
+    }
     }
   };
 </script>

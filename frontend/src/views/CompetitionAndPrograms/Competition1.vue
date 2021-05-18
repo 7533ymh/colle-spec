@@ -1,0 +1,159 @@
+<template>
+  <div>
+
+    <base-header class="pb-6 pb-8 pt-5 pt-md-8 bg-gradient-success" >
+      <!-- Card stats -->
+      <b-row>
+        <b-col xl="6" md="6">
+          <stats-card title=""
+                      type="gradient-red"
+                      sub-title="공모전, 대회, 프로그램"
+                      
+                      class="mb-4">
+
+            <template slot="footer">
+              
+            </template>
+          </stats-card>
+        </b-col>
+
+      </b-row> 
+    </base-header>
+
+    <!--Charts-->
+    <b-container fluid class="mt--7">
+      <b-row>
+        <b-col xl="8" class="mb-5 mb-xl-0">
+          <card  header-classes="bg-transparent">
+            <b-row align-v="center" slot="header">
+              
+              <b-col>
+                <b-nav class="nav-pills justify-content-end">
+                  <b-nav-item link-classes="py-2 px-3" router-link to="/Competition1">    
+                    <span class="d-none d-md-block"> 공모전&대회</span>
+                    <span class="d-md-none">M</span>
+                  </b-nav-item>
+
+                  <b-nav-item link-classes="py-2 px-3" router-link to="/CompetitionProgram">
+                    <span class="d-none d-md-block">프로그램</span>
+                    <span class="d-md-none">W</span>
+                  </b-nav-item>
+
+                  <b-nav-item link-classes="py-2 px-3" router-link to="/Volunteer">
+                    <span class="d-none d-md-block">봉사활동</span>
+                    <span class="d-md-none">W</span>
+                  </b-nav-item>
+                  
+                  <b-nav-item link-classes="py-2 px-3" router-link to="/CompetitionEtc">
+                    <span class="d-none d-md-block">기타</span>
+                    <span class="d-md-none">W</span>
+                  </b-nav-item>
+                </b-nav>
+              </b-col>
+            </b-row>
+            
+
+<Competition1-table/>  
+          
+
+
+             
+
+          </card>
+        </b-col>
+
+       
+      </b-row>
+      <!-- End charts-->
+
+      
+    </b-container>
+
+  </div>
+
+  
+</template>
+<script>
+
+  // Components
+  import BaseProgress from '@/components/BaseProgress';
+  import StatsCard from '@/components/Cards/StatsCard';
+  import Competition1Table from "./CompetitonTables/Competition1Table";
+  //import axios from 'axios';
+  //import store from '@/store';
+  //const url=store.state.resourceHost;
+  import { Table, TableColumn} from 'element-ui'
+
+    export default {
+      components: {
+      // [Table.name]: Table,
+      // [TableColumn.name]: TableColumn,
+      BaseProgress,
+        StatsCard,
+        Competition1Table
+    },
+//       data(){
+//         return{
+//           currentPage: 1,
+//           division:{
+//           d1:"공모전&대회",
+//           d2:"프로그램",
+//           d3:"봉사활동"
+//         },
+//         view:{},
+//         data:{},
+//         }
+//       },
+//  methods:
+//     {
+//       getList1(){
+//         axios.get(`${url}/program`,{params:{
+//           division:this.division.d1
+//         }})
+//         .then(res=>{
+//           this.view=res.data.list;
+//         })
+//         .catch(err=>{
+//           alert(err.response.data.msg)
+//         })
+//       },
+//       getList2(){
+//         axios.get(`${url}/program`,{params:{
+//           division:this.division.d2
+//         }})
+//         .then(res=>{
+//           this.view=res.data.list;
+//         })
+//         .catch(err=>{
+//           alert(err.response.data.msg)
+//         })
+//       },
+//       getList3(){
+//         axios.get(`${url}/program`,{params:{
+//           division:this.division.d3
+//         }})
+//         .then(res=>{
+//           this.view=res.data.list;
+//         })
+//         .catch(err=>{
+//           alert(err.response.data.msg)
+//         })
+//       },
+//       team(item){
+//         this.data=item
+//         localStorage.setItem('program',JSON.stringify(this.data))
+//       }}
+    
+  }
+</script>
+
+
+
+
+
+<style>
+.el-table .cell{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+</style>

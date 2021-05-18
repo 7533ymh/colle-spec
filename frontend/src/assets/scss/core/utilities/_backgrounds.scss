@@ -9,10 +9,11 @@
 
 @each $color, $value in $theme-colors {
 	@include bg-gradient-variant(".bg-gradient-#{$color}", $value, $ignore-warning: true);
+    
 }
 
 @each $color, $value in $colors {
-	@include bg-gradient-variant(".bg-gradient-#{$color}", $value, $ignore-warning: true);
+    //@error bg-gradient-variant(".bg-gradient-#{$color}", $value, $ignore-warning: true);
 }
 
 

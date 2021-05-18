@@ -16,6 +16,12 @@ import Experience from '../components/Experience.vue'
 import Project from '../components/Project.vue'
 import Detail from '../components/Detail.vue'
 import test from '../components/test.vue'
+import BoardList from '../components/board/BoardList'; //게시판 리스트 컴포넌트 호출
+import BoardWrite from '../components/board/BoardWrite'; //게시판 리스트 컴포넌트 호출
+import Program from '../components/board/Program'; //프로그램 리스트 컴포넌트 호출
+import AllList from '../components/board/AllList'; //프로그램 리스트 컴포넌트 호출
+import ProjectDetail from '../components/board/ProjectDetail'; //프로그램 리스트 상세페이지 호출
+import ProgramTeamDetail from '../components/board/ProgramTeamDetail'; //프로그램 리스트 상세페이지 호출
 
 
 
@@ -120,11 +126,42 @@ export default new Router({
       component:test
     },
     {
+      path: '/board/alllist',
+      name: 'alllist',
+      component:AllList
+    },
+    {
+      path: '/board/program',
+      name: 'program',
+      component:Program
+    },
+    {
+      path: '/board/list',
+      name: 'BoardList',
+      component:BoardList
+    },
+    {
+      path: '/board/ProgramTeamDetail',
+      name: 'ProgramTeamDetail',
+      component:ProgramTeamDetail
+    },
+    
+    {
+      path: '/board/write',
+      name: 'write',
+      component:BoardWrite
+    },
+    {
+			path:'/board/ProjectDetail'  //상세페이지 추가
+			,name:'ProjectDetail'
+			,component:ProjectDetail
+		},
+    {
       path: '/me',
       name: 'Me',
       component: Me,
       //beforeEnter: requireAuth(),
-      beforeEnter: accessloginAuth //마이페이지는 로그인없이 접근 불가
+      //beforeEnter: accessloginAuth //마이페이지는 로그인없이 접근 불가
     }
   ]
 })

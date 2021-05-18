@@ -29,7 +29,10 @@ export default new Vuex.Store({
     isAuthenticated (state) {
       state.accessToken = state.accessToken || localStorage.accessToken
       return state.accessToken
-    }
+    },
+    userid(state) {
+      return state.accessToken ? state.userinfo.id : null;
+    },
   },
   mutations: {
     LOGIN (state, accessToken) {
@@ -57,11 +60,10 @@ export default new Vuex.Store({
   //dispatch로 불러와서 사용 -> dispatch('actions함수','...')
   actions: {
     LOGIN ({commit,dispatch},{id,pass}) {
-      return axios.get(`${resourceHost}/signin`,{
-        params:{
-        'id':id,
-        'pass':pass}
-      })
+      var params = new URLSearchParams();
+                params.append('id', id);
+                params.append('pass', pass);
+      return axios.post(`${resourceHost}/signin`,params)
         .then(res => {
           commit('LOGIN', res.data.data) //커밋: mutations LOGIN값 변경
 

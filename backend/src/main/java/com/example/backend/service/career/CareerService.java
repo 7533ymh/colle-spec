@@ -5,7 +5,7 @@ import com.example.backend.advice.exception.CNotFoundInfoByIdxException;
 import com.example.backend.advice.exception.CNotFoundInfoByUserException;
 import com.example.backend.advice.exception.CNotHaveAccessInfoException;
 import com.example.backend.domain.Career;
-import com.example.backend.mapper.CareerMapper;
+import com.example.backend.mapper.collspec.CareerMapper;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,7 +76,7 @@ public class CareerService {
 
     }
 
-    private void checkDate(Career career) {
+    public void checkDate(Career career) {
         if (career.getStart_date().after(career.getEnd_date())) {
             throw new CDateException();
         }
@@ -118,8 +118,8 @@ public class CareerService {
 
     public void checkAll(int idx , int user_idx) {
 
-        if (careerMapper.finduser_idxByIdx(idx).isPresent() ) {
-            if (careerMapper.finduser_idxByIdx(idx).get() != user_idx)
+        if (careerMapper.findByIdx(idx).isPresent() ) {
+            if (careerMapper.findByIdx(idx).get().getUser_idx() != user_idx)
                 throw new CNotHaveAccessInfoException("해당 회원의 경력 번호가 아닙니다.");
         }
         else {

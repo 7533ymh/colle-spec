@@ -27,10 +27,10 @@ public class UserController {
     @ApiOperation(value = "회원 정보 조회", notes = "회원번호(idx)로 회원을 조회한다")
     @GetMapping("/user")
     public SingleResult<User> findUserById() {
-        // SecurityContext에서 인증받은 회원의 정보를 얻어온다.
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
         return responseService.getSingleResult(userService.findById(id));
+
     }
 
     @ApiOperation(value = "회원 수정", notes = "회원정보를 수정한다")
@@ -38,6 +38,7 @@ public class UserController {
     public CommonResult modify(@ApiParam(value = "회원 아이디", required = true) @RequestParam String id,
                                @ApiParam(value = "회원 비밀번호", required = true) @RequestParam String pass,
                                @ApiParam(value = "회원 이름", required = true) @RequestParam String name,
+                               @ApiParam(value = "회원 학년", required = true) @RequestParam int grade,
                                @ApiParam(value = "회원 성별", required = true) @RequestParam String sex,
                                @ApiParam(value = "회원 이메일", required = true) @RequestParam String mail,
                                @ApiParam(value = "회원 휴대폰 번호", required = true) @RequestParam String phone,
@@ -53,6 +54,7 @@ public class UserController {
                 .id(id)
                 .pass(passwordEncoder.encode(pass))
                 .name(name)
+                .grade(grade)
                 .sex(sex)
                 .mail(mail)
                 .phone(phone)

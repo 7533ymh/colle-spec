@@ -2,17 +2,7 @@
   <div>
     <!-- Header -->
     <div class="header bg-gradient-success py-7 py-lg-8 pt-lg-9">
-      <b-container class="container">
-        <div class="header-body text-center mb-7">
-          <b-row class="justify-content-center">
-            <b-col xl="5" lg="6" md="8" class="px-5">
-              <h1 class="text-white">Create an account</h1>
-              <p class="text-lead text-white">Use these awesome forms to login or create new account in your project for
-                free.</p>
-            </b-col>
-          </b-row>
-        </div>
-      </b-container>
+      
       <div class="separator separator-bottom separator-skew zindex-100">
         <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
              xmlns="http://www.w3.org/2000/svg">
@@ -26,68 +16,95 @@
       <b-row class="justify-content-center">
         <b-col lg="6" md="8" >
           <b-card no-body class="bg-secondary border-0">
-            <b-card-header class="bg-transparent pb-5">
-              <div class="text-muted text-center mt-2 mb-4"><small>Sign up with</small></div>
-              <div class="text-center">
-                <a href="#" class="btn btn-neutral btn-icon mr-4">
-                  <span class="btn-inner--icon"><img src="img/icons/common/github.svg"></span>
-                  <span class="btn-inner--text">Github</span>
-                </a>
-                <a href="#" class="btn btn-neutral btn-icon">
-                  <span class="btn-inner--icon"><img src="img/icons/common/google.svg"></span>
-                  <span class="btn-inner--text">Google</span>
-                </a>
-              </div>
-            </b-card-header>
+            
             <b-card-body class="px-lg-5 py-lg-5">
               <div class="text-center text-muted mb-4">
-                <small>Or sign up with credentials</small>
+                <h3>회원가입</h3>
               </div>
-              <validation-observer v-slot="{handleSubmit}" ref="formValidator">
-                <b-form role="form" @submit.prevent="handleSubmit(onSubmit)">
+              <!-- <validation-observer v-slot="{handleSubmit}" ref="formValidator"> -->
+                <b-form role="form">
+
                   <base-input alternative
                               class="mb-3"
                               prepend-icon="ni ni-hat-3"
-                              placeholder="Name"
+                              placeholder="아이디"
+                              :rules="{required: true}"
+                              v-model="user.id">
+                  </base-input>
+                  <button type="submit" @click="check">아이디중복체크</button>
+                  <base-input alternative
+                              class="mb-3"
+                              prepend-icon="ni ni-hat-3"
+                              placeholder="이름(실명)"
                               name="Name"
                               :rules="{required: true}"
-                              v-model="model.name">
+                              v-model="user.name">
                   </base-input>
 
                   <base-input alternative
                               class="mb-3"
                               prepend-icon="ni ni-email-83"
-                              placeholder="Email"
+                              placeholder="이메일"
                               name="Email"
                               :rules="{required: true, email: true}"
-                              v-model="model.email">
+                              v-model="user.mail">
                   </base-input>
 
                   <base-input alternative
                               class="mb-3"
                               prepend-icon="ni ni-lock-circle-open"
-                              placeholder="password"
+                              placeholder="비밀번호"
                               type="password"
                               name="Password"
                               :rules="{required: true, min: 6}"
-                              v-model="model.password">
+                              v-model="user.pass">
                   </base-input>
-                  <div class="text-muted font-italic"><small>password strength: <span
-                    class="text-success font-weight-700">strong</span></small></div>
-                  <b-row class=" my-4">
-                    <b-col cols="12">
-                      <base-input :rules="{ required: { allowFalse: false } }" name=Privacy Policy>
-                        <b-form-checkbox v-model="model.agree">
-                          <span class="text-muted">I agree with the <a href="#!">Privacy Policy</a></span>
-                        </b-form-checkbox>
-                      </base-input>
-                    </b-col>
-                  </b-row>
+                  <base-input alternative
+                              class="mb-3"
+                              prepend-icon="ni ni-hat-3"
+                              placeholder="학년(1~4)"
+                              
+                              :rules="{required: true}"
+                              v-model="user.grade">
+                  </base-input>
+                  <base-input alternative
+                              class="mb-3"
+                              prepend-icon="ni ni-hat-3"
+                              placeholder="성별(남,여)"
+                              
+                              :rules="{required: true}"
+                              v-model="user.sex">
+                  </base-input>
+                  <base-input alternative
+                              class="mb-3"
+                              prepend-icon="ni ni-hat-3"
+                              placeholder="휴대폰 번호"
+                              
+                              :rules="{required: true}"
+                              v-model="user.phone">
+                  </base-input>
+                  <base-input alternative
+                              class="mb-3"
+                              prepend-icon="ni ni-hat-3"
+                              placeholder="희망직종"
+                              
+                              :rules="{required: true}"
+                              v-model="user.objective">
+                  </base-input>
+                  <base-input alternative
+                              class="mb-3"
+                              prepend-icon="ni ni-hat-3"
+                              placeholder="희망기업"
+                              
+                              :rules="{required: true}"
+                              v-model="user.enterprise">
+                  </base-input>
+                  
                   <div class="text-center">
-                    <b-button type="submit" variant="primary" class="mt-4">Create account</b-button>
+                    <b-button type="submit" variant="primary" class="mt-4" @click="btn_register">가입하기</b-button>
                   </div>
                 </b-form>
-              </validation-observer>
+              <!-- </validation-observer> -->
             </b-card-body>
           </b-card>
         </b-col>
@@ -96,25 +113,67 @@
   </div>
 </template>
 <script>
-
+    import axios from 'axios';
+    import 'url-search-params-polyfill';
   export default {
     name: 'register',
     data() {
       return {
-        model: {
-          name: '',
-          email: '',
-          password: '',
-          agree: false
-        }
+        user: [{
+       //유저정보
+        }]
       }
     },
     methods: {
-      onSubmit() {
-        // this will be called only after form is valid. You can do an api call here to register users
-      }
-    }
+      btn_register(event) {
+                event.preventDefault();
+                
+                var url = "http://49.50.166.108:4000/api/signup";
 
-  };
+                var params = new URLSearchParams();
+                params.append('id', this.user.id);
+                params.append('pass', this.user.pass);
+                params.append('grade', this.user.grade);
+                params.append('name', this.user.name);
+                params.append('sex', this.user.sex);
+                params.append('mail', this.user.mail);
+                params.append('phone', this.user.phone);
+                params.append('objective', this.user.objective);
+                params.append('enterprise', this.user.enterprise);
+                axios
+                    .post(url, params)
+                    .then(response => {
+                        if (response.status === 200) {
+                            alert(response.data.msg)
+                            // 성공적으로 회원가입이 되었을 경우
+                            this
+                                .$routes.routes
+                                .push({name: 'Login1'}); //로그인화면으로 넘어간다.
+                        }
+                        console.log(response);
+                    })
+                    .catch(error => {
+                        //console.error(error);
+                        console.log(error.response.data.msg)
+                        alert(error.response.data.msg) //회원가입 실패시 에러메시지
+                    });
+            },
+
+            //아이디 중복체크 함수
+            check(event) {
+                event.preventDefault();
+                var url = "http://49.50.166.108:4000/api/signup/check/";
+                axios
+                    .get(url + this.user.id)
+                    .then(response => {
+                        alert(response.data.msg)
+                        console.log(response);
+                    })
+                    .catch(err => {
+                        alert(err.response.data.msg)
+                        console.log(err.response.data.msg)
+                    });
+            },
+        }
+    }
 </script>
-<style></style>

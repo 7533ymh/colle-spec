@@ -15,10 +15,8 @@
     <router-link to="/certificate">Certificate</router-link>
     <router-link to="/experience">Experience</router-link>
     <router-link to="/project">Project</router-link>
-
-
-    
-
+    <!-- <router-link to="/board/alllist">전체목록</router-link> -->
+    <router-link to="/board/program">프로그램목록</router-link>
 
   </div>
 </template>
@@ -34,6 +32,7 @@
     methods: {
       onClickLogout() {
         store.dispatch('LOGOUT').then(() => this.$router.push('/'))
+        location.reload()
       }
     }
   }
