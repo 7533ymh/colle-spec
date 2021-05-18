@@ -52,8 +52,8 @@ class AwardServiceTest {
         assertThat(award.getIdx()).isEqualTo(findaward.getIdx());
 
         Score checkuser = rankMapper.FindScore(award.getUser_idx());
-        assertThat(finduser.getAward_score() + findaward.getScore()).isEqualTo(checkuser.getAward_score());
-        assertThat(finduser.getScore() + findaward.getScore()).isEqualTo(checkuser.getScore());
+        assertThat(checkuser.getAward_score()).isEqualTo(finduser.getAward_score() + findaward.getScore());
+        assertThat(checkuser.getAward_score()).isEqualTo(finduser.getScore() + findaward.getScore());
 
     }
 
@@ -110,8 +110,8 @@ class AwardServiceTest {
         assertThat(changeAward.getTitle()).isEqualTo(findaward.getTitle());
 
         Score checkuser = rankMapper.FindScore(award.getUser_idx());
-        assertThat(finduser.getAward_score() + findaward.getScore()).isEqualTo(checkuser.getAward_score());
-        assertThat(finduser.getScore() + findaward.getScore()).isEqualTo(checkuser.getScore());
+        assertThat(checkuser.getAward_score()).isEqualTo(finduser.getAward_score() + findaward.getScore());
+        assertThat(checkuser.getAward_score()).isEqualTo(finduser.getScore() + findaward.getScore());
     }
 
     @Test
@@ -149,8 +149,8 @@ class AwardServiceTest {
 
 
         Score checkuser = rankMapper.FindScore(award.getUser_idx());
-        assertThat(finduser.getAward_score()).isEqualTo(checkuser.getAward_score());
-        assertThat(finduser.getScore()).isEqualTo(checkuser.getScore());
+        assertThat(checkuser.getAward_score()).isEqualTo(finduser.getAward_score());
+        assertThat(checkuser.getScore()).isEqualTo(finduser.getScore());
 
 
     }
@@ -183,9 +183,9 @@ class AwardServiceTest {
 
         //then
         Award findaward = awardMapper.findByIdx(award.getIdx()).get();
-        assertThat(50).isEqualTo(findaward.getScore());
+        assertThat(findaward.getScore()).isEqualTo(50);
         Award findaward2 = awardMapper.findByIdx(twice.getIdx()).get();
-        assertThat(30).isEqualTo(findaward2.getScore());
+        assertThat(findaward2.getScore()).isEqualTo(30);
 
 
     }
@@ -202,7 +202,7 @@ class AwardServiceTest {
 
 
         //then
-        assertThat("해당 회원의 수상 정보가 없습니다.").isEqualTo(e.getMessage());
+        assertThat(e.getMessage()).isEqualTo("해당 회원의 수상 정보가 없습니다.");
     }
 
     @Test
@@ -224,8 +224,8 @@ class AwardServiceTest {
 
 
         //then
-        assertThat("해당 회원의 수상 번호가 아닙니다.").isEqualTo(e.getMessage());
-        assertThat("해당 수상 번호의 정보가 없습니다.").isEqualTo(ex.getMessage());
+        assertThat(e.getMessage()).isEqualTo("해당 회원의 수상 번호가 아닙니다.");
+        assertThat(ex.getMessage()).isEqualTo("해당 수상 번호의 정보가 없습니다.");
 
     }
 }

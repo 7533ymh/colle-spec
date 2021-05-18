@@ -2,6 +2,6 @@
 
 echo "> 새 애플리케이션 배포"
 
-rm -f test.log
+today=$(date "+%Y%m%d%H%M")
 
-nohup java -jar ./build/libs/test.jar >> ./test.log &
+nohup java -jar ./build/libs/test.jar >> ./${today}.log &

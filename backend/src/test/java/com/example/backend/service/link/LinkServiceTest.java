@@ -37,7 +37,7 @@ class LinkServiceTest {
         int appidx = linkservice.linkLogin(id, pw);
 
         //then
-        assertThat(1).isEqualTo(appidx);
+        assertThat(appidx).isEqualTo(1);
 
     }
 
@@ -57,9 +57,9 @@ class LinkServiceTest {
         User check = userMapper.findByIdx(25)
                 .orElseThrow(CUserNotFoundException::new);
 
-        assertThat("경상국립대학교").isEqualTo(check.getCollege());
-        assertThat("컴퓨터과학과").isEqualTo(check.getMajor());
-        assertThat(3).isEqualTo(check.getGrade());
+        assertThat(check.getCollege()).isEqualTo("경상국립대학교");
+        assertThat(check.getMajor()).isEqualTo("컴퓨터과학과");
+        assertThat(check.getGrade()).isEqualTo(3);
 
 
     }
@@ -83,7 +83,7 @@ class LinkServiceTest {
 
         //then
 
-        assertThat(4).isEqualTo(gradeService.findByUserIdx(35).size());
+        assertThat(gradeService.findByUserIdx(35).size()).isEqualTo(4);
 
 
     }

@@ -1,6 +1,5 @@
 package com.example.backend.service.program;
 
-import com.example.backend.advice.exception.CNotFoundDataException;
 import com.example.backend.domain.Board;
 import com.example.backend.domain.BoardList;
 import com.example.backend.domain.Comment;
@@ -14,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @Transactional
@@ -39,7 +37,7 @@ class ProgramServiceTest {
 
 
         //then
-        assertThat(18).isEqualTo(programs.size());
+        assertThat(programs.size()).isEqualTo(18);
 
 
     }
@@ -61,7 +59,7 @@ class ProgramServiceTest {
         Board boardTest = programService.findOneByIdx(board.getIdx());
 
         //then
-        assertThat("test").isEqualTo(boardTest.getTitle());
+        assertThat(boardTest.getTitle()).isEqualTo("test");
 
 
     }
@@ -74,13 +72,13 @@ class ProgramServiceTest {
         int idx = 25;
         String user_id = userService.findByIdx(idx).getId();
         Board board = new Board();
-        board.setProgram_idx(1);
+        board.setProgram_idx(8);
         board.setUser_id(user_id);
         board.setTitle("test");
         board.setContent("test");
 
         Board board2 = new Board();
-        board2.setProgram_idx(1);
+        board2.setProgram_idx(8);
         board2.setUser_id(user_id);
         board2.setTitle("test1");
         board2.setContent("test1");
@@ -91,7 +89,7 @@ class ProgramServiceTest {
         List<BoardList> boards = programService.findByProgram_idx(board.getProgram_idx());
 
         //then
-        assertThat(2).isEqualTo(boards.size());
+        assertThat(boards.get(1).getTitle()).isEqualTo("test1");
 
 
     }
@@ -120,7 +118,7 @@ class ProgramServiceTest {
         Board boardTest = programService.findOneByIdx(board.getIdx());
 
         //then
-        assertThat("test1").isEqualTo(boardTest.getTitle());
+        assertThat(boardTest.getTitle()).isEqualTo("test1");
 
     }
 
@@ -138,11 +136,13 @@ class ProgramServiceTest {
 
         //when
         programService.saveBoard(board);
+        List<BoardList> boards = programService.findByProgram_idx(1);
         programService.deleteBoard(board.getIdx(), user_id);
 
-        //then
-        CNotFoundDataException e = assertThrows(CNotFoundDataException.class , ()->programService.findByProgram_idx(board.getProgram_idx()));
 
+        //then
+        List<BoardList> checkBoards = programService.findByProgram_idx(1);
+        assertThat(boards.size()-1).isEqualTo(checkBoards.size());
     }
 
 
@@ -172,7 +172,7 @@ class ProgramServiceTest {
 
 
         //then
-        assertThat("test").isEqualTo(boards.getCommentList().get(0).getContent());
+        assertThat(boards.getCommentList().get(0).getContent()).isEqualTo("test");
 
     }
 
@@ -206,7 +206,7 @@ class ProgramServiceTest {
         Board boards = programService.findOneByIdx(board.getIdx());
 
         //then
-        assertThat(2).isEqualTo(boards.getCommentList().size());
+        assertThat(boards.getCommentList().size()).isEqualTo(2);
 
 
     }
@@ -241,7 +241,7 @@ class ProgramServiceTest {
         Board boards = programService.findOneByIdx(board.getIdx());
 
         //then
-        assertThat("test2").isEqualTo(boards.getCommentList().get(0).getContent());
+        assertThat(boards.getCommentList().get(0).getContent()).isEqualTo("test2");
 
     }
 
@@ -271,12 +271,10 @@ class ProgramServiceTest {
 
 
         //then
-        assertThat(0).isEqualTo(boards.getCommentList().size());
-
-
-
+        assertThat(boards.getCommentList().size()).isEqualTo(0);
 
     }
+
 
 
 }

@@ -54,8 +54,8 @@ class CareerServiceTest {
         assertThat(career.getContent()).isEqualTo(findCareer.getContent());
 
         Score checkuser = rankMapper.FindScore(career.getUser_idx());
-        assertThat(finduser.getAward_score() + findCareer.getScore()).isEqualTo(checkuser.getCareer_score());
-        assertThat(finduser.getScore() + findCareer.getScore()).isEqualTo(checkuser.getScore());
+        assertThat(checkuser.getCareer_score()).isEqualTo(finduser.getCareer_score() + findCareer.getScore());
+        assertThat(checkuser.getScore()).isEqualTo(finduser.getScore() + findCareer.getScore());
 
 
     }
@@ -79,7 +79,7 @@ class CareerServiceTest {
 
         //then
         List<Career> careerList = careerService.findByUserIdx(career.getUser_idx());
-        assertThat(1).isEqualTo(careerList.size());
+        assertThat(careerList.size()).isEqualTo(1);
 
 
     }
@@ -119,8 +119,8 @@ class CareerServiceTest {
         assertThat("abc").isEqualTo(findCareer.getContent());
 
         Score checkuser = rankMapper.FindScore(career.getUser_idx());
-        assertThat(finduser.getAward_score() + findCareer.getScore()).isEqualTo(checkuser.getCareer_score());
-        assertThat(finduser.getScore() + findCareer.getScore()).isEqualTo(checkuser.getScore());
+        assertThat(checkuser.getCareer_score()).isEqualTo(finduser.getCareer_score() + findCareer.getScore());
+        assertThat(checkuser.getScore()).isEqualTo(finduser.getScore() + findCareer.getScore());
 
 
     }
@@ -158,8 +158,8 @@ class CareerServiceTest {
         assertThat(1).isEqualTo(careerList.size());
 
         Score checkuser = rankMapper.FindScore(career.getUser_idx());
-        assertThat(finduser.getAward_score()).isEqualTo(checkuser.getAward_score());
-        assertThat(finduser.getScore()).isEqualTo(checkuser.getScore());
+        assertThat(checkuser.getAward_score()).isEqualTo(finduser.getAward_score());
+        assertThat(checkuser.getScore()).isEqualTo(finduser.getScore());
 
 
     }
@@ -214,10 +214,10 @@ class CareerServiceTest {
 
 
         //then
-        assertThat(30).isEqualTo(careerMapper.findByIdx(career1.getIdx()).get().getScore());
-        assertThat(60).isEqualTo(careerMapper.findByIdx(career2.getIdx()).get().getScore());
-        assertThat(80).isEqualTo(careerMapper.findByIdx(career3.getIdx()).get().getScore());
-        assertThat(100).isEqualTo(careerMapper.findByIdx(career4.getIdx()).get().getScore());
+        assertThat(careerMapper.findByIdx(career1.getIdx()).get().getScore()).isEqualTo(30);
+        assertThat(careerMapper.findByIdx(career2.getIdx()).get().getScore()).isEqualTo(60);
+        assertThat(careerMapper.findByIdx(career3.getIdx()).get().getScore()).isEqualTo(80);
+        assertThat(careerMapper.findByIdx(career4.getIdx()).get().getScore()).isEqualTo(100);
 
 
     }
@@ -234,7 +234,7 @@ class CareerServiceTest {
 
 
         //then
-        assertThat("해당 회원의 경력 정보가 없습니다.").isEqualTo(e.getMessage());
+        assertThat(e.getMessage()).isEqualTo("해당 회원의 경력 정보가 없습니다.");
 
     }
 
@@ -258,7 +258,7 @@ class CareerServiceTest {
 
 
         //then
-        assertThat("해당 회원의 경력 번호가 아닙니다.").isEqualTo(e.getMessage());
-        assertThat("해당 경력 번호의 정보가 없습니다.").isEqualTo(ex.getMessage());
+        assertThat(e.getMessage()).isEqualTo("해당 회원의 경력 번호가 아닙니다.");
+        assertThat(ex.getMessage()).isEqualTo("해당 경력 번호의 정보가 없습니다.");
     }
 }
