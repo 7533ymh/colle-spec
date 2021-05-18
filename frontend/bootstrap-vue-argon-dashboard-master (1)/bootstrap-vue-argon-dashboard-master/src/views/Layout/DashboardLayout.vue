@@ -3,14 +3,7 @@
     <notifications></notifications>
     <side-bar>
       <template slot="links">
-        <sidebar-item
-          :link="{
-            name: 'Dashboard',
-            path: '/dashboard',
-            
-          }"
-        >
-        </sidebar-item>
+        
 
         <sidebar-item
           :link="{
@@ -24,7 +17,7 @@
         <sidebar-item
           :link="{
             name: '포트폴리오',
-            path: '/portfolio',
+            path: '/Basic_Information',
             
           }"
           >
@@ -44,7 +37,7 @@
         <sidebar-item
           :link="{
             name: '공모전, 대회, 프로그램',
-            path: '/Competition',
+            path: '/Competition1',
             
           }"
         >
@@ -62,62 +55,13 @@
         <sidebar-item
           :link="{
             name: '로그인',
-            path: '/Login1',
+            path: '/Login',
             
           }"
         >
         </sidebar-item>
 
-<!--
-        <sidebar-item
-            :link="{
-              name: 'Icons',
-              path: '/icons',
-              icon: 'ni ni-planet text-blue'
-              }"
-            >
-        </sidebar-item>
 
-        <sidebar-item
-              :link="{
-                name: 'Maps',
-                path: '/maps',
-                icon: 'ni ni-pin-3 text-orange'
-              }">
-        </sidebar-item>
-
-        <sidebar-item
-              :link="{
-                name: 'User Profile',
-                path: '/profile',
-                icon: 'ni ni-single-02 text-yellow'
-                }">
-        </sidebar-item>
-
-        <sidebar-item
-                :link="{
-                  name: 'Tables',
-                  path: '/tables',
-                  icon: 'ni ni-bullet-list-67 text-red'
-                }">
-        </sidebar-item>
-
-        <sidebar-item
-                  :link="{
-                    name: 'Login',
-                    path: '/login',
-                    icon: 'ni ni-key-25 text-info'
-                  }">
-        </sidebar-item>
-        <sidebar-item
-                  :link="{
-                    name: 'Register',
-                    path: '/register',
-                    icon: 'ni ni-circle-08 text-pink'
-                  }">
-        </sidebar-item>
-
--->
       </template>
 
       <template slot="links-after">
@@ -180,6 +124,7 @@
       }, 100);
     }
   }
+
 
   import DashboardNavbar from './DashboardNavbar.vue';
   import ContentFooter from './ContentFooter.vue';

@@ -16,12 +16,14 @@
               <sidebar-item
                :link="{
                name: '자세히보기',
-               path: '/portfolio',
+               path: '/Basic_Information',
               }"
               >
               </sidebar-item>
             </template>
           </stats-card>
+
+
         </b-col>
         <b-col xl="3" md="6">
           <stats-card title=""
@@ -38,6 +40,8 @@
               </sidebar-item>
             </template>
           </stats-card>
+
+
         </b-col>
         <b-col xl="3" md="6">
           <stats-card title=""
@@ -51,7 +55,7 @@
               <sidebar-item
                :link="{
                name: '자세히보기',
-               path: '/Competition',
+               path: '/Competition1',
               }"
               >
               </sidebar-item>

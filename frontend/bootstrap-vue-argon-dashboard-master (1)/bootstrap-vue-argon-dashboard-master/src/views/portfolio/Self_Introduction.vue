@@ -36,23 +36,23 @@
                   <b-nav-item link-classes="py-2 px-3" router-link to="/Basic_Information">    
                   <span class="d-none d-md-block"> 기본정보</span>
                       <span class="d-md-none">M</span>
-                      
                   </b-nav-item>
 
                   <b-nav-item link-classes="py-2 px-3" router-link to="/Self_Introduction">
                     <span class="d-none d-md-block">자기소개서</span>
                     <span class="d-md-none">W</span>
                   </b-nav-item>
+
                   <b-nav-item link-classes="py-2 px-3" router-link to="/PortfolioAndDocument">
                     <span class="d-none d-md-block">포트폴리오 and 문서</span>
                     <span class="d-md-none">W</span>
-                    
-
                   </b-nav-item>
+
                   <b-nav-item link-classes="py-2 px-3" router-link to="/Certificate">
                     <span class="d-none d-md-block">자격증</span>
                     <span class="d-md-none">W</span>
                   </b-nav-item>
+                  
                   <b-nav-item link-classes="py-2 px-3" router-link to="/LanguageTest">
                     <span class="d-none d-md-block">어학시험</span>
                     <span class="d-md-none">W</span>
@@ -62,8 +62,10 @@
             </b-row>
             
 
-<div>카테고리를 클릭하세요</div>
-
+<div>자기소개서 내용</div>
+<!--
+ 여기에 자기소개서 넣으셈
+-->
 
              
 
@@ -91,11 +93,7 @@
 
     export default {
 
-      mounted(){
-        console.log(this.$router);
-        console.log(this.$route);
-      },
-
+      
 
 
       components: {

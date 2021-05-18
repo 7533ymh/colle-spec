@@ -33,13 +33,10 @@
               
               
             </b-row>
-            <!--<line-chart
-              :height="350"
-              ref="bigChart"
-              :chart-data="bigLineChart.chartData"
-              :extra-options="bigLineChart.extraOptions"
-            >
-            </line-chart> -->
+            <div>나의 등급제 내용</div>
+<!--
+ 여기에 등급제  넣으셈
+-->
           </card>
         </b-col>
 

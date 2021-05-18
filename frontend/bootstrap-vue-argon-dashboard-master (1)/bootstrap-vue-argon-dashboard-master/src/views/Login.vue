@@ -16,6 +16,8 @@
               <span class="text-nowrap">자세히 보기</span>
             </template>
           </stats-card>
+
+          
         </b-col>
         <b-col xl="3" md="6">
           <stats-card title=""

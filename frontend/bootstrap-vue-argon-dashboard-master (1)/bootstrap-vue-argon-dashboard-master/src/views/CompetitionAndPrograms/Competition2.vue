@@ -7,7 +7,7 @@
         <b-col xl="6" md="6">
           <stats-card title=""
                       type="gradient-red"
-                      sub-title="나의 포트폴리오 or 스펙"
+                      sub-title="공모전, 대회, 프로그램"
                       
                       class="mb-4">
 
@@ -33,28 +33,28 @@
               
               <b-col>
                 <b-nav class="nav-pills justify-content-end">
-                  <b-nav-item link-classes="py-2 px-3" router-link to="/Basic_Information">    
-                  <span class="d-none d-md-block"> 기본정보</span>
-                      <span class="d-md-none">M</span>
-                      
+                  <b-nav-item link-classes="py-2 px-3" router-link to="/Competition1">    
+                    <span class="d-none d-md-block"> 공모전</span>
+                    <span class="d-md-none">M</span>
                   </b-nav-item>
 
-                  <b-nav-item link-classes="py-2 px-3" router-link to="/Self_Introduction">
-                    <span class="d-none d-md-block">자기소개서</span>
+                  <b-nav-item link-classes="py-2 px-3" router-link to="/Competition2">
+                    <span class="d-none d-md-block">대회</span>
                     <span class="d-md-none">W</span>
                   </b-nav-item>
-                  <b-nav-item link-classes="py-2 px-3" router-link to="/PortfolioAndDocument">
-                    <span class="d-none d-md-block">포트폴리오 and 문서</span>
-                    <span class="d-md-none">W</span>
-                    
 
-                  </b-nav-item>
-                  <b-nav-item link-classes="py-2 px-3" router-link to="/Certificate">
-                    <span class="d-none d-md-block">자격증</span>
+                  <b-nav-item link-classes="py-2 px-3" router-link to="/CompetitionProgram">
+                    <span class="d-none d-md-block">프로그램</span>
                     <span class="d-md-none">W</span>
                   </b-nav-item>
-                  <b-nav-item link-classes="py-2 px-3" router-link to="/LanguageTest">
-                    <span class="d-none d-md-block">어학시험</span>
+
+                  <b-nav-item link-classes="py-2 px-3" router-link to="/Volunteer">
+                    <span class="d-none d-md-block">봉사활동</span>
+                    <span class="d-md-none">W</span>
+                  </b-nav-item>
+                  
+                  <b-nav-item link-classes="py-2 px-3" router-link to="/CompetitionEtc">
+                    <span class="d-none d-md-block">기타</span>
                     <span class="d-md-none">W</span>
                   </b-nav-item>
                 </b-nav>
@@ -62,7 +62,7 @@
             </b-row>
             
 
-<div>카테고리를 클릭하세요</div>
+<Competition2-table/>
 
 
              
@@ -86,15 +86,12 @@
   // Components
   import BaseProgress from '@/components/BaseProgress';
   import StatsCard from '@/components/Cards/StatsCard';
-  
+  import Competition2Table from "./CompetitonTables/Competition2Table";
 
 
     export default {
 
-      mounted(){
-        console.log(this.$router);
-        console.log(this.$route);
-      },
+      
 
 
 
@@ -102,14 +99,12 @@
       
         BaseProgress,
         StatsCard,
+        Competition2Table
         
       },
 
       methods:{
-      /*onClickRedirect: function () {   
-          window.open("https://google.com", "_blank");    
-      }*/
-
+     
       
 
       
