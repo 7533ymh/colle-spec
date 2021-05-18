@@ -54,8 +54,8 @@ class EducationServiceTest {
         assertThat(test.getContent()).isEqualTo(educationMapper.findByIdx(test.getIdx()).get().getContent());
 
         Score checkuser = rankMapper.FindScore(test.getUser_idx());
-        assertThat(finduser.getEducation_score() + educationMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getEducation_score());
-        assertThat(finduser.getScore() + educationMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getScore());
+        assertThat(checkuser.getEducation_score()).isEqualTo(finduser.getEducation_score() + educationMapper.findByIdx(test.getIdx()).get().getScore());
+        assertThat(checkuser.getScore()).isEqualTo(finduser.getScore() + educationMapper.findByIdx(test.getIdx()).get().getScore());
 
     }
 
@@ -77,7 +77,7 @@ class EducationServiceTest {
         //then
         //then
         List<Education> list = educationService.findByUserIdx(test.getUser_idx());
-        assertThat(1).isEqualTo(list.size());
+        assertThat(list.size()).isEqualTo(1);
 
 
 
@@ -114,8 +114,8 @@ class EducationServiceTest {
         assertThat("abcde").isEqualTo(educationMapper.findByIdx(test.getIdx()).get().getContent());
 
         Score checkuser = rankMapper.FindScore(test.getUser_idx());
-        assertThat(finduser.getEducation_score() + educationMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getEducation_score());
-        assertThat(finduser.getScore() + educationMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getScore());
+        assertThat(checkuser.getEducation_score()).isEqualTo(finduser.getEducation_score() + educationMapper.findByIdx(test.getIdx()).get().getScore());
+        assertThat(checkuser.getScore()).isEqualTo(finduser.getScore() + educationMapper.findByIdx(test.getIdx()).get().getScore());
 
 
     }
@@ -152,8 +152,8 @@ class EducationServiceTest {
         assertThat(1).isEqualTo(list.size());
 
         Score checkuser = rankMapper.FindScore(test.getUser_idx());
-        assertThat(finduser.getEducation_score()).isEqualTo(checkuser.getEducation_score());
-        assertThat(finduser.getScore()).isEqualTo(checkuser.getScore());
+        assertThat(checkuser.getEducation_score()).isEqualTo(finduser.getEducation_score());
+        assertThat(checkuser.getScore()).isEqualTo(finduser.getScore());
 
 
 
@@ -176,7 +176,7 @@ class EducationServiceTest {
         educationService.save(test);
 
         //then
-        assertThat(100).isEqualTo(educationMapper.findByIdx(test.getIdx()).get().getScore());
+        assertThat(educationMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(100);
 
 
 
@@ -194,7 +194,7 @@ class EducationServiceTest {
 
 
         //then
-        assertThat("해당 회원의 교육 정보가 없습니다.").isEqualTo(e.getMessage());
+        assertThat(e.getMessage()).isEqualTo("해당 회원의 교육 정보가 없습니다.");
 
 
 
@@ -219,8 +219,8 @@ class EducationServiceTest {
 
 
         //then
-        assertThat("해당 회원의 교육 번호가 아닙니다.").isEqualTo(e.getMessage());
-        assertThat("해당 교육 번호의 정보가 없습니다.").isEqualTo(ex.getMessage());
+        assertThat(e.getMessage()).isEqualTo("해당 회원의 교육 번호가 아닙니다.");
+        assertThat(ex.getMessage()).isEqualTo("해당 교육 번호의 정보가 없습니다.");
 
     }
 }

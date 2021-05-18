@@ -53,8 +53,8 @@ class CertificateServiceTest {
         assertThat(certificate.getContent()).isEqualTo(certificateMapper.findByIdx(certificate.getIdx()).get().getContent());
 
         Score checkuser = rankMapper.FindScore(certificate.getUser_idx());
-        assertThat(finduser.getCertificate_score() + certificateMapper.findByIdx(certificate.getIdx()).get().getScore()).isEqualTo(checkuser.getCertificate_score());
-        assertThat(finduser.getScore() + certificateMapper.findByIdx(certificate.getIdx()).get().getScore()).isEqualTo(checkuser.getScore());
+        assertThat(checkuser.getCertificate_score()).isEqualTo(finduser.getCertificate_score() + certificateMapper.findByIdx(certificate.getIdx()).get().getScore());
+        assertThat(checkuser.getScore()).isEqualTo(finduser.getScore() + certificateMapper.findByIdx(certificate.getIdx()).get().getScore());
 
     }
 
@@ -73,7 +73,7 @@ class CertificateServiceTest {
 
         //then
         List<Certificate> list = certificateService.findByUserIdx(certificate.getUser_idx());
-        assertThat(1).isEqualTo(list.size());
+        assertThat(list.size()).isEqualTo(1);
 
     }
 
@@ -103,11 +103,11 @@ class CertificateServiceTest {
         certificateService.modify(change);
 
         //then
-        assertThat("abcde").isEqualTo(certificateMapper.findByIdx(test.getIdx()).get().getContent());
+        assertThat(certificateMapper.findByIdx(test.getIdx()).get().getContent()).isEqualTo(change.getContent());
 
         Score checkuser = rankMapper.FindScore(test.getUser_idx());
-        assertThat(finduser.getCertificate_score() + certificateMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getCertificate_score());
-        assertThat(finduser.getScore() + certificateMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getScore());
+        assertThat(checkuser.getCertificate_score()).isEqualTo(finduser.getCertificate_score() + certificateMapper.findByIdx(test.getIdx()).get().getScore());
+        assertThat(checkuser.getScore()).isEqualTo(finduser.getScore() + certificateMapper.findByIdx(test.getIdx()).get().getScore());
 
     }
 
@@ -140,8 +140,8 @@ class CertificateServiceTest {
         assertThat(1).isEqualTo(list.size());
 
         Score checkuser = rankMapper.FindScore(test.getUser_idx());
-        assertThat(finduser.getCertificate_score()).isEqualTo(checkuser.getCertificate_score());
-        assertThat(finduser.getScore()).isEqualTo(checkuser.getScore());
+        assertThat(checkuser.getCertificate_score()).isEqualTo(finduser.getCertificate_score());
+        assertThat(checkuser.getScore()).isEqualTo(finduser.getScore());
 
 
     }
@@ -160,7 +160,7 @@ class CertificateServiceTest {
         certificateService.save(test);
 
         //then
-        assertThat(100).isEqualTo(certificateMapper.findByIdx(test.getIdx()).get().getScore());
+        assertThat(certificateMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(100);
 
 
     }
@@ -177,7 +177,7 @@ class CertificateServiceTest {
 
 
         //then
-        assertThat("해당 회원의 자격증 정보가 없습니다.").isEqualTo(e.getMessage());
+        assertThat(e.getMessage()).isEqualTo("해당 회원의 자격증 정보가 없습니다.");
 
     }
 
@@ -199,7 +199,7 @@ class CertificateServiceTest {
 
 
         //then
-        assertThat("해당 회원의 자격증 번호가 아닙니다.").isEqualTo(e.getMessage());
-        assertThat("해당 자격증 번호의 정보가 없습니다.").isEqualTo(ex.getMessage());
+        assertThat(e.getMessage()).isEqualTo("해당 회원의 자격증 번호가 아닙니다.");
+        assertThat(ex.getMessage()).isEqualTo("해당 자격증 번호의 정보가 없습니다.");
     }
 }

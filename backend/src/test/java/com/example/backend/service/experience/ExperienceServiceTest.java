@@ -51,8 +51,8 @@ class ExperienceServiceTest {
         assertThat(test.getContent()).isEqualTo(experienceMapper.findByIdx(test.getIdx()).get().getContent());
 
         Score checkuser = rankMapper.FindScore(test.getUser_idx());
-        assertThat(finduser.getExperience_score() + experienceMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getExperience_score());
-        assertThat(finduser.getScore() + experienceMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getScore());
+        assertThat(checkuser.getExperience_score()).isEqualTo(finduser.getExperience_score() + experienceMapper.findByIdx(test.getIdx()).get().getScore());
+        assertThat(checkuser.getScore()).isEqualTo(finduser.getScore() + experienceMapper.findByIdx(test.getIdx()).get().getScore());
 
 
 
@@ -73,7 +73,7 @@ class ExperienceServiceTest {
         experienceService.save(test);
 
         //then
-        assertThat(1).isEqualTo(experienceService.findByUserIdx(test.getUser_idx()).size());
+        assertThat(experienceService.findByUserIdx(test.getUser_idx()).size()).isEqualTo(1);
 
     }
 
@@ -103,11 +103,11 @@ class ExperienceServiceTest {
         experienceService.modify(change);
 
         //then
-        assertThat("abcde").isEqualTo(experienceMapper.findByIdx(test.getIdx()).get().getContent());
+        assertThat(experienceMapper.findByIdx(test.getIdx()).get().getContent()).isEqualTo(change.getContent());
 
         Score checkuser = rankMapper.FindScore(test.getUser_idx());
-        assertThat(finduser.getExperience_score() + experienceMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getExperience_score());
-        assertThat(finduser.getScore() + experienceMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(checkuser.getScore());
+        assertThat(checkuser.getExperience_score()).isEqualTo(finduser.getExperience_score() + experienceMapper.findByIdx(test.getIdx()).get().getScore());
+        assertThat(checkuser.getScore()).isEqualTo(finduser.getScore() + experienceMapper.findByIdx(test.getIdx()).get().getScore());
 
     }
 
@@ -140,8 +140,8 @@ class ExperienceServiceTest {
         assertThat(1).isEqualTo(experienceService.findByUserIdx(test.getUser_idx()).size());
 
         Score checkuser = rankMapper.FindScore(test.getUser_idx());
-        assertThat(finduser.getExperience_score()).isEqualTo(checkuser.getExperience_score());
-        assertThat(finduser.getScore()).isEqualTo(checkuser.getScore());
+        assertThat(checkuser.getExperience_score()).isEqualTo(finduser.getExperience_score());
+        assertThat(checkuser.getScore()).isEqualTo(finduser.getScore());
     }
 
     @Test
@@ -182,10 +182,10 @@ class ExperienceServiceTest {
         experienceService.save(test3);
         experienceService.save(test4);
 
-        assertThat(30).isEqualTo(experienceMapper.findByIdx(test.getIdx()).get().getScore());
-        assertThat(60).isEqualTo(experienceMapper.findByIdx(test2.getIdx()).get().getScore());
-        assertThat(80).isEqualTo(experienceMapper.findByIdx(test3.getIdx()).get().getScore());
-        assertThat(100).isEqualTo(experienceMapper.findByIdx(test4.getIdx()).get().getScore());
+        assertThat(experienceMapper.findByIdx(test.getIdx()).get().getScore()).isEqualTo(30);
+        assertThat(experienceMapper.findByIdx(test2.getIdx()).get().getScore()).isEqualTo(60);
+        assertThat(experienceMapper.findByIdx(test3.getIdx()).get().getScore()).isEqualTo(80);
+        assertThat(experienceMapper.findByIdx(test4.getIdx()).get().getScore()).isEqualTo(100);
 
 
     }
@@ -204,7 +204,7 @@ class ExperienceServiceTest {
 
 
         //then
-        assertThat("해당 회원의 해외경험 정보가 없습니다.").isEqualTo(e.getMessage());
+        assertThat(e.getMessage()).isEqualTo("해당 회원의 해외경험 정보가 없습니다.");
 
 
     }
@@ -226,7 +226,7 @@ class ExperienceServiceTest {
 
 
         //then
-        assertThat("해당 회원의 해외경험 번호가 아닙니다.").isEqualTo(e.getMessage());
-        assertThat("해당 해외경험 번호의 정보가 없습니다.").isEqualTo(ex.getMessage());
+        assertThat(e.getMessage()).isEqualTo("해당 회원의 해외경험 번호가 아닙니다.");
+        assertThat(ex.getMessage()).isEqualTo("해당 해외경험 번호의 정보가 없습니다.");
     }
 }
