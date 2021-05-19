@@ -14,23 +14,23 @@ public class EncodeFileName {
 
         String header = request.getHeader("User-Agent");
 
-        if (header.indexOf("MSIE") > -1) {
+        if (header.contains("MSIE")) {
 
             return "MSIE";
 
-        } else if (header.indexOf("Trident") > -1) {   // IE11 문자열 깨짐 방지
+        } else if (header.contains("Trident")) {   // IE11 문자열 깨짐 방지
 
             return "Trident";
 
-        } else if (header.indexOf("Chrome") > -1) {
+        } else if (header.contains("Chrome")) {
 
             return "Chrome";
 
-        } else if (header.indexOf("Opera") > -1) {
+        } else if (header.contains("Opera")) {
 
             return "Opera";
 
-        } else if (header.indexOf("Safari") > -1) {
+        } else if (header.contains("Safari")) {
 
             return "Safari";
 
