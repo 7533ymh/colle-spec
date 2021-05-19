@@ -200,7 +200,7 @@ public class LanguageService {
                         return 30;
                 }
 
-            case "ILPT":
+            case "JLPT":
                 rating = language.getExam_score();
                 switch (rating) {
                     case "N1":
