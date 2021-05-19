@@ -1,8 +1,7 @@
 package com.example.backend.service.company;
 
-import com.example.backend.domain.Company;
 import com.example.backend.domain.CompanyList;
-import com.example.backend.domain.Score;
+import com.example.backend.domain.CompareCompany;
 import com.example.backend.mapper.collspec.RankMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,44 +38,24 @@ class CompanyServiceTest {
     }
 
     @Test
-    void showCompany() {
-
-        //given
-        int idx = 1;
-
-        //when
-        Company company = companyService.showCompany(idx);
-
-        //then
-        assertThat(company.getName()).isEqualTo("삼성전자");
-
-
-    }
-
-    @Test
     void 점수비교() {
 
         //given
         int user_idx = 26;
         int company_idx = 1;
-        Score user_score = rankMapper.FindScore(user_idx);
-        Company company = companyService.showCompany(company_idx);
 
-        int award_check = user_score.getAward_score() - company.getPass_award();
-        String award_rank;
+        //when
+        CompareCompany compareCompany = companyService.showCompany(company_idx, user_idx);
 
-        if (award_check > 400)
-            award_rank = "매우 잘함";
-        else if (award_check >= 200)
-            award_rank = "잘함";
-        else if (award_check >= -200)
-            award_rank = "적정";
-        else if (award_check >= -400)
-            award_rank = "부족함";
-        else
-            award_rank = "매우 부족함";
-
-        assertThat(award_rank).isEqualTo("적정");
+        //then
+        assertThat(compareCompany.getAward_rank()).isEqualTo(3);
+        assertThat(compareCompany.getCareer_rank()).isEqualTo(3);
+        assertThat(compareCompany.getCertificate_rank()).isEqualTo(3);
+        assertThat(compareCompany.getEducation_rank()).isEqualTo(3);
+        assertThat(compareCompany.getExperience_rank()).isEqualTo(3);
+        assertThat(compareCompany.getGrade_rank()).isEqualTo(5);
+        assertThat(compareCompany.getLanguage_rank()).isEqualTo(5);
+        assertThat(compareCompany.getProject_rank()).isEqualTo(3);
 
 
     }
