@@ -1,8 +1,9 @@
 package com.example.backend.service.rank;
 
-import com.example.backend.domain.RankResult;
-import com.example.backend.mapper.collspec.RankMapper;
-import com.example.backend.mapper.collspec.UserMapper;
+import com.example.backend.domain.rank.domain.RankResult;
+import com.example.backend.domain.rank.mapper.RankMapper;
+import com.example.backend.domain.rank.service.RankService;
+import com.example.backend.domain.user.mapper.UserMapper;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

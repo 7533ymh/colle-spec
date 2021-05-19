@@ -1,13 +1,14 @@
 package com.example.backend.service.language;
 
-import com.example.backend.advice.exception.CFindSameExamException;
-import com.example.backend.advice.exception.CNotFoundInfoByIdxException;
-import com.example.backend.advice.exception.CNotFoundInfoByUserException;
-import com.example.backend.advice.exception.CNotHaveAccessInfoException;
-import com.example.backend.domain.Language;
-import com.example.backend.domain.Score;
-import com.example.backend.mapper.collspec.LanguageMapper;
-import com.example.backend.mapper.collspec.RankMapper;
+import com.example.backend.global.exception.exception.CFindSameExamException;
+import com.example.backend.global.exception.exception.CNotFoundInfoByIdxException;
+import com.example.backend.global.exception.exception.CNotFoundInfoByUserException;
+import com.example.backend.global.exception.exception.CNotHaveAccessInfoException;
+import com.example.backend.domain.language.domain.Language;
+import com.example.backend.domain.language.service.LanguageService;
+import com.example.backend.domain.rank.domain.Score;
+import com.example.backend.domain.language.mapper.LanguageMapper;
+import com.example.backend.domain.rank.mapper.RankMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -216,7 +217,7 @@ class LanguageServiceTest {
         Language test12 = new Language();
         test12.setUser_idx(37);
         test12.setDivsion("abc");
-        test12.setExam("ILPT");
+        test12.setExam("JLPT");
         test12.setExam_score("N2");
         test12.setDate(Date.valueOf("2017-05-01"));
         test12.setContent("abc");
