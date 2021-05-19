@@ -29,6 +29,9 @@ export default new Vuex.Store({
     },
     userid(state){
       return state.accessToken ? state.userinfo.id :null;
+    },
+    userlink(state){
+      return state.accessToken ? state.userinfo.link :null;
     }
   },
   mutations: {
@@ -82,6 +85,7 @@ export default new Vuex.Store({
     LOGOUT ({commit}) {
       axios.defaults.headers.common['X-AUTH-TOKEN'] = undefined //로그아웃시 토큰값 비운다
       commit('LOGOUT')
+      location.reload()
     },
     getMyinfo({commit}){
         axios.get(`${resourceHost}/user`)

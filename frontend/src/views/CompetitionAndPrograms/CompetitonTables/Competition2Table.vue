@@ -50,13 +50,13 @@
                              prop="program_date_end"
                              min-width="140px">
             </el-table-column>
-            <!-- <el-table-column fixed="left" label="board" width="120">
-      <template slot-scope="row">
-        <el-button @click="team(row.$index)" size="small">
+           <el-table-column fixed="left" label="board" width="120">
+      <template slot-scope="scope">
+        <el-button @click="team(scope.row)" size="small">
          Team
         </el-button>
       </template>
-    </el-table-column> -->
+    </el-table-column>
     
         </el-table>
 
@@ -97,9 +97,23 @@
             console.log(res.data.list)
             //this.Competition1Projects=res.data.list
             this.view=res.data.list;
+            
             console.log('view',this.view)
           })
-            }
+            },
+            tableRow({row,rowIndex}){
+            row.index=rowIndex;
+          },
+          rowClick(row){
+              console.log('row',row); //행 아이템데이터
+              console.log(row.index); //행 인덱스
+          },
+              team(row) { 
+              console.log('program_idx:',row.idx);
+              localStorage.setItem('program',JSON.stringify(row))
+              this.$router.push({path:'/ProgramList'});
+              
+          },
         }
     }
 </script>

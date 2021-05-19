@@ -66,7 +66,16 @@
 <div>포트폴리오, 문서 내용</div>
 <!--
  여기에 포트폴리오, 문서 넣으셈
--->
+--><b-table responsive="sm" striped :fields="fields" hover :items="myproject" @row-click="click" >                        
+      <template #cell(edit&Del)="row">
+        <b-button size="sm" @click="mvedit(row)" class="mr-2">
+          편집
+        </b-button>
+         <b-button size="sm" @click="deletepj(row)" class="mr-2">
+          삭제
+        </b-button>
+      </template>
+    </b-table> 
 
              
 
@@ -89,31 +98,113 @@
   // Components
   import BaseProgress from '@/components/BaseProgress';
   import StatsCard from '@/components/Cards/StatsCard';
-  
+  import axios from 'axios';
+  import store from '@/store';
 
+  let url=store.state.resourceHost; //서버주소 api
 
     export default {
+      data(){return{
+   //fields:[{key:'origfilename',label:'파일이름'},{key:'down',label:'down'},{key:'Edit&Del', label:'수정 삭제'}],
 
-    
 
-
+      fields:[{key:'title',label:'제목'},{key:'score',label:'점수'},{key:'success',label:'구현'},{key:'start_date',label:'시작날짜'},{key:'end_date',label:'종료날짜'},{key:'edit&Del',label:''}],
+                
+                myproject:[{}],
+                send:{
+                      imglist:{},
+                      data:[]
+                    }
+      }},
       components: {
       
         BaseProgress,
         StatsCard,
         
       },
+      mounted(){
+        this.pjView();
+      },
 
       methods:{
-      /*onClickRedirect: function () {   
-          window.open("https://google.com", "_blank");    
-      }*/
+        click(row){
+          console.log(row)
+        },
+        //프로젝트 조회
+        pjView(){
+          axios.get(`${url}/project`)
+                    .then(get=>{
+                    for(var i=0; i<get.data.list.length; i++){
+                    this.myproject.filename=get.data.list[i].project_imgList
+                    }
+                    this.myproject=get.data.list
+                    console.log('myproject',this.myproject)
+                })
+        },
+        //클릭시 상세페이지로 데이터넘기면서 이동
+      async fnView(item) {
+        console.log(item);
+			this.send.data=item
+                for (var i = 0; i < item.project_imgList.length; i++) {
+                let idxx=item.project_imgList[i].idx
+                await axios.get(`${url}/project_img/download`,{params:{
+                    idx:idxx
+                },responseType: 'arraybuffer'})
+                .then(res=>{
+                    this.send.imglist[i]=Buffer.from(res.data, 'binary').toString('base64')
 
-      
+                })
+                }
+                localStorage.setItem('items',JSON.stringify(this.send)); //클릭한 행의 데이터를 로컬스토리지 저장
+	},
+ 
+  deletepj(item,index,e){
+                let del=item.item.idx
+                
+                console.log('del idx: ',del)
+                axios.delete(`${url}/project`,{params:{
+                    idx:del
+                }})
+                .then(res=>{
+                    alert(res.data.msg)
+                })
+                .catch(err=>{
+                    alert(err.response.data.msg)
+                })
+                console.log('delitem: ',item)
 
-      
-      }
-    };
+            },
+            mvedit(){
+              this.$router.push({path:'/certificate/edit'})
+            }
+            //상세페이지에 수정 기능 넣기
+    //         edit(item,index,event) {
+    //             var params = new URLSearchParams(); //파일업로드가 포함되어 formdata를 이용한다
+    //             params.append('title', this.certificate.title);
+    //             params.append('content', this.certificate.content);
+    //             params.append('publisher', this.certificate.publisher);
+    //             params.append('date', this.certificate.date);
+    //             axios.put(`${url}/certificate`,params,{
+    //                 headers:{
+    //                     'Content-Type' : 'multipart/form-data' //다중파일 업로드하기 위해 헤더 추가
+    //                 }
+    //             })
+    //             .then(certificate=>{
+    //                 console.log(certificate)
+    //                 alert(certificate.data.msg)
+    //                 window.location.reload()
+                    
+    //             })
+                
+    //             .catch(err=>{
+    //                 console.log(err)
+    //                 alert(err.response.data.msg)
+    //             })
+    // }
+
+    }
+    
+  }
 </script>
 
 

@@ -149,7 +149,9 @@
       },
       //로그아웃 메소드
       onClickLogout(){
-        store.dispatch('LOGOUT').then(()=>this.$routes.routes.push('/'))
+        store.dispatch('LOGOUT').then(res=>{this.$routes.routes.push('/')
+        location.reload()
+        })
       }
     },
     mounted() {

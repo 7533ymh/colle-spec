@@ -7,7 +7,7 @@
         <b-col xl="6" md="6">
           <stats-card title=""
                       type="gradient-red"
-                      sub-title="공모전, 대회, 프로그램"
+                      sub-title="팀구하기 게시판"
                       
                       class="mb-4">
 
@@ -53,7 +53,7 @@
             </b-row>
             
 
-<Competition1-table/>  
+<ProgramList-table/>  
           
 
 
@@ -78,18 +78,17 @@
   // Components
   import BaseProgress from '@/components/BaseProgress';
   import StatsCard from '@/components/Cards/StatsCard';
-  import Competition1Table from "./CompetitonTables/Competition1Table";
+  import ProgramListTable from "./CompetitonTables/ProgramListTable";
   //import axios from 'axios';
   //import store from '@/store';
   //const url=store.state.resourceHost;
-  import { Table, TableColumn} from 'element-ui'
 
     export default {
       components: {
 
       BaseProgress,
         StatsCard,
-        Competition1Table
+        ProgramListTable
     },
     
   }

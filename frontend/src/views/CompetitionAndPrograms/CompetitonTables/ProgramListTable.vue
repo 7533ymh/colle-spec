@@ -1,7 +1,9 @@
 <template>
     <b-card no-body>
         <b-card-header class="border-0">
-            <h3 class="mb-0">공모전&대회</h3>
+            <h3 class="mb-0">{{division}}</h3>
+
+            <el-button size="mini" @click="write">작성</el-button>
         </b-card-header>
 
         <el-table class="table-responsive table"
@@ -34,27 +36,10 @@
               
           </template> -->
 
-            <el-table-column label="접수시작"
-                             prop="receive_date_start"
-                             min-width="140px">
-            </el-table-column>
-            <el-table-column label="접수마감"
-                             prop="receive_date_end"
-                             min-width="140px">
-            </el-table-column>
-
-            <el-table-column label="행사시작"
-                             prop="program_date_start"
-                             min-width="140px">
-            </el-table-column>
-            <el-table-column label="행사종료"
-                             prop="program_date_end"
-                             min-width="140px">
-            </el-table-column>
-            <el-table-column fixed="left" label="board" width="120">
+    <el-table-column fixed="right" label="board" width="120">
       <template slot-scope="scope">
-        <el-button @click="team(scope.row)" size="small">
-         Team
+        <el-button @click="detail(scope.row)" size="small">
+         Detail
         </el-button>
       </template>
     </el-table-column>
@@ -73,7 +58,7 @@
  import store from "@/store";
  var url=store.state.resourceHost
   export default {
-    name: 'Competition1-table',
+    name: 'ProgramList-table',
     components: {
       [Table.name]: Table,
       [TableColumn.name]: TableColumn,
@@ -83,8 +68,10 @@
       return {
         currentPage: 1,
         view:[{}],
-        division:'공모전&대회',
-        
+        p_data:JSON.parse(localStorage.getItem('program')), //선택한 program 데이터 불러오기
+        division:localStorage.getItem('division')
+        ,data:[{}]
+        ,
         }
       },
       mounted(){
@@ -92,18 +79,30 @@
         
       },
       methods:{
+          //리스트 조회
          async c1(){
-            await axios.get(`${url}/program`,{params:{
-            division:this.division
-          }})
-          .then(res=>{
-            console.log(res.data)
-            //this.Competition1Projects=res.data.list
-            this.view=res.data.list;
-            localStorage.setItem("division",this.division)
-            console.log('view',this.view)
-          })
-            },
+             await axios.get(`${url}/program/boardList`,{params:{
+            program_idx:this.p_data.idx
+                
+            }}
+            )
+			.then((res)=>{
+                this.view=res.data.list;
+			})
+			.catch((err)=>{
+				console.log(err);
+			})
+		},
+        //팀구하기 게시글 작성
+        write(){
+            this.$router.push({path:'/ProgramList/ProgramTeamWrite'});
+        }, 
+        //팀구하기 리스트 상세보기
+        detail(row){
+            console.log('detailitem',row)
+            localStorage.setItem('p_team',JSON.stringify(row))
+            this.$router.push({path:'/ProgramList/ProgramListDetail'});
+        },
             tableRow({row,rowIndex}){
             row.index=rowIndex;
           },
@@ -111,12 +110,7 @@
               console.log('row',row); //행 아이템데이터
               console.log(row.index); //행 인덱스
           },
-              team(row) { 
-              console.log('program_idx:',row.idx);
-              localStorage.setItem('program',JSON.stringify(row))
-              this.$router.push({path:'/ProgramList'});
-              
-          },
+
        }
     }
 </script>

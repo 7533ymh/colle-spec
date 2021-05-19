@@ -66,7 +66,19 @@
 <!--
  여기에 어학시험  넣으셈
 -->
-<p>어학시허ㅓㅓ머</p>
+<b-table responsive="sm" striped :fields="fields" hover :items="mylang" @row-click="langView" >                        
+      <template #cell(edits)="row">
+         <b-button size="sm" @click="mvedit(row)" class="mr-2">
+          편집
+        </b-button>
+         <b-button size="sm" @click="deletepj(row)" class="mr-2">
+          삭제
+        </b-button>
+        
+        
+      </template>
+    </b-table> 
+
 
              
 
@@ -89,31 +101,86 @@
   // Components
   import BaseProgress from '@/components/BaseProgress';
   import StatsCard from '@/components/Cards/StatsCard';
-  
+  import axios from 'axios';
+  import store from '@/store';
 
+  let url=store.state.resourceHost; //서버주소 api
 
     export default {
+      data(){return{
+      mylang:[{}],
+      fields:[
+      {key:'divsion',label:'구분'},
+      {key:'exam',label:'시험명'},
+      {key:'exam_score',label:'시험점수'},
+      {key:'date',label:'시험날짜'},
+      {key:'edits',label:''}],
 
-      
 
-
+      }},
       components: {
       
         BaseProgress,
         StatsCard,
         
       },
+      mounted(){
+        this.langView();
+      },
 
       methods:{
-      /*onClickRedirect: function () {   
-          window.open("https://google.com", "_blank");    
-      }*/
+        langView(){
+          axios.get(`${url}/language`)
+                    .then(res=>{
+                    this.mylang=res.data.list
+                    console.log('lang: ',this.mylang)
+        })
+      },
+      deletepj(item){
+                let del=item.item.idx
+                
+                console.log('del idx: ',del)
+                axios.delete(`${url}/certificate`,{params:{
+                    idx:del
+                }})
+                .then(res=>{
+                    alert(res.data.msg)
+                })
+                .catch(err=>{
+                    alert(err.response.data.msg)
+                })
+                console.log('delitem: ',item)
 
-      
-
-      
-      }
-    };
+            },
+            mvedit(){
+              this.$router.push({path:'/certificate/edit'})
+            }
+            //상세페이지에 수정 기능 넣기
+    //         edit(item,index,event) {
+    //             var params = new URLSearchParams(); //파일업로드가 포함되어 formdata를 이용한다
+    //             params.append('title', this.certificate.title);
+    //             params.append('content', this.certificate.content);
+    //             params.append('publisher', this.certificate.publisher);
+    //             params.append('date', this.certificate.date);
+    //             axios.put(`${url}/certificate`,params,{
+    //                 headers:{
+    //                     'Content-Type' : 'multipart/form-data' //다중파일 업로드하기 위해 헤더 추가
+    //                 }
+    //             })
+    //             .then(certificate=>{
+    //                 console.log(certificate)
+    //                 alert(certificate.data.msg)
+    //                 window.location.reload()
+                    
+    //             })
+                
+    //             .catch(err=>{
+    //                 console.log(err)
+    //                 alert(err.response.data.msg)
+    //             })
+    // }
+    }
+  }
 </script>
 
 

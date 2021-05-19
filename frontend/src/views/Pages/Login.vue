@@ -86,9 +86,7 @@
 	      };
         this.$store.dispatch('LOGIN', data) //store에 있는 action함수 실행 :dispatch
           .then(()=>{
-            console.log('sdasdad')
-            location.replace('/main')
-            this.$routes.index.push('/')
+            this.$router.push({path:'/'})
           }) 
           .catch(({message}) => {
             this.msg = message

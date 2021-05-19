@@ -66,8 +66,18 @@
 <!--
  여기에 자격증  넣으셈
 -->
-
-             
+      <b-table responsive="sm" striped :fields="fields" hover :items="mycertificate" @row-click="click" >                        
+      <template #cell(edit)="row">
+         <b-button size="sm" @click="mvedit(row)" class="mr-2">
+          편집
+        </b-button>
+         <b-button size="sm" @click="deletepj(row)" class="mr-2">
+          삭제
+        </b-button>
+        
+        
+      </template>
+    </b-table> 
 
           </card>
         </b-col>
@@ -88,31 +98,84 @@
   // Components
   import BaseProgress from '@/components/BaseProgress';
   import StatsCard from '@/components/Cards/StatsCard';
-  
+  import axios from 'axios';
+  import store from '@/store';
 
+  let url=store.state.resourceHost; //서버주소 api
 
     export default {
+      data(){return{
+      mycertificate:[{}],
+      fields:[{key:'title',label:'자격증명'},{key:'publisher',label:'발급기관'},{key:'date',label:'취득날짜'},{key:'score',label:'점수'},{key:'edit',label:''}],
 
-     
 
-
+      }},
       components: {
       
         BaseProgress,
         StatsCard,
         
       },
+      mounted(){
+        this.certView();
+      },
 
       methods:{
-      /*onClickRedirect: function () {   
-          window.open("https://google.com", "_blank");    
-      }*/
+        click(row){
+          console.log(row)
+        },
+        certView(){
+          axios.get(`${url}/certificate`)
+                    .then(res=>{
+                    this.mycertificate=res.data.list
+                    console.log('mycertificate: ',this.mycertificate)
+        })
+      },
+      deletepj(item){
+                let del=item.item.idx
+                
+                console.log('del idx: ',del)
+                axios.delete(`${url}/certificate`,{params:{
+                    idx:del
+                }})
+                .then(res=>{
+                    alert(res.data.msg)
+                })
+                .catch(err=>{
+                    alert(err.response.data.msg)
+                })
+                console.log('delitem: ',item)
 
-      
-
-      
-      }
-    };
+            },
+            mvedit(){
+              this.$router.push({path:'/certificate/edit'})
+            }
+            //상세페이지에 수정 기능 넣기
+    //         edit(item,index,event) {
+    //             var params = new URLSearchParams(); //파일업로드가 포함되어 formdata를 이용한다
+    //             params.append('title', this.certificate.title);
+    //             params.append('content', this.certificate.content);
+    //             params.append('publisher', this.certificate.publisher);
+    //             params.append('date', this.certificate.date);
+    //             axios.put(`${url}/certificate`,params,{
+    //                 headers:{
+    //                     'Content-Type' : 'multipart/form-data' //다중파일 업로드하기 위해 헤더 추가
+    //                 }
+    //             })
+    //             .then(certificate=>{
+    //                 console.log(certificate)
+    //                 alert(certificate.data.msg)
+    //                 window.location.reload()
+                    
+    //             })
+                
+    //             .catch(err=>{
+    //                 console.log(err)
+    //                 alert(err.response.data.msg)
+    //             })
+    // }
+  }
+  }
 </script>
 
 
