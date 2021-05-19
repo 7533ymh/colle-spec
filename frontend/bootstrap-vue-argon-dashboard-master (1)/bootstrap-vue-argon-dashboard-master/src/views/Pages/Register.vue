@@ -1,3 +1,7 @@
+
+
+<!-- 회원가입 vue -->
+
 <template>
   <div>
     <!-- Header -->
@@ -23,33 +27,89 @@
               </div>
               <validation-observer v-slot="{handleSubmit}" ref="formValidator">
                 <b-form role="form" @submit.prevent="handleSubmit(onSubmit)">
-                  <base-input alternative
-                              class="mb-3"
-                              prepend-icon="ni ni-hat-3"
-                              placeholder="이름(실명)"
-                              name="Name"
-                              :rules="{required: true}"
-                              v-model="model.name">
-                  </base-input>
+                  
+                  
+              
 
+                    <div class="form-group mb-3">
+                    <input type="text" class="form-control" id="ID" v-model="model.ID" placeholder="아이디" @blur="checkDuplicate" />
+                    <span class="badge badge-danger mt-1" v-if="!availableID">이미 사용중인 아이디입니다.</span>
+                    </div>
+                  
                   <base-input alternative
                               class="mb-3"
-                              prepend-icon="ni ni-email-83"
+                              
                               placeholder="이메일"
                               name="Email"
-                              :rules="{required: true, email: true}"
+                              
                               v-model="model.email">
                   </base-input>
 
                   <base-input alternative
                               class="mb-3"
-                              prepend-icon="ni ni-lock-circle-open"
+                              
                               placeholder="비밀번호"
                               type="password"
                               name="Password"
-                              :rules="{required: true, min: 6}"
+                              
                               v-model="model.password">
                   </base-input>
+
+                  <base-input alternative
+                              class="mb-3"
+                              
+                              placeholder="이름(실명)"
+                              name="Name"
+                              
+                              v-model="model.name">
+                  </base-input>
+
+                  <base-input alternative
+                              class="mb-3"
+                              
+                              placeholder="휴대폰 번호"
+                              type="text"
+                              name="phone"
+                              
+                              v-model="model.phone">
+                  </base-input>
+
+                  
+                  
+                  <b-form-group label="성별" v-slot="{ ariaDescribedby }" v-model="model.sex">
+                    <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby" name="sex" value="male">남</b-form-radio>
+                    <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby" name="sex" value="female">녀</b-form-radio>
+                  </b-form-group>
+                  
+
+                  <base-input alternative
+                              class="mb-3"
+                              
+                              placeholder="학년"
+                              type="number"
+                              name="grade"
+                              
+                              v-model="model.grade">
+                  </base-input>
+
+                  <base-input alternative
+                              class="mb-3"
+                              
+                              placeholder="목표기업"
+                              name="enterprise"
+                              
+                              v-model="model.enterprise ">
+                  </base-input>
+
+                  <base-input alternative
+                              class="mb-3"
+                              
+                              placeholder="목표직종"
+                              name="objective"
+                              
+                              v-model="model.objective ">
+                  </base-input>
+
                   <!--<div class="text-muted font-italic"><small>password strength: <span
                     class="text-success font-weight-700">strong</span></small></div>
                    <b-row class=" my-4">
@@ -77,22 +137,46 @@
 
   export default {
     name: 'register',
+
     data() {
-      return {
-        model: {
+      return { 
+        model: { //여기에 키값 
+          ID : '',
           name: '',
           email: '',
           password: '',
-          agree: false
+          phone : '',
+          sex : '',
+          grade : '',
+          enterprise : '',
+          objective : '',
+          //agree: false
         }
       }
     },
     methods: {
       onSubmit() {
-        // this will be called only after form is valid. You can do an api call here to register users
+        // 여기에 데이터 전달
       }
-    }
+    },
+
+
+    async checkDuplicate() {
+	//일단은 사용가능한 아이디로 true로 초기화 한다.
+	this.availableID = true;
+    
+    //아이디 중복체크를 한다.
+	const response = await checkDuplicateID(this.ID);
+	if (!response.data) {
+		this.availableID = false;
+	} else {
+		this.availableID = true;
+	}
+},
+
+    
 
   };
+
 </script>
 <style></style>
