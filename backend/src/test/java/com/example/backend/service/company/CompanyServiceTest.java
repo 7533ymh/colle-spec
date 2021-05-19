@@ -1,8 +1,9 @@
 package com.example.backend.service.company;
 
-import com.example.backend.domain.CompanyList;
-import com.example.backend.domain.CompareCompany;
-import com.example.backend.mapper.collspec.RankMapper;
+import com.example.backend.domain.company.domain.CompanyList;
+import com.example.backend.domain.company.domain.CompareCompany;
+import com.example.backend.domain.company.service.CompanyService;
+import com.example.backend.domain.rank.mapper.RankMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

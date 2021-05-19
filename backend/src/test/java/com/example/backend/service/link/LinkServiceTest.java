@@ -1,10 +1,11 @@
 package com.example.backend.service.link;
 
-import com.example.backend.advice.exception.CUserNotFoundException;
-import com.example.backend.domain.Grade;
-import com.example.backend.domain.User;
-import com.example.backend.mapper.collspec.UserMapper;
-import com.example.backend.service.grade.GradeService;
+import com.example.backend.global.exception.exception.CUserNotFoundException;
+import com.example.backend.domain.grade.domain.Grade;
+import com.example.backend.domain.link.service.LinkService;
+import com.example.backend.domain.user.domain.User;
+import com.example.backend.domain.user.mapper.UserMapper;
+import com.example.backend.domain.grade.service.GradeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

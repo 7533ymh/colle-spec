@@ -1,12 +1,13 @@
 package com.example.backend.service.award;
 
-import com.example.backend.advice.exception.CNotFoundInfoByIdxException;
-import com.example.backend.advice.exception.CNotFoundInfoByUserException;
-import com.example.backend.advice.exception.CNotHaveAccessInfoException;
-import com.example.backend.domain.Award;
-import com.example.backend.domain.Score;
-import com.example.backend.mapper.collspec.AwardMapper;
-import com.example.backend.mapper.collspec.RankMapper;
+import com.example.backend.global.exception.exception.CNotFoundInfoByIdxException;
+import com.example.backend.global.exception.exception.CNotFoundInfoByUserException;
+import com.example.backend.global.exception.exception.CNotHaveAccessInfoException;
+import com.example.backend.domain.award.domain.Award;
+import com.example.backend.domain.rank.domain.Score;
+import com.example.backend.domain.award.mapper.AwardMapper;
+import com.example.backend.domain.award.service.AwardService;
+import com.example.backend.domain.rank.mapper.RankMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
