@@ -22,6 +22,7 @@ import Program from '../components/board/Program'; //프로그램 리스트 컴�
 import AllList from '../components/board/AllList'; //프로그램 리스트 컴포넌트 호출
 import ProjectDetail from '../components/board/ProjectDetail'; //프로그램 리스트 상세페이지 호출
 import ProgramTeamDetail from '../components/board/ProgramTeamDetail'; //프로그램 리스트 상세페이지 호출
+import CompanyList from '../components/board/CompanyList'; //프로그램 리스트 상세페이지 호출
 
 
 
@@ -162,6 +163,11 @@ export default new Router({
       component: Me,
       //beforeEnter: requireAuth(),
       //beforeEnter: accessloginAuth //마이페이지는 로그인없이 접근 불가
-    }
+    },
+    {
+			path:'/companyList'  //상세페이지 추가
+			,name:'companyList'
+			,component:CompanyList
+		},
   ]
 })

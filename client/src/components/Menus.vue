@@ -17,6 +17,7 @@
     <router-link to="/project">Project</router-link>
     <!-- <router-link to="/board/alllist">전체목록</router-link> -->
     <router-link to="/board/program">프로그램목록</router-link>
+    <router-link to="/companyList">회사</router-link>
 
   </div>
 </template>
