@@ -68,26 +68,30 @@
   </div>
 </template>
 <script>
+import store from '@/store'
   export default {
     data() {
       return {
         user: {
           id: '',
           pass: '',
-          rememberMe: false
-        }
+          rememberMe: false,
+        },
+        //name:this.$store.state.userinfo.name
       };
     },
     methods: {
-      signin() {
+     async signin() {
         const data = {
 		    id:this.user.id,
 		    pass:this.user.pass,
 	      };
-        this.$store.dispatch('LOGIN', data) //store에 있는 action함수 실행 :dispatch
-          .then(()=>{
+       await this.$store.dispatch('LOGIN', data) //store에 있는 action함수 실행 :dispatch
+          .then(res=>{
+           alert(this.user.id+"님 반갑습니다.")
             this.$router.push({path:'/'})
-          }) 
+          })
+          
           .catch(({message}) => {
             this.msg = message
             })

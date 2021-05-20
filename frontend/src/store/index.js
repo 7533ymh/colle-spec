@@ -59,21 +59,22 @@ export default new Vuex.Store({
   },
   //dispatch로 불러와서 사용 -> dispatch('actions함수','...')
   actions: {
-    LOGIN ({commit,dispatch},{id,pass}) {
+     LOGIN ({commit,dispatch},{id,pass}) {
       var params =new URLSearchParams();
       params.append('id', id);
       params.append('pass', pass);
-      return axios.post(`${resourceHost}/signin`,params)
+      axios.post(`${resourceHost}/signin`,params)
         .then(res => {
           commit('LOGIN', res.data.data) //커밋: mutations LOGIN값 변경
+
           //this.routes.routes.push({path:'/main'})
           // 로그인 이후 모든 HTTP 요청 헤더에 X-AUTH-TOKEN 을 추가한다.
           axios.defaults.headers.common['X-AUTH-TOKEN'] = `${res.data.data}`;
           console.log('res.data.data:',res.data.data)
-          alert(res.data.msg)//성공메시지
-          
           //로그인과 동시에 회원정보 요청
           dispatch("getMyinfo")
+          
+          
         })
         .catch(error=>{
           commit('loginError')

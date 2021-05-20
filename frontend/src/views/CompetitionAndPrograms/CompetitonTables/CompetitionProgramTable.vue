@@ -66,7 +66,6 @@
     </b-card>
 </template>
 <script>
-  // import Competition1Projects from './Competition1Projects'
   import { Table, TableColumn, Button} from 'element-ui'
   import axios from "axios";
  import store from "@/store";
