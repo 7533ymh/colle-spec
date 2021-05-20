@@ -39,13 +39,26 @@
 					<el-button v-if="!authorized" type="button" size="mini" @click="a_rankView">전체등급</el-button>
           <el-button v-if="!authorized" type="button" size="mini" @click="g_rankView">학년등급</el-button>
             </b-row>
-            <div>나의 등급제 내용</div>
+            <div>
+<el-button  id="rank_btn" >전체등급 {{viewRank.all_rank}}</el-button>
+
+            </div>
 
 <!--
  여기에 등급제  넣으셈
 -->
+
 <div>
-  <p>전체 등급:{{viewRank.all_rank}}</p>
+<el-button  id="rank_btn" >수상 {{viewRank.award_rank}} </el-button>
+<el-button  id="rank_btn" >경력 {{viewRank.career_rank}}</el-button>
+<el-button  id="rank_btn" >자격증 {{viewRank.certificate_rank}}</el-button>
+<el-button  id="rank_btn" >교육이수 {{viewRank.education_rank}}</el-button>
+<el-button  id="rank_btn" >해외경험 {{viewRank.experience_rank}}</el-button>
+<el-button  id="rank_btn" >학점 {{viewRank.grade_rank}}</el-button>
+<el-button  id="rank_btn" >프로젝트 {{viewRank.project_rank}}</el-button>
+<el-button  id="rank_btn" >어학 {{viewRank.language_rank}}</el-button>
+
+  <!-- <p>전체 등급:{{viewRank.all_rank}}</p>
   <p>수상 등급:{{viewRank.award_rank}}</p>
   <p>경력 등급:{{viewRank.career_rank}}</p>
   <p>자격증 등급:{{viewRank.certificate_rank}}</p>
@@ -53,8 +66,8 @@
   <p>해외경험 등급:{{viewRank.experience_rank}}</p>
   <p>학점 등급:{{viewRank.grade_rank}}</p>
   <p>프로젝트 등급:{{viewRank.project_rank}}</p>
-  <p>어학 등급:{{viewRank.language_rank}}</p>
-</div>
+  <p>어학 등급:{{viewRank.language_rank}}</p>-->
+</div> 
           </card>
         </b-col>
 
@@ -173,5 +186,11 @@
 .el-table .cell{
   padding-left: 0px;
   padding-right: 0px;
+}
+#rank_btn{
+  width: 130px;
+  height: 70px;
+  margin-top: 2%;
+  margin-left: 10px;
 }
 </style>
