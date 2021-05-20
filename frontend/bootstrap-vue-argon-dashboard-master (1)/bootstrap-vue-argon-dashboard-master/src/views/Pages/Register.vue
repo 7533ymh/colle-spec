@@ -31,10 +31,10 @@
                   
               
 
-                    <div class="form-group mb-3">
+                  <div class="form-group mb-3">
                     <input type="text" class="form-control" id="ID" v-model="model.ID" placeholder="아이디" @blur="checkDuplicate" />
-                    <span class="badge badge-danger mt-1" v-if="!availableID">이미 사용중인 아이디입니다.</span>
-                    </div>
+                    <span class="badge badge-danger mt-1" v-if="!availableID">이미 사용중인 아이디입니다.</span> <!--  v-if="!availableID 여기서 !빼야함 -->
+                  </div>
                   
                   <base-input alternative
                               class="mb-3"
