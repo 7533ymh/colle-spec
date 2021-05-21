@@ -72,7 +72,6 @@ public class AwardService {
 
     public int changetoNumber (Award award) {
 
-
         switch (award.getDivision()) {
             case "대상":
                 return 100;
@@ -92,7 +91,6 @@ public class AwardService {
                 return 30;
 
         }
-
 
     }
 

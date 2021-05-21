@@ -88,11 +88,7 @@ public class EducationService {
     //수치화 알고리즘 부분
     public int changetoNumber (Education education) {
 
-
-
-
         return 100;
-
     }
 
 

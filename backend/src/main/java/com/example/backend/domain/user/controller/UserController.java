@@ -32,8 +32,8 @@ public class UserController {
     public SingleResult<User> findUserById() {
         logger.info("회원 정보 조회");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String id = authentication.getName();
-        return responseService.getSingleResult(userService.findById(id));
+        String AuthId = authentication.getName();
+        return responseService.getSingleResult(userService.findById(AuthId));
 
     }
 

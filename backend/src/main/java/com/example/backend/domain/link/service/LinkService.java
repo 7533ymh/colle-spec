@@ -74,12 +74,14 @@ public class LinkService {
         gradeService.delete_all(idx);
 
         int year = Integer.parseInt(gradeList.get(0).getGrade());
+        int realgrade = 1;
+
         for (Grade grade : gradeList) {
 
             int check = Integer.parseInt(grade.getGrade());
-            int realgrade = 1;
 
             if (check != year) {
+                year = check;
                 realgrade += 1;
             }
 
@@ -90,8 +92,6 @@ public class LinkService {
             gradeService.save(grade);
 
         }
-
-
 
 
     }

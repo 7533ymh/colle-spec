@@ -24,9 +24,9 @@ public class IntroductionHandler {
            throw new CNotFoundDataTypeException();
         }
 
-        // 프로젝트 폴더에 저장하기 위해 절대경로를 설정 (Window 의 Tomcat 은 Temp 파일을 이용한다)
+        // 기본 저장 경로
         String absolutePath = "/var/lib/jenkins/workspace/Project/backend/introduction";
-        // 경로를 지정하고 그곳에다가 저장할 심산이다
+        // user_idx 별로 저장
         String path = absolutePath+ "/" + user_idx;
 
         File file = new File(path);
@@ -40,7 +40,7 @@ public class IntroductionHandler {
         for (MultipartFile introductionFile  : introductions) {
             // 파일이 비어 있지 않을 때 작업을 시작해야 오류가 나지 않는다
             if (!introductionFile.isEmpty()) {
-                // hwp, pdf 파일들만 받아서 처리할 예정
+                // hwp, pdf, docx, pptx 파일들만 받아서 처리할 예정
                 String contentType = introductionFile.getContentType();
                 String originalFileExtension;
                 // 확장자 명이 없으면 이 파일은 잘 못 된 것이다
