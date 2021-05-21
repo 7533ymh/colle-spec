@@ -133,22 +133,6 @@ public class ExceptionAdvice {
         return responseService.getFailResult(Integer.parseInt(getMessage("NotFoundScore.code")), getMessage("NotFoundScore.msg"));
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // code정보에 해당하는 메시지를 조회합니다.
     private String getMessage(String code) {
         return getMessage(code, null);

@@ -2,6 +2,7 @@ package com.example.backend.domain.link.linkmapper;
 
 import com.example.backend.domain.grade.domain.Grade;
 import com.example.backend.domain.user.domain.User;
+import com.example.backend.global.config.database.EasyMapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -10,7 +11,7 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 import java.util.Optional;
 
-@com.example.backend.global.config.database.EasyMapper
+@EasyMapper
 public interface LinkMapper {
 
     @Select("SELECT idx,user_pw FROM user_schema WHERE user_id = #{id}")

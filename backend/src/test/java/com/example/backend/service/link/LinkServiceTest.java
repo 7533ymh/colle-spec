@@ -1,11 +1,10 @@
 package com.example.backend.service.link;
 
-import com.example.backend.global.exception.exception.CUserNotFoundException;
-import com.example.backend.domain.grade.domain.Grade;
+import com.example.backend.domain.grade.service.GradeService;
 import com.example.backend.domain.link.service.LinkService;
 import com.example.backend.domain.user.domain.User;
 import com.example.backend.domain.user.mapper.UserMapper;
-import com.example.backend.domain.grade.service.GradeService;
+import com.example.backend.global.exception.exception.CUserNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,8 +29,8 @@ class LinkServiceTest {
     void 어플로그인() {
 
         //given
-        String id = "abc";
-        String pw = "abc";
+        String id = "test1";
+        String pw = "111";
 
 
         //when
@@ -46,8 +45,8 @@ class LinkServiceTest {
     void 기본정보입력() {
 
         //given
-        int appidx = 1;
-        int idx = 35;
+        int appidx = 4;
+        int idx = 26;
 
 
         //when
@@ -55,7 +54,7 @@ class LinkServiceTest {
 
 
         //then
-        User check = userMapper.findByIdx(25)
+        User check = userMapper.findByIdx(26)
                 .orElseThrow(CUserNotFoundException::new);
 
         assertThat(check.getCollege()).isEqualTo("경상국립대학교");
@@ -69,22 +68,18 @@ class LinkServiceTest {
     void 학점정보입력() {
 
         //given
-        int appidx = 1;
-        int idx = 35;
-        Grade test = new Grade();
-        test.setUser_idx(23);
-        test.setGrade("1");
-        test.setSemester("1");
-        test.setAvg_score(4.5);
+        int appidx = 4;
+        int idx = 26;
+
 
         //when
-        gradeService.save(test);
+
         linkservice.linkGrade(appidx,idx);
 
 
         //then
 
-        assertThat(gradeService.findByUserIdx(35).size()).isEqualTo(4);
+        assertThat(gradeService.findByUserIdx(26).size()).isEqualTo(6);
 
 
     }
