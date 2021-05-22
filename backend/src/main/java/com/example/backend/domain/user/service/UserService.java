@@ -1,6 +1,6 @@
 package com.example.backend.domain.user.service;
 
-import com.example.backend.global.exception.exception.CUserExistException;
+import com.example.backend.domain.user.exception.CUserExistException;
 import com.example.backend.global.exception.exception.CUserNotFoundException;
 import com.example.backend.domain.user.domain.User;
 import com.example.backend.domain.user.mapper.UserMapper;

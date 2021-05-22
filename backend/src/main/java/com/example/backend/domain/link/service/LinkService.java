@@ -1,6 +1,6 @@
 package com.example.backend.domain.link.service;
 
-import com.example.backend.global.exception.exception.CNotFoundInfoByLinkException;
+import com.example.backend.domain.link.exception.CNotFoundInfoByLinkException;
 import com.example.backend.global.exception.exception.CUserLoginFailException;
 import com.example.backend.global.exception.exception.CUserNotFoundException;
 import com.example.backend.domain.grade.domain.Grade;

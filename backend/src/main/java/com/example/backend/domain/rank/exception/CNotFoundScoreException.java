@@ -1,4 +1,4 @@
-package com.example.backend.global.exception.exception;
+package com.example.backend.domain.rank.exception;
 
 public class CNotFoundScoreException extends RuntimeException{
 

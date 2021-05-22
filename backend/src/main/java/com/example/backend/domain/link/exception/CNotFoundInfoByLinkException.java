@@ -1,4 +1,4 @@
-package com.example.backend.global.exception.exception;
+package com.example.backend.domain.link.exception;
 
 public class CNotFoundInfoByLinkException extends RuntimeException{
 
