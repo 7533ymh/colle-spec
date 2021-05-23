@@ -11,7 +11,18 @@ public class Company {
 
     private int idx;
     private String name;
-    private String content;
+    private String industry;
+    private String people;
+    private String division;
+    private String establishment;
+    private String capital;
+    private String take;
+    private String representative;
+    private String salary;
+    private String bussiness;
+    private String insurance;
+    private String url;
+    private String address;
     private int pass_award;
     private int pass_career;
     private int pass_certificate;
@@ -19,7 +30,6 @@ public class Company {
     private int pass_experience;
     private int pass_grade;
     private int pass_language;
-    private int pass_project;
 
 
 }

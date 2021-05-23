@@ -1,5 +1,6 @@
 package com.example.backend.domain.company.service;
 
+import com.example.backend.domain.rank.exception.CNotFoundScoreException;
 import com.example.backend.global.exception.exception.CNotFoundDataException;
 import com.example.backend.domain.company.domain.Company;
 import com.example.backend.domain.company.domain.CompanyList;
@@ -55,19 +56,7 @@ public class CompanyService {
         Company company = companyMapper.findCompanyByIdx(idx).orElseThrow(CNotFoundDataException::new);
 
         if ( rankMapper.checkScore(user_idx) == 0){
-            return CompareCompany.builder()
-                    .idx(company.getIdx())
-                    .name(company.getName())
-                    .content(company.getContent())
-                    .award_rank(-1)
-                    .career_rank(-1)
-                    .certificate_rank(-1)
-                    .education_rank(-1)
-                    .experience_rank(-1)
-                    .grade_rank(-1)
-                    .language_rank(-1)
-                    .project_rank(-1)
-                    .build();
+            throw new CNotFoundScoreException();
         }
 
         return compareScore(userScore, company);
@@ -79,7 +68,18 @@ public class CompanyService {
         CompareCompany compareCompany = new CompareCompany();
         compareCompany.setIdx(company.getIdx());
         compareCompany.setName(company.getName());
-        compareCompany.setContent(company.getContent());
+        compareCompany.setIndustry(company.getIndustry());
+        compareCompany.setPeople(company.getPeople());
+        compareCompany.setDivision(company.getDivision());
+        compareCompany.setEstablishment(company.getEstablishment());
+        compareCompany.setCapital(company.getCapital());
+        compareCompany.setTake(company.getTake());
+        compareCompany.setRepresentative(company.getRepresentative());
+        compareCompany.setSalary(company.getSalary());
+        compareCompany.setBussiness(company.getBussiness());
+        compareCompany.setInsurance(company.getInsurance());
+        compareCompany.setUrl(company.getUrl());
+        compareCompany.setAddress(company.getAddress());
 
 
         int checkAward = userScore.getAward_score() - company.getPass_award();
@@ -89,7 +89,6 @@ public class CompanyService {
         int checkExperience = userScore.getExperience_score() - company.getPass_experience();
         int checkGrade = userScore.getGrade_score() - company.getPass_grade();
         int checkLanguage = userScore.getLanguage_score() - company.getPass_language();
-        int checkProject = userScore.getProject_score() - company.getPass_project();
 
         if (checkAward > 60)
             compareCompany.setAward_rank(1);
@@ -168,16 +167,6 @@ public class CompanyService {
         else
             compareCompany.setLanguage_rank(5);
 
-        if (checkProject > 400)
-            compareCompany.setProject_rank(1);
-        else if (checkProject > 200)
-            compareCompany.setProject_rank(2);
-        else if (checkProject >= -200)
-            compareCompany.setProject_rank(3);
-        else if (checkProject >= -400)
-            compareCompany.setProject_rank(4);
-        else
-            compareCompany.setProject_rank(5);
 
         return compareCompany;
     }

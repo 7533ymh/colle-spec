@@ -11,7 +11,18 @@ public class CompareCompany {
 
     private int idx;
     private String name;
-    private String content;
+    private String industry;
+    private String people;
+    private String division;
+    private String establishment;
+    private String capital;
+    private String take;
+    private String representative;
+    private String salary;
+    private String bussiness;
+    private String insurance;
+    private String url;
+    private String address;
     private int award_rank;
     private int career_rank;
     private int certificate_rank;
@@ -19,6 +30,5 @@ public class CompareCompany {
     private int experience_rank;
     private int grade_rank;
     private int language_rank;
-    private int project_rank;
 
 }
