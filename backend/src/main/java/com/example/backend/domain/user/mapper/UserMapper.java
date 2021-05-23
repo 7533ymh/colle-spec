@@ -14,7 +14,7 @@ public interface UserMapper {
     @Options(useGeneratedKeys = true, keyProperty = "user.idx")
     int save(@Param("user") User user);
 
-    @Update("UPDATE user SET id = #{user.id}, pass = #{user.pass}, name = #{user.name}, grade={user.grade}, sex = #{user.sex}, mail = #{user.mail}, phone = #{user.phone} ," +
+    @Update("UPDATE user SET id = #{user.id}, pass = #{user.pass}, name = #{user.name}, grade= #{user.grade}, sex = #{user.sex}, mail = #{user.mail}, phone = #{user.phone} ," +
             "objective = #{user.objective}, enterprise = #{user.enterprise} WHERE idx = #{user.idx}")
     void update(@Param("user") User user);
 
