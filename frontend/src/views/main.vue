@@ -96,6 +96,13 @@
               <b-col>
                 
                 <h5 class="h3 mb-0">등급 요약</h5>
+                <!-- 로그인안되있으면 로그인 하라는 메시지와 클릭시 로그인페이지로 -->
+                <!-- <a href="" v-if="authorized" @click.prevent="" >
+           <sidebar-item :link="{path:'/RatingSystem'}">123</sidebar-item>
+           </a>  
+            <router-link to="/Login" v-else>
+            <sidebar-item  :link="{path:'/Login'}"></sidebar-item>
+        </router-link> -->
               </b-col>
             </b-row>
 
@@ -176,6 +183,11 @@
           extraOptions: chartConfigs.blueChartOptions
         }
       };
+    },
+    computed:{
+    authorized(){
+      return store.state.isLogin= false;
+    }
     },
     methods: {
       initBigChart(index) {

@@ -36,14 +36,14 @@
         <template>
 
           
-          <b-dropdown-item href="#!">
+          <b-dropdown-item @click="profile()">
             <i class="ni ni-single-02"></i>
-            <span>회원정보</span>
+            <span >회원정보</span>
           </b-dropdown-item>
-          <b-dropdown-item href="#!">
+          <!-- <b-dropdown-item href="#!">
             <i class="ni ni-settings-gear-65"></i>
             <span>설정</span>
-          </b-dropdown-item>
+          </b-dropdown-item> -->
          
           
           <div class="dropdown-divider"></div>
@@ -93,7 +93,8 @@ export default {
       activeNotifications: false,
       showMenu: false,
       searchModalVisible: false,
-      searchQuery: ''
+      searchQuery: '',
+      isLogin:this.$store.state.isLogin
     };
   },
   methods: {
@@ -105,7 +106,18 @@ export default {
     },
     closeDropDown() {
       this.activeNotifications = false;
+    },
+    profile(){
+      if(this.isLogin === false){
+        alert('로그인이 필요한 서비스입니다.')
+        this.$router.push({path:'/Login'})
+      }else{
+        this.$router.push({path:'/profile'})
+      }
     }
+  },
+  mounted(){
+    console.log("로그인여부:",this.isLogin)
   }
 };
 </script>

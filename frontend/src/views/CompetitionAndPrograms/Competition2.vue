@@ -53,10 +53,10 @@
                     <span class="d-md-none">W</span>
                   </b-nav-item>
                   
-                  <b-nav-item link-classes="py-2 px-3" router-link to="/CompetitionEtc">
+                  <!-- <b-nav-item link-classes="py-2 px-3" router-link to="/CompetitionEtc">
                     <span class="d-none d-md-block">기타</span>
                     <span class="d-md-none">W</span>
-                  </b-nav-item>
+                  </b-nav-item> -->
                 </b-nav>
               </b-col>
             </b-row>

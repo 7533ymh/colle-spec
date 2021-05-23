@@ -18,7 +18,7 @@
                              prop='idx'
                              min-width="60px">
                               <template slot-scope="scope">
-                                {{scope.$index}}
+                                {{scope.$index+1}}
                               </template>
             </el-table-column>
            

@@ -27,7 +27,7 @@
     <!--Charts-->
     <b-container fluid class="mt--7">
       <b-row>
-        <b-col xl="10" class="mb-5 mb-xl-0">
+        <b-col xl="12" class="mb-5 mb-xl-0">
           <card  header-classes="bg-transparent">
             <b-row align-v="center" slot="header">
               
@@ -48,10 +48,10 @@
                     <span class="d-md-none">W</span>
                   </b-nav-item>
                   
-                  <b-nav-item link-classes="py-2 px-3" router-link to="/CompetitionEtc">
+                  <!-- <b-nav-item link-classes="py-2 px-3" router-link to="/CompetitionEtc">
                     <span class="d-none d-md-block">기타</span>
                     <span class="d-md-none">W</span>
-                  </b-nav-item>
+                  </b-nav-item> -->
                 </b-nav>
               </b-col>
             </b-row>

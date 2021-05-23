@@ -15,7 +15,7 @@
                              prop='idx'
                              min-width="60px">
                               <template slot-scope="scope">
-                                {{scope.$index}}
+                                {{scope.$index+1}}
                               </template>
             </el-table-column>
            
@@ -50,7 +50,7 @@
                              prop="program_date_end"
                              min-width="140px">
             </el-table-column>
-           <el-table-column fixed="left" label="board" width="120">
+           <el-table-column fixed="right" label="board" width="120">
       <template slot-scope="scope">
         <el-button @click="team(scope.row)" size="small">
          Team

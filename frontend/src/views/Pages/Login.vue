@@ -90,6 +90,7 @@ import store from '@/store'
           .then(res=>{
            alert(this.user.id+"님 반갑습니다.")
             this.$router.push({path:'/'})
+            location.reload()
           })
           
           .catch(({message}) => {

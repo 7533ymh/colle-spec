@@ -67,7 +67,7 @@
  여기에 자격증  넣으셈
 -->
       <b-table responsive="sm" striped :fields="fields" hover :items="mycertificate" @row-click="click" >                        
-      <template #cell(edit)="row">
+      <template #cell(편집)="row">
          <b-button size="sm" @click="mvedit(row)" class="mr-2">
           편집
         </b-button>
@@ -106,7 +106,7 @@
     export default {
       data(){return{
       mycertificate:[{}],
-      fields:[{key:'title',label:'자격증명'},{key:'publisher',label:'발급기관'},{key:'date',label:'취득날짜'},{key:'score',label:'점수'},{key:'edit',label:''}],
+      fields:[{key:'title',label:'자격증명'},{key:'publisher',label:'발급기관'},{key:'date',label:'취득날짜'},{key:'score',label:'점수'},{key:'edit',label:''},{key:'편집',label:''}],
 
 
       }},
@@ -128,6 +128,9 @@
           axios.get(`${url}/certificate`)
                     .then(res=>{
                     this.mycertificate=res.data.list
+                    console.log(res)
+                    // this.editdate=res.data.data.edit;
+		                // this.editdate= new Date().toJSON().slice(0,10).replace(/-/g,'.');
                     console.log('mycertificate: ',this.mycertificate)
         })
       },

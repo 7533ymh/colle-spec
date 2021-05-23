@@ -32,9 +32,15 @@
 						<col width="*" />
 					</colgroup>
 					<tr>
+						<th>수정날짜</th>
+						<td>{{editdate}}</td>
+					</tr>
+					<tr>
 						<th>제목</th>
 						<td class="ml-4">{{title}}</td>
+						
 					</tr>
+
 					<tr>
 						<th>내용</th>
 						<td>{{content}}</td>
@@ -125,6 +131,7 @@
 			content:'', //상세보기 내용
       title:'', //상세보기 제목
       comment:'', //댓글창 댓글내용
+	  editdate:'',
 			edit:{
         comment:'', //댓글수정 내용
 			  idx:''}, //댓글 번호
@@ -188,6 +195,8 @@
 				this.view.view=res.data.data.commentList
         this.title=res.data.data.title;
         this.content=res.data.data.content;
+		this.editdate=res.data.data.edit;
+		this.editdate= new Date().toJSON().slice(0,10).replace(/-/g,'.');
         localStorage.setItem("comment",JSON.stringify(res.data.data.commentList));
 			})
 		},

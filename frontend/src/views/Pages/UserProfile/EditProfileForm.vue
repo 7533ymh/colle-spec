@@ -5,8 +5,9 @@
         <h3 class="mb-0">Edit profile </h3>
       </b-col>
       <b-col cols="4" class="text-right">
-        <a href="#!" class="btn btn-sm btn-primary">Settings</a>
+        <b-button @click="com" class="btn btn-sm btn-primary">적용</b-button>
       </b-col>
+      
     </b-row>
 
     <b-form @submit.prevent="updateProfile">
@@ -14,41 +15,119 @@
 
       <div class="pl-lg-4">
         <b-row>
-          <b-col lg="6">
+          <b-col lg="4">
             <base-input
               type="text"
               label="Username"
               placeholder="Username"
-              v-model="user.username"
+              v-model="user.name"
             >
             </base-input>
           </b-col>
+          <b-col lg="4">
+            <base-input
+              type="text"
+              label="아이디"
+              placeholder="아이디"
+              v-model="user.id"
+            >
+            </base-input>
+          </b-col>
+          <b-col lg="4">
+            <base-input
+              type="password"
+              label="비밀번호"
+              placeholder="password"
+              v-model="user.pass"
+            >
+            </base-input>
+          </b-col>
+          
+        </b-row>
+          <b-row>
           <b-col lg="6">
             <base-input
               type="email"
               label="Email address"
-              placeholder="mike@email.com"
-              v-model="user.email"
+              placeholder="ex)xxxx@email.com"
+              v-model="user.mail"
+            >
+            </base-input>
+          </b-col>
+          <b-col md="4">
+            <base-input
+              type="text"
+              label="PhoneNum"
+              placeholder="PhoneNum"
+              v-model="user.phone"
+            >
+            </base-input>
+          </b-col>
+          <b-col lg="2">
+            <base-input
+              type="text"
+              label="성별"
+              placeholder="성별"
+              v-model="user.sex"
             >
             </base-input>
           </b-col>
         </b-row>
         <b-row >
-          <b-col lg="6">
+          <b-col lg="2">
             <base-input
               type="text"
-              label="First Name"
-              placeholder="First Name"
-              v-model="user.firstName"
+              label="연동"
+              placeholder="연동"
+              v-model="user.link"
             >
             </base-input>
           </b-col>
-          <b-col lg="6">
+          <b-col lg="2">
             <base-input
               type="text"
-              label="Last Name"
-              placeholder="Last Name"
-              v-model="user.lastName"
+              label="학년"
+              placeholder="학년"
+              v-model="user.grade"
+            >
+            </base-input>
+          </b-col>
+          <b-col lg="4">
+            <base-input
+              type="text"
+              label="대학교"
+              placeholder="대학교이름"
+              v-model="user.college"
+            >
+            </base-input>
+          </b-col>
+          
+          <b-col md="4">
+            <base-input
+              type="text"
+              label="전공"
+              placeholder="전공"
+              v-model="user.major"
+            >
+            </base-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col lg="4">
+            <base-input
+              type="text"
+              label="관심직종"
+              placeholder="관심직종"
+              v-model="user.objective"
+            >
+            </base-input>
+          </b-col>
+          <b-col lg="4">
+            <base-input
+              type="text"
+              label="관심기업"
+              placeholder="관심기업"
+              v-model="user.enterprise"
             >
             </base-input>
           </b-col>
@@ -60,82 +139,73 @@
       <h6 class="heading-small text-muted mb-4">Contact information</h6>
 
       <div class="pl-lg-4">
-        <b-row>
-          <b-col md="12">
-            <base-input
-              type="text"
-              label="Address"
-              placeholder="Home Address"
-              v-model="user.address"
-            >
-            </base-input>
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col lg="4">
-            <base-input
-              type="text"
-              label="City"
-              placeholder="City"
-              v-model="user.city"
-            >
-            </base-input>
-          </b-col>
-          <b-col lg="4">
-            <base-input
-              type="text"
-              label="Country"
-              placeholder="Country"
-              v-model="user.country"
-            >
-            </base-input>
-          </b-col>
-          <b-col lg="4">
-            <base-input
-              label="Postal Code"
-              placeholder="ZIP Code"
-              v-model="user.postalCode"
-            >
-            </base-input>
-          </b-col>
-        </b-row>
+        
       </div>
-
-      <hr class="my-4">
-      <!-- Description -->
-      <h6 class="heading-small text-muted mb-4">About me</h6>
-      <div class="pl-lg-4">
-        <b-form-group label="About Me" label-class="form-control-label" class="mb-0" label-for="about-form-textaria">
-         <!--  <label class="form-control-label">About Me</label> -->
-          <b-form-textarea rows="4" value="A beautiful premium dashboard for BootstrapVue." id="about-form-textaria" placeholder="A few words about you ..."></b-form-textarea>
-        </b-form-group>
-      </div>
-
     </b-form>
   </card>
 </template>
 <script>
+import store from '@/store'
+import axios from 'axios'
+let url=store.state.resourceHost; //서버주소 api
 export default {
   data() {
     return {
-      user: {
-        company: 'Creative Code Inc.',
-        username: 'michael23',
-        email: '',
-        firstName: 'Mike',
-        lastName: 'Andrew',
-        address: 'Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09',
-        city: 'New York',
-        country: 'USA',
-        postalCode: '',
-        aboutMe: `Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.`
-      }
+      user:this.$store.state.userinfo,
+      link:'',
     };
   },
   methods: {
     updateProfile() {
       alert('Your data: ' + JSON.stringify(this.user));
+    },
+    userlink(){
+      if(this.$store.getters.userlink === 0){
+        this.user.link='off';
+      }else{
+        this.user.link="on"
+      }
+  },
+  com(){
+    var result=confirm("변경하시겠습니까?");
+    if(result){
+      this.edituser();
+    }else{
+      alert('취소하셨습니다.')
     }
+
+    
+    
+  },
+  edituser(){
+//     confirm('Are you ready?')
+// .then(result => {
+//   console.log(result)
+// })
+    var params = new URLSearchParams();
+                params.append('id', this.user.id); 
+                params.append('pass', this.user.pass);
+                params.append('name', this.user.name);
+                params.append('grade', this.user.grade);
+                params.append('sex', this.user.sex);
+                params.append('mail', this.user.mail);
+                params.append('phone', this.user.phone);
+                params.append('objective', this.user.objective);
+                params.append('enterprise', this.user.enterprise);
+    axios.put(`${url}/user`,params)
+    .then(response => {
+                        alert(response.data.msg)
+                        console.log(response);
+                        location.reload()
+                    })
+                    .catch(err => {
+                        alert(err.response.data.msg)
+                        console.log(err)
+                    });
+  }
+  },
+  mounted(){
+    this.userlink();
   }
 };
 </script>

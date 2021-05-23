@@ -24,7 +24,7 @@
 					</colgroup>
 					<tr>
 						<th>제목</th>
-						<td><input type="text" v-model="board.title" id="title" /></td>
+						<td><input type="text" v-on:input="title_typing" v-model="board.title" id="title"/></td>
 					</tr>
 					<tr>
 						<th>내용</th>
@@ -86,6 +86,17 @@
 			this.$router.push({path:'/ProgramList'});
 			
 		},
+    title_typing(e){    	
+            this.max_length(e, 10, '제목', this.title);
+        },
+    max_length(e, len, title, id){
+            var val =  e.target.value;    			
+            if (val.length > len){    				
+                var msg = title + '의 최대 입력 길이는 ' + len + '입니다.';
+                alert(msg);        			
+                $(id).val(val.substring(0, len));
+            }
+        },
       write(){
         if(!this.board.title) { //제목이 없다면 값을 입력하라고 알려준다.
 				alert("제목을 입력해 주세요");

@@ -32,12 +32,12 @@
           <card  header-classes="bg-transparent">
             <b-row align-v="center" slot="header">
           
-					<el-button v-if="authorized" type="button" size="mini" @click="a_rankView">전체등급</el-button>
-          <el-button v-if="authorized" type="button" size="mini" @click="g_rankView">학년등급</el-button>
-          <el-button v-if="authorized" type="button" size="mini" @click="c_rankView">대학교별등급</el-button>
-          <el-button v-if="authorized" type="button" size="mini" @click="c_g_rankView">대학교학년별등급</el-button>
 					<el-button v-if="!authorized" type="button" size="mini" @click="a_rankView">전체등급</el-button>
           <el-button v-if="!authorized" type="button" size="mini" @click="g_rankView">학년등급</el-button>
+          <el-button v-if="!authorized" type="button" size="mini" @click="c_rankView">대학교별등급</el-button>
+          <el-button v-if="!authorized" type="button" size="mini" @click="c_g_rankView">대학교학년별등급</el-button>
+					<el-button v-if="authorized" type="button" size="mini" @click="a_rankView">전체등급</el-button>
+          <el-button v-if="authorized" type="button" size="mini" @click="g_rankView">학년등급</el-button>
             </b-row>
             <div>
 <el-button  id="rank_btn" >전체등급 {{viewRank.all_rank}}</el-button>
@@ -94,10 +94,10 @@
       data(){return{
         viewRank:[{}],
         rank:{},
-        allRank:{},
-        gradeRank:{},
-        collegeRank:{},
-        collegeGradeRank:{},
+        // allRank:{},
+        // gradeRank:{},
+        // collegeRank:{},
+        // collegeGradeRank:{},
 
         fields:[{key:"all_rank",label:'전체등급'},{key:'award_rank',label:'수상'},{key:'career_rank',label:'경력'},{key:'certificate_rank',label:'자격증'},{key:'education_rank',label:'교육이수'},{key:'experience_rank',label:'해외경험'},{key:'grade_rank',label:'학점'},{key:'project_rank',label:'프로젝트'},{key:'language_rank',label:'어학'}],
 
@@ -115,46 +115,46 @@
 
       methods:{
         //프로젝트 조회
-        a_rankView(row){
+        a_rankView(){
            axios.get(`${url}/rank`)
                     .then(res=>{
-                      this.allRank=res.data.data 
+                      //this.allRank=res.data.data 
                       this.viewRank=res.data.data   
-                      console.log('rank',this.rank)
+                      console.log('rank',this.viewRank)
                 })
                 .catch(err=>{
                   alert(err.response.data.msg)
                 })
         },
-        g_rankView(row){
+        g_rankView(){
           axios.get(`${url}/rank/grade`)
                     .then(res=>{
-                      this.gradeRank=res.data.data
+                      //this.gradeRank=res.data.data
                       this.viewRank=res.data.data 
-                      console.log('rank',this.rank)
+                      console.log('rank',this.viewRank)
  
                 })
                 .catch(err=>{
                   alert(err.response.data.msg)
                 })
         },
-        c_rankView(row){
+        c_rankView(){
           axios.get(`${url}/rank/college`)
                     .then(res=>{
-                      this.collegeRank=res.data.data
+                      //this.collegeRank=res.data.data
                       this.viewRank=res.data.data
-                      console.log('rank',this.rank)
+                      console.log('rank',this.viewRank)
                 })
                 .catch(err=>{
                   alert(err.response.data.msg)
                 })
         },
-        c_g_rankView(row){
+        c_g_rankView(){
           axios.get(`${url}/rank/college/grade`)
                     .then(res=>{
-                      this.collegeGradeRank=res.data.data
+                      //this.collegeGradeRank=res.data.data
                       this.viewRank=res.data.data
-                      console.log('rank',this.rank)  
+                      console.log('rank',this.viewRank)  
                 })
                 .catch(err=>{
                   alert(err.response.data.msg)
@@ -174,9 +174,8 @@
         //클릭시 상세페이지로 데이터넘기면서 이동
     },
     computed:{
-     //로그인 로그아웃 : 로그인 되있으면 로그아웃으로 변함 
     authorized(){
-      return store.getters.userlink===1
+      return store.getters.userlink===0
     }
     }
     
