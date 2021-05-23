@@ -1,4 +1,4 @@
-package com.example.backend.global.exception.exception;
+package com.example.backend.domain.grade.exception;
 
 public class CFindSameGradeException extends RuntimeException{
 

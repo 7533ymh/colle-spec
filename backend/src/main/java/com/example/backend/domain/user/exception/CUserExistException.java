@@ -1,4 +1,4 @@
-package com.example.backend.global.exception.exception;
+package com.example.backend.domain.user.exception;
 
 public class CUserExistException extends RuntimeException{
 

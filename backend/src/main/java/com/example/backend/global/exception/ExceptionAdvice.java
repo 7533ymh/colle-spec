@@ -1,5 +1,10 @@
 package com.example.backend.global.exception;
 
+import com.example.backend.domain.grade.exception.CFindSameGradeException;
+import com.example.backend.domain.language.exception.CFindSameExamException;
+import com.example.backend.domain.link.exception.CNotFoundInfoByLinkException;
+import com.example.backend.domain.rank.exception.CNotFoundScoreException;
+import com.example.backend.domain.user.exception.CUserExistException;
 import com.example.backend.global.exception.exception.*;
 import com.example.backend.global.response.CommonResult;
 import com.example.backend.global.response.ResponseService;

@@ -1,6 +1,6 @@
 package com.example.backend.service.language;
 
-import com.example.backend.global.exception.exception.CFindSameExamException;
+import com.example.backend.domain.language.exception.CFindSameExamException;
 import com.example.backend.global.exception.exception.CNotFoundInfoByIdxException;
 import com.example.backend.global.exception.exception.CNotFoundInfoByUserException;
 import com.example.backend.global.exception.exception.CNotHaveAccessInfoException;

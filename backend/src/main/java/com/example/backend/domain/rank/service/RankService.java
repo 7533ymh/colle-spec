@@ -1,7 +1,7 @@
 package com.example.backend.domain.rank.service;
 
 import com.example.backend.global.exception.exception.CLinkException;
-import com.example.backend.global.exception.exception.CNotFoundScoreException;
+import com.example.backend.domain.rank.exception.CNotFoundScoreException;
 import com.example.backend.domain.rank.domain.Rank;
 import com.example.backend.domain.rank.domain.RankResult;
 import com.example.backend.domain.rank.mapper.RankMapper;
