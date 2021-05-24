@@ -33,10 +33,7 @@
               
               <b-col>
                 <b-nav class="nav-pills justify-content-end">
-                  <b-nav-item link-classes="py-2 px-3" router-link to="/Basic_Information">    
-                  <span class="d-none d-md-block"> 기본정보</span>
-                      <span class="d-md-none">M</span>
-                  </b-nav-item>
+                 
 
                   <b-nav-item link-classes="py-2 px-3" router-link to="/Self_Introduction">
                     <span class="d-none d-md-block">자기소개서</span>
@@ -140,7 +137,7 @@
                 let del=item.item.idx
                 
                 console.log('del idx: ',del)
-                axios.delete(`${url}/certificate`,{params:{
+                axios.delete(`${url}/language`,{params:{
                     idx:del
                 }})
                 .then(res=>{
@@ -153,7 +150,7 @@
 
             },
             mvedit(){
-              this.$router.push({path:'/certificate/edit'})
+              this.$router.push({path:'/language/edit'})
             }
             //상세페이지에 수정 기능 넣기
     //         edit(item,index,event) {

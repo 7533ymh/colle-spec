@@ -33,11 +33,7 @@
               
               <b-col>
                 <b-nav class="nav-pills justify-content-end">
-                  <b-nav-item link-classes="py-2 px-3" router-link to="/Basic_Information">    
-                    <span class="d-none d-md-block"> 기본정보</span>
-                    <span class="d-md-none">M</span>
-                  </b-nav-item>
-
+           
                   <b-nav-item link-classes="py-2 px-3" router-link to="/Self_Introduction">
                     <span class="d-none d-md-block">자기소개서</span>
                     <span class="d-md-none">W</span>
@@ -62,7 +58,7 @@
             </b-row>
             
 
-<div>기본정보 내용</div>
+<div>필요없는페이지</div>
 <!--
  여기에 기본정보 넣으셈
 -->

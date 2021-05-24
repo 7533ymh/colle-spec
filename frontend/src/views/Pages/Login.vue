@@ -69,6 +69,7 @@
 </template>
 <script>
 import store from '@/store'
+let url=store.state.resourceHost;
   export default {
     data() {
       return {
@@ -77,25 +78,23 @@ import store from '@/store'
           pass: '',
           rememberMe: false,
         },
+        isLogin:store.state.isLogin,
+        userinfo:store.state.userinfo
         //name:this.$store.state.userinfo.name
       };
     },
+    compute:{
+      auth(){
+        return store.getters.islogin ===true;
+      }
+    },
     methods: {
-     async signin() {
+      async signin() {
         const data = {
 		    id:this.user.id,
 		    pass:this.user.pass,
 	      };
-       await this.$store.dispatch('LOGIN', data) //store에 있는 action함수 실행 :dispatch
-          .then(res=>{
-           alert(this.user.id+"님 반갑습니다.")
-            this.$router.push({path:'/'})
-            location.reload()
-          })
-          
-          .catch(({message}) => {
-            this.msg = message
-            })
+       await store.dispatch('LOGIN', data) //store에 있는 action함수 실행 :dispatch
       },
       redirect() {
         const {search} = window.location

@@ -14,9 +14,9 @@
            
             <el-table-column label="번호"
                              prop='idx'
-                             min-width="60px">
+                             min-width="30px">
                               <template slot-scope="scope">
-                                {{scope.$index+1}}
+                                {{scope.$index+1}} 
                               </template>
             </el-table-column>
            
@@ -25,7 +25,7 @@
                         prop="title"
                         min-width="140px">
                         <template slot-scope="scope">
-                          <a v-bind:href="scope.row.url">{{scope.row.title}}</a>
+                          <a v-bind:href="scope.row.url" target="link.place">{{scope.row.title}}</a>
                         </template>
               </el-table-column>
               
@@ -36,22 +36,22 @@
 
             <el-table-column label="접수시작"
                              prop="receive_date_start"
-                             min-width="140px">
+                             min-width="60px">
             </el-table-column>
             <el-table-column label="접수마감"
                              prop="receive_date_end"
-                             min-width="140px">
+                             min-width="60px">
             </el-table-column>
 
             <el-table-column label="행사시작"
                              prop="program_date_start"
-                             min-width="140px">
+                             min-width="60px">
             </el-table-column>
             <el-table-column label="행사종료"
                              prop="program_date_end"
-                             min-width="140px">
+                             min-width="60px">
             </el-table-column>
-            <el-table-column fixed="right" label="board" width="120">
+            <el-table-column fixed="right" label="board" width="120px">
       <template slot-scope="scope">
         <el-button @click="team(scope.row)" size="small">
          Team

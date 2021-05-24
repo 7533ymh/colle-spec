@@ -158,7 +158,7 @@
                             // 성공적으로 회원가입이 되었을 경우
                             this
                                 .$router
-                                .push({name: 'Login1'}); //로그인화면으로 넘어간다.
+                                .push({path:'/Login'}); //로그인화면으로 넘어간다.
                         }
                         console.log(response);
                     })

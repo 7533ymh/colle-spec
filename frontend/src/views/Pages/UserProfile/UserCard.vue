@@ -55,7 +55,7 @@ export default {
 
   }},
   methods:{
-    count(){
+    count(){ //포트폴리오 개수 구하는 함수
       axios.get(`${url}/award`)
       .then(res=>{
         this.p_count +=res.data.list.length
