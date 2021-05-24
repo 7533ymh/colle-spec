@@ -1,6 +1,6 @@
 # colle-spec
 2021-1학기 종합설계프로젝트 colle-spec
---수정--
+
 ------제거------
 21.05.24
 company.vue{
