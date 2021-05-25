@@ -14,7 +14,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class CertificateService {
+public class  CertificateService {
 
     private final CertificateMapper certificateMapper;
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
