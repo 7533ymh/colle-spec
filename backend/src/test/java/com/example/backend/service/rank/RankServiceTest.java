@@ -28,14 +28,14 @@ class RankServiceTest {
     void 학년비교등급() {
 
         //given
-        int idx = 26;
 
         //when
-        RankResult rank = rankService.change_Rank_Grade(26);
+        RankResult rank = rankService.change_Rank_Grade(81);
 
         //then
-
-        Assertions.assertThat(rankMapper.findByUser_idxDivision(idx,2).get().getAll_rank()).isEqualTo("5등급");
+        //Assertions.assertThat(rank.getCertificate_rank()).isEqualTo("2등급");
+        //Assertions.assertThat(rank.getEducation_rank()).isEqualTo("3등급");
+        //Assertions.assertThat(rank.getGrade_rank()).isEqualTo("3등급");
 
 
     }
@@ -47,11 +47,12 @@ class RankServiceTest {
         int idx = 26;
 
         //when
-        RankResult rank = rankService.change_Rank_College(26);
+        RankResult rank = rankService.change_Rank_College(81);
 
         //then
-
-        Assertions.assertThat(rankMapper.findByUser_idxDivision(idx,3).get().getAll_rank()).isEqualTo("5등급");
+        Assertions.assertThat(rank.getCertificate_rank()).isEqualTo("3등급");
+        Assertions.assertThat(rank.getEducation_rank()).isEqualTo("2등급");
+        Assertions.assertThat(rank.getGrade_rank()).isEqualTo("2등급");
 
 
     }
@@ -63,11 +64,12 @@ class RankServiceTest {
         int idx = 26;
 
         //when
-        RankResult rank = rankService.change_Rank_College_Grade(26);
+        RankResult rank = rankService.change_Rank_College_Grade(81);
 
         //then
-
-        Assertions.assertThat(rankMapper.findByUser_idxDivision(idx,4).get().getAll_rank()).isEqualTo("5등급");
+        Assertions.assertThat(rank.getCertificate_rank()).isEqualTo("3등급");
+        Assertions.assertThat(rank.getEducation_rank()).isEqualTo("2등급");
+        Assertions.assertThat(rank.getGrade_rank()).isEqualTo("2등급");
 
 
     }
@@ -77,13 +79,17 @@ class RankServiceTest {
     void 전체등급제알고리즘() {
 
         //given
-        int idx = 26;
+
 
         //when
-        rankService.change_Rank_All(26);
+        RankResult rankResult = rankService.change_Rank_All(81);
+
+
 
         //then
-        Assertions.assertThat(rankMapper.findByUser_idxDivision(idx,1).get().getAll_rank()).isEqualTo("3등급");
+        //Assertions.assertThat(rankResult.getCertificate_rank()).isEqualTo("2등급");
+       // Assertions.assertThat(rankResult.getEducation_rank()).isEqualTo("4등급");
+       // Assertions.assertThat(rankResult.getGrade_rank()).isEqualTo("3등급");
 
 
 
