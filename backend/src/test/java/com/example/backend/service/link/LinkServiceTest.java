@@ -8,12 +8,10 @@ import com.example.backend.global.exception.exception.CUserNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@Transactional
 class LinkServiceTest {
 
     @Autowired
@@ -37,7 +35,7 @@ class LinkServiceTest {
         int appidx = linkservice.linkLogin(id, pw);
 
         //then
-        assertThat(appidx).isEqualTo(1);
+        assertThat(appidx).isEqualTo(4);
 
     }
 
