@@ -26,6 +26,18 @@ const routes = [
         
         component: () => import(/* webpackChunkName: "demo" */ '@/mixins/chart.vue')
       },
+      {
+        path: '/basic',
+        name: 'basic',
+        
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/basic.vue')
+      },
+      {
+        path: '/cccc',
+        name: 'cccc',
+        
+        component: () => import(/* webpackChunkName: "demo" */ '@/testtest/examples/cccc.vue')
+      },
 
 
 
@@ -35,6 +47,12 @@ const routes = [
         name: 'portfolio',
         
         component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio.vue')
+      },
+      {
+        path: '/portfolioWrite',
+        name: 'portfolioWrite',
+        
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/portfolioWrite.vue')
       },
       {
         path: '/Basic_Information',

@@ -57,6 +57,9 @@
               </b-col>
             </b-row>
             
+            <button @click="gogo">기본틀</button>
+            <button @click="gowrite">write</button>
+            <button @click="gocc">cccc</button>
 
 <div>필요없는페이지</div>
 <!--
@@ -101,9 +104,15 @@
       },
 
       methods:{
-      /*onClickRedirect: function () {   
-          window.open("https://google.com", "_blank");    
-      }*/
+        gogo(){
+          this.$router.push({path:'/basic'})
+        },
+        gowrite(){
+          this.$router.push({path:'/portfolioWrite'})
+        },
+        gocc(){
+          this.$router.push({path:'/cccc'})
+        },
 
       
 
