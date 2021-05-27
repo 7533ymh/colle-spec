@@ -27,27 +27,26 @@
                 <h3>로그인이 필요한 서비스입니다.</h3>
               </div>
 
-              <b-form-checkbox v-model="model.rememberMe">아이디 저장</b-form-checkbox>
+              <b-form-checkbox v-model="user.rememberMe">아이디 저장</b-form-checkbox>
 
-              <validation-observer v-slot="{handleSubmit}" ref="formValidator">
-                <b-form role="form" @submit.prevent="handleSubmit(onSubmit)">
+                <b-form role="form" @submit.prevent="signin">
                   <base-input alternative
                               class="mb-3"
                               name="아이디"
-                              :rules="{required: true, email: true}"
+                              :rules="{required: true}"
                               
                               placeholder="아이디"
-                              v-model="model.email">
+                              v-model="user.id">
                   </base-input>
 
                   <base-input alternative
                               class="mb-3"
                               name="비밀번호"
-                              :rules="{required: true, min: 6}"
+                              :rules="{required: true, min: 1}"
                               
                               type="password"
                               placeholder="비밀번호"
-                              v-model="model.password">
+                              v-model="user.pass">
                   </base-input>
 
                   
@@ -60,7 +59,6 @@
                    </b-col>
 
                 </b-form>
-              </validation-observer>
             </b-card-body>
           </b-card>
           
@@ -70,20 +68,45 @@
   </div>
 </template>
 <script>
+import store from '@/store'
+let url=store.state.resourceHost;
   export default {
     data() {
       return {
-        model: {
-          email: '',
-          password: '',
-          rememberMe: false
-        }
+        user: {
+          id: '',
+          pass: '',
+          rememberMe: false,
+        },
+        isLogin:store.state.isLogin,
+        userinfo:store.state.userinfo
+        //name:this.$store.state.userinfo.name
       };
     },
+    compute:{
+      auth(){
+        return store.getters.islogin ===true;
+      }
+    },
     methods: {
-      onSubmit() {
-        // this will be called only after form is valid. You can do api call here to login 여기에 DB키 넣으면 될듯
+      async signin() {
+        const data = {
+		    id:this.user.id,
+		    pass:this.user.pass,
+	      };
+       await store.dispatch('LOGIN', data) //store에 있는 action함수 실행 :dispatch
+      },
+      redirect() {
+        const {search} = window.location
+        const tokens = search.replace(/^\?/, '').split('&')
+        const {returnPath} = tokens.reduce((qs, tkn) => {
+          const pair = tkn.split('=')
+          qs[pair[0]] = decodeURIComponent(pair[1])
+          return qs
+        }, {})
+
+        this.$router.push(returnPath)
       }
     }
-  };
+  }
 </script>

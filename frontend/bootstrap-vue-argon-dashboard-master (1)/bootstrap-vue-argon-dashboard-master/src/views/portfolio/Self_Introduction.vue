@@ -33,10 +33,7 @@
               
               <b-col>
                 <b-nav class="nav-pills justify-content-end">
-                  <b-nav-item link-classes="py-2 px-3" router-link to="/Basic_Information">    
-                  <span class="d-none d-md-block"> 기본정보</span>
-                      <span class="d-md-none">M</span>
-                  </b-nav-item>
+                  
 
                   <b-nav-item link-classes="py-2 px-3" router-link to="/Self_Introduction">
                     <span class="d-none d-md-block">자기소개서</span>
@@ -66,7 +63,22 @@
 <!--
  여기에 자기소개서 넣으셈
 -->
-
+              <b-table responsive="sm" :fields ="fields" striped hover :items="myIntro" @row-click="click">
+                  <template #cell(down)="row">
+                    <b-button size="sm" @click="download(row)" class="mr-2">
+                        다운
+                    </b-button>
+                
+                </template>
+                  <template #cell(edit)="row">
+                    <b-button size="sm" @click="edit(row)" class="mr-2">
+                    편집
+                    </b-button>
+                    <b-button size="sm" @click="deleteInt(row)" class="mr-2">
+                    삭제
+                    </b-button>
+                </template>
+              </b-table>
              
 
           </card>
@@ -88,33 +100,107 @@
   // Components
   import BaseProgress from '@/components/BaseProgress';
   import StatsCard from '@/components/Cards/StatsCard';
-  
+  import axios from 'axios';
+  import store from '@/store';
 
+  let url=store.state.resourceHost; //서버주소 api
 
     export default {
+      data(){return{
+      myIntro:[{}],
+      fields:[{key:'origfilename',label:'파일이름'},{key:'down',label:''},{key:'edit', label:''}],
 
-      
-
-
+      }},
       components: {
       
         BaseProgress,
         StatsCard,
         
       },
+      mounted(){
+        this.IntroView();
+      },
 
       methods:{
-      /*onClickRedirect: function () {   
-          window.open("https://google.com", "_blank");    
-      }*/
+        click(row){
+          console.log(row)
+        },
+        IntroView(){
+          axios.get(`${url}/introduction`)
+                    .then(res=>{
+                    this.myIntro=res.data.list
+                    console.log('mycertificate: ',this.myIntro)
+        })
+      },
+      download(item,index,e){
+                let idxx=item.item.idx
+                let name=item.item.origfilename
+                //let file=item.item
+                axios.get(`${url}/introduction/download`,{params:{
+                    idx:idxx
+                }
+                ,responseType: 'blob' }
+                  
+              )
+                .then(res=>{
+                    const downurl = window.URL.createObjectURL(new Blob([res.data]));
+                    const link = document.createElement('a');
+                    link.href = downurl;
+                    link.setAttribute('download', name);
+                    document.body.appendChild(link);
+                    link.click();
+                    link.remove();
+                    console.log('url:', downurl)
+                    console.log('link:', link)
+                }).catch(err=>{
+                    alert(err)
+                })
+            },
+           
+            edit(item,index,event) {
+                var fd = new FormData();
+                for (var i = 0; i < this.fd.files.length; i++) {
+                        fd.append('files', this.fd.files[i]);
+                        }
+                axios.put(`${url}/introduction/uplode`,fd,{
+                    headers:{
+                        'Content-Type' : 'multipart/form-data' //다중파일 업로드하기 위해 헤더 추가
+                    }
+                })
+                .then(res=>{
+                    console.log(res)
+                    alert(res.data.msg)
+                    window.location.reload()
+                    
+                })
+                
+                .catch(err=>{
+                    console.log(err)
+                    alert(err.response.data.msg)
+                })    
+            },
+            deleteInt(item,index,e){
+                let del=item.item.idx
+                
+                console.log('del idx: ',del)
+                axios.delete(`${url}/introduction`,{params:{
+                    idx:del
+                }})
+                .then(res=>{
+                    alert(res.data.msg)
+                    location.reload();
+                })
+                .catch(err=>{
+                    alert(err.response.data.msg)
+                })
+                console.log('delitem: ',item)
 
-      
+            },
 
-      
-      }
-    };
+    }
+    
+  }
 </script>
-
 
 
 

@@ -1,67 +1,64 @@
 <template>
     <b-card no-body>
         <b-card-header class="border-0">
-            <h3 class="mb-0">공모전</h3>
+            <h3 class="mb-0">공모전&대회</h3>
         </b-card-header>
 
         <el-table class="table-responsive table"
                   header-row-class-name="thead-light"
-                  :data="Competition1Projects">
+                  :data="view"
+                  :row-class-name="tableRow"
+                  @row-click="rowClick"
+                  >
             
-
+           
             <el-table-column label="번호"
-                             prop="budget"
-                             min-width="140px">
+                             prop='idx'
+                             min-width="30px">
+                              <template slot-scope="scope">
+                                {{scope.$index+1}} 
+                              </template>
+            </el-table-column>
+           
+              <el-table-column 
+                        label="제목"
+                        prop="title"
+                        min-width="140px">
+                        <template slot-scope="scope">
+                          <a v-bind:href="scope.row.url" target="link.place">{{scope.row.title}}</a>
+                        </template>
+              </el-table-column>
+              
+
+           <!-- <template slot-scope="scope">
+              
+          </template> -->
+
+            <el-table-column label="접수시작"
+                             prop="receive_date_start"
+                             min-width="60px">
+            </el-table-column>
+            <el-table-column label="접수마감"
+                             prop="receive_date_end"
+                             min-width="60px">
             </el-table-column>
 
-            <el-table-column label="담당자부서 연락처"
-                             prop="budget"
-                             min-width="140px">
+            <el-table-column label="행사시작"
+                             prop="program_date_start"
+                             min-width="60px">
             </el-table-column>
-
-            <el-table-column label="행사명"
-                             min-width="170px"
-                             prop="status">
-                <template v-slot="{row}">
-                    <badge class="badge-dot mr-4" type="">
-                        <i :class="`bg-${row.statusType}`"></i>
-                        <span class="status" :class="`text-${row.statusType}`">{{row.status}}</span>
-                    </badge>
-                </template>
+            <el-table-column label="행사종료"
+                             prop="program_date_end"
+                             min-width="60px">
             </el-table-column>
-
-            <el-table-column label="접수기간"
-                             prop="budget"
-                             min-width="140px">
-            </el-table-column>
-
-            <el-table-column label="행사기간"
-                             prop="budget"
-                             min-width="140px">
-            </el-table-column>
-
-            <el-table-column label="접수상태"
-                             prop="budget"
-                             min-width="140px">
-            </el-table-column>
-
-            <el-table-column label="진행상태"
-                             prop="budget"
-                             min-width="140px">
-            </el-table-column>
-
-            <el-table-column label="조회수"
-                             prop="budget"
-                             min-width="140px">
-            </el-table-column>
-
-            <el-table-column label="신청여부"
-                             prop="budget"
-                             min-width="140px">
-            </el-table-column>
-
-            
-            
+            <el-table-column fixed="right" label="board" width="120px">
+      <template slot-scope="scope">
+        <el-button @click="team(scope.row)" size="small">
+         Team
+        </el-button>
+      </template>
+    </el-table-column>
+    
         </el-table>
 
         <b-card-footer class="py-4 d-flex justify-content-end">
@@ -70,19 +67,55 @@
     </b-card>
 </template>
 <script>
-  import Competition1Projects from './Competition1Projects.js'
-  import { Table, TableColumn} from 'element-ui'
+  import { Table, TableColumn, Button} from 'element-ui'
+  import axios from "axios";
+ import store from "@/store";
+ var url=store.state.resourceHost
   export default {
     name: 'Competition1-table',
     components: {
       [Table.name]: Table,
-      [TableColumn.name]: TableColumn
+      [TableColumn.name]: TableColumn,
+      [Button.name]: Button,
     },
     data() {
       return {
-        Competition1Projects,
-        currentPage: 1
-      };
+        currentPage: 1,
+        view:[{}],
+        division:'공모전&대회',
+        
+        }
+      },
+      mounted(){
+        this.c1()
+        
+      },
+      methods:{
+         async c1(){
+            await axios.get(`${url}/program`,{params:{
+            division:this.division
+          }})
+          .then(res=>{
+            console.log(res.data)
+            //this.Competition1Projects=res.data.list
+            this.view=res.data.list;
+            localStorage.setItem("division",this.division)
+            console.log('view',this.view)
+          })
+            },
+            tableRow({row,rowIndex}){
+            row.index=rowIndex+1;
+          },
+          rowClick(row){
+              console.log('row',row); //행 아이템데이터
+              console.log(row.index); //행 인덱스
+          },
+              team(row) { 
+              console.log('program_idx:',row.idx);
+              localStorage.setItem('program',JSON.stringify(row))
+              this.$router.push({path:'/ProgramList'});
+              
+          },
+       }
     }
-  }
 </script>

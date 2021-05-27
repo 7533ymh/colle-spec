@@ -16,31 +16,22 @@
             </template>
           </stats-card>
         </b-col>
-        
-        
-        
+
       </b-row> 
     </base-header>
-
-
 
     <!--Charts-->
     <b-container fluid class="mt--7">
       <b-row>
-        <b-col xl="8" class="mb-5 mb-xl-0">
+        <b-col xl="12" class="mb-5 mb-xl-0">
           <card  header-classes="bg-transparent">
             <b-row align-v="center" slot="header">
               
               <b-col>
                 <b-nav class="nav-pills justify-content-end">
                   <b-nav-item link-classes="py-2 px-3" router-link to="/Competition1">    
-                    <span class="d-none d-md-block"> 공모전</span>
+                    <span class="d-none d-md-block"> 공모전&대회</span>
                     <span class="d-md-none">M</span>
-                  </b-nav-item>
-
-                  <b-nav-item link-classes="py-2 px-3" router-link to="/Competition2">
-                    <span class="d-none d-md-block">대회</span>
-                    <span class="d-md-none">W</span>
                   </b-nav-item>
 
                   <b-nav-item link-classes="py-2 px-3" router-link to="/CompetitionProgram">
@@ -53,16 +44,18 @@
                     <span class="d-md-none">W</span>
                   </b-nav-item>
                   
-                  <b-nav-item link-classes="py-2 px-3" router-link to="/CompetitionEtc">
+                  <!-- <b-nav-item link-classes="py-2 px-3" router-link to="/CompetitionEtc">
                     <span class="d-none d-md-block">기타</span>
                     <span class="d-md-none">W</span>
-                  </b-nav-item>
+                  </b-nav-item> -->
                 </b-nav>
               </b-col>
             </b-row>
             
 
-<Competition1-table/>
+<Competition1-table/>  
+          
+
 
              
 
@@ -86,29 +79,20 @@
   import BaseProgress from '@/components/BaseProgress';
   import StatsCard from '@/components/Cards/StatsCard';
   import Competition1Table from "./CompetitonTables/Competition1Table";
-
+  //import axios from 'axios';
+  //import store from '@/store';
+  //const url=store.state.resourceHost;
+  import { Table, TableColumn} from 'element-ui'
 
     export default {
-
-      
-
-
-
       components: {
-      
-        BaseProgress,
+
+      BaseProgress,
         StatsCard,
         Competition1Table
-        
-      },
-
-      methods:{
-     
-      
-
-      
-      }
-    };
+    },
+    
+  }
 </script>
 
 

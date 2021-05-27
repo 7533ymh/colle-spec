@@ -17,7 +17,7 @@
         <sidebar-item
           :link="{
             name: '포트폴리오',
-            path: '/Basic_Information',
+            path: '/Self_Introduction',
             
           }"
           >
@@ -43,6 +43,7 @@
         >
         </sidebar-item>
 
+
         <sidebar-item
           :link="{
             name: '기업에서 요구하는 스펙',
@@ -52,16 +53,14 @@
         >
         </sidebar-item>
 
-        <sidebar-item
-          :link="{
-            name: '로그인',
-            path: '/Login',
-            
-          }"
-        >
-        </sidebar-item>
 
-
+     <a href="" v-if="isAuthenticated" @click.prevent="onClickLogout" >
+           <sidebar-item :link="{name:'로그아웃',path:'/'}"></sidebar-item>
+           </a>  
+            <router-link to="/Login" v-else>
+            <sidebar-item  :link="{name:'로그인',path:'/Login'}"></sidebar-item>
+        </router-link>
+    
       </template>
 
       <template slot="links-after">
@@ -131,6 +130,8 @@
   import DashboardContent from './Content.vue';
   import { FadeTransition } from 'vue2-transitions';
 
+  import store from '@/store';
+
   export default {
     components: {
       DashboardNavbar,
@@ -144,10 +145,22 @@
         if (isWindows) {
           initScrollbar('sidenav');
         }
+      },
+      //로그아웃 메소드
+      onClickLogout(){
+        store.dispatch('LOGOUT').then(res=>{this.$routes.routes.push('/')
+        location.reload()
+        })
       }
     },
     mounted() {
       this.initScrollbar()
+    },
+    computed:{
+     //로그인 로그아웃 : 로그인 되있으면 로그아웃으로 변함 
+    isAuthenticated(){
+      return store.getters.isAuthenticated
+    }
     }
   };
 </script>

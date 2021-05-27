@@ -1,5 +1,4 @@
 
-
 <!-- 회원가입 vue -->
 
 <template>
@@ -26,15 +25,15 @@
                 <h3>회원가입</h3>
               </div>
               <validation-observer v-slot="{handleSubmit}" ref="formValidator">
-                <b-form role="form" @submit.prevent="handleSubmit(onSubmit)">
+                <b-form role="form" @submit.prevent="handleSubmit(btn_register)">
                   
                   
               
 
-                  <div class="form-group mb-3">
-                    <input type="text" class="form-control" id="ID" v-model="model.ID" placeholder="아이디" @blur="checkDuplicate" />
-                    <span class="badge badge-danger mt-1" v-if="!availableID">이미 사용중인 아이디입니다.</span> <!--  v-if="!availableID 여기서 !빼야함 -->
-                  </div>
+                    <div class="form-group mb-3">
+                    <input type="text" class="form-control" id="ID" v-model="user.id" placeholder="아이디" @blur="checkDuplicate" />
+                    <span class="badge badge-danger mt-1" v-if="!availableID">이미 사용중인 아이디입니다.</span>
+                    </div>
                   
                   <base-input alternative
                               class="mb-3"
@@ -42,7 +41,7 @@
                               placeholder="이메일"
                               name="Email"
                               
-                              v-model="model.email">
+                              v-model="user.mail">
                   </base-input>
 
                   <base-input alternative
@@ -52,7 +51,7 @@
                               type="password"
                               name="Password"
                               
-                              v-model="model.password">
+                              v-model="user.pass">
                   </base-input>
 
                   <base-input alternative
@@ -61,7 +60,7 @@
                               placeholder="이름(실명)"
                               name="Name"
                               
-                              v-model="model.name">
+                              v-model="user.name">
                   </base-input>
 
                   <base-input alternative
@@ -71,14 +70,14 @@
                               type="text"
                               name="phone"
                               
-                              v-model="model.phone">
+                              v-model="user.phone">
                   </base-input>
 
                   
                   
-                  <b-form-group label="성별" v-slot="{ ariaDescribedby }" v-model="model.sex">
-                    <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby" name="sex" value="male">남</b-form-radio>
-                    <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby" name="sex" value="female">녀</b-form-radio>
+                  <b-form-group label="성별" v-slot="{ ariaDescribedby }" v-model="user.sex">
+                    <b-form-radio  v-model="user.sex" :aria-describedby="ariaDescribedby" name="sex" value="male">남</b-form-radio>
+                    <b-form-radio  v-model="user.sex" :aria-describedby="ariaDescribedby" name="sex" value="female">여</b-form-radio>
                   </b-form-group>
                   
 
@@ -89,7 +88,7 @@
                               type="number"
                               name="grade"
                               
-                              v-model="model.grade">
+                              v-model="user.grade">
                   </base-input>
 
                   <base-input alternative
@@ -98,7 +97,7 @@
                               placeholder="목표기업"
                               name="enterprise"
                               
-                              v-model="model.enterprise ">
+                              v-model="user.enterprise ">
                   </base-input>
 
                   <base-input alternative
@@ -107,20 +106,10 @@
                               placeholder="목표직종"
                               name="objective"
                               
-                              v-model="model.objective ">
+                              v-model="user.objective ">
                   </base-input>
 
-                  <!--<div class="text-muted font-italic"><small>password strength: <span
-                    class="text-success font-weight-700">strong</span></small></div>
-                   <b-row class=" my-4">
-                    <b-col cols="12">
-                      <base-input :rules="{ required: { allowFalse: false } }" name=Privacy Policy>
-                        <b-form-checkbox v-model="model.agree">
-                         <span class="text-muted">I agree with the <a href="#!">Privacy Policy</a></span>
-                        </b-form-checkbox>
-                      </base-input>
-                    </b-col>
-                  </b-row>-->
+                 
                   <div class="text-center">
                     <b-button type="submit" variant="primary" class="mt-4">가입하기</b-button>
                   </div>
@@ -134,49 +123,66 @@
   </div>
 </template>
 <script>
-
+    import axios from 'axios';
+    import 'url-search-params-polyfill';
   export default {
     name: 'register',
-
     data() {
-      return { 
-        model: { //여기에 키값 
-          ID : '',
-          name: '',
-          email: '',
-          password: '',
-          phone : '',
-          sex : '',
-          grade : '',
-          enterprise : '',
-          objective : '',
-          //agree: false
-        }
+      return {
+        user: [{
+       //유저정보
+        }],
+        availableID:true
       }
     },
     methods: {
-      onSubmit() {
-        // 여기에 데이터 전달
-      }
-    },
+      btn_register() {
+                
+                var url = "http://49.50.166.108:4000/api/signup";
 
-
-    async checkDuplicate() {
-	//일단은 사용가능한 아이디로 true로 초기화 한다.
-	this.availableID = true;
-    
-    //아이디 중복체크를 한다.
-	const response = await checkDuplicateID(this.ID);
-	if (!response.data) {
-		this.availableID = false;
-	} else {
-		this.availableID = true;
-	}
-},
-
-    
-
-  };
-
+                var params = new URLSearchParams();
+                params.append('id', this.user.id);
+                params.append('pass', this.user.pass);
+                params.append('grade', this.user.grade);
+                params.append('name', this.user.name);
+                params.append('sex', this.user.sex);
+                params.append('mail', this.user.mail);
+                params.append('phone', this.user.phone);
+                params.append('objective', this.user.objective);
+                params.append('enterprise', this.user.enterprise);
+                axios
+                    .post(url, params)
+                    .then(response => {
+                        if (response.status === 200) {
+                            alert(response.data.msg)
+                            // 성공적으로 회원가입이 되었을 경우
+                            this
+                                .$router
+                                .push({path:'/Login'}); //로그인화면으로 넘어간다.
+                        }
+                        console.log(response);
+                    })
+                    .catch(error => {
+                        //console.error(error);
+                        console.log(error.response.data.msg)
+                        alert(error.response.data.msg) //회원가입 실패시 에러메시지
+                    });
+            },
+          async checkDuplicate() {
+            var url = "http://49.50.166.108:4000/api/signup/check/";
+                          await axios
+                              .get(url + this.user.id)
+                              .then(response => {
+                                  console.log(response);
+                                  this.availableID = true;
+                                console.log('avail:',this.availableID)
+                              })
+                              .catch(err => {
+                                  console.log(err.response.data.msg)
+                                  this.availableID = false;
+                                  console.log('avail:',this.availableID)
+                              });
+                      },
+        }
+    }
 </script>
-<style></style>

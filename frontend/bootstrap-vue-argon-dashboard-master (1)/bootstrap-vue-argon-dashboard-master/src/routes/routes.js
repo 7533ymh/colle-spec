@@ -97,6 +97,24 @@ const routes = [
         
         component: () => import(/* webpackChunkName: "demo" */ '../views/CompetitionAndPrograms/CompetitionEtc.vue')
       },
+      {
+        path: '/ProgramList',
+        name: '팀구하기 게시판',
+        
+        component: () => import(/* webpackChunkName: "demo" */ '../views/CompetitionAndPrograms/ProgramList.vue')
+      },
+      {
+        path: '/ProgramList/ProgramListDetail',
+        name: '팀구하기 상세페이지',
+        
+        component: () => import(/* webpackChunkName: "demo" */ '../views/CompetitionAndPrograms/ProgramListDetail.vue')
+      },
+      {
+        path: '/ProgramList/ProgramTeamWrite',
+        name: '팀구하기 작성페이지',
+        
+        component: () => import(/* webpackChunkName: "demo" */ '../views/CompetitionAndPrograms/ProgramTeamWrite.vue')
+      },
 
 
 
@@ -122,12 +140,7 @@ const routes = [
         
         component: () => import(/* webpackChunkName: "demo" */ '../views/Company.vue')
       },
-      {
-        path: '/Login1',
-        name: 'Login1',
-        
-        component: () => import(/* webpackChunkName: "demo" */ '../views/Pages/Login.vue')
-      },
+    
       
       {
         path: '/profile',

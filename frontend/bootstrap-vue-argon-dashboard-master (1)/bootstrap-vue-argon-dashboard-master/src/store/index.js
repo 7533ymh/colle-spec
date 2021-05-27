@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-
+import router from '../routes/router'
 Vue.use(Vuex)
 
 const resourceHost = 'http://49.50.166.108:4000/api'
@@ -32,6 +32,9 @@ export default new Vuex.Store({
     },
     userlink(state){
       return state.accessToken ? state.userinfo.link :null;
+    },
+    islogin(state){
+      return state.accessToken ? state.isLogin :false;
     }
   },
   mutations: {
@@ -59,22 +62,27 @@ export default new Vuex.Store({
   },
   //dispatch로 불러와서 사용 -> dispatch('actions함수','...')
   actions: {
-     LOGIN ({commit,dispatch},{id,pass}) {
+    async LOGIN ({commit,dispatch},{id,pass}) {
       var params =new URLSearchParams();
       params.append('id', id);
       params.append('pass', pass);
-      axios.post(`${resourceHost}/signin`,params)
+     await axios.post(`${resourceHost}/signin`,params)
         .then(res => {
           commit('LOGIN', res.data.data) //커밋: mutations LOGIN값 변경
 
-          //this.routes.routes.push({path:'/main'})
           // 로그인 이후 모든 HTTP 요청 헤더에 X-AUTH-TOKEN 을 추가한다.
           axios.defaults.headers.common['X-AUTH-TOKEN'] = `${res.data.data}`;
           console.log('res.data.data:',res.data.data)
           //로그인과 동시에 회원정보 요청
-          dispatch("getMyinfo")
+          dispatch("getMyinfo") //비동기식처리한 getmyinfo를 불러오면서 getmyinfo함수가 실행되고나서 then을 실행한다 로그인할때 isLogin만 true고 userinfo는 적용안되는 점을 고쳤다.
+          .then(()=>{          
+            if(this.state.isLogin===true){
+              alert(this.state.userinfo.name+'님 반값습니다.')
+              router.push({path:'/main'})
+              } 
+          })
           
-          
+            
         })
         .catch(error=>{
           commit('loginError')
@@ -88,15 +96,18 @@ export default new Vuex.Store({
       commit('LOGOUT')
       location.reload()
     },
-    getMyinfo({commit}){
-        axios.get(`${resourceHost}/user`)
+   async getMyinfo({commit}){
+       await axios.get(`${resourceHost}/user`)
         .then(user=>{
           console.log('user:',user)
           commit('USERINFO',user.data.data)
+          
         })
         .catch(()=>{
-          console.log('에러')
+          console.log('유저조회에러')
         })
     }
   }
 })
+
+

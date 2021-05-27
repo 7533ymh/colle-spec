@@ -27,7 +27,8 @@
                     <img alt="Image placeholder" src="img/theme/profile.jpg">
                   </span>
             <b-media-body class="ml-2 d-none d-lg-block">
-              <span class="mb-0 text-sm  font-weight-bold">관리자</span>
+                                                                <!-- 메인화면 프로필 이름표시 -->
+              <span class="mb-0 text-sm  font-weight-bold">{{this.$store.state.userinfo.name}}</span>
             </b-media-body>
           </b-media>
         </a>
@@ -35,20 +36,21 @@
         <template>
 
           
-          <b-dropdown-item href="#!">
+          <b-dropdown-item @click="profile()">
             <i class="ni ni-single-02"></i>
-            <span>회원정보</span>
+            <span >회원정보</span>
           </b-dropdown-item>
-          <b-dropdown-item href="#!">
+          <!-- <b-dropdown-item href="#!">
             <i class="ni ni-settings-gear-65"></i>
             <span>설정</span>
-          </b-dropdown-item>
+          </b-dropdown-item> -->
          
           
           <div class="dropdown-divider"></div>
           <b-dropdown-item href="#!">
             <i class="ni ni-user-run"></i>
-            <span>로그아웃</span>
+            <span><a href="" v-if="isAuthenticated" @click.prevent="onClickLogout">로그아웃</a>
+            <router-link to="/Login1" v-else>로그인</router-link></span>
           </b-dropdown-item>
 
         </template>
@@ -59,6 +61,9 @@
 <script>
 import { CollapseTransition } from 'vue2-transitions';
 import { BaseNav, Modal } from '@/components';
+
+//store불러오기
+import store from '@/store'
 
 export default {
   components: {
@@ -77,6 +82,10 @@ export default {
     routeName() {
       const { name } = this.$route;
       return this.capitalizeFirstLetter(name);
+    },
+    //로그인 로그아웃 : 로그인 되있으면 로그아웃으로 변함 
+    isAuthenticated(){
+      return store.getters.isAuthenticated
     }
   },
   data() {
@@ -84,7 +93,8 @@ export default {
       activeNotifications: false,
       showMenu: false,
       searchModalVisible: false,
-      searchQuery: ''
+      searchQuery: '',
+      isLogin:this.$store.state.isLogin
     };
   },
   methods: {
@@ -96,7 +106,18 @@ export default {
     },
     closeDropDown() {
       this.activeNotifications = false;
+    },
+    profile(){
+      if(this.isLogin === false){
+        alert('로그인이 필요한 서비스입니다.')
+        this.$router.push({path:'/Login'})
+      }else{
+        this.$router.push({path:'/profile'})
+      }
     }
+  },
+  mounted(){
+    console.log("로그인여부:",this.isLogin)
   }
 };
 </script>

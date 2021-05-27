@@ -12,14 +12,8 @@
                       class="mb-4">
 
             <template slot="footer">
-                
-              <sidebar-item
-               :link="{
-               name: '자세히보기',
-               path: '/Basic_Information',
-              }"
-              >
-              </sidebar-item>
+                <span type=button @click="aceess('/Self_Introduction')">자세히보기</span>
+
             </template>
           </stats-card>
 
@@ -30,14 +24,9 @@
                       type="gradient-orange"
                       sub-title="나의 등급제"                  
                       class="mb-4">
-            <template slot="footer">   
-              <sidebar-item
-               :link="{
-               name: '자세히보기',
-               path: '/RatingSystem',
-              }"
-              >
-              </sidebar-item>
+            <template slot="footer"> 
+              <span type=button @click="aceess('/RatingSystem')">자세히보기</span> 
+              
             </template>
           </stats-card>
 
@@ -51,15 +40,8 @@
                       class="mb-4">
 
             <template slot="footer">
-              
-              <sidebar-item
-               :link="{
-               name: '자세히보기',
-               path: '/Competition1',
-              }"
-              >
-              </sidebar-item>
-
+              <span type=button @click="aceess('/Competition1')">자세히보기</span>
+            
             </template>
           </stats-card>
 
@@ -72,14 +54,8 @@
                       class="mb-4">
 
             <template slot="footer">
-              
-               <sidebar-item
-               :link="{
-               name: '자세히보기',
-               path: '/Company',
-              }"
-              >
-              </sidebar-item>
+              <span type=button @click="aceess('/Company')">자세히보기</span>
+               
             </template>
           </stats-card>
         </b-col>
@@ -96,6 +72,13 @@
               <b-col>
                 
                 <h5 class="h3 mb-0">등급 요약</h5>
+                <!-- 로그인안되있으면 로그인 하라는 메시지와 클릭시 로그인페이지로 -->
+                <a href="" v-if="authorized">
+           <span>로그인되어있음</span>
+           </a>  
+            <router-link to="/Login" v-else>
+            <sidebar-item  :link="{name:'로그인이필요합니다',path:'/Login'}"></sidebar-item>
+        </router-link>
               </b-col>
             </b-row>
 
@@ -109,6 +92,12 @@
               <b-col>
                 
                 <h5 class="h3 mb-0">포트폴리오 요약</h5>
+                <a href="" v-if="authorized">
+           <span>로그인되어있음</span>
+           </a>  
+            <router-link to="/Login" v-else>
+            <sidebar-item  :link="{name:'로그인이필요합니다',path:'/Login'}"></sidebar-item>
+        </router-link>
               </b-col>
             </b-row>
 
@@ -124,76 +113,45 @@
   </div>
 </template>
 <script>
-  // Charts
-  import * as chartConfigs from '@/components/Charts/config';
-  import LineChart from '@/components/Charts/LineChart';
-  import BarChart from '@/components/Charts/BarChart';
-
+  
   // Components
   import BaseProgress from '@/components/BaseProgress';
   import StatsCard from '@/components/Cards/StatsCard';
 
-  // Tables
-  import SocialTrafficTable from './Dashboard/SocialTrafficTable';
-  import PageVisitsTable from './Dashboard/PageVisitsTable';
+  import store from '@/store'
 
   export default {
     components: {
-      LineChart,
-      BarChart,
+      
       BaseProgress,
       StatsCard,
-      PageVisitsTable,
-      SocialTrafficTable
+      
     },
     data() {
       return {
-        bigLineChart: {
-          allData: [
-            [0, 20, 10, 30, 15, 40, 20, 60, 60],
-            [0, 20, 5, 25, 10, 30, 15, 40, 40]
-          ],
-          activeIndex: 0,
-          chartData: {
-            datasets: [
-              {
-                label: 'Performance',
-                data: [0, 20, 10, 30, 15, 40, 20, 60, 60],
-              }
-            ],
-            labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-          },
-          extraOptions: chartConfigs.blueChartOptions,
-        },
-        redBarChart: {
-          chartData: {
-            labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            datasets: [{
-              label: 'Sales',
-              data: [25, 20, 30, 22, 17, 29]
-            }]
-          },
-          extraOptions: chartConfigs.blueChartOptions
-        }
+        isLogin:store.state.isLogin,
       };
     },
+    computed:{
+    authorized(){
+      return store.getters.islogin
+    }
+    },
     methods: {
-      initBigChart(index) {
-        let chartData = {
-          datasets: [
-            {
-              label: 'Performance',
-              data: this.bigLineChart.allData[index]
-            }
-          ],
-          labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        };
-        this.bigLineChart.chartData = chartData;
-        this.bigLineChart.activeIndex = index;
+      aceess(url){
+      //   if(url==='/Competition1'){
+      //   this.$router.push({path:'/Competition1'})
+      // }
+      //&& url!=='/Competition1'
+      if(this.isLogin === false ){
+        alert('로그인이 필요한 서비스입니다.')
       }
+      else{
+        this.$router.push({path:url})
+      }
+    }
     },
     mounted() {
-      this.initBigChart(0);
     }
   };
 </script>
