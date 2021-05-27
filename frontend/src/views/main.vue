@@ -139,10 +139,6 @@
     },
     methods: {
       aceess(url){
-      //   if(url==='/Competition1'){
-      //   this.$router.push({path:'/Competition1'})
-      // }
-      //&& url!=='/Competition1'
       if(this.isLogin === false ){
         alert('로그인이 필요한 서비스입니다.')
       }

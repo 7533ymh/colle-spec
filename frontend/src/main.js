@@ -24,7 +24,7 @@ import store from './store'
 import router from './routes/router';
 // plugin setup
 Vue.use(DashboardPlugin);
-
+export const eventBus =new Vue()
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
@@ -36,4 +36,4 @@ new Vue({
     this.$store.dispatch('getMyinfo')
   },
   render: h => h(App)
-});
+})

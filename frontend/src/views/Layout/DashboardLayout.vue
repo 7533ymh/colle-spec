@@ -159,7 +159,7 @@
     computed:{
      //로그인 로그아웃 : 로그인 되있으면 로그아웃으로 변함 
     isAuthenticated(){
-      return store.getters.isAuthenticated
+      return store.getters.islogin
     }
     }
   };

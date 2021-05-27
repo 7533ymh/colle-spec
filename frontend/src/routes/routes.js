@@ -20,6 +20,12 @@ const routes = [
         
         component: () => import(/* webpackChunkName: "demo" */ '../views/main.vue')
       },
+      {
+        path: '/chart',
+        name: 'chart',
+        
+        component: () => import(/* webpackChunkName: "demo" */ '@/mixins/chart.vue')
+      },
 
 
 

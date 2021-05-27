@@ -147,6 +147,7 @@
             SocialTrafficTable
         },
         data() {
+            
             return {
                 max: 5,
                 view: {
