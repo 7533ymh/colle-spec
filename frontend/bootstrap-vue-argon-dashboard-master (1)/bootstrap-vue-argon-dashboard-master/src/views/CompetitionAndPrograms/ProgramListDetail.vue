@@ -4,7 +4,7 @@
         class="pb-6 pb-8 pt-5 pt-md-8 bg-gradient-success">
         <!-- Card stats -->
         <b-row>
-            <b-col xl="6" md="6">
+            <b-col xl="10" md="6">
 
 
                 <stats-card title="" type="gradient-red" sub-title="팀구하기 게시판" class="mb-4 "> <!-- 게시판 카드 시작  -->
@@ -107,17 +107,17 @@
 												</div>
 
 											</td>
-                                            <td v-if="authorized"> <!-- authorized랑 !authorized 차이가 뭐야? -->
+                                            <td > <!-- authorized랑 !authorized 차이가 뭐야? -->
                                                
 												<b-button @click="delcomm(row)" class="btn" variant="primary" style="font-size: 10px;"  >삭제</b-button>
 												
 												
                                             </td>
-                                            <td v-if="authorized">
+                                            <td>
 												<b-button @click="btn_edit(row)" class="btn" variant="primary" style="font-size: 10px;"  >수정</b-button>
 												
                                             </td>
-                                            <td>작성날짜:{{view.view[i].edit}}</td>
+                                            <td>수정날짜:{{new Date().toJSON(view.view[i].edit).slice(0,10).replace(/-/g,'.')}}</td>
                                         </tr>
 
                                         <tr v-if="view.length == 0">
@@ -140,7 +140,7 @@
                     </template>
                 </stats-card> <!-- 게시판 카드 끝  -->
 
-
+<!-- {{view.view[0].user_id}} -->
             </b-col>
         </b-row>
     </base-header>
@@ -149,7 +149,6 @@
   
 </template>
 <script>
-
   // Components
   import BaseProgress from '@/components/BaseProgress';
   import StatsCard from '@/components/Cards/StatsCard';
@@ -157,10 +156,8 @@
   import axios from 'axios';
   import store from '@/store';
   const url=store.state.resourceHost;
-
     export default {
       components: {
-
       BaseProgress,
         StatsCard,
         ProgramListTable
@@ -173,29 +170,44 @@
       comment:'', //댓글창 댓글내용
 	  editdate:'',
 			edit:{
-        comment:'', //댓글수정 내용
-			  idx:''}, //댓글 번호
+        		comment:'', //댓글수정 내용
+			  	idx:''}, //댓글 번호
 			view:{
 				user:JSON.parse(localStorage.getItem("comment")), //댓글리스트 정보
 				view:{} //댓글리스트 저장
 				},
 			remove: false,
-
+		//myid:'',
+		
 		}
 	}
 	,mounted() {
 		this.detail_view()
+		//this.mycomm()
 	},
 	computed: {
     authorized() {	
       return store.getters.userid === this.items.user_id;
     },
-    commauthorized() {
-      //return store.getters.userid === row.user_id;
-      }
+    // commauthorized() {
+		
+    //   return store.getters.userid === this.myid;
+    //   }
     }
 	,methods:{
-		
+		// mycomm(){
+		// 	for(var i=0; i<this.view.user.length; i++){
+		// 		if(store.getters.userid===this.view.user[i].user_id){
+		// 			console.log("같은아이디 확인:",this.view.user[i].user_id)
+		// 			this.myid=this.view.user[i].user_id
+		// 		}else{
+		// 			console.log("같지않은아이디 확인:",this.view.user[i].user_id)
+		// 		}
+		// 	}
+		// 	var result=this.myid
+		// 	console.log("내댓글확인:",result)
+			
+		// },
 		fnList(){
 			this.$router.push({path:'/board/list'});
 		},
@@ -236,7 +248,7 @@
         this.title=res.data.data.title;
         this.content=res.data.data.content;
 		this.editdate=res.data.data.edit;
-		this.editdate= new Date().toJSON().slice(0,10).replace(/-/g,'.');
+		this.editdate= new Date().toJSON().slice(0,10).replace(/-/g,'.'); //오늘날짜 출력
         localStorage.setItem("comment",JSON.stringify(res.data.data.commentList));
 			})
 		},
@@ -259,6 +271,7 @@
 			}
 		},
 		delcomm(item){
+			console.log('선택한item',item)
 			axios.delete(`${url}/program/board/comment`,{params:{
 				idx:item.idx
 			}})
@@ -271,9 +284,13 @@
 			})
 		},
 		btn_edit(item){
-			//this.edit=item
-			this.edit.comment=item.content
-			this.edit.idx=item.idx
+			console.log(item)
+			if(item.user_id!==store.getters.userid){
+				alert("본인 댓글만 수정가능합니다.")
+			}else{
+				this.edit.comment=item.content
+				this.edit.idx=item.idx
+			}
 		},
 		editcomm(){
 			if(this.edit.comment===''){

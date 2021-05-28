@@ -17,10 +17,16 @@
         <sidebar-item
           :link="{
             name: '포트폴리오',
-            path: '/Self_Introduction',
-            
+            path: '/Basic_Information',    
           }"
           >
+
+          <sidebar-item
+          :link="{
+            name: '등록하기',
+            path: '/Basic_Information',
+            
+          }"/>
         </sidebar-item>
 
         
@@ -148,7 +154,7 @@
       },
       //로그아웃 메소드
       onClickLogout(){
-        store.dispatch('LOGOUT').then(res=>{this.$routes.routes.push('/')
+        store.dispatch('LOGOUT').then(res=>{this.$router.push('/')
         location.reload()
         })
       }
@@ -159,7 +165,7 @@
     computed:{
      //로그인 로그아웃 : 로그인 되있으면 로그아웃으로 변함 
     isAuthenticated(){
-      return store.getters.isAuthenticated
+      return store.getters.islogin
     }
     }
   };

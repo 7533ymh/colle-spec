@@ -2,7 +2,7 @@
   <card>
     <b-row align-v="center" slot="header" >
       <b-col cols="8">
-        <h3 class="mb-0">Edit profile </h3>
+        <h3 class="mb-0">회원정보 입력</h3>
       </b-col>
       <b-col cols="4" class="text-right">
         <b-button @click="com" class="btn btn-sm btn-primary">적용</b-button>
@@ -11,7 +11,7 @@
     </b-row>
 
     <b-form @submit.prevent="updateProfile">
-      <h6 class="heading-small text-muted mb-4">User information</h6>
+      <h6 class="heading-small text-muted mb-4">유저 정보</h6>
 
       <div class="pl-lg-4">
         <b-row>
@@ -136,7 +136,7 @@
       <hr class="my-4">
 
       <!-- Address -->
-      <h6 class="heading-small text-muted mb-4">Contact information</h6>
+      <!--<h6 class="heading-small text-muted mb-4">Contact information</h6>-->
 
       <div class="pl-lg-4">
         

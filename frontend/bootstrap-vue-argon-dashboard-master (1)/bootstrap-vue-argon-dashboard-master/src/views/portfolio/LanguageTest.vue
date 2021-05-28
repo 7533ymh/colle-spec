@@ -150,7 +150,7 @@
 
             },
             mvedit(){
-              this.$router.push({path:'/language/edit'})
+              this.$router.push({path:'/portfolioModify',query:this.mycertificate})
             }
             //상세페이지에 수정 기능 넣기
     //         edit(item,index,event) {

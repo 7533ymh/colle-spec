@@ -66,7 +66,7 @@
       
       <template #cell(편집)="row">
          <b-button size="sm" @click="mvedit(row)" class="mr-2">
-          편집
+          수정
         </b-button>
          <b-button size="sm" @click="deletepj(row)" class="mr-2">
           삭제
@@ -128,6 +128,9 @@
                     console.log(res)
                     //this.edit=res.data.list[1].edit;
                     //this.edit=new Date().toJSON().slice(0,10).replace(/-/g,'.');
+                    for(var i=0; i<res.data.list.length; i++){
+                    this.mycertificate[i].edit=new Date().toJSON().slice(0,10).replace(/-/g,'.')
+                    }
                     console.log('mycertificate: ',this.mycertificate)
                     console.log('edit',this.edit);
 
@@ -151,7 +154,7 @@
 
             },
             mvedit(){
-              this.$router.push({path:'/certificate/edit'})
+              this.$router.push({path:'/portfolioModify',query:this.mycertificate})
             }
             //상세페이지에 수정 기능 넣기
     //         edit(item,index,event) {
