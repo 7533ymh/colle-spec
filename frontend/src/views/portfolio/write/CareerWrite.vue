@@ -205,3 +205,17 @@ export default {
     }
 }
 </script>
+  <style scoped="scoped">
+    #content {
+        width: 50%;
+        height: 100px;
+        resize: none;
+    }
+    #agency,#division, #company, #department {
+        width: 50%;
+    }
+    #title,
+    #year, #start_date, #end_date{
+        width: 20%;
+    }
+</style>

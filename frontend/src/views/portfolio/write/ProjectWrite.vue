@@ -131,7 +131,7 @@
                 </div>
                 </b-form-group>
                 <div>
-                   <b-form-file multiple v-model="project.files" placeholder="jpg, png파일 업로드.">
+                   <b-form-file id="file" multiple v-model="project.files" placeholder="jpg, png파일 업로드.">
                         <template slot="file-name" slot-scope="{ names }">
                             <b-badge variant="dark">{{ names[0] }}</b-badge>
                             <b-badge v-if="names.length > 1" variant="dark" class="ml-1">
@@ -219,3 +219,17 @@ export default {
     }
 }
 </script>
+  <style scoped="scoped">
+    #content {
+        width: 50%;
+        height: 100px;
+        resize: none;
+    }
+    #agency,#division,#file{
+        width: 50%;
+    }
+    #title,
+    #year, #start_date, #end_date {
+        width: 20%;
+    }
+</style>

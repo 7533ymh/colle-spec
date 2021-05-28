@@ -1,4 +1,5 @@
 <template>
+<div>
   <base-nav
     container-classes="container-fluid"
     class="navbar-top navbar-expand"
@@ -15,7 +16,9 @@
       </li>
     </b-navbar-nav>
     <b-navbar-nav class="align-items-center ml-auto ml-md-0">
-        
+
+
+
       <base-dropdown menu-on-right
                      class="nav-item"
                      tag="li"
@@ -27,12 +30,11 @@
                     <img alt="Image placeholder" src="img/theme/profile.jpg">
                   </span>
             <b-media-body class="ml-2 d-none d-lg-block">
-                                                                <!-- 메인화면 프로필 이름표시 -->
               <span class="mb-0 text-sm  font-weight-bold">{{this.$store.state.userinfo.name}}</span>
             </b-media-body>
           </b-media>
         </a>
-
+       
         <template>
 
           
@@ -57,19 +59,31 @@
       </base-dropdown>
     </b-navbar-nav>
   </base-nav>
+
+ 
+
+
+</div>
 </template>
 <script>
 import { CollapseTransition } from 'vue2-transitions';
 import { BaseNav, Modal } from '@/components';
+import axios from 'axios';
+import store from '@/store';
+import {Button} from 'element-ui'
+// import '@grapecity/wijmo.vue2.input';
+// import '@grapecity/wijmo.styles/wijmo.css';
+// import '@grapecity/wijmo.vue2.core';
 
+let url='http://49.50.166.108:4000/api' //서버주소 api
 //store불러오기
-import store from '@/store'
-
 export default {
   components: {
     CollapseTransition,
     BaseNav,
-    Modal
+    Modal,
+    [Button.name]: Button,
+
   },
   props: {
     type: {
@@ -94,10 +108,33 @@ export default {
       showMenu: false,
       searchModalVisible: false,
       searchQuery: '',
-      isLogin:this.$store.state.isLogin
+      isLogin:this.$store.state.isLogin,
+      
+      
     };
   },
   methods: {
+//      async onSubmit(popup){
+//       var params = new URLSearchParams()
+//       params.append('id',this.colleazy.id)
+//       params.append('pass',this.colleazy.pass)
+//      await axios.post(`${url}/link`,params)
+//       .then(res=>{
+//         alert("로그인 성공")
+//         axios.get(`${url}/link/update`)
+//         .then(res=>{
+//           alert("연동되었습니다.")
+//           popup.hide();
+//         })
+//         .catch(err=>{
+//           alert("연동 실패")
+//         })
+//       })
+//       .catch(err=>{
+//         alert("로그인 실패")
+//       })
+// },
+    
     capitalizeFirstLetter(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
     },
@@ -121,3 +158,7 @@ export default {
   }
 };
 </script>
+<style scoped>
+
+
+</style>

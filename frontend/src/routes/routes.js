@@ -15,6 +15,12 @@ const routes = [
         component: () => import(/* webpackChunkName: "demo" */ '../views/Dashboard.vue')
       },
       {
+        path: '/modal',
+        name: 'modal',
+        
+        component: () => import(/* webpackChunkName: "demo" */ '../views/Pages/modal.vue')
+      },
+      {
         path: '/main',
         name: 'main',
         

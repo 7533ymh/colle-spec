@@ -5,7 +5,9 @@
         <h3 class="mb-0">Edit profile </h3>
       </b-col>
       <b-col cols="4" class="text-right">
-        <b-button @click="com" class="btn btn-sm btn-primary">적용</b-button>
+        <button class="el-button" @click="com">적용</button>
+                <button class="el-button" @click="linklo">연동하기</button>
+
       </b-col>
       
     </b-row>
@@ -140,6 +142,29 @@
 
       <div class="pl-lg-4">
         
+          <form @submit.prevent="linklogin">
+                <div class="black-bg" v-if="modalshow == true">
+                  <div class="white-bg">
+                    <button type="button" @click="close" tabindex="-1" class="close wj-hide">&times;</button>
+                    <h2>Colleazy</h2>
+                      <label>
+                        ID:<br />
+                    <input id="input" type="text" v-model="colleazy.id" required>
+                      </label>
+                    <br />
+                    <label>
+                        PW:<br />
+                    <input id="input" type="password" v-model="colleazy.pass" required>
+                    <div>
+                    <button type="submit" class="el-button" id="login">
+                        Log in
+                    </button>
+                    </div>
+                    </label>
+                    
+                  </div>
+          </div>
+          </form>
       </div>
     </b-form>
   </card>
@@ -153,9 +178,44 @@ export default {
     return {
       user:this.$store.state.userinfo,
       link:'',
+      modalshow:false,
+    colleazy:{
+      id:'',
+      pass:''
+    }
     };
   },
   methods: {
+    close(){{
+      this.modalshow=false
+    }},
+     linklo(){
+      if(this.modalshow===true){
+        this.modalshow=false
+      }else{
+        this.modalshow=true
+      }
+    },
+      async linklogin(){
+        var params = new URLSearchParams()
+        params.append('id',this.colleazy.id)
+        params.append('pass',this.colleazy.pass)
+      await axios.post(`${url}/link`,params)
+        .then(res=>{
+          alert(res.data.msg)
+          axios.get(`${url}/link/update`)
+          .then(res=>{
+            alert(res.data.msg)
+            this.modalshow=false;
+          })
+          .catch(err=>{
+            alert(err.response.data.msg)
+          })
+        })
+        .catch(err=>{
+          alert(err.response.data.msg)
+        })
+      },
     updateProfile() {
       alert('Your data: ' + JSON.stringify(this.user));
     },
@@ -209,4 +269,35 @@ export default {
   }
 };
 </script>
-<style></style>
+<style>
+
+.black-bg{
+  width: 16%;
+  height: 43%;
+  background: rgb(221, 221, 221);
+  position: fixed;
+  padding: 0px;
+  left:50%;
+  top:100px;
+  border:2px solid rgb(170, 156, 155);
+    border-radius: 15px;
+}
+.white-bg{
+  width: 100%;
+  height: 100%;
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+}
+#input{
+  margin-bottom: 6px;
+}
+input:invalid {
+        border-color: red;
+    }
+  #login{
+    font-size: 10px;
+    margin-top: 10px;
+    margin-left: 100px;
+  }
+</style>

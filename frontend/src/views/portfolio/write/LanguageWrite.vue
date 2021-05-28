@@ -202,3 +202,17 @@ export default {
     }
 }
 </script>
+  <style scoped="scoped">
+    #content {
+        width: 50%;
+        height: 100px;
+        resize: none;
+    }
+    #agency,#division, #exam, #exam_score {
+        width: 50%;
+    }
+    #title,
+    #year {
+        width: 20%;
+    }
+</style>
