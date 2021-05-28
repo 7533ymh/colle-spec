@@ -71,7 +71,7 @@
                 
                 </template>
                   <template #cell(edit)="row">
-                    <b-button size="sm" @click="edit(row)" class="mr-2">
+                    <b-button size="sm" @click="mvedit(row)" class="mr-2">
                     편집
                     </b-button>
                     <b-button size="sm" @click="deleteInt(row)" class="mr-2">
@@ -122,6 +122,7 @@
       },
 
       methods:{
+
         click(row){
           console.log(row)
         },
@@ -157,27 +158,8 @@
                 })
             },
            
-            edit(item,index,event) {
-                var fd = new FormData();
-                for (var i = 0; i < this.fd.files.length; i++) {
-                        fd.append('files', this.fd.files[i]);
-                        }
-                axios.put(`${url}/introduction/uplode`,fd,{
-                    headers:{
-                        'Content-Type' : 'multipart/form-data' //다중파일 업로드하기 위해 헤더 추가
-                    }
-                })
-                .then(res=>{
-                    console.log(res)
-                    alert(res.data.msg)
-                    window.location.reload()
-                    
-                })
-                
-                .catch(err=>{
-                    console.log(err)
-                    alert(err.response.data.msg)
-                })    
+            mvedit() {
+                this.$router.push({path:'/portfolioModify',query:this.myIntro})  
             },
             deleteInt(item,index,e){
                 let del=item.item.idx

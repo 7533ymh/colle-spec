@@ -33,7 +33,11 @@
               
               <b-col>
                 <b-nav class="nav-pills justify-content-end">
-           
+                  <b-nav-item link-classes="py-2 px-3" router-link to="/basic">
+                    <span class="d-none d-md-block">포트폴리오 작성하러가기</span>
+                    <span class="d-md-none">W</span>
+                  </b-nav-item>
+
                   <b-nav-item link-classes="py-2 px-3" router-link to="/Self_Introduction">
                     <span class="d-none d-md-block">자기소개서</span>
                     <span class="d-md-none">W</span>
@@ -57,11 +61,9 @@
               </b-col>
             </b-row>
             
-            <button @click="gogo">기본틀</button>
-            <button @click="gowrite">write</button>
-            <button @click="gocc">cccc</button>
+            <!-- <button @click="gogo">포트폴리오 작성하러가기</button> -->
+            <!-- <button @click="pfmodify">포트폴리오 편집</button> -->
 
-<div>필요없는페이지</div>
 <!--
  여기에 기본정보 넣으셈
 -->
@@ -88,14 +90,23 @@
   import BaseProgress from '@/components/BaseProgress';
   import StatsCard from '@/components/Cards/StatsCard';
   
+import axios from 'axios';
+import store from '@/store';
 
+
+let url=store.state.resourceHost; //서버주소 api
 
     export default {
-
-      
-
-
-
+      data(){return{
+        // portfolio:{award:'',career:'',certificate:'',education:'',experience:'',language:'',project:'',introduction:''}
+        portfolio:[{}],
+      }}
+      ,
+      mounted(){
+        this.portfolioview()
+        this.localSet("portfolio",this.portfolio)
+        
+      },
       components: {
       
         BaseProgress,
@@ -107,11 +118,62 @@
         gogo(){
           this.$router.push({path:'/basic'})
         },
-        gowrite(){
-          this.$router.push({path:'/portfolioWrite'})
+        pfmodify(){
+          this.$router.push({path:'/portfolioModify'})
         },
-        gocc(){
-          this.$router.push({path:'/cccc'})
+        localSet(name,set){
+          localStorage.setItem(name,JSON.stringify(set))
+        },
+        portfolioview(){
+          axios.get(`${url}/award`)
+                    .then(get=>{
+                    this.portfolio.award=get.data.list
+                    console.log('award: ',this.portfolio.award)
+                    this.localSet('award',get.data.list)
+                })
+          axios.get(`${url}/career`)
+                    .then(get=>{
+                    this.portfolio.career=get.data.list
+                    console.log('career: ',this.portfolio.career)
+                    this.localSet('career',get.data.list)
+                })
+          axios.get(`${url}/certificate`)
+                    .then(get=>{
+                    this.portfolio.certificate=get.data.list
+                    console.log('certificate: ',this.portfolio.certificate)
+                    this.localSet('certificate',get.data.list)
+                })
+          axios.get(`${url}/education`)
+                    .then(get=>{
+                    this.portfolio.education=get.data.list
+                    console.log('education: ',this.portfolio.education)
+                    this.localSet('education',get.data.list)
+                })
+          axios.get(`${url}/experience`)
+                    .then(get=>{
+                    this.portfolio.experience=get.data.list
+                    console.log('experience: ',this.portfolio.experience)
+                    this.localSet('experience',get.data.list)
+                })
+          axios.get(`${url}/language`)
+                    .then(get=>{
+                    this.portfolio.language=get.data.list
+                    console.log('language: ',this.portfolio.language)
+                    this.localSet('language',get.data.list)
+                })
+          
+          axios.get(`${url}/project`)
+                    .then(get=>{
+                    this.portfolio.project=get.data.list
+                    console.log('project: ',this.portfolio.project)
+                    this.localSet('project',get.data.list)
+                })
+          axios.get(`${url}/introduction`)
+                    .then(get=>{
+                    this.portfolio.introduction=get.data.list
+                    console.log('introduction: ',this.portfolio.introduction)
+                    this.localSet('introduction',get.data.list)
+                })
         },
 
       

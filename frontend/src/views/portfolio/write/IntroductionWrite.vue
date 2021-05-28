@@ -1,6 +1,6 @@
 <template>
-<div>
-    <base-header class="pb-5 pt-md-5 bg-gradient-success" >
+    <div>
+        <base-header class="pb-5 pt-md-5 bg-gradient-success" >
     <b-col class="ml-9" xl="6">
     <stats-card title=""
                       type="gradient-red"
@@ -13,7 +13,7 @@
     </b-col>
       
     </base-header>
-    <b-container fluid="fluid" class="mt--0">
+     <b-container fluid="fluid" class="mt--0">
         <b-row>
             <b-col xl="11" class="mb-7 mb-xl-0">
                 <card header-classes="bg-transparent">
@@ -89,25 +89,76 @@
             </b-col>
         </b-row>
     </b-container>
-    <template slot="footer">
-              
-            </template>
-</div>
+    <!-- 파일등록부분 -->
+        <b-form-file multiple v-model="introduction.files" placeholder="pdf, hwp, doc, ppt.">
+                <template slot="file-name" slot-scope="{ names }">
+                    <b-badge variant="dark">{{ names[0] }}</b-badge>
+                    <b-badge v-if="names.length > 1" variant="dark" class="ml-1">
+                        + {{ names.length - 1 }} More files
+                    </b-badge>
+                </template>
+            </b-form-file>
+    <!-- 파일등록 끝 -->
+    <div>
+            <b-btn @click="onSubmit" color="primary">Upload</b-btn>
+    </div>
+    </div>
 </template>
-
 <script>
-import BaseProgress from '@/components/BaseProgress';
-  import StatsCard from '@/components/Cards/StatsCard';
- export default {
-     name:"portfolio-basic",
-     methods: {
+import axios from 'axios';
+import store from '@/store';
 
-     },
-     components: {
-      
-        BaseProgress,
-        StatsCard,
-        
-      },
+
+let url=store.state.resourceHost; //서버주소 api
+export default {
+    data(){
+        return{
+           introduction:{
+                files:[] //자기소개서 파일 저장
+            }, 
+                show:true,
+        }
+    },
+    methods:{
+        onSubmit() {
+                //event.preventDefault()
+////////////////////////////////////////////////////////////////////////////////////////////////////
+                
+                var introduction = new FormData();
+                for (var i = 0; i < this.introduction.files.length; i++) {
+                        introduction.append('files', this.introduction.files[i]);
+                        }
+                        axios.post(`${url}/introduction/uplode`,introduction,{
+                            headers:{
+                                'Content-Type' : 'multipart/form-data' //다중파일 업로드하기 위해 헤더 추가
+                            }
+                        })
+                .then( response => {
+                    console.log(response.data)
+                    alert(response.data.msg)
+                    window.location.reload()
+                })
+                .catch(err=>{
+                    console.log(err.response.data.msg)
+                    alert(err.response.data.msg);
+                });
+
+    },
+    onReset(event) {
+                event.preventDefault()
+                // Reset our form values
+                this.agency = ''
+                this.content = ''
+                this.division = ''
+                this.year =''
+                this.title =''
+
+                // Trick to reset/clear native browser form validation state
+                this.show = false
+                this.$nextTick(() => {
+                    this.show = true
+                })
+            },
     }
+}
 </script>

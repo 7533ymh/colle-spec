@@ -1,6 +1,6 @@
 <template>
-<div>
-    <base-header class="pb-5 pt-md-5 bg-gradient-success" >
+    <div>
+        <base-header class="pb-5 pt-md-5 bg-gradient-success" >
     <b-col class="ml-9" xl="6">
     <stats-card title=""
                       type="gradient-red"
@@ -13,7 +13,7 @@
     </b-col>
       
     </base-header>
-    <b-container fluid="fluid" class="mt--0">
+     <b-container fluid="fluid" class="mt--0">
         <b-row>
             <b-col xl="11" class="mb-7 mb-xl-0">
                 <card header-classes="bg-transparent">
@@ -89,25 +89,107 @@
             </b-col>
         </b-row>
     </b-container>
-    <template slot="footer">
-              
-            </template>
-</div>
+     <!-- 폼시작 -->
+        <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+            <b-form-group id="input-group-1" label="자격증이름" label-for="input-1">
+                    <b-form-input
+                        id="title"
+                        v-model="certificate.title"
+                        type="text"
+                        placeholder="예) 컴퓨터활용능력1급(2급), 정보처리기사, 정보처리산업기사"
+                        required="required"></b-form-input>
+                </b-form-group>
+                   <b-form-group id="input-group-1" label="내용" label-for="input-1">
+                    <b-form-input
+                        id="content"
+                        v-model="certificate.content"
+                        type="text"
+                        placeholder="예)내용 입력 .."
+                        required="required"></b-form-input>
+                </b-form-group>
+
+            <b-form-group id="input-group-1" label="발행기관" label-for="input-1">
+                <b-form-input
+                    id="publisher"
+                    v-model="certificate.publisher"
+                    type="text"
+                    placeholder="발행기관을 입력하세요"
+                    required="required"></b-form-input>
+
+                
+                <b-form-group id="input-group-1" label="취득일자" label-for="input-1">
+                <div id="span_date">
+                    <b-form-input
+                        id="year"
+                        v-model="certificate.date"
+                        type="date"
+                        required="required"></b-form-input>
+                </div>
+                </b-form-group>
+                <!-- 폼끝 -->
+
+                <b-button type="submit" variant="primary">Submit</b-button>
+                <b-button type="reset" variant="danger">Reset</b-button>
+            </b-form-group>
+        </b-form>
+    </div>
 </template>
-
 <script>
-import BaseProgress from '@/components/BaseProgress';
-  import StatsCard from '@/components/Cards/StatsCard';
- export default {
-     name:"portfolio-basic",
-     methods: {
+import axios from 'axios';
+import store from '@/store';
 
-     },
-     components: {
-      
-        BaseProgress,
-        StatsCard,
+
+let url=store.state.resourceHost; //서버주소 api
+export default {
+    data(){
+        return{
+            certificate: {
+                    title: '',      //자격증 이름
+                    content: '',    //자격증 내용
+                    publisher:'',   //발급기관
+                    date:'',        //취득날짜
+                }, 
+                show:true,
+        }
+    },
+    methods:{
+        onSubmit() {
+                //event.preventDefault()
+////////////////////////////////////////////////////////////////////////////////////////////////////
         
-      },
+                var certificate = new URLSearchParams();
+                certificate.append('title', this.certificate.title);
+                certificate.append('content', this.certificate.content);
+                certificate.append('publisher', this.certificate.publisher);
+                certificate.append('date', this.certificate.date);
+                axios.post(`${url}/certificate`,certificate)
+                .then(certificate=>{
+                    console.log(certificate)
+                    alert(certificate.data.msg)
+                    window.location.reload()
+                })
+                .catch(err=>{
+                    console.log(err)
+                    alert(err.response.data.msg)
+
+                })
+
+    },
+    onReset(event) {
+                event.preventDefault()
+                // Reset our form values
+                this.agency = ''
+                this.content = ''
+                this.division = ''
+                this.year =''
+                this.title =''
+
+                // Trick to reset/clear native browser form validation state
+                this.show = false
+                this.$nextTick(() => {
+                    this.show = true
+                })
+            },
     }
+}
 </script>

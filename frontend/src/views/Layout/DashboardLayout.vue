@@ -17,10 +17,16 @@
         <sidebar-item
           :link="{
             name: '포트폴리오',
-            path: '/Basic_Information',
-            
+            path: '/Basic_Information',    
           }"
           >
+
+          <sidebar-item
+          :link="{
+            name: '등록하기',
+            path: '/Basic_Information',
+            
+          }"/>
         </sidebar-item>
 
         
@@ -148,7 +154,7 @@
       },
       //로그아웃 메소드
       onClickLogout(){
-        store.dispatch('LOGOUT').then(res=>{this.$routes.routes.push('/')
+        store.dispatch('LOGOUT').then(res=>{this.$router.push('/')
         location.reload()
         })
       }

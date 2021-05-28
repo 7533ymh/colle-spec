@@ -55,6 +55,12 @@ const routes = [
         component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/portfolioWrite.vue')
       },
       {
+        path: '/portfolioModify',
+        name: 'portfolioModify',
+        
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/portfolioModify.vue')
+      },
+      {
         path: '/Basic_Information',
         name: '기본정보',
         component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/Basic_Information.vue')
@@ -78,6 +84,47 @@ const routes = [
         path: '/PortfolioAndDocument',
         name: '포트폴리오 & 문서',
         component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/PortfolioAndDocument.vue')
+      },
+      //포트폴리오 작성 라우터
+      {
+        path: '/Portfolio/awardWrite',
+        name: '수상 등록',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/write/AwardWrite.vue')
+      },
+      {
+        path: '/Portfolio/careerWrite',
+        name: '경력 등록',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/write/CareerWrite.vue')
+      },
+      {
+        path: '/Portfolio/certificateWrite',
+        name: '자격증 등록',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/write/CertificateWrite.vue')
+      },
+      {
+        path: '/Portfolio/educationWrite',
+        name: '교육이수 등록',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/write/EducationWrite.vue')
+      },
+      {
+        path: '/Portfolio/experienceWrite',
+        name: '해외경험 등록',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/write/ExperienceWrite.vue')
+      },
+      {
+        path: '/Portfolio/languageWrite',
+        name: '어학 등록',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/write/LanguageWrite.vue')
+      },
+      {
+        path: '/Portfolio/projectWrite',
+        name: '프로젝트 등록',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/write/ProjectWrite.vue')
+      },
+      {
+        path: '/Portfolio/introductionWrite',
+        name: '자기소개서 등록',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/write/IntroductionWrite.vue')
       },
 
 
