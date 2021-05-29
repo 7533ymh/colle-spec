@@ -20,11 +20,17 @@
             path: '/Basic_Information',    
           }"
           >
+          <sidebar-item
+          :link="{
+            name: '나의 포트폴리오',
+            path: '/Basic_Information',
+            
+          }"/>
 
           <sidebar-item
           :link="{
             name: '등록하기',
-            path: '/Basic_Information',
+            path: '/basic',
             
           }"/>
         </sidebar-item>
@@ -52,11 +58,27 @@
 
         <sidebar-item
           :link="{
-            name: '기업에서 요구하는 스펙',
+            name: '기업 스펙 & 정보',
             path: '/Company',
             
           }"
         >
+        <sidebar-item
+          :link="{
+            name: '기업 스펙비교',
+            path: '/Company',
+            
+          }"
+        >
+        </sidebar-item>
+        <sidebar-item
+          :link="{
+            name: '기업 정보',
+            path: '/Company/info',
+            
+          }"
+        >
+        </sidebar-item>
         </sidebar-item>
 
 

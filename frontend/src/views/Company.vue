@@ -1,6 +1,6 @@
 <template>
   <div>
-        <base-header class="pb-6 pb-8 pt-5 pt-md-8 bg-gradient-success">
+        <base-header class="pb-7 pt-md-5 bg-gradient-success">
             <!-- Card stats -->
             <b-row>
                 <b-col xl="3" md="6">
@@ -9,10 +9,10 @@
             </b-row>
         </base-header>
         <!--Charts-->
-          <b-container fluid="fluid" class="mt--7">
-            
+       
+          <b-container fluid="fluid" class="mt--10">
               <b-row>
-                <b-col xl="10" class="mb-5 mb-xl-0">
+                <b-col xl="12" class="mb-5 mb-xl-0">
                     <card header-classes="bg-transparent">
                         
                         <!-- 프로그레스바 리스트 들고오기 -->
@@ -72,14 +72,9 @@
                                             </span>
                                         </b-progress-bar>
                                     </b-progress>
-                                    <!-- <b-progress id="prog" :max="max" height="2rem">
-                                        <b-progress-bar :value="data.project_rank">
-                                            <span>프로젝트:
-                                                <strong>{{ msg7 }}</strong>
-                                            </span>
-                                        </b-progress-bar>
-                                    </b-progress> -->
-                                </div>
+
+                               
+                                </div> <!---content끝-->
                                      
                                 <div id="sidebar">
                                         
@@ -87,19 +82,19 @@
                                       
                                         <colgroup>
                                             <col width="10%"/>
-                                            <col width="*"/>
+                                            <col width="90%"/>
                                         </colgroup>
                                         <thead>
                                         <tr>
-                                            <th width="50px">no</th>
-                                            <th>회사</th>
+                                            <th width="160px">no</th>
+                                            <th >회사</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr v-for="(row, i) in view" :key="i">
 
                                             <td width="50px">{{i+1}}</td>
-                                            <td @click="detail(row)">{{view[i].name}}</td>
+                                            <td width="280px" @click="detail(row)">{{view[i].name}}</td>
 
                                         </tr>
                                         <tr v-if="view.length == 0">
@@ -111,18 +106,73 @@
                                 
                                 <div id="sidebar2" mt-4>
                                     <h3>여기에 보완할 컨텐츠 제공</h3>
+                                    <h4>{{message.award}}</h4>
+                                    <h4>{{message.career}}</h4>
+                                    <h4>{{message.certificate}}</h4>
+                                    <h4>{{message.education}}</h4>
+                                    <h4>{{message.experience}}</h4>
+                                    <h4>{{message.language}}</h4>
                                 </div>
                             <!-- </div> -->
         
                             </div>
-                         
+                         <div>
+                                 <div id=sidebar3>
+              <!--회사 정보 리스트 -->
+                                        <table>
+                                            <colgroup>
+                                            <col width="6%"/>
+                                            <col width="20%"/>
+                                            <col width="6%"/>
+                                            <col width="4%"/>
+                                            <col width="10%"/>
+                                            <col width="10%"/>
 
-                        </card>
-                    </b-col>
+                                            </colgroup>
+                                            <tr>
+                                                <th>회사이름</th>
+                                                <th>주소</th>
+                                                <th>구분</th>
+                                                <th>사원수</th>
+                                                
+                                                <th>산업</th>
+                                                <th>자본금</th>
+                                                
+                                                
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td><a :href="odata.url" target="place">{{odata.name}}</a></td>
+                                                <td>{{odata.address}}</td>
+                                                <td>{{odata.division}}</td>
+                                                <td>{{odata.people}}</td>
+                                                <td>{{odata.industry}}</td>
+                                                <td>{{odata.capital}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>설립일</th>
+                                                <th>주요사업</th>
+                                                <th>대표자</th>
+                                                <th>대졸초임</th>
+                                                <th>4대보험</th>
+                                                <th>매출액</th>
+                                            </tr>
+                                            <tr>
+                                                <td>{{odata.establishment}}</td>
+                                                <td>{{odata.bussiness}}</td>
+                                                <td>{{odata.representative}}</td>
+                                                <td>{{odata.salary}}</td>
+                                                <td>{{odata.insurance}}</td>
+                                                <td>{{odata.take}}</td>                                
+                                            </tr>
+                                        </table>
+                            </div>
+                         </div>
+                        </card>                       
+                    </b-col>                 
                 </b-row>
-                <!-- End charts-->
-
-          </b-container>
+                <!-- End charts-->             
+          </b-container>         
   </div>
 </template>
 <script>
@@ -155,7 +205,7 @@
                 },
                 color:{a:'',b:'',c:'',d:'',e:'',f:'',g:''},
 
-                data: { //원본데이터 값 reverse
+                data: { //원본데이터 프로그레스바 적용위해 등급 변환 
                     award_rank: '',
                     career_rank: '',
                     certificate_rank: '',
@@ -167,6 +217,7 @@
 
                 },
                 odata: {}, //원본데이터
+
                 msg0: '', //수상메시지
                 msg1: '', //경력메시지
                 msg2: '', //자격증메시지
@@ -175,6 +226,17 @@
                 msg5: '', //어학메시지
                 msg6: '', //학점메시지
                 msg7: '', //프로젝트메시지
+
+                message:{
+                    award:'',
+                    career:'',
+                    certificate:'',
+                    education:'',
+                    experience:'',
+                    language:'',
+                    grade:'',
+                    project:''
+                }
 
             }
         },
@@ -213,45 +275,57 @@
                             this.data.award_rank = 1;
                             this.msg0 = '매우낮음';
                             this.color.a='danger';
+                            this.message.award='수상 등급이 매우 낮습니다. 공모전을 추천해드리겠습니다.'
 
                         } else if (res.data.data.award_rank === 4) {
                             this.data.award_rank = 2;
                             this.msg0 = '낮음';
                             this.color.a='warning';
+                            this.message.award='수상 등급이 평균보다 낮습니다.. 공모전을 추천해드리겠습니다.'
                         } else if (res.data.data.award_rank === 2) {
                             this.data.award_rank = 4;
                             this.msg0 = '높음';
                             this.color.a='info';
+                            this.message.award='수상 등급이 평균이상입니다. 잘하고 있습니다.'
                         } else if (res.data.data.award_rank === 1) {
                             this.data.award_rank = 5;
                             this.msg0 = '매우높음';
                             this.color.a='green';
+                            this.message.award='수상 등급이 매우 높습니다. 너무 잘하고 있습니다.'
                         } else {
                             this.data.award_rank = 3;
                             this.msg0 = '평균';
                             this.color.a='primary';
+                            this.message.award='수상 등급이 평균입니다. 조금더 노력해보세요.'
                         }
 
                         if (res.data.data.career_rank === 5) {
                             this.data.career_rank = 1;
                             this.msg1 = '매우낮음';
                             this.color.b='danger';
+                            this.message.career='경력 등급이 매우 낮습니다. 공모전을 추천해드리겠습니다.'
+
+
                         } else if (res.data.data.career_rank === 4) {
                             this.data.career_rank = 2;
                             this.msg1 = '낮음';
                             this.color.b='warning';
+                            this.message.career='경력 등급이 평균보다 낮습니다.. 공모전을 추천해드리겠습니다.'
                         } else if (res.data.data.career_rank === 2) {
                             this.data.career_rank = 4;
                             this.msg1 = '높음';
                             this.color.b='info';
+                            this.message.career='경력 등급이 평균이상입니다. 잘하고 있습니다.'
                         } else if (res.data.data.career_rank === 1) {
                             this.data.career_rank = 5;
                             this.msg1 = '매우높음';
                             this.color.b='green';
+                            this.message.career='경력 등급이 매우 높습니다. 너무 잘하고 있습니다.'
                         } else {
                             this.data.career_rank = 3;
                             this.msg1 = '평균';
                             this.color.b='primary';
+                            this.message.career='경력 등급이 평균입니다. 조금더 노력해보세요.'
 
                         }
 
@@ -259,22 +333,28 @@
                             this.data.certificate_rank = 1;
                             this.msg2 = '매우낮음';
                             this.color.c='danger';
+                            this.message.certificate='수상 등급이 매우 낮습니다. 공모전을 추천해드리겠습니다.'
+
                         } else if (res.data.data.certificate_rank === 4) {
                             this.data.certificate_rank = 2;
                             this.msg2 = '낮음';
                             this.color.c='warning';
+                            this.message.certificate='수상 등급이 매우 낮습니다. 공모전을 추천해드리겠습니다.'
                         } else if (res.data.data.certificate_rank === 2) {
                             this.data.certificate_rank = 4;
                             this.msg2 = '높음';
                             this.color.c='info';
+                            this.message.certificate='수상 등급이 매우 낮습니다. 공모전을 추천해드리겠습니다.'
                         } else if (res.data.data.certificate_rank === 1) {
                             this.data.certificate_rank = 5;
                             this.msg2 = '매우높음';
                             this.color.c='green';
+                            this.message.certificate='수상 등급이 매우 낮습니다. 공모전을 추천해드리겠습니다.'
                         } else {
                             this.data.certificate_rank = 3;
                             this.msg2 = '평균';
                             this.color.c='primary';
+                            this.message.certificate='수상 등급이 매우 낮습니다. 공모전을 추천해드리겠습니다.'
                         }
 
                         if (res.data.data.education_rank === 5) {
@@ -400,7 +480,6 @@
     }
 </script>
 <style>
-    /* @import url("http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.css"); */
 
     .el-table .cell {
         padding-left: 0;
@@ -419,15 +498,17 @@
 
     #contents {
         /* border: 1px solid #487BE1; */
-        width: 60%;
+        width: 65%;
         float: left;
         padding: 10px;
+        border: 2px solid blue;
 
     }
 
     #sidebar, #sidebar2{
-        
-        width: 37%;
+    
+
+        width: 34%;
         float: left;
         padding: 10px;
         margin-left: 10px;
@@ -437,8 +518,24 @@
       /* overflow: auto; */
       height: 200px;
     }
+    #sidebar table{
+        width:500px;
+    }
+
     #sidebar2{
       margin-top:10px;
+    }
+    #sidebar3{
+        border: 1px solid blue;
+        margin-top:39%;
+    }
+    #sidebar3 th,td{
+        border: 1px solid black;
+        text-align: center;
+    }
+    #sidebar3 th{
+        font:bold;
+        font-size: 17px;
     }
     #prog {
         margin-top: 1px;
@@ -446,17 +543,19 @@
         }
     thead{
         font:bold;
-        border:1px solid;
         display:block;
         padding-left: 10px;
+        width:70%;
+        border: 1px solid grey;
     }
     tbody{
         height: 160px;
         border:1px solid;
         overflow: auto;
-        width:300px;
+        width:70%;
         display: block;
-        padding-left: 10px;
+        padding-left: 0px;
     }
+
 
 </style>

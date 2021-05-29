@@ -1,4 +1,5 @@
 <template>
+
 <div>
   <base-nav
     container-classes="container-fluid"
@@ -14,6 +15,8 @@
           <i class="ni ni-zoom-split-in"></i>
         </a>
       </li>
+
+      
     </b-navbar-nav>
     <b-navbar-nav class="align-items-center ml-auto ml-md-0">
 
@@ -55,12 +58,16 @@
             <router-link to="/Login1" v-else>로그인</router-link></span>
           </b-dropdown-item>
 
+          <b-dropdown-item href="#!">
+            <i class="ni ni-user-run"></i>
+            <span v-if="linkuser" @click="update">업데이트</span>
+            <span v-else @click="linkon">연동</span>
+          </b-dropdown-item>
+
         </template>
       </base-dropdown>
     </b-navbar-nav>
   </base-nav>
-
- 
 
 
 </div>
@@ -83,6 +90,7 @@ export default {
     BaseNav,
     Modal,
     [Button.name]: Button,
+    
 
   },
   props: {
@@ -100,6 +108,9 @@ export default {
     //로그인 로그아웃 : 로그인 되있으면 로그아웃으로 변함 
     isAuthenticated(){
       return store.getters.isAuthenticated
+    },
+    linkuser(){
+      return store.state.userinfo.link!==0
     }
   },
   data() {
@@ -109,31 +120,27 @@ export default {
       searchModalVisible: false,
       searchQuery: '',
       isLogin:this.$store.state.isLogin,
+      modalshow:true
       
       
     };
   },
   methods: {
-//      async onSubmit(popup){
-//       var params = new URLSearchParams()
-//       params.append('id',this.colleazy.id)
-//       params.append('pass',this.colleazy.pass)
-//      await axios.post(`${url}/link`,params)
-//       .then(res=>{
-//         alert("로그인 성공")
-//         axios.get(`${url}/link/update`)
-//         .then(res=>{
-//           alert("연동되었습니다.")
-//           popup.hide();
-//         })
-//         .catch(err=>{
-//           alert("연동 실패")
-//         })
-//       })
-//       .catch(err=>{
-//         alert("로그인 실패")
-//       })
-// },
+    update(){
+      axios.get(`${url}/link/update`)
+          .then(res=>{
+            alert("업데이트 성공")
+            console.log("성공")
+            // this.modalshow=false;
+          })
+          .catch(err=>{
+            alert(err.response.data.msg)
+            console.log("실패")
+          })
+    },
+     linkon(){
+      this.$router.push({path:'/linkLogin'})
+    },
     
     capitalizeFirstLetter(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);

@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer px-4">
+  <footer class="footer px-4 ">
     <b-row align-v="center" class="justify-content-lg-between">
       <b-col lg="6">
         <div class="copyright text-center text-lg-left text-muted">
@@ -19,4 +19,8 @@ export default {
   }
 };
 </script>
-<style></style>
+<style>
+footer{
+  position:static;
+  margin-top: 15%;
+}</style>

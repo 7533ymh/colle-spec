@@ -15,11 +15,12 @@ const routes = [
         component: () => import(/* webpackChunkName: "demo" */ '../views/Dashboard.vue')
       },
       {
-        path: '/modal',
-        name: 'modal',
+        path: '/linkLogin',
+        name: 'linkLogin',
         
-        component: () => import(/* webpackChunkName: "demo" */ '../views/Pages/modal.vue')
+        component: () => import(/* webpackChunkName: "demo" */ '../views/Pages/linkLogin.vue')
       },
+
       {
         path: '/main',
         name: 'main',
@@ -217,7 +218,18 @@ const routes = [
         
         component: () => import(/* webpackChunkName: "demo" */ '../views/Company.vue')
       },
-    
+      {
+        path: '/Company/info',
+        name: 'CompanyInfo',
+        
+        component: () => import(/* webpackChunkName: "demo" */ '../views/CompanyInfo.vue')
+      },
+      {
+        path: '/Company/info/detail',
+        name: 'CompanyInfoDetail',
+        
+        component: () => import(/* webpackChunkName: "demo" */ '../views/CompanyInfoDetail.vue')
+      },
       
       {
         path: '/profile',

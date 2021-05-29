@@ -26,9 +26,6 @@
               <div class="text-center text-muted mb-4">
                 <h3>로그인이 필요한 서비스입니다.</h3>
               </div>
-
-              <b-form-checkbox v-model="user.rememberMe">아이디 저장</b-form-checkbox>
-
                 <b-form role="form" @submit.prevent="signin">
                   <base-input alternative
                               class="mb-3"

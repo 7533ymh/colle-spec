@@ -42,10 +42,7 @@
                <i class="ni ni-key-25"></i>
                <span class="nav-link-inner--text">로그인</span>
            </b-nav-item>
-           <b-nav-item to="#">
-               <i class="ni ni-single-02"></i>
-               <span class="nav-link-inner--text">프로필</span>
-           </b-nav-item>
+           
        </b-navbar-nav>
      </template>
     </base-nav>

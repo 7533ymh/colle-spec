@@ -6,7 +6,9 @@
       </b-col>
       <b-col cols="4" class="text-right">
         <button class="el-button" @click="com">적용</button>
-                <button class="el-button" @click="linklo">연동하기</button>
+
+        <button class="el-button" v-if="linkcheck" @click="update">업데이트</button>
+        <button class="el-button" v-else @click="linklo">연동하기</button>
 
       </b-col>
       
@@ -146,7 +148,7 @@
                 <div class="black-bg" v-if="modalshow == true">
                   <div class="white-bg">
                     <button type="button" @click="close" tabindex="-1" class="close wj-hide">&times;</button>
-                    <h2>Colleazy</h2>
+                    <h2>Colleasy</h2>
                       <label>
                         ID:<br />
                     <input id="input" type="text" v-model="colleazy.id" required>
@@ -185,6 +187,11 @@ export default {
     }
     };
   },
+  computed:{
+    linkcheck(){
+    return store.state.userinfo.link!==0
+    }
+  },
   methods: {
     close(){{
       this.modalshow=false
@@ -195,6 +202,16 @@ export default {
       }else{
         this.modalshow=true
       }
+    },
+    update(){
+      axios.get(`${url}/link/update`)
+          .then(res=>{
+            alert(res.data.msg)
+            this.modalshow=false;
+          })
+          .catch(err=>{
+            alert(err.response.data.msg)
+          })
     },
       async linklogin(){
         var params = new URLSearchParams()
