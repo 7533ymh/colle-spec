@@ -164,6 +164,8 @@
                 }})
                 .then(res=>{
                     alert(res.data.msg)
+                                        location.reload()
+
                 })
                 .catch(err=>{
                     alert(err.response.data.msg)

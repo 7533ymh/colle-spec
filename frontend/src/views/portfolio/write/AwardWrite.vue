@@ -90,7 +90,7 @@
         </b-row>
     </b-container>
         <!-- 폼시작 -->
-        <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+        <b-form @submit="onSubmit" @reset="onReset.prevent" v-if="show">
             <b-form-group id="input-group-1" label="수여기관" label-for="input-1">
                 <b-form-input
                     id="agency"
