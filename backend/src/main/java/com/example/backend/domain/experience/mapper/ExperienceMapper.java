@@ -27,5 +27,8 @@ public interface ExperienceMapper {
     @Delete("DELETE FROM experience WHERE idx = #{idx} and user_idx = #{user_idx} ")
     void delete(@Param("idx") int idx , @Param("user_idx") int user_idx);
 
+    @Select("SELECT COUNT(*) FROM experience  WHERE user_idx = #{user_idx}")
+    int experienceCount(@Param("user_idx") int user_idx);
+
 
 }

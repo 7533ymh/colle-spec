@@ -1,6 +1,8 @@
 package com.example.backend.domain.user.controller;
 
+import com.example.backend.domain.user.domain.Summary;
 import com.example.backend.domain.user.domain.User;
+import com.example.backend.domain.user.service.SummaryService;
 import com.example.backend.domain.user.service.UserService;
 import com.example.backend.global.response.CommonResult;
 import com.example.backend.global.response.ResponseService;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private final SummaryService summaryService;
     private final ResponseService responseService;
     private final PasswordEncoder passwordEncoder;
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
@@ -34,6 +37,17 @@ public class UserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String AuthId = authentication.getName();
         return responseService.getSingleResult(userService.findById(AuthId));
+
+    }
+
+    @ApiOperation(value = "포트폴리오 요약 조회", notes = "회원번호(idx)로 요약정보를 조회한다")
+    @GetMapping("/user/summary")
+    public SingleResult<Summary> showSummary() {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String AuthId = authentication.getName();
+        int user_idx = userService.findIdxById(AuthId);
+        return responseService.getSingleResult(summaryService.show(user_idx));
 
     }
 

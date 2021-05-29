@@ -34,7 +34,7 @@ public class CompanyService {
         List<CompanyList> companyList = companyMapper.findCompanyList();
 
         for (CompanyList company : companyList) {
-            if (company.getName().equals(userMapper.findEnterpriseByIdx(user_idx))) {
+            if (company.getName().contains(userMapper.findEnterpriseByIdx(user_idx))) {
                 Collections.swap(companyList, 0, companyList.indexOf(company));
                 break;
             }
