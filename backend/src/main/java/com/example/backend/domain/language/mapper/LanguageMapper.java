@@ -2,6 +2,7 @@ package com.example.backend.domain.language.mapper;
 
 
 import com.example.backend.domain.language.domain.Language;
+import com.example.backend.domain.language.domain.LanguageSummary;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -30,5 +31,9 @@ public interface LanguageMapper {
 
     @Delete("DELETE FROM language WHERE idx = #{idx} and user_idx = #{user_idx} ")
     void delete(@Param("idx") int idx , @Param("user_idx") int user_idx);
+
+    @Select("SELECT exam, exam_score FROM language  WHERE user_idx = #{user_idx}")
+    List<LanguageSummary> languagesummary(@Param("user_idx") int user_idx);
+
 
 }

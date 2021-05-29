@@ -229,4 +229,6 @@ class AwardServiceTest {
         assertThat(ex.getMessage()).isEqualTo("해당 수상 번호의 정보가 없습니다.");
 
     }
+
+
 }

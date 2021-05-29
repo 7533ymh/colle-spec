@@ -28,4 +28,7 @@ public interface AwardMapper {
     @Delete("DELETE FROM award WHERE idx = #{idx} and user_idx = #{user_idx} ")
     void delete(@Param("idx") int idx , @Param("user_idx") int user_idx);
 
+    @Select("SELECT COUNT(*) FROM award  WHERE user_idx = #{user_idx}")
+    int awardCount(@Param("user_idx") int user_idx);
+
 }

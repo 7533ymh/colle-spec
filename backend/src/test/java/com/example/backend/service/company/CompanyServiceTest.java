@@ -27,13 +27,13 @@ class CompanyServiceTest {
     void showCompanyList() {
 
         //given
-        int idx = 26;
+        int idx = 161;
 
         //when
         List<CompanyList> companyList = companyService.showCompanyList(idx);
 
         //then
-        assertThat(companyList.get(0).getName()).isEqualTo("카카오");
+        assertThat(companyList.get(0).getName()).isEqualTo("(주)카카오");
 
 
     }

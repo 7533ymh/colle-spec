@@ -32,5 +32,8 @@ public interface ProjectMapper {
     @Delete("DELETE FROM project WHERE idx = #{idx} and user_idx = #{user_idx} ")
     void delete(@Param("idx") int idx , @Param("user_idx") int user_idx);
 
+    @Select("SELECT COUNT(*) FROM project  WHERE user_idx = #{user_idx}")
+    int projectCount(@Param("user_idx") int user_idx);
+
 
 }

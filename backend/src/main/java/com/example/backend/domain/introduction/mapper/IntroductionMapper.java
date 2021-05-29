@@ -24,4 +24,9 @@ public interface IntroductionMapper {
     @Delete("DELETE FROM introduction WHERE idx = #{idx} and user_idx = #{user_idx} ")
     void delete(@Param("idx") int idx , @Param("user_idx") int user_idx);
 
+    @Select("SELECT COUNT(*) FROM introduction  WHERE user_idx = #{user_idx}")
+    int introductionCount(@Param("user_idx") int user_idx);
+
+
+
 }
