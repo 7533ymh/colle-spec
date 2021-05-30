@@ -80,7 +80,7 @@
                                 </div>
                             </b-form-group>
                             <!-- 폼끝 -->
-                            <b-button router-link to="/Award" type="submit" variant="primary">제출</b-button>
+                            <b-button type="submit" variant="primary">제출</b-button>
                             <b-button type="reset" variant="danger">초기화</b-button>
                         </b-form-group>
                     </b-form>
@@ -130,7 +130,7 @@ export default {
                 .then(award=>{
                     console.log(award)
                     alert(award.data.msg)
-                    window.location.reload()
+                    this.$router.push({path:'/Award'})
                 })
                 .catch(err=>{
                     console.log(err)

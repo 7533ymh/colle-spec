@@ -83,7 +83,7 @@
 <!--
  여기에 어학시험  넣으셈
 -->
-<b-table responsive="sm" striped :fields="fields" hover :items="mylang" @row-click="langView" >                        
+<b-table responsive="sm" striped :fields="fields" hover :items="mylang" @row-clicked="langView" >                        
       <template #cell(edits)="row">
          <b-button size="sm" @click="mvedit(row)" class="mr-2">
           편집

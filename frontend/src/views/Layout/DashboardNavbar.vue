@@ -55,10 +55,10 @@
           <b-dropdown-item href="#!">
             <i class="ni ni-user-run"></i>
             <span><a href="" v-if="isAuthenticated" @click.prevent="onClickLogout">로그아웃</a>
-            <router-link to="/Login1" v-else>로그인</router-link></span>
+            <router-link to="/login" v-else>로그인</router-link></span>
           </b-dropdown-item>
 
-          <b-dropdown-item href="#!">
+          <b-dropdown-item href="#!" v-if="isAuthenticated">
             <i class="ni ni-user-run"></i>
             <span v-if="linkuser" @click="update">업데이트</span>
             <span v-else @click="linkon">연동</span>
@@ -126,6 +126,13 @@ export default {
     };
   },
   methods: {
+    //로그아웃 메소드
+      onClickLogout(){
+        store.dispatch('LOGOUT').then(res=>{this.$router.push('/')
+        location.reload()
+        })
+      },
+
     update(){
       axios.get(`${url}/link/update`)
           .then(res=>{

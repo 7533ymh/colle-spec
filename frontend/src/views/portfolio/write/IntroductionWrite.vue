@@ -40,7 +40,7 @@
                          </b-form-group>
                         <!-- 파일등록 끝 -->
                         <div style="margin-top:20px;">
-                                <b-button router-link to="/Self_Introduction" @click="onSubmit" variant="primary">제출</b-button>
+                                <b-button  @click="onSubmit" variant="primary">제출</b-button>
                         </div>
                     </div>
 
@@ -85,7 +85,7 @@ export default {
                 .then( response => {
                     console.log(response.data)
                     alert(response.data.msg)
-                    window.location.reload()
+                    this.$router.push({path:'/Self_Introduction'})
                 })
                 .catch(err=>{
                     console.log(err.response.data.msg)

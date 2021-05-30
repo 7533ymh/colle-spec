@@ -118,8 +118,8 @@ let url=store.state.resourceHost; //서버주소 api
       }}
       ,
       mounted(){
-        this.portfolioview()
-        this.localSet("portfolio",this.portfolio)
+        //this.portfolioview()
+        //this.localSet("portfolio",this.portfolio)
         
       },
       components: {

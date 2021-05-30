@@ -79,7 +79,7 @@
                                     </div>
                                 </b-form-group>
                                 <!-- 폼끝 -->
-                                    <b-button router-link to="/Career" type="submit" variant="primary">제출</b-button>
+                                    <b-button type="submit" variant="primary">제출</b-button>
                                     <b-button type="reset" variant="danger">초기화z</b-button>
                             </b-form>
 
@@ -129,7 +129,7 @@ export default {
                     console.log(career.data.msg)
                     console.log(career)
                     alert(career.data.msg)
-                    window.location.reload()
+                    this.$router.push({path:'/Career'})
                 })
                 .catch(err=>{
                     console.log(err)

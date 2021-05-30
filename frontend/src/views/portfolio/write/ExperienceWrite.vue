@@ -68,7 +68,7 @@
                                 </div>
                             </b-form-group>
                             <!-- 폼끝 -->
-                            <b-button router-link to="/Experience" type="submit" variant="primary">제출</b-button>
+                            <b-button type="submit" variant="primary">제출</b-button>
                             <b-button type="reset" variant="danger">초기화</b-button>
                         </b-form>
 
@@ -112,7 +112,7 @@ export default {
                 .then(experience=>{
                     console.log(experience)
                     alert(experience.data.msg)
-                    window.location.reload()
+                    this.$router.push({path:'/Experience'})
                 })
                 .catch(err=>{
                     console.log(err)
@@ -122,11 +122,10 @@ export default {
     onReset(event) {
                 event.preventDefault()
                 // Reset our form values
-                this.agency = ''
-                this.content = ''
-                this.division = ''
-                this.year =''
-                this.title =''
+                this.country= '',    //나라이름
+                this.content= '',    //내용
+                this.start_date='',  //시작날짜
+                this.end_date='',    //종료날짜
                 // Trick to reset/clear native browser form validation state
                 this.show = false
                 this.$nextTick(() => {

@@ -83,7 +83,7 @@
 <!--
  여기에 자격증  넣으셈
 -->
-      <b-table responsive="sm" striped :fields="fields" hover :items="mycertificate" @row-click="click" >                        
+      <b-table responsive="sm" striped :fields="fields" hover :items="mycertificate" @row-clicked="click" >                        
       
       <template #cell(편집)="row">
          <b-button size="sm" @click="mvedit(row)" class="mr-2">

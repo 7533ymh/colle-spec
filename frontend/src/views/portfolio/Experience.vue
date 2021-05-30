@@ -65,7 +65,7 @@
                     <span class="d-md-none">W</span>
                   </b-nav-item>
 
-                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Certificate">
+                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/experienceificate">
                     <span class="d-none d-md-block">자격증</span>
                     <span class="d-md-none">W</span>
                   </b-nav-item>
@@ -79,11 +79,11 @@
             </b-row>
             
 
-<div>자격증 내용</div>
+<div>해외경험 내용</div>
 <!--
  여기에 자격증  넣으셈
 -->
-      <b-table responsive="sm" striped :fields="fields" hover :items="mycertificate" @row-click="click" >                        
+      <b-table responsive="sm" striped :fields="fields" hover :items="myexperience" @row-clicked="click" >                        
       
       <template #cell(편집)="row">
          <b-button size="sm" @click="mvedit(row)" class="mr-2">
@@ -126,8 +126,8 @@
   let url=store.state.resourceHost; //서버주소 api
     export default {
       data(){return{
-      mycertificate:[{}],
-      fields:[{key:'title',label:'자격증명'},{key:'publisher',label:'발급기관'},{key:'date',label:'취득날짜'},{key:'score',label:'점수'},{key:'edit',label:'마지막수정날짜'},{key:'편집',label:''}],
+      myexperience:[{}],
+      fields:[{key:'country',label:'나라'},{key:'score',label:'점수'},{key:'start_date',label:'시작날짜'},{key:'end_date',label:'종료날짜'},{key:'edit',label:'마지막수정날짜'},{key:'편집',label:''}],
       edit:'1',
       }},
       components: {
@@ -137,24 +137,24 @@
         
       },
       mounted(){
-        this.certView();
-        // this.mycertificate.edit=new Date().toJSON().slice(0,10).replace(/-/g,'.');
+        this.experienceView();
+        // this.myexperience.edit=new Date().toJSON().slice(0,10).replace(/-/g,'.');
       },
       methods:{
         click(row){
           console.log(row)
         },
-        certView(){
-          axios.get(`${url}/certificate`)
+        experienceView(){
+          axios.get(`${url}/experience`)
                     .then(res=>{
-                    this.mycertificate=res.data.list
+                    this.myexperience=res.data.list
                     console.log(res)
                     //this.edit=res.data.list[1].edit;
                     //this.edit=new Date().toJSON().slice(0,10).replace(/-/g,'.');
                     for(var i=0; i<res.data.list.length; i++){
-                    this.mycertificate[i].edit=new Date().toJSON().slice(0,10).replace(/-/g,'.')
+                    this.myexperience[i].edit=new Date().toJSON().slice(0,10).replace(/-/g,'.')
                     }
-                    console.log('mycertificate: ',this.mycertificate)
+                    console.log('myexperience: ',this.myexperience)
                     console.log('edit',this.edit);
         })
       },
@@ -163,7 +163,7 @@
                 let del=item.item.idx
                 
                 console.log('del idx: ',del)
-                axios.delete(`${url}/certificate`,{params:{
+                axios.delete(`${url}/experience`,{params:{
                     idx:del
                 }})
                 .then(res=>{
@@ -176,23 +176,23 @@
                 console.log('delitem: ',item)
             },
             mvedit(){
-              this.$router.push({path:'/portfolioModify',query:this.mycertificate})
+              this.$router.push({path:'/portfolioModify',query:this.myexperience})
             }
             //상세페이지에 수정 기능 넣기
     //         edit(item,index,event) {
     //             var params = new URLSearchParams(); //파일업로드가 포함되어 formdata를 이용한다
-    //             params.append('title', this.certificate.title);
-    //             params.append('content', this.certificate.content);
-    //             params.append('publisher', this.certificate.publisher);
-    //             params.append('date', this.certificate.date);
-    //             axios.put(`${url}/certificate`,params,{
+    //             params.append('title', this.experienceificate.title);
+    //             params.append('content', this.experienceificate.content);
+    //             params.append('publisher', this.experienceificate.publisher);
+    //             params.append('date', this.experienceificate.date);
+    //             axios.put(`${url}/experienceificate`,params,{
     //                 headers:{
     //                     'Content-Type' : 'multipart/form-data' //다중파일 업로드하기 위해 헤더 추가
     //                 }
     //             })
-    //             .then(certificate=>{
-    //                 console.log(certificate)
-    //                 alert(certificate.data.msg)
+    //             .then(experienceificate=>{
+    //                 console.log(experienceificate)
+    //                 alert(experienceificate.data.msg)
     //                 window.location.reload()
                     
     //             })

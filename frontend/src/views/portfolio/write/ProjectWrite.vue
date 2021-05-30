@@ -81,7 +81,7 @@
                                         </div>
                                         <br>
                                         <div>
-                                        <b-button router-link to="/PortfolioAndDocument" type="submit" variant="primary">제출</b-button>
+                                        <b-button type="submit" variant="primary">제출</b-button>
                                         <b-button type="reset" variant="danger">초기화</b-button>
                                         </div>
                                         <br>
@@ -140,7 +140,7 @@ export default {
                 .then(project=>{
                     console.log(project.data.msg)
                     alert(project.data.msg)
-                    window.location.reload()
+                    this.$router.push({path:'/PortfolioAndDocument'})
                 })
                 
                 .catch(err=>{

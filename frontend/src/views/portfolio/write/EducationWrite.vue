@@ -75,7 +75,7 @@
                                 </div>
                                 </b-form-group>
                         <!-- 폼끝 -->
-                                <b-button router-link to="/Education" type="submit" variant="primary">제출</b-button>
+                                <b-button type="submit" variant="primary">제출</b-button>
                                 <b-button type="reset" variant="danger">초기화</b-button>
                             </b-form-group>
                         </b-form>
@@ -123,7 +123,7 @@ export default {
                 .then(edu=>{
                     console.log(edu)
                     alert(edu.data.msg)
-                    window.location.reload()
+                    this.$router.push({path:'/Education'})
                 })
                 .catch(err=>{
                     console.log(err)
