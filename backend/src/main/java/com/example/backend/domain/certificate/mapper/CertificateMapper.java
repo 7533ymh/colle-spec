@@ -27,7 +27,7 @@ public interface CertificateMapper {
     @Delete("DELETE FROM certificate WHERE idx = #{idx} and user_idx = #{user_idx} ")
     void delete(@Param("idx") int idx , @Param("user_idx") int user_idx);
 
-    @Select("SELECT COUNT(*) FROM certificate  WHERE idx = #{user_idx}")
+    @Select("SELECT COUNT(*) FROM certificate  WHERE user_idx = #{user_idx}")
     int certificateCount(@Param("user_idx") int user_idx);
 
 

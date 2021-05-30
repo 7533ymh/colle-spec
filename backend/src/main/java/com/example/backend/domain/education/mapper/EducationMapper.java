@@ -27,7 +27,7 @@ public interface EducationMapper {
     @Delete("DELETE FROM education WHERE idx = #{idx} and user_idx = #{user_idx} ")
     void delete(@Param("idx") int idx , @Param("user_idx") int user_idx);
 
-    @Select("SELECT COUNT(*) FROM education  WHERE idx = #{user_idx}")
+    @Select("SELECT COUNT(*) FROM education  WHERE user_idx = #{user_idx}")
     int educationCount(@Param("user_idx") int user_idx);
 
 
