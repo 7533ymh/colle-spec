@@ -83,7 +83,7 @@
 <!--
  여기에 자기소개서 넣으셈
 -->
-              <b-table responsive="sm" :fields ="fields" striped hover :items="myIntro" @row-click="click">
+              <b-table responsive="sm" :fields ="fields" striped hover :items="myIntro" @row-clicked="click">
                   <template #cell(down)="row">
                     <b-button size="sm" @click="download(row)" class="mr-2">
                         다운
@@ -150,7 +150,7 @@
           axios.get(`${url}/introduction`)
                     .then(res=>{
                     this.myIntro=res.data.list
-                    console.log('mycertificate: ',this.myIntro)
+                    console.log('myint: ',this.myIntro)
         })
       },
       download(item,index,e){
@@ -160,7 +160,8 @@
                 axios.get(`${url}/introduction/download`,{params:{
                     idx:idxx
                 }
-                ,responseType: 'blob' }
+                ,responseType: 'blob'
+                ,contentType }
                   
               )
                 .then(res=>{

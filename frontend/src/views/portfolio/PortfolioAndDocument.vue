@@ -82,7 +82,7 @@
 <div>포트폴리오, 문서 내용</div>
 <!--
  여기에 포트폴리오, 문서 넣으셈
---><b-table responsive="sm" striped :fields="fields" hover :items="myproject" @row-click="click" >                        
+--><b-table responsive="sm" striped :fields="fields" hover :items="myproject" @row-clicked="click" >                        
       <template #cell(edit&Del)="row">
         <b-button size="sm" @click="mvedit(row)" class="mr-2">
           편집
