@@ -124,57 +124,57 @@ let url=store.state.resourceHost; //서버주소 api
         localSet(name,set){
           localStorage.setItem(name,JSON.stringify(set))
         },
-        portfolioview(){
-          axios.get(`${url}/award`)
-                    .then(get=>{
-                    this.portfolio.award=get.data.list
-                    console.log('award: ',this.portfolio.award)
-                    this.localSet('award',get.data.list)
-                })
-          axios.get(`${url}/career`)
-                    .then(get=>{
-                    this.portfolio.career=get.data.list
-                    console.log('career: ',this.portfolio.career)
-                    this.localSet('career',get.data.list)
-                })
-          axios.get(`${url}/certificate`)
-                    .then(get=>{
-                    this.portfolio.certificate=get.data.list
-                    console.log('certificate: ',this.portfolio.certificate)
-                    this.localSet('certificate',get.data.list)
-                })
-          axios.get(`${url}/education`)
-                    .then(get=>{
-                    this.portfolio.education=get.data.list
-                    console.log('education: ',this.portfolio.education)
-                    this.localSet('education',get.data.list)
-                })
-          axios.get(`${url}/experience`)
-                    .then(get=>{
-                    this.portfolio.experience=get.data.list
-                    console.log('experience: ',this.portfolio.experience)
-                    this.localSet('experience',get.data.list)
-                })
-          axios.get(`${url}/language`)
-                    .then(get=>{
-                    this.portfolio.language=get.data.list
-                    console.log('language: ',this.portfolio.language)
-                    this.localSet('language',get.data.list)
-                })
+        // portfolioview(){
+        //   axios.get(`${url}/award`)
+        //             .then(get=>{
+        //             this.portfolio.award=get.data.list
+        //             console.log('award: ',this.portfolio.award)
+        //             this.localSet('award',get.data.list)
+        //         })
+        //   axios.get(`${url}/career`)
+        //             .then(get=>{
+        //             this.portfolio.career=get.data.list
+        //             console.log('career: ',this.portfolio.career)
+        //             this.localSet('career',get.data.list)
+        //         })
+        //   axios.get(`${url}/certificate`)
+        //             .then(get=>{
+        //             this.portfolio.certificate=get.data.list
+        //             console.log('certificate: ',this.portfolio.certificate)
+        //             this.localSet('certificate',get.data.list)
+        //         })
+        //   axios.get(`${url}/education`)
+        //             .then(get=>{
+        //             this.portfolio.education=get.data.list
+        //             console.log('education: ',this.portfolio.education)
+        //             this.localSet('education',get.data.list)
+        //         })
+        //   axios.get(`${url}/experience`)
+        //             .then(get=>{
+        //             this.portfolio.experience=get.data.list
+        //             console.log('experience: ',this.portfolio.experience)
+        //             this.localSet('experience',get.data.list)
+        //         })
+        //   axios.get(`${url}/language`)
+        //             .then(get=>{
+        //             this.portfolio.language=get.data.list
+        //             console.log('language: ',this.portfolio.language)
+        //             this.localSet('language',get.data.list)
+        //         })
           
-          axios.get(`${url}/project`)
-                    .then(get=>{
-                    this.portfolio.project=get.data.list
-                    console.log('project: ',this.portfolio.project)
-                    this.localSet('project',get.data.list)
-                })
-          axios.get(`${url}/introduction`)
-                    .then(get=>{
-                    this.portfolio.introduction=get.data.list
-                    console.log('introduction: ',this.portfolio.introduction)
-                    this.localSet('introduction',get.data.list)
-                })
-        },
+        //   axios.get(`${url}/project`)
+        //             .then(get=>{
+        //             this.portfolio.project=get.data.list
+        //             console.log('project: ',this.portfolio.project)
+        //             this.localSet('project',get.data.list)
+        //         })
+        //   axios.get(`${url}/introduction`)
+        //             .then(get=>{
+        //             this.portfolio.introduction=get.data.list
+        //             console.log('introduction: ',this.portfolio.introduction)
+        //             this.localSet('introduction',get.data.list)
+        //         })
+        // },
 
       
 

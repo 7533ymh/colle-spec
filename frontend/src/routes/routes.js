@@ -213,6 +213,12 @@ const routes = [
         component: () => import(/* webpackChunkName: "demo" */ '../views/Competition.vue')
       },
       {
+        path: '/languageinfo',
+        name: 'languageinfo',
+        
+        component: () => import(/* webpackChunkName: "demo" */ '../views/CompetitionAndPrograms/languageinfo.vue')
+      },
+      {
         path: '/Company',
         name: 'Company',
         
