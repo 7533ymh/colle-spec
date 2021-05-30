@@ -52,9 +52,12 @@ public class IntroductionHandler {
                     } else if (contentType.contains("application/octet-stream")) {
                         originalFileExtension = ".hwp";
                     }else if (contentType.contains("application/msword")) {
+                        originalFileExtension = ".doc";
+                    } else if (contentType.contains("application/vnd.openxmlformats-officedocument.wordprocessingml.document")) {
                         originalFileExtension = ".docx";
-                    }
-                    else if (contentType.contains("application/vnd.ms-powerpoint")) {
+                    } else if (contentType.contains("application/vnd.ms-powerpoint")) {
+                        originalFileExtension = ".ppt";
+                    } else if (contentType.contains("application/vnd.openxmlformats-officedocument.presentationml.presentation")) {
                         originalFileExtension = ".pptx";
                     }
                     // 다른 파일 명이면 아무 일 하지 않는다
