@@ -13,102 +13,51 @@
     </b-col>
       
     </base-header>
-     <b-container fluid="fluid" class="mt--0">
+     <b-container fluid="fluid" class="mt--0"  style="margin-left : 185px;">
         <b-row>
-            <b-col xl="11" class="mb-7 mb-xl-0">
+            <b-col xl="7" class="mb-xl-">
                 <card header-classes="bg-transparent">
                     <b-row align-v="center" slot="header">
 
                         <b-col>
-                            <b-nav class="nav-pills justify-content-end">
-                                <b-nav-item
-                                    link-classes="py-2 px-3"
-                                    router-link="router-link"
-                                    to="/portfolio/awardWrite">
-                                    <span class="d-none d-md-block">수상 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-                                <b-nav-item
-                                    link-classes="py-2 px-3"
-                                    router-link="router-link"
-                                    to="/portfolio/careerWrite">
-                                    <span class="d-none d-md-block">경력 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-                                <b-nav-item
-                                    link-classes="py-2 px-3"
-                                    router-link="router-link"
-                                    to="/portfolio/certificateWrite">
-                                    <span class="d-none d-md-block">자격증 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3"
-                                    router-link="router-link"
-                                    to="/portfolio/educationWrite">
-                                    <span class="d-none d-md-block">교육이수 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3"
-                                    router-link="router-link"
-                                    to="/portfolio/experienceWrite">
-                                    <span class="d-none d-md-block">해외경험 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3"
-                                    router-link="router-link"
-                                    to="/portfolio/languageWrite">
-                                    <span class="d-none d-md-block">어학시험 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3"
-                                    router-link="router-link"
-                                    to="/portfolio/projectWrite">
-                                    <span class="d-none d-md-block">프로젝트 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3"
-                                    router-link="router-link"
-                                    to="/portfolio/introductionWrite">
-                                    <span class="d-none d-md-block">자기소개서 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-                            </b-nav>
+                           
                         </b-col>
                     </b-row>
+
+
+
+                    <div style="padding-left: 100px; width:400px;">
+                        <!-- 파일등록부분 -->
+                         <b-form-group id="input-group-1" label="자기소개서 파일 첨부" label-for="input-1">
+                            <b-form-file   multiple v-model="introduction.files" placeholder="pdf, hwp, doc, ppt.">
+                                    <template slot="file-name" slot-scope="{ names }">
+                                        <b-badge variant="dark">{{ names[0] }}</b-badge>
+                                        <b-badge v-if="names.length > 1" variant="dark" class="ml-1">
+                                            + {{ names.length - 1 }} More files
+                                        </b-badge>
+                                    </template>
+                            </b-form-file>
+                         </b-form-group>
+                        <!-- 파일등록 끝 -->
+                        <div style="margin-top:20px;">
+                                <b-button router-link to="/Self_Introduction" @click="onSubmit" variant="primary">제출</b-button>
+                        </div>
+                    </div>
+
+
+
+
+
                 </card>
             </b-col>
         </b-row>
     </b-container>
-    <!-- 파일등록부분 -->
-        <b-form-file multiple v-model="introduction.files" placeholder="pdf, hwp, doc, ppt.">
-                <template slot="file-name" slot-scope="{ names }">
-                    <b-badge variant="dark">{{ names[0] }}</b-badge>
-                    <b-badge v-if="names.length > 1" variant="dark" class="ml-1">
-                        + {{ names.length - 1 }} More files
-                    </b-badge>
-                </template>
-            </b-form-file>
-    <!-- 파일등록 끝 -->
-    <div>
-            <b-btn @click="onSubmit" color="primary">Upload</b-btn>
-    </div>
+                    
     </div>
 </template>
 <script>
 import axios from 'axios';
 import store from '@/store';
-
-
 let url=store.state.resourceHost; //서버주소 api
 export default {
     data(){
@@ -142,7 +91,6 @@ export default {
                     console.log(err.response.data.msg)
                     alert(err.response.data.msg);
                 });
-
     },
     onReset(event) {
                 event.preventDefault()
@@ -152,7 +100,6 @@ export default {
                 this.division = ''
                 this.year =''
                 this.title =''
-
                 // Trick to reset/clear native browser form validation state
                 this.show = false
                 this.$nextTick(() => {
@@ -162,17 +109,3 @@ export default {
     }
 }
 </script>
-  <style scoped="scoped">
-    #content {
-        width: 50%;
-        height: 100px;
-        resize: none;
-    }
-    #agency,#division {
-        width: 50%;
-    }
-    #title,
-    #year {
-        width: 20%;
-    }
-</style>

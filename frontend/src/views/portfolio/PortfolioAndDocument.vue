@@ -32,26 +32,45 @@
             <b-row align-v="center" slot="header">
               
               <b-col>
-                <b-nav class="nav-pills justify-content-end">
+                 <b-nav class="nav-pills justify-content-end " >
                   
 
-                  <b-nav-item link-classes="py-2 px-3" router-link to="/Self_Introduction">
+                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Award">
+                    <span class="d-none d-md-block">수상</span>
+                    <span class="d-md-none">W</span>
+                  </b-nav-item>
+
+                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Career">
+                    <span class="d-none d-md-block">경력</span>
+                    <span class="d-md-none">W</span>
+                  </b-nav-item>
+
+                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Education">
+                    <span class="d-none d-md-block">교육이수</span>
+                    <span class="d-md-none">W</span>
+                  </b-nav-item>
+
+                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Experience">
+                    <span class="d-none d-md-block">해외경험</span>
+                    <span class="d-md-none">W</span>
+                  </b-nav-item>
+
+                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Self_Introduction">
                     <span class="d-none d-md-block">자기소개서</span>
                     <span class="d-md-none">W</span>
                   </b-nav-item>
 
-                  <b-nav-item link-classes="py-2 px-3" router-link to="/PortfolioAndDocument">
-                    <span class="d-none d-md-block">포트폴리오 and 문서</span>
+                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/PortfolioAndDocument">
+                    <span class="d-none d-md-block">프로젝트</span>
                     <span class="d-md-none">W</span>
-                    
-
                   </b-nav-item>
-                  <b-nav-item link-classes="py-2 px-3" router-link to="/Certificate">
+
+                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Certificate">
                     <span class="d-none d-md-block">자격증</span>
                     <span class="d-md-none">W</span>
                   </b-nav-item>
                   
-                  <b-nav-item link-classes="py-2 px-3" router-link to="/LanguageTest">
+                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/LanguageTest">
                     <span class="d-none d-md-block">어학시험</span>
                     <span class="d-md-none">W</span>
                   </b-nav-item>
@@ -74,6 +93,12 @@
       </template>
     </b-table> 
 
+            <!-- 작성 폼으로 이동 시작-->
+            <div style="text-align: right; margin:10px;">
+            <b-button router-link to="/Portfolio/projectWrite" type="submit" variant="primary" >등록하기</b-button>
+            </div>
+            <!-- 작성 폼으로 이동 끝-->
+
              
 
           </card>
@@ -91,20 +116,15 @@
   
 </template>
 <script>
-
   // Components
   import BaseProgress from '@/components/BaseProgress';
   import StatsCard from '@/components/Cards/StatsCard';
   import axios from 'axios';
   import store from '@/store';
-
   let url=store.state.resourceHost; //서버주소 api
-
     export default {
       data(){return{
    //fields:[{key:'origfilename',label:'파일이름'},{key:'down',label:'down'},{key:'Edit&Del', label:'수정 삭제'}],
-
-
       fields:[{key:'title',label:'제목'},{key:'score',label:'점수'},{key:'success',label:'구현'},{key:'start_date',label:'시작날짜'},{key:'end_date',label:'종료날짜'},{key:'edit&Del',label:''}],
                 
                 myproject:[{}],
@@ -122,7 +142,6 @@
       mounted(){
         this.pjView();
       },
-
       methods:{
         click(row){
           console.log(row)
@@ -149,7 +168,6 @@
                 },responseType: 'arraybuffer'})
                 .then(res=>{
                     this.send.imglist[i]=Buffer.from(res.data, 'binary').toString('base64')
-
                 })
                 }
                 localStorage.setItem('items',JSON.stringify(this.send)); //클릭한 행의 데이터를 로컬스토리지 저장
@@ -165,13 +183,11 @@
                 .then(res=>{
                     alert(res.data.msg)
                                         location.reload()
-
                 })
                 .catch(err=>{
                     alert(err.response.data.msg)
                 })
                 console.log('delitem: ',item)
-
             },
             mvedit(){
               this.$router.push({path:'/portfolioModify',query:this.send})
@@ -200,7 +216,6 @@
     //                 alert(err.response.data.msg)
     //             })
     // }
-
     }
     
   }

@@ -13,147 +13,95 @@
     </b-col>
       
     </base-header>
-     <b-container fluid="fluid" class="mt--0">
+     <b-container fluid="fluid" class="mt--0"  style="margin-left : 185px;">
         <b-row>
-            <b-col xl="11" class="mb-7 mb-xl-0">
+            <b-col xl="7" class="mb-xl-">
                 <card header-classes="bg-transparent">
                     <b-row align-v="center" slot="header">
 
                         <b-col>
-                            <b-nav class="nav-pills justify-content-end">
-                                <b-nav-item
-                                    link-classes="py-2 px-3"
-                                    router-link="router-link"
-                                    to="/portfolio/awardWrite">
-                                    <span class="d-none d-md-block">수상 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-                                <b-nav-item
-                                    link-classes="py-2 px-3"
-                                    router-link="router-link"
-                                    to="/portfolio/careerWrite">
-                                    <span class="d-none d-md-block">경력 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-                                <b-nav-item
-                                    link-classes="py-2 px-3"
-                                    router-link="router-link"
-                                    to="/portfolio/certificateWrite">
-                                    <span class="d-none d-md-block">자격증 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3"
-                                    router-link="router-link"
-                                    to="/portfolio/educationWrite">
-                                    <span class="d-none d-md-block">교육이수 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3"
-                                    router-link="router-link"
-                                    to="/portfolio/experienceWrite">
-                                    <span class="d-none d-md-block">해외경험 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3"
-                                    router-link="router-link"
-                                    to="/portfolio/languageWrite">
-                                    <span class="d-none d-md-block">어학시험 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3"
-                                    router-link="router-link"
-                                    to="/portfolio/projectWrite">
-                                    <span class="d-none d-md-block">프로젝트 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3"
-                                    router-link="router-link"
-                                    to="/portfolio/introductionWrite">
-                                    <span class="d-none d-md-block">자기소개서 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-                            </b-nav>
+                           
                         </b-col>
                     </b-row>
+
+
+
+
+                            <b-form @submit="onSubmit" @reset="onReset" v-if="show" style="width : 50%; margin-left : 10%;">
+                                    <b-form-group id="input-group-1" label="프로젝트제목" label-for="input-1">
+                                            <b-form-input
+                                                id="title"
+                                                v-model="project.title"
+                                                type="text"
+                                                placeholder="제목입력"
+                                                required="required"></b-form-input>
+                                        </b-form-group>
+
+                                        <b-form-group id="input-group-1" label="프로젝트내용" label-for="input-1">
+                                            <b-form-textarea
+                                                style="height:300px;"
+                                                id="content"
+                                                v-model="project.content"
+                                                placeholder="교육내용을 입력하세요"
+                                                required="required"></b-form-textarea>
+                                        </b-form-group>
+
+                                        <b-form-group label="성공여부" v-slot="{ ariaDescribedby }">
+                                            <b-form-radio v-model="project.success" :aria-describedby="ariaDescribedby" name="someradios" value=1>구현성공</b-form-radio>
+                                            <b-form-radio v-model="project.success" :aria-describedby="ariaDescribedby" name="someradios" value=0>구현실패</b-form-radio>
+                                        </b-form-group>
+
+                                        <b-form-group id="input-group-1" label="시작년도" label-for="input-1">
+                                        <div id="span_date">
+                                            <b-form-input
+                                                id="year"
+                                                v-model="project.start_date"
+                                                type="date"
+                                                required="required"></b-form-input>
+                                        </div>
+                                        </b-form-group>
+                                        <b-form-group id="input-group-1" label="마감년도" label-for="input-1">
+                                        <div id="span_date">
+                                            <b-form-input
+                                                id="year"
+                                                v-model="project.end_date"
+                                                type="date"
+                                                required="required"></b-form-input>
+                                        </div>
+                                        </b-form-group>
+                                        <div>
+                                        <b-form-file multiple v-model="project.files" placeholder="파일 업로드">
+                                                <template slot="file-name" slot-scope="{ names }">
+                                                    <b-badge variant="dark">{{ names[0] }}</b-badge>
+                                                    <b-badge v-if="names.length > 1" variant="dark" class="ml-1">
+                                                    + {{ names.length - 1 }} More files
+                                                    </b-badge>
+                                                </template>
+                                            </b-form-file>
+                                        </div>
+                                        <br>
+                                        <div>
+                                        <b-button router-link to="/PortfolioAndDocument" type="submit" variant="primary">제출</b-button>
+                                        <b-button type="reset" variant="danger">초기화</b-button>
+                                        </div>
+                                        <br>
+                        </b-form>
+
+
+
+
+
+
                 </card>
             </b-col>
         </b-row>
     </b-container>
-        <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-            <b-form-group id="input-group-1" label="프로젝트제목" label-for="input-1">
-                    <b-form-input
-                        id="title"
-                        v-model="project.title"
-                        type="text"
-                        placeholder="제목입력"
-                        required="required"></b-form-input>
-                </b-form-group>
-
-                <b-form-group id="input-group-1" label="프로젝트내용" label-for="input-1">
-                    <textarea
-                        id="content"
-                        v-model="project.content"
-                        placeholder="교육내용을 입력하세요"
-                        required="required"></textarea>
-                </b-form-group>
-
-                <b-form-group label="성공여부" v-slot="{ ariaDescribedby }">
-                    <b-form-radio v-model="project.success" :aria-describedby="ariaDescribedby" name="someradios" value=1>구현성공</b-form-radio>
-                    <b-form-radio v-model="project.success" :aria-describedby="ariaDescribedby" name="someradios" value=0>구현실패</b-form-radio>
-                </b-form-group>
-
-                <b-form-group id="input-group-1" label="시작년도" label-for="input-1">
-                <div id="span_date">
-                    <b-form-input
-                        id="year"
-                        v-model="project.start_date"
-                        type="date"
-                        required="required"></b-form-input>
-                </div>
-                </b-form-group>
-                <b-form-group id="input-group-1" label="마감년도" label-for="input-1">
-                <div id="span_date">
-                    <b-form-input
-                        id="year"
-                        v-model="project.end_date"
-                        type="date"
-                        required="required"></b-form-input>
-                </div>
-                </b-form-group>
-                <div>
-                   <b-form-file id="file" multiple v-model="project.files" placeholder="jpg, png파일 업로드.">
-                        <template slot="file-name" slot-scope="{ names }">
-                            <b-badge variant="dark">{{ names[0] }}</b-badge>
-                            <b-badge v-if="names.length > 1" variant="dark" class="ml-1">
-                            + {{ names.length - 1 }} More files
-                            </b-badge>
-                        </template>
-                    </b-form-file>
-                </div>
-                <br>
-                <div>
-                <b-button type="submit" variant="primary">Submit</b-button>
-                <b-button type="reset" variant="danger">Reset</b-button>
-                </div>
-                <br>
-            </b-form>
+        
     </div>
 </template>
 <script>
 import axios from 'axios';
 import store from '@/store';
-
-
 let url=store.state.resourceHost; //서버주소 api
 export default {
     data(){
@@ -199,7 +147,6 @@ export default {
                     console.log(err)
                     alert(err.response.data.msg)
                 })
-
     },
     onReset(event) {
                 event.preventDefault()
@@ -209,7 +156,6 @@ export default {
                 this.division = ''
                 this.year =''
                 this.title =''
-
                 // Trick to reset/clear native browser form validation state
                 this.show = false
                 this.$nextTick(() => {
@@ -219,17 +165,3 @@ export default {
     }
 }
 </script>
-  <style scoped="scoped">
-    #content {
-        width: 50%;
-        height: 100px;
-        resize: none;
-    }
-    #agency,#division,#file{
-        width: 50%;
-    }
-    #title,
-    #year, #start_date, #end_date {
-        width: 20%;
-    }
-</style>

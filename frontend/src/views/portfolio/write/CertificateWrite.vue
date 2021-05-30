@@ -11,85 +11,27 @@
             
           </stats-card>
     </b-col>
-      
+
+
+
+
+
     </base-header>
-     <b-container fluid="fluid" class="mt--0">
+     <b-container fluid="fluid" class="mt--0" id= "header" style="margin-left : 185px;">
         <b-row>
-            <b-col xl="11" class="mb-7 mb-xl-0">
+            <b-col xl="7" class="mb-xl-">
                 <card header-classes="bg-transparent">
                     <b-row align-v="center" slot="header">
 
                         <b-col>
-                            <b-nav class="nav-pills justify-content-end">
-                                <b-nav-item
-                                    link-classes="py-2 px-3"
-                                    router-link="router-link"
-                                    to="/portfolio/awardWrite">
-                                    <span class="d-none d-md-block">수상 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-                                <b-nav-item
-                                    link-classes="py-2 px-3"
-                                    router-link="router-link"
-                                    to="/portfolio/careerWrite">
-                                    <span class="d-none d-md-block">경력 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-                                <b-nav-item
-                                    link-classes="py-2 px-3"
-                                    router-link="router-link"
-                                    to="/portfolio/certificateWrite">
-                                    <span class="d-none d-md-block">자격증 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3"
-                                    router-link="router-link"
-                                    to="/portfolio/educationWrite">
-                                    <span class="d-none d-md-block">교육이수 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3"
-                                    router-link="router-link"
-                                    to="/portfolio/experienceWrite">
-                                    <span class="d-none d-md-block">해외경험 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3"
-                                    router-link="router-link"
-                                    to="/portfolio/languageWrite">
-                                    <span class="d-none d-md-block">어학시험 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3"
-                                    router-link="router-link"
-                                    to="/portfolio/projectWrite">
-                                    <span class="d-none d-md-block">프로젝트 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3"
-                                    router-link="router-link"
-                                    to="/portfolio/introductionWrite">
-                                    <span class="d-none d-md-block">자기소개서 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-                            </b-nav>
+                            
                         </b-col>
                     </b-row>
-                </card>
-            </b-col>
-        </b-row>
-    </b-container>
-     <!-- 폼시작 -->
+
+
+
+
+                     <!-- 폼시작 -->
         <b-form @submit="onSubmit" @reset="onReset.prevent" v-if="show">
             <b-form-group id="input-group-1" label="자격증이름" label-for="input-1">
                     <!-- <b-form-input
@@ -104,12 +46,12 @@
                         </b-form-select>
                 </b-form-group>
                    <b-form-group id="input-group-1" label="내용" label-for="input-1">
-                    <b-form-input
+                    <b-form-textarea
                         id="content"
                         v-model="certificate.content"
                         type="text"
-                        placeholder="예)내용 입력 .."
-                        required="required"></b-form-input>
+                        placeholder="내용을 입력하세요"
+                        required="required"></b-form-textarea>
                 </b-form-group>
 
             <b-form-group id="input-group-1" label="발행기관" label-for="input-1">
@@ -121,7 +63,7 @@
                     required="required"></b-form-input>
 
                 
-                <b-form-group id="input-group-1" label="취득일자" label-for="input-1">
+                <b-form-group id="input-group-1" label="취득일자" label-for="input-1" style="margin-left : 0%; margin-top : 15px;">
                 <div id="span_date">
                     <b-form-input
                         id="year"
@@ -132,21 +74,32 @@
                 </b-form-group>
                 <!-- 폼끝 -->
 
-                <b-button type="submit" variant="primary">Submit</b-button>
-                <b-button type="reset" variant="danger">Reset</b-button>
+                <b-button router-link to="/Certificate" type="submit" variant="primary">제출</b-button>
+                <b-button type="reset" variant="danger">초기화</b-button>
             </b-form-group>
         </b-form>
         <!-- <b-card class="mt-3" header="Form Data Result">
                 <pre class="m-0">{{ certificate.title }}</pre>
             </b-card> -->
+      
+    
+
+                    
+
+
+
+
+                </card>
+            </b-col>
+        </b-row>
+    </b-container>
+    
     </div>
 </template>
 <script>
 import axios from 'axios';
 import store from '@/store';
-import cert from './certificate.js'
-
-
+import cert from './certificate'
 let url=store.state.resourceHost; //서버주소 api
 export default {
     mounted(){
@@ -169,7 +122,6 @@ export default {
         optionclick(event){
             this.certificate.title=event;
             console.log(this.certificate.title);
-
         },
         onSubmit() {
                 //event.preventDefault()
@@ -189,9 +141,7 @@ export default {
                 .catch(err=>{
                     console.log(err)
                     alert(err.response.data.msg)
-
                 })
-
     },
     onReset(event) {
                 event.preventDefault()
@@ -205,8 +155,8 @@ export default {
     }
 }
 </script>
-  <style scoped="scoped">
-    #content {
+<style scoped="scoped">
+    /*#content {
         width: 50%;
         height: 100px;
         resize: none;
@@ -217,5 +167,13 @@ export default {
     #title,
     #year, #start_date, #end_date,#publisher{
         width: 20%;
+    }*/
+    #input-group-1{
+        width : 50%;
+        margin-left : 10%;
     }
+    #content{
+        height : 300px;
+    }
+    
 </style>
