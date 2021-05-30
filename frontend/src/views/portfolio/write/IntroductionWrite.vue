@@ -40,7 +40,7 @@
                          </b-form-group>
                         <!-- 파일등록 끝 -->
                         <div style="margin-top:20px;">
-                                <b-button router-link to="/Self_Introduction" @click="onSubmit" variant="primary">제출</b-button>
+                                <b-button  @click="onSubmit" variant="primary">제출</b-button>
                         </div>
                     </div>
 
@@ -58,8 +58,6 @@
 <script>
 import axios from 'axios';
 import store from '@/store';
-
-
 let url=store.state.resourceHost; //서버주소 api
 export default {
     data(){
@@ -87,29 +85,14 @@ export default {
                 .then( response => {
                     console.log(response.data)
                     alert(response.data.msg)
-                    window.location.reload()
+                    this.$router.push({path:'/Self_Introduction'})
                 })
                 .catch(err=>{
                     console.log(err.response.data.msg)
                     alert(err.response.data.msg);
                 });
-
     },
-    onReset(event) {
-                event.preventDefault()
-                // Reset our form values
-                this.agency = ''
-                this.content = ''
-                this.division = ''
-                this.year =''
-                this.title =''
-
-                // Trick to reset/clear native browser form validation state
-                this.show = false
-                this.$nextTick(() => {
-                    this.show = true
-                })
-            },
+    
     }
 }
 </script>

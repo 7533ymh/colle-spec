@@ -27,7 +27,7 @@
     <!--Charts-->
     <b-container fluid class="mt--7">
       <b-row>
-        <b-col xl="8" class="mb-5 mb-xl-0">
+        <b-col xl="10" class="mb-5 mb-xl-0">
           <card  header-classes="bg-transparent">
             <b-row align-v="center" slot="header">
               
@@ -79,11 +79,11 @@
             </b-row>
             
 
-<div>자격증 내용</div>
+<div>경력 내용</div>
 <!--
  여기에 자격증  넣으셈
 -->
-      <b-table responsive="sm" striped :fields="fields" hover :items="mycertificate" @row-click="click" >                        
+      <b-table responsive="sm" striped :fields="fields" hover :items="career" @row-clicked="click" >                        
       
       <template #cell(편집)="row">
          <b-button size="sm" @click="mvedit(row)" class="mr-2">
@@ -117,19 +117,16 @@
   
 </template>
 <script>
-
   // Components
   import BaseProgress from '@/components/BaseProgress';
   import StatsCard from '@/components/Cards/StatsCard';
   import axios from 'axios';
   import store from '@/store';
-
   let url=store.state.resourceHost; //서버주소 api
-
     export default {
       data(){return{
-      mycertificate:[{}],
-      fields:[{key:'title',label:'자격증명'},{key:'publisher',label:'발급기관'},{key:'date',label:'취득날짜'},{key:'score',label:'점수'},{key:'edit',label:'마지막수정날짜'},{key:'편집',label:''}],
+      career:[{}],
+      fields:[{key:'company',label:'기업이름'},{key:'department',label:'부서'},{key:'division',label:'업무'},{key:'score',label:'점수'},{key:'start_date',label:'시작날짜'},{key:'end_date',label:'종료날짜'},{key:'edit',label:'마지막수정날짜'},{key:'편집',label:''}],
       edit:'1',
       }},
       components: {
@@ -139,27 +136,25 @@
         
       },
       mounted(){
-        this.certView();
-        // this.mycertificate.edit=new Date().toJSON().slice(0,10).replace(/-/g,'.');
+        this.careerView();
+        // this.career.edit=new Date().toJSON().slice(0,10).replace(/-/g,'.');
       },
-
       methods:{
         click(row){
           console.log(row)
         },
-        certView(){
-          axios.get(`${url}/certificate`)
+        careerView(){
+          axios.get(`${url}/career`)
                     .then(res=>{
-                    this.mycertificate=res.data.list
+                    this.career=res.data.list
                     console.log(res)
                     //this.edit=res.data.list[1].edit;
                     //this.edit=new Date().toJSON().slice(0,10).replace(/-/g,'.');
                     for(var i=0; i<res.data.list.length; i++){
-                    this.mycertificate[i].edit=new Date().toJSON().slice(0,10).replace(/-/g,'.')
+                    this.career[i].edit=new Date().toJSON().slice(0,10).replace(/-/g,'.')
                     }
-                    console.log('mycertificate: ',this.mycertificate)
+                    console.log('career: ',this.career)
                     console.log('edit',this.edit);
-
         })
       },
       
@@ -178,10 +173,9 @@
                     alert(err.response.data.msg)
                 })
                 console.log('delitem: ',item)
-
             },
             mvedit(){
-              this.$router.push({path:'/portfolioModify',query:this.mycertificate})
+              this.$router.push({path:'/portfolioModify',query:this.career})
             }
             //상세페이지에 수정 기능 넣기
     //         edit(item,index,event) {

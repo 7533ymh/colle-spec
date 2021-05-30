@@ -27,7 +27,7 @@
     <!--Charts-->
     <b-container fluid class="mt--7">
       <b-row>
-        <b-col xl="8" class="mb-5 mb-xl-0">
+        <b-col xl="10" class="mb-5 mb-xl-0">
           <card  header-classes="bg-transparent">
             <b-row align-v="center" slot="header">
               
@@ -116,20 +116,15 @@
   
 </template>
 <script>
-
   // Components
   import BaseProgress from '@/components/BaseProgress';
   import StatsCard from '@/components/Cards/StatsCard';
   import axios from 'axios';
   import store from '@/store';
-
   let url=store.state.resourceHost; //서버주소 api
-
     export default {
       data(){return{
    //fields:[{key:'origfilename',label:'파일이름'},{key:'down',label:'down'},{key:'Edit&Del', label:'수정 삭제'}],
-
-
       fields:[{key:'title',label:'제목'},{key:'score',label:'점수'},{key:'success',label:'구현'},{key:'start_date',label:'시작날짜'},{key:'end_date',label:'종료날짜'},{key:'edit&Del',label:''}],
                 
                 myproject:[{}],
@@ -147,7 +142,6 @@
       mounted(){
         this.pjView();
       },
-
       methods:{
         click(row){
           console.log(row)
@@ -174,7 +168,6 @@
                 },responseType: 'arraybuffer'})
                 .then(res=>{
                     this.send.imglist[i]=Buffer.from(res.data, 'binary').toString('base64')
-
                 })
                 }
                 localStorage.setItem('items',JSON.stringify(this.send)); //클릭한 행의 데이터를 로컬스토리지 저장
@@ -190,13 +183,11 @@
                 .then(res=>{
                     alert(res.data.msg)
                                         location.reload()
-
                 })
                 .catch(err=>{
                     alert(err.response.data.msg)
                 })
                 console.log('delitem: ',item)
-
             },
             mvedit(){
               this.$router.push({path:'/portfolioModify',query:this.send})
@@ -225,7 +216,6 @@
     //                 alert(err.response.data.msg)
     //             })
     // }
-
     }
     
   }

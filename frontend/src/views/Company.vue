@@ -105,69 +105,18 @@
                                 </div>
                                 
                                 <div id="sidebar2" mt-4>
-                                    <h3>여기에 보완할 컨텐츠 제공</h3>
-                                    <h4>{{message.award}}</h4>
-                                    <h4>{{message.career}}</h4>
-                                    <h4>{{message.certificate}}</h4>
-                                    <h4>{{message.education}}</h4>
-                                    <h4>{{message.experience}}</h4>
-                                    <h4>{{message.language}}</h4>
+                                    <h3>한줄 평가</h3>
+                                    <h4>{{message.award}}<router-link to="/Competition1">&nbsp;&nbsp;&nbsp;{{adv.award}}</router-link></h4>
+                                    <h4>{{message.career}}<a :href="advurl.career" target="_blank">&nbsp;&nbsp;&nbsp;{{adv.career}}</a></h4>
+                                    <h4>{{message.certificate}} <a :href="advurl.certificate" target="_blank">&nbsp;&nbsp;&nbsp;{{adv.certificate}}</a></h4>
+                                    <h4>{{message.education}} <router-link to="/CompetitionProgram">&nbsp;&nbsp;&nbsp;{{adv.education}}</router-link></h4>
+                                    <h4>{{message.experience}} <a :href="advurl.experience" target="_blank">&nbsp;&nbsp;&nbsp;{{adv.experience}}</a></h4>
+                                    <h4>{{message.language}}<router-link to="/languageinfo">&nbsp;&nbsp;&nbsp;{{adv.language}}</router-link></h4>
+                                    <h4>{{message.grade}}</h4>
                                 </div>
                             <!-- </div> -->
         
                             </div>
-                         <div>
-                                 <div id=sidebar3>
-              <!--회사 정보 리스트 -->
-                                        <table>
-                                            <colgroup>
-                                            <col width="6%"/>
-                                            <col width="20%"/>
-                                            <col width="6%"/>
-                                            <col width="4%"/>
-                                            <col width="10%"/>
-                                            <col width="10%"/>
-
-                                            </colgroup>
-                                            <tr>
-                                                <th>회사이름</th>
-                                                <th>주소</th>
-                                                <th>구분</th>
-                                                <th>사원수</th>
-                                                
-                                                <th>산업</th>
-                                                <th>자본금</th>
-                                                
-                                                
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td><a :href="odata.url" target="place">{{odata.name}}</a></td>
-                                                <td>{{odata.address}}</td>
-                                                <td>{{odata.division}}</td>
-                                                <td>{{odata.people}}</td>
-                                                <td>{{odata.industry}}</td>
-                                                <td>{{odata.capital}}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>설립일</th>
-                                                <th>주요사업</th>
-                                                <th>대표자</th>
-                                                <th>대졸초임</th>
-                                                <th>4대보험</th>
-                                                <th>매출액</th>
-                                            </tr>
-                                            <tr>
-                                                <td>{{odata.establishment}}</td>
-                                                <td>{{odata.bussiness}}</td>
-                                                <td>{{odata.representative}}</td>
-                                                <td>{{odata.salary}}</td>
-                                                <td>{{odata.insurance}}</td>
-                                                <td>{{odata.take}}</td>                                
-                                            </tr>
-                                        </table>
-                            </div>
-                         </div>
                         </card>                       
                     </b-col>                 
                 </b-row>
@@ -236,6 +185,24 @@
                     language:'',
                     grade:'',
                     project:''
+                },
+                adv:{
+                    award:'',
+                    career:'',
+                    certificate:'',
+                    education:'',
+                    experience:'',
+                    language:'',
+                    grade:'',
+                },
+                advurl:{
+                    career:'https://www.jobkorea.co.kr/starter/?schLocal=&schPart=&schMajor=&schEduLevel=&schWork=2&schCType=&isSaved=1&LinkGubun=0&LinkNo=0&Page=1&schType=0&schGid=0&schOrderBy=0&schTxt='
+                    ,
+                    experience:'https://www.ef.co.kr/pg/courses/?source=007959,NVKRS_LAL_00_00_DESKTOP&NaPm=ct%3Dkpaovxso%7Cci%3D0zm0003R5pbuJsaF30Wh%7Ctr%3Dsa%7Chk%3D1d576b61c20a492046e0d65dfa47cf7a735d6613'
+                    ,
+                    language:'https://www.saha.go.kr/startup/contents.do?mId=0301000000'
+                    ,
+                    certificate:'http://www.q-net.or.kr/crf005.do?id=crf00501&gSite=Q&gId='
                 }
 
             }
@@ -258,6 +225,75 @@
                         console.log(err);
                     })
                 },
+            advice(){
+                if(this.message.award==='수상 등급이 평균보다 낮습니다.')
+                {
+                    this.adv.award="추천 정보보기"
+                }else if(this.message.award==='수상 등급이 매우 낮습니다.'){
+                    this.adv.award="추천 정보보기"
+                }
+                else{
+                    this.adv.award=null
+                }
+
+                if(this.message.career==='경력 등급이 평균보다 낮습니다.'){
+                    this.adv.career="추천 정보보기"
+                }
+                else if(this.message.career==='경력 등급이 매우 낮습니다.'){
+                    this.adv.career="추천 정보보기"
+                }
+                else{
+                    this.adv.career=null
+                }
+
+                if(this.message.certificate==='자격증 등급이 평균보다 낮습니다.')
+                {
+                    this.adv.certificate="추천 정보보기"
+                }else if(this.message.certificate==='자격증 등급이 매우 낮습니다.'){
+                    this.adv.certificate="추천 정보보기"
+                }else{
+                    this.adv.certificate=null
+                }
+
+                if(this.message.education==='교육이수 등급이 평균보다 낮습니다.'){
+                    this.adv.education="추천 정보보기"
+                }
+                else if(this.message.v==='교육이수 등급이 매우 낮습니다.'){
+                    this.adv.education="추천 정보보기"
+                }else{
+                    this.adv.education=null
+                }
+
+                if(this.message.experience==='해외경험 등급이 평균보다 낮습니다.')
+                {
+                    this.adv.experience="추천 정보보기"
+                }else if(this.message.experience==='해외경험 등급이 매우 낮습니다.'){
+                    this.adv.experience="추천 정보보기"
+                }
+                else{
+                    this.adv.experience=null
+                }
+
+                if(this.message.language==='어학 등급이 평균보다 낮습니다.'){
+                    this.adv.language="추천 정보보기"
+                }
+                else if(this.message.language==='어학 등급이 매우 낮습니다.'){
+                    this.adv.language="추천 정보보기"
+                }
+                else{
+                    this.adv.language=null
+                }
+
+                if(this.message.grade==='학점 등급이 평균보다 낮습니다.'){
+                    this.adv.grade="추천 정보보기"
+                }
+                else if(this.message.grade==='학점 등급이 매우 낮습니다.'){
+                    this.adv.grade="추천 정보보기"
+                }
+                else{
+                    this.adv.grade=null
+                }
+            },
             async detail(row) { 
                 //등급을 받아올때 1등급~5등급을 받아온다. progressbar를 이용할 때 1등급인데 1칸밖에 채워지지않아
                 //5칸을 채우려고 받은 값들을 거꾸로 설정 1->5 2->4 3->3 4->2 5->1
@@ -275,57 +311,57 @@
                             this.data.award_rank = 1;
                             this.msg0 = '매우낮음';
                             this.color.a='danger';
-                            this.message.award='수상 등급이 매우 낮습니다. 공모전을 추천해드리겠습니다.'
+                            this.message.award='수상 등급이 매우 낮습니다.'
 
                         } else if (res.data.data.award_rank === 4) {
                             this.data.award_rank = 2;
                             this.msg0 = '낮음';
                             this.color.a='warning';
-                            this.message.award='수상 등급이 평균보다 낮습니다.. 공모전을 추천해드리겠습니다.'
+                            this.message.award='수상 등급이 평균보다 낮습니다.'
                         } else if (res.data.data.award_rank === 2) {
                             this.data.award_rank = 4;
                             this.msg0 = '높음';
                             this.color.a='info';
-                            this.message.award='수상 등급이 평균이상입니다. 잘하고 있습니다.'
+                            this.message.award='수상 등급이 평균이상입니다.'
                         } else if (res.data.data.award_rank === 1) {
                             this.data.award_rank = 5;
                             this.msg0 = '매우높음';
                             this.color.a='green';
-                            this.message.award='수상 등급이 매우 높습니다. 너무 잘하고 있습니다.'
+                            this.message.award='수상 등급이 매우 높습니다.'
                         } else {
                             this.data.award_rank = 3;
                             this.msg0 = '평균';
                             this.color.a='primary';
-                            this.message.award='수상 등급이 평균입니다. 조금더 노력해보세요.'
+                            this.message.award='수상 등급이 평균입니다.'
                         }
 
                         if (res.data.data.career_rank === 5) {
                             this.data.career_rank = 1;
                             this.msg1 = '매우낮음';
                             this.color.b='danger';
-                            this.message.career='경력 등급이 매우 낮습니다. 공모전을 추천해드리겠습니다.'
+                            this.message.career='경력 등급이 매우 낮습니다.'
 
 
                         } else if (res.data.data.career_rank === 4) {
                             this.data.career_rank = 2;
                             this.msg1 = '낮음';
                             this.color.b='warning';
-                            this.message.career='경력 등급이 평균보다 낮습니다.. 공모전을 추천해드리겠습니다.'
+                            this.message.career='경력 등급이 평균보다 낮습니다.'
                         } else if (res.data.data.career_rank === 2) {
                             this.data.career_rank = 4;
                             this.msg1 = '높음';
                             this.color.b='info';
-                            this.message.career='경력 등급이 평균이상입니다. 잘하고 있습니다.'
+                            this.message.career='경력 등급이 평균이상입니다'
                         } else if (res.data.data.career_rank === 1) {
                             this.data.career_rank = 5;
                             this.msg1 = '매우높음';
                             this.color.b='green';
-                            this.message.career='경력 등급이 매우 높습니다. 너무 잘하고 있습니다.'
+                            this.message.career='경력 등급이 매우 높습니다'
                         } else {
                             this.data.career_rank = 3;
                             this.msg1 = '평균';
                             this.color.b='primary';
-                            this.message.career='경력 등급이 평균입니다. 조금더 노력해보세요.'
+                            this.message.career='경력 등급이 평균입니다.'
 
                         }
 
@@ -333,116 +369,136 @@
                             this.data.certificate_rank = 1;
                             this.msg2 = '매우낮음';
                             this.color.c='danger';
-                            this.message.certificate='수상 등급이 매우 낮습니다. 공모전을 추천해드리겠습니다.'
+                            this.message.certificate='자격증 등급이 매우 낮습니다.'
 
                         } else if (res.data.data.certificate_rank === 4) {
                             this.data.certificate_rank = 2;
                             this.msg2 = '낮음';
                             this.color.c='warning';
-                            this.message.certificate='수상 등급이 매우 낮습니다. 공모전을 추천해드리겠습니다.'
+                            this.message.certificate='자격증 등급이 평균보다 낮습니다.'
                         } else if (res.data.data.certificate_rank === 2) {
                             this.data.certificate_rank = 4;
                             this.msg2 = '높음';
                             this.color.c='info';
-                            this.message.certificate='수상 등급이 매우 낮습니다. 공모전을 추천해드리겠습니다.'
+                            this.message.certificate='자격증 등급이 평균보다 높습니다.'
                         } else if (res.data.data.certificate_rank === 1) {
                             this.data.certificate_rank = 5;
                             this.msg2 = '매우높음';
                             this.color.c='green';
-                            this.message.certificate='수상 등급이 매우 낮습니다. 공모전을 추천해드리겠습니다.'
+                            this.message.certificate='자격증 등급이 매우 높습니다.'
                         } else {
                             this.data.certificate_rank = 3;
                             this.msg2 = '평균';
                             this.color.c='primary';
-                            this.message.certificate='수상 등급이 매우 낮습니다. 공모전을 추천해드리겠습니다.'
+                            this.message.certificate='자격증 등급이 평균입니다.'
                         }
 
                         if (res.data.data.education_rank === 5) {
                             this.data.education_rank = 1;
                             this.msg3 = '매우낮음';
                             this.color.d='danger';
+                            this.message.education='교육이수 등급이 매우 낮습니다.'
                         } else if (res.data.data.education_rank === 4) {
                             this.data.education_rank = 2;
                             this.msg3 = '낮음';
                             this.color.d='warning';
+                            this.message.education='교육이수 등급이 평균보다 낮습니다.'
                         } else if (res.data.data.education_rank === 2) {
                             this.data.education_rank = 4;
                             this.msg3 = '높음';
                             this.color.d='info';
+                            this.message.education='교육이수 등급이 평균보다 높습니다.'
                         } else if (res.data.data.education_rank === 1) {
                             this.data.education_rank = 5;
                             this.msg3 = '매우높음';
                             this.color.d='green';
+                            this.message.education='교육이수 등급이 매우 높습니다.'
                         } else {
                             this.data.education_rank = 3;
                             this.msg3 = '평균';
                             this.color.d='primary';
+                            this.message.education='교육이수 등급이 평균입니다.'
                         }
 
                         if (res.data.data.experience_rank === 5) {
                             this.data.experience_rank = 1;
                             this.msg4 = '매우낮음';
                             this.color.e='danger';
+                            this.message.experience='해외경험 등급이 매우 낮습니다.'
                         } else if (res.data.data.experience_rank === 4) {
                             this.data.experience_rank = 2;
                             this.msg4 = '낮음';
                             this.color.e='warning';
+                            this.message.experience='해외경험 등급이 평균보다 낮습니다.'
                         } else if (res.data.data.experience_rank === 2) {
                             this.data.experience_rank = 4;
                             this.msg4 = '높음';
                             this.color.e='info';
+                            this.message.experience='해외경험 등급이 평균보다 높습니다.'
                         } else if (res.data.data.experience_rank === 1) {
                             this.data.experience_rank = 5;
                             this.msg4 = '매우높음';
                             this.color.e='green';
+                            this.message.experience='해외경험 등급이 매우 높습니다.'
                         } else {
                             this.data.experience_rank = 3;
                             this.msg4 = '평균';
                             this.color.e='primary';
+                            this.message.experience='해외경험 등급이 평균입니다.'
                         }
 
                         if (res.data.data.language_rank === 5) {
                             this.data.language_rank = 1;
                             this.msg5 = '매우낮음';
                             this.color.f='danger';
+                            this.message.language='어학 등급이 매우낮습니다.'
                         } else if (res.data.data.language_rank === 4) {
                             this.data.language_rank = 2;
                             this.msg5 = '못함';
                             this.color.f='warning';
+                            this.message.language='어학 등급이 평균보다 낮습니다.'
                         } else if (res.data.data.language_rank === 2) {
                             this.data.language_rank = 4;
                             this.msg5 = '높음';
                             this.color.f='info';
+                            this.message.language='어학 등급이 평균보다 높습니다.'
                         } else if (res.data.data.language_rank === 1) {
                             this.data.language_rank = 5;
                             this.msg5 = '매우높음';
                             this.color.f='green';
+                            this.message.language='어학 등급이 매우 높습니다.'
                         } else {
                             this.data.language_rank = 3;
                             this.msg5 = '평균';
                             this.color.f='primary';
+                            this.message.language='어학 등급이 평균입니다.'
                         }
 
                         if (res.data.data.grade_rank === 5) {
                             this.data.grade_rank = 1;
                             this.msg6 = '매우낮음';
                             this.color.g='danger';
+                            this.message.grade='학점 등급이 매우 낮습니다.'
                         } else if (res.data.data.grade_rank === 4) {
                             this.data.grade_rank = 2;
                             this.msg6 = '낮음';
                             this.color.g='warning';
+                            this.message.grade='학점 등급이 평균보다 낮습니다.'
                         } else if (res.data.data.grade_rank === 2) {
                             this.data.grade_rank = 4;
                             this.msg6 = '높음';
                             this.color.g='info';
+                            this.message.grade='학점 등급이 평균보다 높습니다.'
                         } else if (res.data.data.grade_rank === 1) {
                             this.data.grade_rank = 5;
                             this.msg6 = '매우높음';
                             this.color.g='green';
+                            this.message.grade='학점 등급이 매우 높습니다.'
                         } else {
                             this.data.grade_rank = 3;
                             this.msg6 = '평균';
                             this.color.g='primary';
+                            this.message.grade='학점 등급이 평균입니다.'
                         }
 
                         // if (res.data.data.project_rank === 5) {
@@ -472,8 +528,10 @@
                 console.log('바뀐데이터', this.data)
                 // localStorage.setItem('company',JSON.stringify(row))
                 // this.$router.push({path:'/board/ProgramTeamDetail'});
+                this.advice()
             }
         },
+
         mounted() {
             this.getList1();
         }
@@ -501,7 +559,6 @@
         width: 65%;
         float: left;
         padding: 10px;
-        border: 2px solid blue;
 
     }
 
@@ -525,10 +582,7 @@
     #sidebar2{
       margin-top:10px;
     }
-    #sidebar3{
-        border: 1px solid blue;
-        margin-top:39%;
-    }
+    
     #sidebar3 th,td{
         border: 1px solid black;
         text-align: center;

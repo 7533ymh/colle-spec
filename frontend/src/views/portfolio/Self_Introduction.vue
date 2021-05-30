@@ -27,7 +27,7 @@
     <!--Charts-->
     <b-container fluid class="mt--7">
       <b-row>
-        <b-col xl="8" class="mb-5 mb-xl-0">
+        <b-col xl="10" class="mb-5 mb-xl-0">
           <card  header-classes="bg-transparent">
             <b-row align-v="center" slot="header">
               
@@ -122,20 +122,16 @@
   
 </template>
 <script>
-
   // Components
   import BaseProgress from '@/components/BaseProgress';
   import StatsCard from '@/components/Cards/StatsCard';
   import axios from 'axios';
   import store from '@/store';
-
   let url=store.state.resourceHost; //서버주소 api
-
     export default {
       data(){return{
       myIntro:[{}],
       fields:[{key:'origfilename',label:'파일이름'},{key:'down',label:''},{key:'edit', label:''}],
-
       }},
       components: {
       
@@ -146,9 +142,7 @@
       mounted(){
         this.IntroView();
       },
-
       methods:{
-
         click(row){
           console.log(row)
         },
@@ -202,9 +196,7 @@
                     alert(err.response.data.msg)
                 })
                 console.log('delitem: ',item)
-
             },
-
     }
     
   }

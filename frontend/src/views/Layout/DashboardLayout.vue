@@ -20,24 +20,29 @@
             path: '/Basic_Information',    
           }"
           >
+          <span  @click="access('/Award')">
           <sidebar-item
           :link="{
             name: '나의 포트폴리오',
-            path: '/Basic_Information',
+            path: '/Award',
             
           }"/>
+          </span>
 
+          <span @click="access('/basic')">
           <sidebar-item
           :link="{
             name: '등록하기',
             path: '/basic',
             
           }"/>
+           </span>
         </sidebar-item>
+       
 
         
-
-        <sidebar-item
+      <span @click="access('/RatingSystem')">
+        <sidebar-item 
           :link="{
             name: '나의 등급제',
             path: '/RatingSystem',
@@ -45,7 +50,8 @@
           }"
         >
         </sidebar-item>
-
+      </span>
+        <span @click="access('/Competition1')">
         <sidebar-item
           :link="{
             name: '공모전, 대회, 프로그램',
@@ -54,7 +60,7 @@
           }"
         >
         </sidebar-item>
-
+        </span>
 
         <sidebar-item
           :link="{
@@ -63,7 +69,8 @@
             
           }"
         >
-        <sidebar-item
+        <span @click="access('/Company')">
+        <sidebar-item 
           :link="{
             name: '기업 스펙비교',
             path: '/Company',
@@ -71,6 +78,8 @@
           }"
         >
         </sidebar-item>
+        </span>
+        <span @click="access('/Company/info')">
         <sidebar-item
           :link="{
             name: '기업 정보',
@@ -79,7 +88,8 @@
           }"
         >
         </sidebar-item>
-        </sidebar-item>
+        </span>
+    </sidebar-item>
 
 
      <a href="" v-if="isAuthenticated" @click.prevent="onClickLogout" >
@@ -161,6 +171,11 @@
   import store from '@/store';
 
   export default {
+    data(){
+      return{
+        isLogin:store.state.isLogin
+      }
+    },
     components: {
       DashboardNavbar,
       ContentFooter,
@@ -168,6 +183,15 @@
       FadeTransition
     },
     methods: {
+      access(url){
+      if(this.isLogin === false ){
+        alert('로그인이 필요한 서비스입니다.')
+        this.$router.push({path:'/login'})
+      }
+      else{
+        this.$router.push({path:url})
+      }
+    },
       initScrollbar() {
         let isWindows = navigator.platform.startsWith('Win');
         if (isWindows) {

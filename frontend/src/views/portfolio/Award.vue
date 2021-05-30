@@ -27,7 +27,7 @@
     <!--Charts-->
     <b-container fluid class="mt--7">
       <b-row>
-        <b-col xl="8" class="mb-5 mb-xl-0">
+        <b-col xl="10" class="mb-5 mb-xl-0">
           <card  header-classes="bg-transparent">
             <b-row align-v="center" slot="header">
               
@@ -83,7 +83,7 @@
 <!--
  여기에 자격증  넣으셈
 -->
-      <b-table responsive="sm" striped :fields="fields" hover :items="mycertificate" @row-click="click" >                        
+      <b-table responsive="sm" striped :fields="fields" hover :items="award" @row-clicked="click" >                        
       
       <template #cell(편집)="row">
          <b-button size="sm" @click="mvedit(row)" class="mr-2">
@@ -114,19 +114,16 @@
   
 </template>
 <script>
-
   // Components
   import BaseProgress from '@/components/BaseProgress';
   import StatsCard from '@/components/Cards/StatsCard';
   import axios from 'axios';
   import store from '@/store';
-
   let url=store.state.resourceHost; //서버주소 api
-
     export default {
       data(){return{
-      mycertificate:[{}],
-      fields:[{key:'title',label:'수상 명'},{key:'publisher',label:'발급기관'},{key:'date',label:'취득날짜'},{key:'score',label:'점수'},{key:'edit',label:'마지막수정날짜'},{key:'편집',label:''}],
+      award:[{}],
+      fields:[{key:'title',label:'수상 명'},{key:'agency',label:'수여기관'},{key:'year',label:'수상년도'},{key:'score',label:'점수'},{key:'edit',label:'마지막수정날짜'},{key:'편집',label:''}],
       edit:'1',
       }},
       components: {
@@ -136,27 +133,23 @@
         
       },
       mounted(){
-        this.certView();
+        this.awardView();
         // this.mycertificate.edit=new Date().toJSON().slice(0,10).replace(/-/g,'.');
       },
-
       methods:{
         click(row){
           console.log(row)
         },
-        certView(){
-          axios.get(`${url}/certificate`)
+        awardView(){
+          axios.get(`${url}/award`)
                     .then(res=>{
-                    this.mycertificate=res.data.list
+                    this.award=res.data.list
                     console.log(res)
                     //this.edit=res.data.list[1].edit;
                     //this.edit=new Date().toJSON().slice(0,10).replace(/-/g,'.');
                     for(var i=0; i<res.data.list.length; i++){
-                    this.mycertificate[i].edit=new Date().toJSON().slice(0,10).replace(/-/g,'.')
+                    this.award[i].edit=new Date().toJSON().slice(0,10).replace(/-/g,'.')
                     }
-                    console.log('mycertificate: ',this.mycertificate)
-                    console.log('edit',this.edit);
-
         })
       },
       
@@ -164,7 +157,7 @@
                 let del=item.item.idx
                 
                 console.log('del idx: ',del)
-                axios.delete(`${url}/certificate`,{params:{
+                axios.delete(`${url}/award`,{params:{
                     idx:del
                 }})
                 .then(res=>{
@@ -175,7 +168,6 @@
                     alert(err.response.data.msg)
                 })
                 console.log('delitem: ',item)
-
             },
             mvedit(){
               this.$router.push({path:'/portfolioModify',query:this.mycertificate})

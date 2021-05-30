@@ -75,7 +75,7 @@
 
 
 
-                                <div class="col-md-8" style="padding-left: 0;" > <!-- 차트 UI -->
+                                <div id="progress" class="col-md-8" style="padding-left: 0;" > <!-- 차트 UI -->
                                     <!-- <mdb-container>
                                         <mdb-radar-chart id="mychart"  :options="radarChartOptions" :data="chartdata"  :width="600" :height="400">
 
@@ -118,23 +118,25 @@
                                         </b-progress-bar>
                                     </b-progress>
                                     <b-progress id="prog" :max="max" height="2rem" >
-                                        <b-progress-bar :variant="color.h" :value="data.language_rank">
-                                            <span>어학:
-                                                <strong>{{ msg7 }}</strong>
-                                            </span>
-                                        </b-progress-bar>
-                                    </b-progress>
-                                    <b-progress id="prog" :max="max" height="2rem" >
-                                        <b-progress-bar :variant="color.f" :value="data.grade_rank">
+                                       <b-progress-bar :variant="color.f" :value="data.grade_rank">
                                             <span>학점:
                                                 <strong>{{ msg5 }}</strong>
                                             </span>
                                         </b-progress-bar>
+                                          
                                     </b-progress>
-                                    <b-progress id="prog" :max="max" height="2rem">
+                                    <b-progress id="prog" :max="max" height="2rem" >
+                                        
                                         <b-progress-bar :variant="color.g" :value="data.project_rank">
                                             <span>프로젝트:
                                                 <strong>{{ msg6 }}</strong>
+                                            </span>
+                                        </b-progress-bar>
+                                    </b-progress>
+                                    <b-progress id="prog" :max="max" height="2rem">
+                                       <b-progress-bar :variant="color.h" :value="data.language_rank">
+                                            <span>어학:
+                                                <strong>{{ msg7 }}</strong>
                                             </span>
                                         </b-progress-bar>
                                     </b-progress>
@@ -1488,6 +1490,12 @@
   width: 25px;
   height: 30px;
   
+}
+#progress{
+  margin-top: 7%;
+}
+#prog{
+  margin-bottom: 4%;
 }
 </style>
 

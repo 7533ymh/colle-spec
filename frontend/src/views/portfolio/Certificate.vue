@@ -27,7 +27,7 @@
     <!--Charts-->
     <b-container fluid class="mt--7">
       <b-row>
-        <b-col xl="8" class="mb-5 mb-xl-0">
+        <b-col xl="10" class="mb-5 mb-xl-0">
           <card  header-classes="bg-transparent">
             <b-row align-v="center" slot="header">
               
@@ -83,7 +83,7 @@
 <!--
  여기에 자격증  넣으셈
 -->
-      <b-table responsive="sm" striped :fields="fields" hover :items="mycertificate" @row-click="click" >                        
+      <b-table responsive="sm" striped :fields="fields" hover :items="mycertificate" @row-clicked="click" >                        
       
       <template #cell(편집)="row">
          <b-button size="sm" @click="mvedit(row)" class="mr-2">
@@ -118,15 +118,12 @@
   
 </template>
 <script>
-
   // Components
   import BaseProgress from '@/components/BaseProgress';
   import StatsCard from '@/components/Cards/StatsCard';
   import axios from 'axios';
   import store from '@/store';
-
   let url=store.state.resourceHost; //서버주소 api
-
     export default {
       data(){return{
       mycertificate:[{}],
@@ -143,7 +140,6 @@
         this.certView();
         // this.mycertificate.edit=new Date().toJSON().slice(0,10).replace(/-/g,'.');
       },
-
       methods:{
         click(row){
           console.log(row)
@@ -160,7 +156,6 @@
                     }
                     console.log('mycertificate: ',this.mycertificate)
                     console.log('edit',this.edit);
-
         })
       },
       
@@ -179,7 +174,6 @@
                     alert(err.response.data.msg)
                 })
                 console.log('delitem: ',item)
-
             },
             mvedit(){
               this.$router.push({path:'/portfolioModify',query:this.mycertificate})

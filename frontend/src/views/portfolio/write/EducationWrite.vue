@@ -28,7 +28,7 @@
 
 
                     <!-- 폼시작 -->
-                        <b-form @submit="onSubmit" @reset="onReset" v-if="show" style="width : 50%; margin-left : 10%;">
+                        <b-form @submit.prevent="onSubmit" v-if="show" style="width : 50%; margin-left : 10%;">
                             <b-form-group id="input-group-1" label="교육제목" label-for="input-1">
                                     <b-form-input
                                         id="title"
@@ -75,8 +75,8 @@
                                 </div>
                                 </b-form-group>
                         <!-- 폼끝 -->
-                                <b-button router-link to="/Education" type="submit" variant="primary">제출</b-button>
-                                <b-button type="reset" variant="danger">초기화</b-button>
+                                <b-button type="submit" variant="primary">제출</b-button>
+                                <b-button @click="onReset" type="reset" variant="danger">초기화</b-button>
                             </b-form-group>
                         </b-form>
 
@@ -95,8 +95,6 @@
 <script>
 import axios from 'axios';
 import store from '@/store';
-
-
 let url=store.state.resourceHost; //서버주소 api
 export default {
     data(){
@@ -112,8 +110,8 @@ export default {
         }
     },
     methods:{
-        onSubmit() {
-                //event.preventDefault()
+        onSubmit(event) {
+                event.preventDefault()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
                 var education = new URLSearchParams();
                 education.append('title', this.edu.title);
@@ -125,23 +123,21 @@ export default {
                 .then(edu=>{
                     console.log(edu)
                     alert(edu.data.msg)
-                    window.location.reload()
+                    this.$router.push({path:'/Education'})
                 })
                 .catch(err=>{
                     console.log(err)
                     alert(err.response.data.msg)
-
                 })
     },
     onReset(event) {
                 event.preventDefault()
                 // Reset our form values
-                this.agency = ''
-                this.content = ''
-                this.division = ''
-                this.year =''
-                this.title =''
-
+                this.edu.agency = ''
+                this.edu.content = ''
+                this.edu.title = ''
+                this.edu.start_date =''
+                this.edu.end_date =''
                 // Trick to reset/clear native browser form validation state
                 this.show = false
                 this.$nextTick(() => {

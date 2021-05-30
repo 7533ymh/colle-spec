@@ -67,31 +67,6 @@ const routes = [
         
         component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/portfolioModify.vue')
       },
-
-      {
-        path: '/Award',
-        name: '수상',
-        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/Award.vue')
-      },
-      {
-        path: '/Career',
-        name: '경력',
-        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/Career.vue')
-      },
-      {
-        path: '/Education',
-        name: '교육이수',
-        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/Education.vue')
-      },
-      {
-        path: '/Experience',
-        name: '해외경험',
-        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/Experience.vue')
-      },
-
-      
-
-
       {
         path: '/Basic_Information',
         name: '기본정보',
@@ -113,15 +88,31 @@ const routes = [
         component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/LanguageTest.vue')
       },
       {
+        path: '/Award',
+        name: '수상',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/Award.vue')
+      },
+      {
+        path: '/Career',
+        name: '경력',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/Career.vue')
+      },
+      {
+        path: '/Education',
+        name: '교육이수',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/Education.vue')
+      },
+      {
+        path: '/Experience',
+        name: '해외경험',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/Experience.vue')
+      },
+
+      {
         path: '/PortfolioAndDocument',
         name: '포트폴리오 & 문서',
         component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/PortfolioAndDocument.vue')
       },
-
-
-
-
-
       //포트폴리오 작성 라우터
       {
         path: '/Portfolio/awardWrite',
@@ -241,6 +232,12 @@ const routes = [
         name: 'Competition',
         
         component: () => import(/* webpackChunkName: "demo" */ '../views/Competition.vue')
+      },
+      {
+        path: '/languageinfo',
+        name: 'languageinfo',
+        
+        component: () => import(/* webpackChunkName: "demo" */ '../views/CompetitionAndPrograms/languageinfo.vue')
       },
       {
         path: '/Company',

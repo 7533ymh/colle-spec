@@ -27,7 +27,7 @@
 
 
                      <!-- 폼시작 -->
-                    <b-form @submit="onSubmit" @reset="onReset" v-if="show" style="width : 50%; margin-left : 10%;" >
+                    <b-form @submit.prevent="onSubmit"  v-if="show"  >
                             <b-form-group id="input-group-1" label="수여기관" label-for="input-1">
                                 <b-form-input 
                                     id="agency"
@@ -45,11 +45,11 @@
                                     required="required"></b-form-textarea>
                             </b-form-group>
 
-                                <b-form-group id="input-group-1" label="상 구분" label-for="input-1">
+                                <b-form-group class="division" id="input-group-1" label="상 구분" label-for="input-1">
 
                                 <b-form-select @change="optionclick" id="division" name="select" v-model="award.division"  required="required" >
 
-                                    <option value='null' disabled selected >상 선택</option>
+                                    <option value=null disabled selected >상 선택</option>
                                     <option v-for="(item, index) in AwardJS" :key="index" :value="item">{{ item }}</option>
                                 </b-form-select>
 
@@ -80,8 +80,8 @@
                                 </div>
                             </b-form-group>
                             <!-- 폼끝 -->
-                            <b-button router-link to="/Award" type="submit" variant="primary">제출</b-button>
-                            <b-button type="reset" variant="danger">초기화</b-button>
+                            <b-button type="submit" variant="primary">제출</b-button>
+                            <b-button @click="onReset" type="reset" variant="danger">초기화</b-button>
                         </b-form-group>
                     </b-form>
 
@@ -98,15 +98,11 @@
 <script>
 import axios from 'axios';
 import store from '@/store';
-import AwardJS from './Award';
+import AwardJS from './award.js';
 
 
 let url=store.state.resourceHost; //서버주소 api
 export default {
-    mounted(){
-        console.log(this.AwardJS)
-    },
-
     data(){
         return{
             award: {
@@ -117,7 +113,7 @@ export default {
                     year:'',        //수여날짜
                 },
                 show:true,
-            AwardJS,
+                AwardJS
         }
     },
     methods:{
@@ -134,7 +130,7 @@ export default {
                 .then(award=>{
                     console.log(award)
                     alert(award.data.msg)
-                    window.location.reload()
+                    this.$router.push({path:'/Award'})
                 })
                 .catch(err=>{
                     console.log(err)
@@ -142,14 +138,17 @@ export default {
                 })
 
     },
-    onReset(event) {
-                event.preventDefault()
+    optionclick(event){
+        this.award.division=event;
+            console.log(this.award.division);
+    },
+    onReset() {
                 // Reset our form values
-                this.agency = ''
-                this.content = ''
-                this.division = ''
-                this.year =''
-                this.title =''
+                this.award.agency = ''
+                this.award.content = ''
+                this.award.division = ''
+                this.award.year =''
+                this.award.title =''
 
                 // Trick to reset/clear native browser form validation state
                 this.show = false
@@ -160,4 +159,17 @@ export default {
     }
 }
 </script>
-
+  <style scoped="scoped">
+    #content {
+        width: 50%;
+        height: 100px;
+        resize: none;
+    }
+    #agency,#division {
+        width: 50%;
+    }
+    #title,
+    #year {
+        width: 20%;
+    }
+</style>

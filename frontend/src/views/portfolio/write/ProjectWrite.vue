@@ -81,7 +81,7 @@
                                         </div>
                                         <br>
                                         <div>
-                                        <b-button router-link to="/PortfolioAndDocument" type="submit" variant="primary">제출</b-button>
+                                        <b-button type="submit" variant="primary">제출</b-button>
                                         <b-button type="reset" variant="danger">초기화</b-button>
                                         </div>
                                         <br>
@@ -102,8 +102,6 @@
 <script>
 import axios from 'axios';
 import store from '@/store';
-
-
 let url=store.state.resourceHost; //서버주소 api
 export default {
     data(){
@@ -142,14 +140,13 @@ export default {
                 .then(project=>{
                     console.log(project.data.msg)
                     alert(project.data.msg)
-                    window.location.reload()
+                    this.$router.push({path:'/PortfolioAndDocument'})
                 })
                 
                 .catch(err=>{
                     console.log(err)
                     alert(err.response.data.msg)
                 })
-
     },
     onReset(event) {
                 event.preventDefault()
@@ -159,7 +156,6 @@ export default {
                 this.division = ''
                 this.year =''
                 this.title =''
-
                 // Trick to reset/clear native browser form validation state
                 this.show = false
                 this.$nextTick(() => {

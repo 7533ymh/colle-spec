@@ -51,7 +51,7 @@
         <b-col xl="3" md="6">
           <stats-card title=""
                       type="gradient-info"
-                      sub-title="기업에서 요구하는 스펙"
+                      sub-title="기업 스펙 & 정보"
                       
                       class="mb-4">
 
@@ -103,7 +103,7 @@
                 <h5 class="h3 mb-0">포트폴리오 요약</h5>
                 <span v-if="authorized">
                   <!-- 여기다 보여줄 정보 작성하기 -->
-                  <span v-for="(list,i) in user.summary.languageSummaryList" :key="i">
+                  <span>
                   <h3>평점: {{user.summary.gradeAvg}}점</h3>
                   <h3>수상횟수: {{user.summary.awardCount}}회</h3>
                   <h3>경력횟수: {{user.summary.careerCount}}회</h3>
@@ -112,8 +112,10 @@
                   <h3>해외경험: {{user.summary.experienceCount}}회</h3>
                   <h3>자기소개서: {{user.summary.introductionCount}}</h3>
                   <h3>프로젝트: {{user.summary.projectCount}}회</h3>
+                  <span v-for="(list,i) in user.summary.languageSummaryList" :key="i">
                   <h3>어학시험: {{user.summary.languageSummaryList[i].exam}} 
-                    -- {{user.summary.languageSummaryList[i].exam_score}}점</h3>
+                    -- {{user.summary.languageSummaryList[i].exam_score}}</h3>
+                  </span>
                   </span>
            </span>  
             <router-link to="/login" v-else>

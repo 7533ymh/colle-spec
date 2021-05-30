@@ -27,13 +27,13 @@
     <!--Charts-->
     <b-container fluid class="mt--7">
       <b-row>
-        <b-col xl="8" class="mb-5 mb-xl-0">
+        <b-col xl="10" class="mb-5 mb-xl-0">
           <card  header-classes="bg-transparent">
             <b-row align-v="center" slot="header">
               
               <b-col>
-                 <b-nav class="nav-pills justify-content-end " >
-                  
+                <b-nav class="nav-pills justify-content-end">
+                 
 
                   <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Award">
                     <span class="d-none d-md-block">수상</span>
@@ -74,7 +74,6 @@
                     <span class="d-none d-md-block">어학시험</span>
                     <span class="d-md-none">W</span>
                   </b-nav-item>
-                
                 </b-nav>
               </b-col>
             </b-row>
@@ -84,7 +83,7 @@
 <!--
  여기에 어학시험  넣으셈
 -->
-<b-table responsive="sm" striped :fields="fields" hover :items="mylang" @row-click="langView" >                        
+<b-table responsive="sm" striped :fields="fields" hover :items="mylang" @row-clicked="langView" >                        
       <template #cell(edits)="row">
          <b-button size="sm" @click="mvedit(row)" class="mr-2">
           편집
@@ -96,13 +95,11 @@
         
       </template>
     </b-table> 
-
-            <!-- 작성 폼으로 이동 시작-->
+    <!-- 작성 폼으로 이동 시작-->
             <div style="text-align: right; margin:10px;">
             <b-button router-link to="/Portfolio/languageWrite" type="submit" variant="primary" >등록하기</b-button>
             </div>
             <!-- 작성 폼으로 이동 끝-->
-
 
              
 
@@ -137,7 +134,8 @@
       {key:'divsion',label:'구분'},
       {key:'exam',label:'시험명'},
       {key:'exam_score',label:'시험점수'},
-      {key:'date',label:'시험날짜'},
+      {key:'score',label:'최종점수'},
+      {key:'date',label:'시험날짜'},
       {key:'edits',label:''}],
 
 
@@ -145,7 +143,7 @@
       components: {
       
         BaseProgress,
-        StatsCard,s
+        StatsCard,
         
       },
       mounted(){
@@ -153,6 +151,7 @@
       },
 
       methods:{
+        
         langView(){
           axios.get(`${url}/language`)
                     .then(res=>{

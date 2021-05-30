@@ -32,7 +32,7 @@
 
 
                      <!-- 폼시작 -->
-        <b-form @submit="onSubmit" @reset="onReset.prevent" v-if="show">
+        <b-form @submit.prevent="onSubmit" v-if="show">
             <b-form-group id="input-group-1" label="자격증이름" label-for="input-1">
                     <!-- <b-form-input
                         id="title"
@@ -74,8 +74,8 @@
                 </b-form-group>
                 <!-- 폼끝 -->
 
-                <b-button router-link to="/Certificate" type="submit" variant="primary">제출</b-button>
-                <b-button type="reset" variant="danger">초기화</b-button>
+                <b-button type="submit" variant="primary">제출</b-button>
+                <b-button @click="onReset" type="reset" variant="danger">초기화</b-button>
             </b-form-group>
         </b-form>
         <!-- <b-card class="mt-3" header="Form Data Result">
@@ -100,8 +100,6 @@
 import axios from 'axios';
 import store from '@/store';
 import cert from './certificate'
-
-
 let url=store.state.resourceHost; //서버주소 api
 export default {
     mounted(){
@@ -124,10 +122,9 @@ export default {
         optionclick(event){
             this.certificate.title=event;
             console.log(this.certificate.title);
-
         },
-        onSubmit() {
-                //event.preventDefault()
+        onSubmit(event) {
+                event.preventDefault()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
         
                 var certificate = new URLSearchParams();
@@ -144,18 +141,15 @@ export default {
                 .catch(err=>{
                     console.log(err)
                     alert(err.response.data.msg)
-
                 })
-
     },
-    onReset(event) {
-                event.preventDefault()
+    onReset() {
                 // Reset our form values
-                this.agency = ''
-                this.content = ''
-                this.division = ''
-                this.year =''
-                this.title =''                
+                this.certificate.agency = ''
+                this.certificate.content = ''
+                this.certificate.division = ''
+                this.certificate.year =''
+                this.certificate.title =''                
             },
     }
 }
@@ -173,7 +167,6 @@ export default {
     #year, #start_date, #end_date,#publisher{
         width: 20%;
     }*/
-
     #input-group-1{
         width : 50%;
         margin-left : 10%;

@@ -25,19 +25,14 @@
 
 
     <!--Charts-->
-    <b-container fluid class="mt--7" >
+    <b-container fluid class="mt--7">
       <b-row>
         <b-col xl="8" class="mb-5 mb-xl-0">
           <card  header-classes="bg-transparent">
-
-  
             <b-row align-v="center" slot="header">
               
               <b-col>
-                
-                <b-nav class="nav-pills justify-content-end " >
-                  
-
+                <b-nav class="nav-pills justify-content-end">
                   <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Award">
                     <span class="d-none d-md-block">수상</span>
                     <span class="d-md-none">W</span>
@@ -123,8 +118,8 @@ let url=store.state.resourceHost; //서버주소 api
       }}
       ,
       mounted(){
-        this.portfolioview()
-        this.localSet("portfolio",this.portfolio)
+        //this.portfolioview()
+        //this.localSet("portfolio",this.portfolio)
         
       },
       components: {
@@ -144,57 +139,57 @@ let url=store.state.resourceHost; //서버주소 api
         localSet(name,set){
           localStorage.setItem(name,JSON.stringify(set))
         },
-        portfolioview(){
-          axios.get(`${url}/award`)
-                    .then(get=>{
-                    this.portfolio.award=get.data.list
-                    console.log('award: ',this.portfolio.award)
-                    this.localSet('award',get.data.list)
-                })
-          axios.get(`${url}/career`)
-                    .then(get=>{
-                    this.portfolio.career=get.data.list
-                    console.log('career: ',this.portfolio.career)
-                    this.localSet('career',get.data.list)
-                })
-          axios.get(`${url}/certificate`)
-                    .then(get=>{
-                    this.portfolio.certificate=get.data.list
-                    console.log('certificate: ',this.portfolio.certificate)
-                    this.localSet('certificate',get.data.list)
-                })
-          axios.get(`${url}/education`)
-                    .then(get=>{
-                    this.portfolio.education=get.data.list
-                    console.log('education: ',this.portfolio.education)
-                    this.localSet('education',get.data.list)
-                })
-          axios.get(`${url}/experience`)
-                    .then(get=>{
-                    this.portfolio.experience=get.data.list
-                    console.log('experience: ',this.portfolio.experience)
-                    this.localSet('experience',get.data.list)
-                })
-          axios.get(`${url}/language`)
-                    .then(get=>{
-                    this.portfolio.language=get.data.list
-                    console.log('language: ',this.portfolio.language)
-                    this.localSet('language',get.data.list)
-                })
+        // portfolioview(){
+        //   axios.get(`${url}/award`)
+        //             .then(get=>{
+        //             this.portfolio.award=get.data.list
+        //             console.log('award: ',this.portfolio.award)
+        //             this.localSet('award',get.data.list)
+        //         })
+        //   axios.get(`${url}/career`)
+        //             .then(get=>{
+        //             this.portfolio.career=get.data.list
+        //             console.log('career: ',this.portfolio.career)
+        //             this.localSet('career',get.data.list)
+        //         })
+        //   axios.get(`${url}/certificate`)
+        //             .then(get=>{
+        //             this.portfolio.certificate=get.data.list
+        //             console.log('certificate: ',this.portfolio.certificate)
+        //             this.localSet('certificate',get.data.list)
+        //         })
+        //   axios.get(`${url}/education`)
+        //             .then(get=>{
+        //             this.portfolio.education=get.data.list
+        //             console.log('education: ',this.portfolio.education)
+        //             this.localSet('education',get.data.list)
+        //         })
+        //   axios.get(`${url}/experience`)
+        //             .then(get=>{
+        //             this.portfolio.experience=get.data.list
+        //             console.log('experience: ',this.portfolio.experience)
+        //             this.localSet('experience',get.data.list)
+        //         })
+        //   axios.get(`${url}/language`)
+        //             .then(get=>{
+        //             this.portfolio.language=get.data.list
+        //             console.log('language: ',this.portfolio.language)
+        //             this.localSet('language',get.data.list)
+        //         })
           
-          axios.get(`${url}/project`)
-                    .then(get=>{
-                    this.portfolio.project=get.data.list
-                    console.log('project: ',this.portfolio.project)
-                    this.localSet('project',get.data.list)
-                })
-          axios.get(`${url}/introduction`)
-                    .then(get=>{
-                    this.portfolio.introduction=get.data.list
-                    console.log('introduction: ',this.portfolio.introduction)
-                    this.localSet('introduction',get.data.list)
-                })
-        },
+        //   axios.get(`${url}/project`)
+        //             .then(get=>{
+        //             this.portfolio.project=get.data.list
+        //             console.log('project: ',this.portfolio.project)
+        //             this.localSet('project',get.data.list)
+        //         })
+        //   axios.get(`${url}/introduction`)
+        //             .then(get=>{
+        //             this.portfolio.introduction=get.data.list
+        //             console.log('introduction: ',this.portfolio.introduction)
+        //             this.localSet('introduction',get.data.list)
+        //         })
+        // },
 
       
 
