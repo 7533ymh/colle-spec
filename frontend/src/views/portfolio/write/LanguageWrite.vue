@@ -115,9 +115,9 @@
                 </b-form-group>
             <!-- 폼끝 -->
                 
-                <b-button type="submit" variant="primary">Submit</b-button>
+                <b-button type="submit" variant="primary">제출</b-button>
                 
-                <b-button type="reset" @click="rreset" variant="danger">Reset</b-button>
+                <b-button @click="clear" type="reset"  variant="danger">초기화</b-button>
 
             </b-form>
     </div>
@@ -151,13 +151,17 @@ export default {
 
     },
     methods:{
-        rreset(){
-                 this.exam= '',       
-                 this.content='',    
-                 this.division='',  
-                 this.date='',      
-                 this.exam_score='',
+        clear(){
+                 this.lang.exam= '',       
+                 this.lang.content='',    
+                 this.lang.division='',  
+                 this.lang.date='',      
+                 this.lang.exam_score='',
                  this.type=null
+                 this.show = false
+                    this.$nextTick(() => {
+                    this.show = true
+                })
         },
         scoreclick(event){
             this.lang.exam_score=event

@@ -51,7 +51,7 @@
         <b-col xl="3" md="6">
           <stats-card title=""
                       type="gradient-info"
-                      sub-title="기업에서 요구하는 스펙"
+                      sub-title="기업 스펙 & 정보"
                       
                       class="mb-4">
 

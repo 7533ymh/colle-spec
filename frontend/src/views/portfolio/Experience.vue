@@ -27,7 +27,7 @@
     <!--Charts-->
     <b-container fluid class="mt--7">
       <b-row>
-        <b-col xl="8" class="mb-5 mb-xl-0">
+        <b-col xl="10" class="mb-5 mb-xl-0">
           <card  header-classes="bg-transparent">
             <b-row align-v="center" slot="header">
               
@@ -65,7 +65,7 @@
                     <span class="d-md-none">W</span>
                   </b-nav-item>
 
-                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/experienceificate">
+                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Certificate">
                     <span class="d-none d-md-block">자격증</span>
                     <span class="d-md-none">W</span>
                   </b-nav-item>

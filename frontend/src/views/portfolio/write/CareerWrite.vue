@@ -27,7 +27,7 @@
 
 
                                         <!-- 폼시작 -->
-                            <b-form @submit="onSubmit" @reset="onReset" v-if="show"  style="width : 50%; margin-left : 10%;">
+                            <b-form @submit.prevent="onSubmit" v-if="show"  style="width : 50%; margin-left : 10%;">
                                 <b-form-group id="input-group-1" label="경력회사" label-for="input-1" >
                                     <b-form-input
                                         id="company"
@@ -80,7 +80,7 @@
                                 </b-form-group>
                                 <!-- 폼끝 -->
                                     <b-button type="submit" variant="primary">제출</b-button>
-                                    <b-button type="reset" variant="danger">초기화z</b-button>
+                                    <b-button @click="onReset" type="reset" variant="danger">초기화</b-button>
                             </b-form>
 
 
@@ -113,8 +113,8 @@ export default {
         }
     },
     methods:{
-        onSubmit() {
-                //event.preventDefault()
+        onSubmit(event) {
+                event.preventDefault()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
          
                 var career = new URLSearchParams();
@@ -126,8 +126,6 @@ export default {
                 career.append('start_date', this.career.start_date);
                 axios.post(`${url}/career`,career)
                 .then(career=>{
-                    console.log(career.data.msg)
-                    console.log(career)
                     alert(career.data.msg)
                     this.$router.push({path:'/Career'})
                 })
@@ -138,11 +136,11 @@ export default {
     onReset(event) {
                 event.preventDefault()
                 // Reset our form values
-                this.agency = ''
-                this.content = ''
-                this.division = ''
-                this.year =''
-                this.title =''
+                this.career.agency = ''
+                this.career.content = ''
+                this.career.division = ''
+                this.career.year =''
+                this.career.title =''
                 // Trick to reset/clear native browser form validation state
                 this.show = false
                 this.$nextTick(() => {

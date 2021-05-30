@@ -92,20 +92,7 @@ export default {
                     alert(err.response.data.msg);
                 });
     },
-    onReset(event) {
-                event.preventDefault()
-                // Reset our form values
-                this.agency = ''
-                this.content = ''
-                this.division = ''
-                this.year =''
-                this.title =''
-                // Trick to reset/clear native browser form validation state
-                this.show = false
-                this.$nextTick(() => {
-                    this.show = true
-                })
-            },
+    
     }
 }
 </script>

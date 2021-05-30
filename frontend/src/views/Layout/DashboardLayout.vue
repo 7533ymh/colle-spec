@@ -20,11 +20,11 @@
             path: '/Basic_Information',    
           }"
           >
-          <span  @click="access('/Basic_Information')">
+          <span  @click="access('/Award')">
           <sidebar-item
           :link="{
             name: '나의 포트폴리오',
-            path: '/Basic_Information',
+            path: '/Award',
             
           }"/>
           </span>
