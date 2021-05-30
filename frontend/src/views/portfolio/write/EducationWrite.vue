@@ -20,69 +20,7 @@
                     <b-row align-v="center" slot="header">
 
                         <b-col>
-                            <b-nav class="nav-pills justify-content-end" >
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/awardWrite">
-                                    <span class="d-none d-md-block">수상 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/careerWrite">
-                                    <span class="d-none d-md-block">경력 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/certificateWrite">
-                                    <span class="d-none d-md-block">자격증 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/educationWrite">
-                                    <span class="d-none d-md-block">교육이수 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/experienceWrite">
-                                    <span class="d-none d-md-block">해외경험 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/languageWrite">
-                                    <span class="d-none d-md-block">어학시험 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/projectWrite">
-                                    <span class="d-none d-md-block">프로젝트 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/introductionWrite">
-                                    <span class="d-none d-md-block">자기소개서 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-                            </b-nav>
+                           
                         </b-col>
                     </b-row>
 
@@ -137,7 +75,7 @@
                                 </div>
                                 </b-form-group>
                         <!-- 폼끝 -->
-                                <b-button type="submit" variant="primary">제출</b-button>
+                                <b-button router-link to="/Education" type="submit" variant="primary">제출</b-button>
                                 <b-button type="reset" variant="danger">초기화</b-button>
                             </b-form-group>
                         </b-form>

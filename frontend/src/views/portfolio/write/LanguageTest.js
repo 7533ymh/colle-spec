@@ -9,6 +9,11 @@ export default
         "HSK 3급",
         "HSK 4급",
         "HSK 5급",
-        "동상",
-        "장려상",
+        "JLPT N1",
+        "JLPT N2",
+        "JLPT N3",
+        "JLPT N4",
+        "JLPT N5",
+        "JPT",
+        
     ]

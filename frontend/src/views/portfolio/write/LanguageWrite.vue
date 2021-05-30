@@ -20,69 +20,7 @@
                     <b-row align-v="center" slot="header">
 
                         <b-col>
-                            <b-nav class="nav-pills justify-content-end" >
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/awardWrite">
-                                    <span class="d-none d-md-block">수상 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/careerWrite">
-                                    <span class="d-none d-md-block">경력 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/certificateWrite">
-                                    <span class="d-none d-md-block">자격증 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/educationWrite">
-                                    <span class="d-none d-md-block">교육이수 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/experienceWrite">
-                                    <span class="d-none d-md-block">해외경험 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/languageWrite">
-                                    <span class="d-none d-md-block">어학시험 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/projectWrite">
-                                    <span class="d-none d-md-block">프로젝트 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/introductionWrite">
-                                    <span class="d-none d-md-block">자기소개서 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-                            </b-nav>
+                            
                         </b-col>
                     </b-row>
 
@@ -91,30 +29,42 @@
 
                                     <!-- 폼시작 -->
                         <b-form @submit="onSubmit" @reset="onReset" v-if="show" style="width : 50%; margin-left : 10%;">
+
+                            <b-form-group id="input-group-1" label="외국어명" label-for="input-1">
+
+                                <b-form-select @change="optionclick" id="division" name="select" v-model="lang.division"  required="required" >
+                                        <option value='null' disabled selected >나라 선택</option>
+                                        <option v-for="(item, index) in LanguageCountryJs" :key="index" :value="item" >{{ item }}</option>
+                                </b-form-select>
+                                                         
+                                        <!--<b-form-input
+                                            id="division" 
+                                            
+                                            v-model="lang.division"  
+                                            type="text"
+                                            required="required">
+                                        </b-form-input> -->
+                                  
+                            </b-form-group>
+
+
                             <b-form-group id="input-group-1" label="어학시험" label-for="input-1">
 
-                                     <b-form-select @change="optionclick" id="exam" name="select" v-model="lang.exam"  required="required" >
+                                     <!--<b-form-select @change="optionclick" id="exam" name="select" v-model="lang.exam"  required="required" >
                                         <option value='null' disabled selected >시험 선택</option>
-                                        <option v-for="(item, index) in AwardJS" :key="index" :value="item">{{ item }}</option>
-                                    </b-form-select>
+                                        <option v-for="(item, index) in LanguageTestJs" :key="index" :value="item" >{{ item }}</option>
+                                    </b-form-select>-->
 
 
 
-                                     <!--<b-form-input
+                                     <b-form-input
                                         id="exam"
                                         v-model="lang.exam"
                                         type="text"
                                         placeholder="예) TOEIC"
-                                        required="required"></b-form-input>-->
-                                </b-form-group>
-                                <b-form-group id="input-group-1" label="어학구분" label-for="input-1">
-                                    <b-form-input
-                                        id="division"
-                                        v-model="lang.division"
-                                        type="text"
-                                        placeholder="예) 영어"
                                         required="required"></b-form-input>
                                 </b-form-group>
+                                
 
                             <b-form-group id="input-group-1" label="어학점수" label-for="input-1">
                                 <b-form-input
@@ -144,7 +94,7 @@
                                 </b-form-group>
                             <!-- 폼끝 -->
 
-                                <b-button type="submit" variant="primary">제출</b-button>
+                                <b-button router-link to="/LanguageTest" type="submit" variant="primary">제출</b-button>
                                 <b-button type="reset" variant="danger">초기화</b-button>
                             </b-form-group>
                             </b-form>
@@ -164,14 +114,17 @@
 <script>
 import axios from 'axios';
 import store from '@/store';
-import LanguageJs from './Language';
+import LanguageTestJs from './LanguageTest';
+import LanguageCountryJs from './LanguageCountry';
+
 
 
 let url=store.state.resourceHost; //서버주소 api
 export default {
 
     mounted(){
-        console.log(this.LanguageJs)
+        console.log(this.LanguageTestJs)
+        console.log(this.LanguageCountryJs)
     },
 
 
@@ -186,7 +139,8 @@ export default {
                     exam_score:'',  //시험 점수
                 },
                 show:true,
-                LanguageJs,
+                LanguageTestJs,
+                LanguageCountryJs,
         }
     },
     methods:{

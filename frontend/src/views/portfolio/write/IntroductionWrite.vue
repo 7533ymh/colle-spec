@@ -20,69 +20,7 @@
                     <b-row align-v="center" slot="header">
 
                         <b-col>
-                            <b-nav class="nav-pills justify-content-end" >
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/awardWrite">
-                                    <span class="d-none d-md-block">수상 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/careerWrite">
-                                    <span class="d-none d-md-block">경력 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/certificateWrite">
-                                    <span class="d-none d-md-block">자격증 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/educationWrite">
-                                    <span class="d-none d-md-block">교육이수 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/experienceWrite">
-                                    <span class="d-none d-md-block">해외경험 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/languageWrite">
-                                    <span class="d-none d-md-block">어학시험 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/projectWrite">
-                                    <span class="d-none d-md-block">프로젝트 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/introductionWrite">
-                                    <span class="d-none d-md-block">자기소개서 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-                            </b-nav>
+                           
                         </b-col>
                     </b-row>
 
@@ -90,7 +28,8 @@
 
                     <div style="padding-left: 100px; width:400px;">
                         <!-- 파일등록부분 -->
-                            <b-form-file multiple v-model="introduction.files" placeholder="pdf, hwp, doc, ppt.">
+                         <b-form-group id="input-group-1" label="자기소개서 파일 첨부" label-for="input-1">
+                            <b-form-file   multiple v-model="introduction.files" placeholder="pdf, hwp, doc, ppt.">
                                     <template slot="file-name" slot-scope="{ names }">
                                         <b-badge variant="dark">{{ names[0] }}</b-badge>
                                         <b-badge v-if="names.length > 1" variant="dark" class="ml-1">
@@ -98,9 +37,10 @@
                                         </b-badge>
                                     </template>
                             </b-form-file>
+                         </b-form-group>
                         <!-- 파일등록 끝 -->
                         <div style="margin-top:20px;">
-                                <b-button @click="onSubmit" variant="primary">제출</b-button>
+                                <b-button router-link to="/Self_Introduction" @click="onSubmit" variant="primary">제출</b-button>
                         </div>
                     </div>
 

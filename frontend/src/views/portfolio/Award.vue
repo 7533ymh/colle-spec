@@ -79,7 +79,7 @@
             </b-row>
             
 
-<div>자격증 내용</div>
+<div>수상 내용</div>
 <!--
  여기에 자격증  넣으셈
 -->
@@ -96,13 +96,9 @@
         
       </template>
     </b-table> 
-
-            <!-- 작성 폼으로 이동 시작-->
             <div style="text-align: right; margin:10px;">
-            <b-button router-link to="/Portfolio/certificateWrite" type="submit" variant="primary" >등록하기</b-button>
+            <b-button router-link to="/Portfolio/awardWrite" type="submit" variant="primary" >등록하기</b-button>
             </div>
-            <!-- 작성 폼으로 이동 끝-->
-
           </card>
         </b-col>
 
@@ -130,7 +126,7 @@
     export default {
       data(){return{
       mycertificate:[{}],
-      fields:[{key:'title',label:'자격증명'},{key:'publisher',label:'발급기관'},{key:'date',label:'취득날짜'},{key:'score',label:'점수'},{key:'edit',label:'마지막수정날짜'},{key:'편집',label:''}],
+      fields:[{key:'title',label:'수상 명'},{key:'publisher',label:'발급기관'},{key:'date',label:'취득날짜'},{key:'score',label:'점수'},{key:'edit',label:'마지막수정날짜'},{key:'편집',label:''}],
       edit:'1',
       }},
       components: {

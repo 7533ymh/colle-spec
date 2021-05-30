@@ -32,26 +32,45 @@
             <b-row align-v="center" slot="header">
               
               <b-col>
-                <b-nav class="nav-pills justify-content-end">
+                 <b-nav class="nav-pills justify-content-end " >
                   
 
-                  <b-nav-item link-classes="py-2 px-3" router-link to="/Self_Introduction">
+                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Award">
+                    <span class="d-none d-md-block">수상</span>
+                    <span class="d-md-none">W</span>
+                  </b-nav-item>
+
+                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Career">
+                    <span class="d-none d-md-block">경력</span>
+                    <span class="d-md-none">W</span>
+                  </b-nav-item>
+
+                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Education">
+                    <span class="d-none d-md-block">교육이수</span>
+                    <span class="d-md-none">W</span>
+                  </b-nav-item>
+
+                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Experience">
+                    <span class="d-none d-md-block">해외경험</span>
+                    <span class="d-md-none">W</span>
+                  </b-nav-item>
+
+                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Self_Introduction">
                     <span class="d-none d-md-block">자기소개서</span>
                     <span class="d-md-none">W</span>
                   </b-nav-item>
 
-                  <b-nav-item link-classes="py-2 px-3" router-link to="/PortfolioAndDocument">
-                    <span class="d-none d-md-block">포트폴리오 and 문서</span>
+                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/PortfolioAndDocument">
+                    <span class="d-none d-md-block">프로젝트</span>
                     <span class="d-md-none">W</span>
-                    
-
                   </b-nav-item>
-                  <b-nav-item link-classes="py-2 px-3" router-link to="/Certificate">
+
+                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Certificate">
                     <span class="d-none d-md-block">자격증</span>
                     <span class="d-md-none">W</span>
                   </b-nav-item>
                   
-                  <b-nav-item link-classes="py-2 px-3" router-link to="/LanguageTest">
+                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/LanguageTest">
                     <span class="d-none d-md-block">어학시험</span>
                     <span class="d-md-none">W</span>
                   </b-nav-item>
@@ -73,6 +92,12 @@
         </b-button>
       </template>
     </b-table> 
+
+            <!-- 작성 폼으로 이동 시작-->
+            <div style="text-align: right; margin:10px;">
+            <b-button router-link to="/Portfolio/projectWrite" type="submit" variant="primary" >등록하기</b-button>
+            </div>
+            <!-- 작성 폼으로 이동 끝-->
 
              
 

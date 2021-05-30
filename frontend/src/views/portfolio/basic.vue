@@ -13,30 +13,30 @@
     </b-col>
       
     </base-header>
-    <b-container fluid="fluid" class="mt--0">
+    <b-container fluid="fluid" class="mt--0" style="margin-left : 185px;">
         <b-row>
-            <b-col xl="11" class="mb-7 mb-xl-0">
+            <b-col xl="7" class="mb-7 mb-xl-0">
                 <card header-classes="bg-transparent">
                     <b-row align-v="center" slot="header">
 
                         <b-col>
-                            <b-nav class="nav-pills justify-content-end">
+                            <b-nav class="nav-pills justify-content-end" >
                                 <b-nav-item
-                                    link-classes="py-2 px-3"
+                                    link-classes="py-2 px-3 m-1"
                                     router-link="router-link"
                                     to="/portfolio/awardWrite">
                                     <span class="d-none d-md-block">수상 등록</span>
                                     <span class="d-md-none">W</span>
                                 </b-nav-item>
                                 <b-nav-item
-                                    link-classes="py-2 px-3"
+                                    link-classes="py-2 px-3 m-1"
                                     router-link="router-link"
                                     to="/portfolio/careerWrite">
                                     <span class="d-none d-md-block">경력 등록</span>
                                     <span class="d-md-none">W</span>
                                 </b-nav-item>
                                 <b-nav-item
-                                    link-classes="py-2 px-3"
+                                    link-classes="py-2 px-3 m-1"
                                     router-link="router-link"
                                     to="/portfolio/certificateWrite">
                                     <span class="d-none d-md-block">자격증 등록</span>
@@ -44,7 +44,7 @@
                                 </b-nav-item>
 
                                 <b-nav-item
-                                    link-classes="py-2 px-3"
+                                    link-classes="py-2 px-3 m-1"
                                     router-link="router-link"
                                     to="/portfolio/educationWrite">
                                     <span class="d-none d-md-block">교육이수 등록</span>
@@ -52,7 +52,7 @@
                                 </b-nav-item>
 
                                 <b-nav-item
-                                    link-classes="py-2 px-3"
+                                    link-classes="py-2 px-3 m-1"
                                     router-link="router-link"
                                     to="/portfolio/experienceWrite">
                                     <span class="d-none d-md-block">해외경험 등록</span>
@@ -60,7 +60,7 @@
                                 </b-nav-item>
 
                                 <b-nav-item
-                                    link-classes="py-2 px-3"
+                                    link-classes="py-2 px-3 m-1"
                                     router-link="router-link"
                                     to="/portfolio/languageWrite">
                                     <span class="d-none d-md-block">어학시험 등록</span>
@@ -68,7 +68,7 @@
                                 </b-nav-item>
 
                                 <b-nav-item
-                                    link-classes="py-2 px-3"
+                                    link-classes="py-2 px-3 m-1"
                                     router-link="router-link"
                                     to="/portfolio/projectWrite">
                                     <span class="d-none d-md-block">프로젝트 등록</span>
@@ -76,7 +76,7 @@
                                 </b-nav-item>
 
                                 <b-nav-item
-                                    link-classes="py-2 px-3"
+                                    link-classes="py-2 px-3 m-1"
                                     router-link="router-link"
                                     to="/portfolio/introductionWrite">
                                     <span class="d-none d-md-block">자기소개서 등록</span>

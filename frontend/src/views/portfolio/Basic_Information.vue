@@ -29,31 +29,31 @@
       <b-row>
         <b-col xl="8" class="mb-5 mb-xl-0">
           <card  header-classes="bg-transparent">
+
+  
             <b-row align-v="center" slot="header">
               
               <b-col>
+                
                 <b-nav class="nav-pills justify-content-end " >
-                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/basic">
-                    <span class="d-none d-md-block">포트폴리오 작성하러가기</span>
-                    <span class="d-md-none">W</span>
-                  </b-nav-item>
+                  
 
-                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/#">
+                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Award">
                     <span class="d-none d-md-block">수상</span>
                     <span class="d-md-none">W</span>
                   </b-nav-item>
 
-                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/#">
+                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Career">
                     <span class="d-none d-md-block">경력</span>
                     <span class="d-md-none">W</span>
                   </b-nav-item>
 
-                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/#">
+                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Education">
                     <span class="d-none d-md-block">교육이수</span>
                     <span class="d-md-none">W</span>
                   </b-nav-item>
 
-                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/#">
+                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Experience">
                     <span class="d-none d-md-block">해외경험</span>
                     <span class="d-md-none">W</span>
                   </b-nav-item>
@@ -64,7 +64,7 @@
                   </b-nav-item>
 
                   <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/PortfolioAndDocument">
-                    <span class="d-none d-md-block">포트폴리오 and 문서</span>
+                    <span class="d-none d-md-block">프로젝트</span>
                     <span class="d-md-none">W</span>
                   </b-nav-item>
 

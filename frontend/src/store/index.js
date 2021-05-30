@@ -69,6 +69,7 @@ export default new Vuex.Store({
      await axios.post(`${resourceHost}/signin`,params)
         .then(res => {
           commit('LOGIN', res.data.data) //커밋: mutations LOGIN값 변경
+
           // 로그인 이후 모든 HTTP 요청 헤더에 X-AUTH-TOKEN 을 추가한다.
           axios.defaults.headers.common['X-AUTH-TOKEN'] = `${res.data.data}`;
           console.log('res.data.data:',res.data.data)
@@ -78,8 +79,7 @@ export default new Vuex.Store({
             if(this.state.isLogin===true){
               alert(this.state.userinfo.name+'님 반값습니다.')
               router.push({path:'/main'})
-              
-              }
+              } 
           })
           
             
@@ -94,7 +94,6 @@ export default new Vuex.Store({
     LOGOUT ({commit}) {
       axios.defaults.headers.common['X-AUTH-TOKEN'] = undefined //로그아웃시 토큰값 비운다
       commit('LOGOUT')
-      localStorage.clear(); //로그아웃시 로컬스토리 전체 비우기
       location.reload()
     },
    async getMyinfo({commit}){

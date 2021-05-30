@@ -24,69 +24,7 @@
                     <b-row align-v="center" slot="header">
 
                         <b-col>
-                            <b-nav class="nav-pills justify-content-end" >
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/awardWrite">
-                                    <span class="d-none d-md-block">수상 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/careerWrite">
-                                    <span class="d-none d-md-block">경력 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/certificateWrite">
-                                    <span class="d-none d-md-block">자격증 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/educationWrite">
-                                    <span class="d-none d-md-block">교육이수 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/experienceWrite">
-                                    <span class="d-none d-md-block">해외경험 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/languageWrite">
-                                    <span class="d-none d-md-block">어학시험 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/projectWrite">
-                                    <span class="d-none d-md-block">프로젝트 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-
-                                <b-nav-item
-                                    link-classes="py-2 px-3 m-1"
-                                    router-link="router-link"
-                                    to="/portfolio/introductionWrite">
-                                    <span class="d-none d-md-block">자기소개서 등록</span>
-                                    <span class="d-md-none">W</span>
-                                </b-nav-item>
-                            </b-nav>
+                            
                         </b-col>
                     </b-row>
 
@@ -108,12 +46,12 @@
                         </b-form-select>
                 </b-form-group>
                    <b-form-group id="input-group-1" label="내용" label-for="input-1">
-                    <b-form-input
+                    <b-form-textarea
                         id="content"
                         v-model="certificate.content"
                         type="text"
-                        placeholder="예)내용 입력 .."
-                        required="required"></b-form-input>
+                        placeholder="내용을 입력하세요"
+                        required="required"></b-form-textarea>
                 </b-form-group>
 
             <b-form-group id="input-group-1" label="발행기관" label-for="input-1">

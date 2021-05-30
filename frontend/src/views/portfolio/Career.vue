@@ -96,10 +96,9 @@
         
       </template>
     </b-table> 
-
             <!-- 작성 폼으로 이동 시작-->
             <div style="text-align: right; margin:10px;">
-            <b-button router-link to="/Portfolio/certificateWrite" type="submit" variant="primary" >등록하기</b-button>
+            <b-button router-link to="/Portfolio/careerWrite" type="submit" variant="primary" >등록하기</b-button>
             </div>
             <!-- 작성 폼으로 이동 끝-->
 
