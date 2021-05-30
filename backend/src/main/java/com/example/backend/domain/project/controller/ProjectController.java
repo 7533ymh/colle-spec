@@ -27,6 +27,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URLConnection;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Date;
@@ -130,15 +132,17 @@ public class ProjectController {
         String filename =  project_img.getOrigfilename();
         String encodedFilename = encodeFileName.getEncodeFileName(request, filename);
 
-        String contentType;
+        String contentType = null;
 
         try {
-            contentType = request.getServletContext().getMimeType(
-                    resource.getFile().getAbsolutePath()
-            );
+            contentType = Files.probeContentType(filePath);
         }
         catch (IOException e) {
-            throw new CNotFoundDataTypeException();
+            //throw new CNotFoundDataTypeException();
+        }
+
+        if (contentType == null) {
+            contentType = URLConnection.guessContentTypeFromName(filePath.toString());
         }
 
         return ResponseEntity.ok()

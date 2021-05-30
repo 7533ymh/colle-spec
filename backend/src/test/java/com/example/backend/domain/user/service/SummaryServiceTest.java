@@ -19,7 +19,7 @@ class SummaryServiceTest {
     void show() {
 
         //given
-        int idx = 121;
+        int idx = 161;
 
         //when
         Summary summary = summaryService.show(idx);

@@ -1,14 +1,14 @@
 package com.example.backend.domain.introduction.controller;
 
 
-import com.example.backend.global.exception.exception.CNotFoundDataTypeException;
-import com.example.backend.global.config.EncodeFileName;
 import com.example.backend.domain.introduction.domain.Introduction;
+import com.example.backend.domain.introduction.service.IntroductionService;
+import com.example.backend.domain.user.service.UserService;
+import com.example.backend.global.config.EncodeFileName;
+import com.example.backend.global.exception.exception.CNotFoundDataTypeException;
 import com.example.backend.global.response.CommonResult;
 import com.example.backend.global.response.ListResult;
-import com.example.backend.domain.introduction.service.IntroductionService;
 import com.example.backend.global.response.ResponseService;
-import com.example.backend.domain.user.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -28,6 +28,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URLConnection;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -93,15 +95,17 @@ public class IntroductionController {
         String filename =  introduction.getOrigfilename();
         String encodedFilename = encodeFileName.getEncodeFileName(request, filename);
 
-        String contentType;
+        String contentType = null;
 
         try {
-            contentType = request.getServletContext().getMimeType(
-                    resource.getFile().getAbsolutePath()
-            );
+            contentType = Files.probeContentType(filePath);
         }
         catch (IOException e) {
-            throw new CNotFoundDataTypeException();
+            //throw new CNotFoundDataTypeException();
+        }
+
+        if (contentType == null) {
+            contentType = URLConnection.guessContentTypeFromName(filePath.toString());
         }
 
         return ResponseEntity.ok()
