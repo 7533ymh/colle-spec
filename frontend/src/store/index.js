@@ -83,9 +83,8 @@ export default new Vuex.Store({
           dispatch("a_rankView")
           .then(()=>{          
             if(this.state.isLogin===true){
-              alert(this.state.userinfo.name+'님 반값습니다.')
               router.push({path:'/main'})
-
+              alert(this.state.userinfo.name+'님 반값습니다.')
               }
           })
           
@@ -339,7 +338,7 @@ export default new Vuex.Store({
                    commit('USERRANK',res.data.data)
              })
              .catch(err=>{
-               alert(err.response.data.msg)
+               console.log(err)
              })
      },
   }

@@ -127,7 +127,7 @@
     export default {
       data(){return{
       mycertificate:[{}],
-      fields:[{key:'title',label:'자격증명'},{key:'publisher',label:'발급기관'},{key:'date',label:'취득날짜'},{key:'score',label:'점수'},{key:'edit',label:'마지막수정날짜'},{key:'편집',label:''}],
+      fields:[{key:'title',label:'자격증명'},{key:'publisher',label:'발급기관'},{key:'date',label:'취득날짜'},{key:'edit',label:'마지막수정날짜'},{key:'편집',label:''}],
       edit:'1',
       }},
       components: {
@@ -175,8 +175,9 @@
                 })
                 console.log('delitem: ',item)
             },
-            mvedit(){
-              this.$router.push({path:'/portfolioModify',query:this.mycertificate})
+            mvedit(row){
+                console.log('보낸데이터:',row)
+              this.$router.push({path:'/Portfolio/Modify/Certificate',query:row.item})
             }
             //상세페이지에 수정 기능 넣기
     //         edit(item,index,event) {

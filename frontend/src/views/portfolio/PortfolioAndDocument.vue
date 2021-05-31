@@ -125,7 +125,7 @@
     export default {
       data(){return{
    //fields:[{key:'origfilename',label:'파일이름'},{key:'down',label:'down'},{key:'Edit&Del', label:'수정 삭제'}],
-      fields:[{key:'title',label:'제목'},{key:'score',label:'점수'},{key:'success',label:'구현'},{key:'start_date',label:'시작날짜'},{key:'end_date',label:'종료날짜'},{key:'edit&Del',label:''}],
+      fields:[{key:'title',label:'제목'},{key:'success',label:'구현'},{key:'start_date',label:'시작날짜'},{key:'end_date',label:'종료날짜'},{key:'edit&Del',label:''}],
                 
                 myproject:[{}],
                 send:{
@@ -189,8 +189,9 @@
                 })
                 console.log('delitem: ',item)
             },
-            mvedit(){
-              this.$router.push({path:'/portfolioModify',query:this.send})
+            mvedit(row){
+                console.log('보낸데이터:',row)
+              this.$router.push({path:'/Portfolio/Modify/Project',query:row.item})
             }
             //상세페이지에 수정 기능 넣기
     //         edit(item,index,event) {

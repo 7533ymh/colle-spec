@@ -27,7 +27,7 @@
 
 
                      <!-- 폼시작 -->
-                    <b-form @submit.prevent="onSubmit"  v-if="show"  >
+                    <b-form @submit.prevent="onSubmit"  >
                             <b-form-group id="input-group-1" label="수여기관" label-for="input-1">
                                 <b-form-input 
                                     id="agency"
@@ -85,7 +85,7 @@
                         </b-form-group>
                     </b-form>
 
-
+                        {{award}}
 
                 </card>
             </b-col>
@@ -105,28 +105,30 @@ let url=store.state.resourceHost; //서버주소 api
 export default {
     data(){
         return{
-            award: {
-                    agency: '',     //수여기관
-                    content: '',    //상 내용
-                    division:'',    //상 종류 (셀렉트로 고르도록) 대상, 최우수상, 우수상, 금상, 은상, 동상, 장려상
-                    title:'',       //상 이름
-                    year:'',        //수여날짜
-                },
-                show:true,
+            // award: {
+            //         agency: '',     //수여기관
+            //         content: '',    //상 내용
+            //         division:'',    //상 종류 (셀렉트로 고르도록) 대상, 최우수상, 우수상, 금상, 은상, 동상, 장려상
+            //         title:'',       //상 이름
+            //         year:'',        //수여날짜
+            //     },
+            award:this.$route.query,
                 AwardJS
         }
     },
     methods:{
         onSubmit(event) {
+            //수상 수정
                 event.preventDefault()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
                 var award = new URLSearchParams();
+                award.append('idx',this.award.idx);
                 award.append('agency', this.award.agency);
                 award.append('content', this.award.content);
                 award.append('division', this.award.division);
                 award.append('title', this.award.title);
                 award.append('year', this.award.year);
-                axios.post(`${url}/award`,award)
+                axios.put(`${url}/award`,award)
                 .then(award=>{
                     console.log(award)
                     alert(award.data.msg)

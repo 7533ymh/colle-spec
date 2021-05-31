@@ -123,7 +123,7 @@
     export default {
       data(){return{
       award:[{}],
-      fields:[{key:'title',label:'수상 명'},{key:'agency',label:'수여기관'},{key:'year',label:'수상년도'},{key:'score',label:'점수'},{key:'edit',label:'마지막수정날짜'},{key:'편집',label:''}],
+      fields:[{key:'title',label:'수상 명'},{key:'agency',label:'수여기관'},{key:'year',label:'수상년도'},{key:'edit',label:'마지막수정날짜'},{key:'편집',label:''}],
       edit:'1',
       }},
       components: {
@@ -169,33 +169,11 @@
                 })
                 console.log('delitem: ',item)
             },
-            mvedit(){
-              this.$router.push({path:'/portfolioModify',query:this.mycertificate})
+            mvedit(row){
+                console.log('보낸데이터:',row)
+              this.$router.push({path:'/Portfolio/Modify/Award',query:row.item})
             }
-            //상세페이지에 수정 기능 넣기
-    //         edit(item,index,event) {
-    //             var params = new URLSearchParams(); //파일업로드가 포함되어 formdata를 이용한다
-    //             params.append('title', this.certificate.title);
-    //             params.append('content', this.certificate.content);
-    //             params.append('publisher', this.certificate.publisher);
-    //             params.append('date', this.certificate.date);
-    //             axios.put(`${url}/certificate`,params,{
-    //                 headers:{
-    //                     'Content-Type' : 'multipart/form-data' //다중파일 업로드하기 위해 헤더 추가
-    //                 }
-    //             })
-    //             .then(certificate=>{
-    //                 console.log(certificate)
-    //                 alert(certificate.data.msg)
-    //                 window.location.reload()
-                    
-    //             })
-                
-    //             .catch(err=>{
-    //                 console.log(err)
-    //                 alert(err.response.data.msg)
-    //             })
-    // }
+          
   }
   }
 </script>

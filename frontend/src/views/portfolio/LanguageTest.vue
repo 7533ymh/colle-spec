@@ -131,11 +131,10 @@
       data(){return{
       mylang:[{}],
       fields:[
-      {key:'divsion',label:'구분'},
-      {key:'exam',label:'시험명'},
-      {key:'exam_score',label:'시험점수'},
-      {key:'score',label:'최종점수'},
-      {key:'date',label:'시험날짜'},
+      {key:'divsion',label:'언어'},
+      {key:'exam',label:'시험'},
+      {key:'exam_score',label:'점수'},
+      {key:'date',label:'date'},
       {key:'edits',label:''}],
 
 
@@ -177,8 +176,9 @@
                 console.log('delitem: ',item)
 
             },
-            mvedit(){
-              this.$router.push({path:'/portfolioModify',query:this.mycertificate})
+            mvedit(row){
+                console.log('보낸데이터:',row)
+              this.$router.push({path:'/Portfolio/Modify/Language',query:row.item})
             }
             //상세페이지에 수정 기능 넣기
     //         edit(item,index,event) {

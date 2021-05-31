@@ -149,7 +149,6 @@
   
   export default {
     components: {
-      
       BaseProgress,
       StatsCard,
       RadarExample
@@ -157,7 +156,7 @@
     },
     data() {
       return {
-        isLogin:store.state.isLogin,
+      isLogin:store.state.isLogin,
       p_count:0,
       rank:{},
       page:false,
@@ -173,14 +172,22 @@
     },
      mounted() {
       this.getrank()
-      this.a_rankView()
+      //this.a_rankView()
       this.getsummary()
     },
     methods: {
       getrank(){
         axios.get(`${url}/rank`)
         .then(res=>{
+          console.log('success:',res.data.success)
           this.rank=res.data.data
+          
+        
+        })
+        .catch(err=>{
+          console.log('success:',err.response.data.success)
+          alert(err.response.data.msg)
+          this.$router.push({path:'/basic'})
         })
       },
       aceess(url){

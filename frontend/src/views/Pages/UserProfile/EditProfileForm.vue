@@ -7,8 +7,8 @@
       <b-col cols="4" class="text-right">
         <button class="el-button" @click="com">적용</button>
 
-        <button class="el-button" v-if="linkcheck" @click="update">업데이트</button>
-        <button class="el-button" v-else @click="linklo">연동하기</button>
+        <span><button class="el-button" v-if="linkcheck" @click="update">업데이트</button>
+        <button class="el-button" v-else @click="linklo">연동하기</button></span>
 
       </b-col>
       

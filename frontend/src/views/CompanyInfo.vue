@@ -132,10 +132,10 @@
 </script>
 <style>
 
-    .el-table .cell {
+    /* .el-table .cell {
         padding-left: 0;
         padding-right: 0;
-    }
+    } */
 
     #wrapper {
         /* border: 1px solid #FFBB00; */

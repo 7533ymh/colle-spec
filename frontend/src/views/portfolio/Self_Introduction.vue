@@ -91,9 +91,7 @@
                 
                 </template>
                   <template #cell(edit)="row">
-                    <b-button size="sm" @click="mvedit(row)" class="mr-2">
-                    편집
-                    </b-button>
+                  
                     <b-button size="sm" @click="deleteInt(row)" class="mr-2">
                     삭제
                     </b-button>
@@ -131,7 +129,7 @@
     export default {
       data(){return{
       myIntro:[{}],
-      fields:[{key:'origfilename',label:'파일이름'},{key:'down',label:''},{key:'edit', label:''}],
+      fields:[{key:'origfilename',label:'파일이름'},{key:'down',label:''}],
       }},
       components: {
       
@@ -181,9 +179,7 @@
                 })
             },
            
-            mvedit() {
-                this.$router.push({path:'/portfolioModify',query:this.myIntro})  
-            },
+           
             deleteInt(item,index,e){
                 let del=item.item.idx
                 

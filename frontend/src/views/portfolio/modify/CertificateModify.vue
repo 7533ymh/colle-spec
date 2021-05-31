@@ -34,12 +34,7 @@
                      <!-- 폼시작 -->
         <b-form @submit.prevent="onSubmit" v-if="show">
             <b-form-group id="input-group-1" label="자격증이름" label-for="input-1">
-                    <!-- <b-form-input
-                        id="title"
-                        v-model="certificate.title"
-                        type="text"
-                        placeholder="예) 컴퓨터활용능력1급(2급), 정보처리기사, 정보처리산업기사"
-                        required="required"></b-form-input> -->
+                   
                         <b-form-select @change="optionclick" id="title" name="select">
                             <option value='null' disabled selected>자격증 선택</option>
                             <option v-for="(item, index) in cert" :key="index" :value="item">{{ item }}</option>
@@ -107,13 +102,13 @@ export default {
     },
     data(){
         return{
-            certificate: {
-                    title: '',      //자격증 이름
-                    content: '',    //자격증 내용
-                    publisher:'',   //발급기관
-                    date:'',        //취득날짜
-                },
-                title:'',
+            // certificate: {
+            //         title: '',      //자격증 이름
+            //         content: '',    //자격증 내용
+            //         publisher:'',   //발급기관
+            //         date:'',        //취득날짜
+            //     },
+                certificate:this.$route.query,
                 show:true,
                 cert,
         }
@@ -128,11 +123,12 @@ export default {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
         
                 var certificate = new URLSearchParams();
+                certificate.append('idx', this.certificate.idx);
                 certificate.append('title', this.certificate.title);
                 certificate.append('content', this.certificate.content);
                 certificate.append('publisher', this.certificate.publisher);
                 certificate.append('date', this.certificate.date);
-                axios.post(`${url}/certificate`,certificate)
+                axios.put(`${url}/certificate`,certificate)
                 .then(certificate=>{
                     console.log(certificate)
                     alert(certificate.data.msg)

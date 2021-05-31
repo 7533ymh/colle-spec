@@ -137,13 +137,7 @@ export default {
             place:'',
             type:'',
             view:false,
-            lang: {
-                    exam: '',       //시험명    (셀렉트로 고르도록)
-                    content: '',    //시험내용
-                    division:'',    //시험 언어 구분 ....영어, 중국어, 일본어(셀렉트로 고르도록)
-                    date:'',        //시험 친 날짜
-                    exam_score:'',  //시험 점수
-                },
+            lang:this.$route.query,
                 show:true,
         }
     },
@@ -226,12 +220,13 @@ export default {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
                 //어학등록
                 var language = new URLSearchParams();
+                language.append('idx', this.lang.idx);
                 language.append('exam', this.lang.exam);
                 language.append('content', this.lang.content);
                 language.append('division', this.lang.division);
                 language.append('exam_score', this.lang.exam_score);
                 language.append('date', this.lang.date);
-                 axios.post(`${url}/language`,language)
+                 axios.put(`${url}/language`,language)
                 .then(lang=>{
                     console.log(lang)
                     alert(lang.data.msg)
@@ -259,34 +254,7 @@ export default {
                     this.show = true
                 })
             },
-            // scorecheck(){
-            //     if(this.lang.exam === "TOEIC"){
-            //         this.type="toeic"
-            //         this.place="토익 점수를 입력하세요"
-            //         this.view=true
-            //     }
-            //     else if(this.lang.exam==="TEPS"){
-            //         this.type="teps"
-            //         this.place="텝스 점수를 입력하세요"
-             
-            //         this.view=true
-            //     }
-            //     else if(this.lang.exam==="TOEFL Reading" ||this.lang.exam==="TOEFL Writing" ||this.lang.exam==="TOEFL Listening" || this.lang.exam==="TOEFL Speaking"){
-            //         this.type="toefl"
-            //         this.place="토플 점수를 입력하세요"
-                
-            //         this.view=true
-            //     }
-            //     else if(this.lang.exam==="HSK" ||this.lang.exam==="JLPT"||this.lang.exam==="OPIC"){
-            //         this.place="등급을 입력하세요"
-            //         this.view=true
-            //         this.type="string"
-            //     }
-            //     else{
-            //         this.view=false
-            //         alert("없는 시험입니다.")
-            //     }
-            // }
+            
     }
 }
 </script>

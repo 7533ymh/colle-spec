@@ -17,7 +17,6 @@
                         
                         <!-- 프로그레스바 리스트 들고오기 -->
                             <div>
-                              <!-- <div id="wrapper"> -->
                                 <div id="contents">
                                     
                                     <h3>{{odata.name}}
@@ -115,7 +114,7 @@
                                     <h4>{{message.language}}<router-link to="/languageinfo">&nbsp;&nbsp;&nbsp;{{adv.language}}</router-link></h4>
                                     <h4>{{message.grade}}</h4>
                                 </div>
-                            <!-- </div> -->
+                          
                             
                             </div>
                         </card>                       
@@ -502,40 +501,10 @@
                             this.message.grade='학점 등급이 평균입니다.'
                         }
 
-                        // if (res.data.data.project_rank === 5) {
-                        //     this.data.project_rank = 1;
-                        //     this.msg7 = '매우낮음';
-                        //     this.color.g='danger';
-                        // } else if (res.data.data.project_rank === 4) {
-                        //     this.data.project_rank = 2;
-                        //     this.msg7 = '낮음';
-                        //     this.color.g='warning';
-                        // } else if (res.data.data.project_rank === 2) {
-                        //     this.data.project_rank = 4;
-                        //     this.msg7 = '높음';
-                        //     this.color.g='info';
-                        // } else if (res.data.data.project_rank === 1) {
-                        //     this.data.project_rank = 5;
-                        //     this.msg7 = '매우높음';
-                        //     this.color.g='green';
-                        // } else {
-                        //     this.data.project_rank = 3;
-                        //     this.msg7 = '평균';
-                        //     this.color.g='primary';
-                        // }
-
                     })
                 console.log('행데이터 값', row)
                 console.log('바뀐데이터', this.data)
-                // var changedata=[this.data.award_rank,
-                //                 this.data.career_rank,
-                //                 this.data.certificate_rank,
-                //                 this.data.education_rank,
-                //                 this.data.experience_rank,
-                //                 this.data.language_rank,
-                //                 this.data.grade_rank]
-                // localStorage.setItem('companyrank',JSON.stringify(changedata))
-                // this.$router.push({path:'/board/ProgramTeamDetail'});
+                
                 this.advice()
             }
         },
@@ -552,17 +521,6 @@
         padding-left: 0;
         padding-right: 0;
     }
-
-    #wrapper {
-        /* border: 1px solid #FFBB00; */
-        width: 90%;
-        padding: 10px;
-        position: absolute;
-        top: 80%;
-        overflow: hidden;
-
-    }
-
     #contents {
         /* border: 1px solid #487BE1; */
         width: 65%;
@@ -590,15 +548,6 @@
 
     #sidebar2{
       margin-top:10px;
-    }
-    
-    #sidebar3 th,td{
-        border: 1px solid black;
-        text-align: center;
-    }
-    #sidebar3 th{
-        font:bold;
-        font-size: 17px;
     }
     #prog {
         margin-top: 1px;

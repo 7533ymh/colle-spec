@@ -215,9 +215,6 @@
 		handleNewLine(str) {    
        return String(str).replace(/(?:\r\n|\r|\n)/g,"</br>");
 		},
-		fnList(){
-			this.$router.push({path:'/board/list'});
-		},
 		del_board(){
 			axios.delete(`${url}/program/board`,{params:{
 						idx:this.items.idx

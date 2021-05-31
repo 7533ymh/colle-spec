@@ -15,13 +15,6 @@ const routes = [
         component: () => import(/* webpackChunkName: "demo" */ '../views/Dashboard.vue')
       },
       {
-        path: '/linkLogin',
-        name: 'linkLogin',
-        //연동 로그인
-        component: () => import(/* webpackChunkName: "demo" */ '../views/Pages/linkLogin.vue')
-      },
-
-      {
         path: '/main',
         name: 'main',
         
@@ -129,8 +122,43 @@ const routes = [
         name: '자기소개서 등록',
         component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/write/IntroductionWrite.vue')
       },
-
-
+      /* 포트폴리오 수정페이지 */
+      {
+        path: '/Portfolio/Modify/Award',
+        name: '수상정보 수정',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/modify/AwardModify.vue')
+      },
+      {
+        path: '/Portfolio/Modify/Career',
+        name: '경력정보 수정',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/modify/CareerModify.vue')
+      },
+      {
+        path: '/Portfolio/Modify/Certificate',
+        name: '자격증정보 수정',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/modify/CertificateModify.vue')
+      },
+      {
+        path: '/Portfolio/Modify/Education',
+        name: '교육이수정보 수정',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/modify/EducationModify.vue')
+      },
+      {
+        path: '/Portfolio/Modify/Experience',
+        name: '해외경험정보 수정',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/modify/ExperienceModify.vue')
+      },
+      {
+        path: '/Portfolio/Modify/Language',
+        name: '어학정보 수정',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/modify/LanguageModify.vue')
+      },
+      {
+        path: '/Portfolio/Modify/Project',
+        name: '프로젝트정보 수정',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/modify/ProjectModify.vue')
+      },
+      
 
 
       
@@ -255,6 +283,12 @@ const routes = [
         path: '/login',
         name: 'login',
         component: () => import(/* webpackChunkName: "demo" */ '../views/Pages/Login.vue')
+      },
+      {
+        path: '/linkLogin',
+        name: 'linkLogin',
+        //연동 로그인
+        component: () => import(/* webpackChunkName: "demo" */ '../views/Pages/linkLogin.vue')
       },
       {
         path: '/register',
