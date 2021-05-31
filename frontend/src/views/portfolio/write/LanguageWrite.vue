@@ -27,8 +27,7 @@
             </b-col>
         </b-row>
     </b-container>
-    <!-- 폼시작 -->
-        <b-form @submit.prevent="onSubmit"  v-if="show">
+     <b-form @submit.prevent="onSubmit"  v-if="show" style="width : 50%; margin-left : 10%;">
             
             <b-form-group id="input-group-1" label="어학시험" label-for="input-1">
                    <b-form-select @change="optionclick" id="exam" name="select" v-model="lang.exam"  required="required" >
@@ -96,12 +95,13 @@
                 </b-form-group>
                 
                 <b-form-group id="input-group-1" label="어학내용" label-for="input-1">
-                    <textarea
+                    <b-form-textarea
+                        style="height:300px;"
                         id="content"
                         name="jlpt, hsk, opic"
                         v-model="lang.content"
                         placeholder="어학시험내용 입력"
-                        required="required"></textarea>
+                        required="required"></b-form-textarea>
                 </b-form-group>
                 
                 <b-form-group id="input-group-1" label="취득일자" label-for="input-1">
