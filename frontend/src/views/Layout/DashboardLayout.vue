@@ -95,8 +95,8 @@
      <a href="" v-if="isAuthenticated" @click.prevent="onClickLogout" >
            <sidebar-item :link="{name:'로그아웃',path:'/'}"></sidebar-item>
            </a>  
-            <router-link to="/Login" v-else>
-            <sidebar-item  :link="{name:'로그인',path:'/Login'}"></sidebar-item>
+            <router-link to="/login" v-else>
+            <sidebar-item  :link="{name:'로그인',path:'/login'}"></sidebar-item>
         </router-link>
     
       </template>
