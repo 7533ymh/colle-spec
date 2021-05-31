@@ -7,8 +7,8 @@
       <b-col cols="4" class="text-right">
         <button class="el-button" @click="com">적용</button>
 
-        <span><button class="el-button" v-if="linkcheck" @click="update">업데이트</button>
-        <button class="el-button" v-else @click="linklo">연동하기</button></span>
+        <span v-if="linkcheck"><button class="el-button" @click="update">업데이트</button></span>
+        <span v-else><button class="el-button" @click="linklo">연동하기</button></span>
 
       </b-col>
       
@@ -83,7 +83,7 @@
               type="text"
               label="연동"
               placeholder="연동"
-              v-model="user.link"
+              v-model="link"
             >
             </base-input>
           </b-col>
@@ -151,12 +151,12 @@
                     <h2>Colleasy</h2>
                       <label>
                         ID:<br />
-                    <input id="input" type="text" v-model="colleazy.id" required>
+                    <input id="input" type="text" v-model="colleasy.id" required>
                       </label>
                     <br />
                     <label>
                         PW:<br />
-                    <input id="input" type="password" v-model="colleazy.pass" required>
+                    <input id="input" type="password" v-model="colleasy.pass" required>
                     <div>
                     <button type="submit" class="el-button" id="login">
                         Log in
@@ -181,7 +181,7 @@ export default {
       user:this.$store.state.userinfo,
       link:'',
       modalshow:false,
-    colleazy:{
+    colleasy:{
       id:'',
       pass:''
     }
@@ -193,9 +193,11 @@ export default {
     }
   },
   methods: {
+    //모달창닫기
     close(){{
       this.modalshow=false
     }},
+    //연동버튼 클릭으로 창열고 닫기
      linklo(){
       if(this.modalshow===true){
         this.modalshow=false
@@ -203,6 +205,7 @@ export default {
         this.modalshow=true
       }
     },
+    //연동데이터 업데이트
     update(){
       axios.get(`${url}/link/update`)
           .then(res=>{
@@ -213,10 +216,11 @@ export default {
             alert(err.response.data.msg)
           })
     },
+    //연동 로그인
       async linklogin(){
         var params = new URLSearchParams()
-        params.append('id',this.colleazy.id)
-        params.append('pass',this.colleazy.pass)
+        params.append('id',this.colleasy.id)
+        params.append('pass',this.colleasy.pass)
       await axios.post(`${url}/link`,params)
         .then(res=>{
           alert(res.data.msg)
@@ -233,14 +237,16 @@ export default {
           alert(err.response.data.msg)
         })
       },
+
     updateProfile() {
       alert('Your data: ' + JSON.stringify(this.user));
     },
+
     userlink(){
       if(this.$store.getters.userlink === 0){
-        this.user.link='off';
+        this.link='off';
       }else{
-        this.user.link="on"
+        this.link="on"
       }
   },
   com(){
@@ -255,10 +261,6 @@ export default {
     
   },
   edituser(){
-//     confirm('Are you ready?')
-// .then(result => {
-//   console.log(result)
-// })
     var params = new URLSearchParams();
                 params.append('id', this.user.id); 
                 params.append('pass', this.user.pass);

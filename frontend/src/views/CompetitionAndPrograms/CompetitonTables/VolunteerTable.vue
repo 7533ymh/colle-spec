@@ -50,13 +50,7 @@
                              prop="program_date_end"
                              min-width="60px">
             </el-table-column>
-           <el-table-column fixed="right" label="board" width="120px">
-      <template slot-scope="scope">
-        <el-button @click="team(scope.row)" size="small">
-         Team
-        </el-button>
-      </template>
-    </el-table-column>
+           
     
         </el-table>
 

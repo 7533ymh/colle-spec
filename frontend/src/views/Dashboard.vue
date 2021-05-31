@@ -86,7 +86,7 @@
                     @click.prevent="initBigChart(1)"
                   >
                     <span class="d-none d-md-block">Week</span>
-                    <span class="d-md-none">W</span>
+                    
                   </b-nav-item>
                 </b-nav>
               </b-col>

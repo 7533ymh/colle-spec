@@ -47,7 +47,7 @@
                     @click.prevent="initBigChart(1)"
                   >
                     <span class="d-none d-md-block">대회</span>
-                    <span class="d-md-none">W</span>
+                    
                   </b-nav-item>
                   <b-nav-item
                     link-classes="py-2 px-3"
@@ -55,7 +55,7 @@
                     @click.prevent="initBigChart(2)"
                   >
                     <span class="d-none d-md-block">프로그램</span>
-                    <span class="d-md-none">W</span>
+                    
                   </b-nav-item>
                   <b-nav-item
                     link-classes="py-2 px-3"
@@ -63,7 +63,7 @@
                     @click.prevent="initBigChart(3)"
                   >
                     <span class="d-none d-md-block">봉사활동</span>
-                    <span class="d-md-none">W</span>
+                    
                   </b-nav-item>
                   <b-nav-item
                     link-classes="py-2 px-3"
@@ -71,7 +71,7 @@
                     @click.prevent="initBigChart(4)"
                   >
                     <span class="d-none d-md-block">기타</span>
-                    <span class="d-md-none">W</span>
+                    
                   </b-nav-item>
                 </b-nav>
               </b-col>

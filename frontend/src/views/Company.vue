@@ -514,7 +514,7 @@
         }
     }
 </script>
-<style>
+<style style lang="scss" scoped>
 
 
     .el-table .cell {

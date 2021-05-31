@@ -212,6 +212,12 @@ const routes = [
         component: () => import(/* webpackChunkName: "demo" */ '../views/CompetitionAndPrograms/ProgramListDetail.vue')
       },
       {
+        path: '/teamboardmodify',
+        name: '팀구하기 게시판수정',
+        
+        component: () => import(/* webpackChunkName: "demo" */ '../views/CompetitionAndPrograms/CompetitonTables/modify/TeamBoardModify.vue')
+      },
+      {
         path: '/ProgramList/ProgramTeamWrite',
         name: '팀구하기 작성페이지',
         
