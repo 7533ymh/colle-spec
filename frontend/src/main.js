@@ -19,7 +19,8 @@ import DashboardPlugin from './plugins/dashboard-plugin';
 import App from './App.vue';
 import store from './store'
 
-
+import VueMoment from 'vue-moment'
+Vue.use(VueMoment)
 // router setup
 import router from './routes/router';
 // plugin setup

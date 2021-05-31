@@ -33,7 +33,6 @@
               
               <b-col>
                  <b-nav class="nav-pills justify-content-end " >
-                  
 
                   <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Grade">
                     <span class="d-none d-md-block">학점</span>
@@ -84,11 +83,11 @@
             </b-row>
             
 
-<div>수상 내용</div>
+<div>학점 내용</div>
 <!--
  여기에 자격증  넣으셈
 -->
-      <b-table responsive="sm" striped :fields="fields" hover :items="award" @row-clicked="click" >                        
+      <b-table responsive="sm" striped :fields="fields" hover :items="grade" @row-clicked="click" >                        
       
       <template #cell(편집)="row">
          <b-button size="sm" @click="mvedit(row)" class="mr-2">
@@ -102,7 +101,7 @@
       </template>
     </b-table> 
             <div style="text-align: right; margin:10px;">
-            <b-button router-link to="/Portfolio/awardWrite" type="submit" variant="primary" >등록하기</b-button>
+            <b-button router-link to="/Portfolio/gradeWrite" type="submit" variant="primary" >등록하기</b-button>
             </div>
           </card>
         </b-col>
@@ -127,9 +126,8 @@
   let url=store.state.resourceHost; //서버주소 api
     export default {
       data(){return{
-      award:[{}],
-      fields:[{key:'title',label:'수상 명'},{key:'agency',label:'수여기관'},{key:'year',label:'수상년도'},{key:'edit',label:'마지막수정날짜'},{key:'편집',label:''}],
-      edit:'1',
+      grade:[{}],
+      fields:[{key:'grade',label:'학년'},{key:'semester',label:'학기'},{key:'avg_score',label:'학점'},{key:'edit',label:'마지막수정날짜'},{key:'편집',label:''}],
       }},
       components: {
       
@@ -138,23 +136,20 @@
         
       },
       mounted(){
-        this.awardView();
+        this.gradeView();
         // this.mycertificate.edit=new Date().toJSON().slice(0,10).replace(/-/g,'.');
       },
       methods:{
         click(row){
           console.log(row)
         },
-        awardView(){
-          axios.get(`${url}/award`)
+        gradeView(){
+          axios.get(`${url}/grade`)
                     .then(res=>{
-                    this.award=res.data.list
-                    console.log(res)
-                    //this.edit=res.data.list[1].edit;
-                    //this.edit=new Date().toJSON().slice(0,10).replace(/-/g,'.');
-                    
+                    this.grade=res.data.list
+                    console.log(res.data)
                     for(var i=0; i<res.data.list.length; i++){
-                    this.award[i].edit=this.award[i].edit.slice(0,10).replace(/-/g,'.');
+                    this.grade[i].edit=this.grade[i].edit.slice(0,10).replace(/-/g,'.');
                     }
         })
       },
@@ -163,7 +158,7 @@
                 let del=item.item.idx
                 
                 console.log('del idx: ',del)
-                axios.delete(`${url}/award`,{params:{
+                axios.delete(`${url}/grade`,{params:{
                     idx:del
                 }})
                 .then(res=>{
@@ -177,7 +172,7 @@
             },
             mvedit(row){
                 console.log('보낸데이터:',row)
-              this.$router.push({path:'/Portfolio/Modify/Award',query:row.item})
+              this.$router.push({path:'/Portfolio/Modify/Grade',query:row.item})
             }
           
   }

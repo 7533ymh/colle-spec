@@ -7,59 +7,50 @@
         
 
         <b-col xl="3" md="6">
+          <span  @click="aceess('/Award')">
           <stats-card title=""
                       type="gradient-red"
                       sub-title="나의 포트폴리오 or 스펙"
-                      
-                      class="mb-4">
-
-            <template slot="footer">
-                <span type=button @click="aceess('/Basic_Information')">자세히보기</span>
-
-            </template>
+                      class="mb-4"
+                      id="headercard"
+                      >
           </stats-card>
-                        
+                 </span>       
 
         </b-col>
         <b-col xl="3" md="6">
+          <span  @click="aceess('/RatingSystem')">
           <stats-card title=""
                       type="gradient-orange"
                       sub-title="나의 등급제"                  
-                      class="mb-4">
-            <template slot="footer"> 
-              <span type=button @click="aceess('/RatingSystem')">자세히보기</span> 
-              
-            </template>
+                      class="mb-4"
+                      id="headercard"
+                     >
           </stats-card>
-
-
+          </span>
         </b-col>
         <b-col xl="3" md="6">
+          <span  @click="aceess('/Competition1')">
           <stats-card title=""
                       type="gradient-green"
                       sub-title="공모전, 대회, 프로그램"
-                      
-                      class="mb-4">
-
-            <template slot="footer">
-              <span type=button @click="aceess('/Competition1')">자세히보기</span>
-            
-            </template>
+                      class="mb-4"
+                      id="headercard"
+                     >
           </stats-card>
+          </span>
 
         </b-col>
         <b-col xl="3" md="6">
+          <span  @click="aceess('/Company')">
           <stats-card title=""
                       type="gradient-info"
                       sub-title="기업 스펙 & 정보"
-                      
-                      class="mb-4">
-
-            <template slot="footer">
-              <span type=button @click="aceess('/Company')">자세히보기</span>
-               
-            </template>
+                      id="headercard"
+                      class="mb-4"
+                      >
           </stats-card>
+          </span>
         </b-col>
       </b-row>
     </base-header>
@@ -488,5 +479,8 @@ input:invalid {
   .allrank{
     text-align: center;
 
+  }
+  #headercard{
+    text-align: center;
   }
 </style>

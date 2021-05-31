@@ -35,6 +35,11 @@
                  <b-nav class="nav-pills justify-content-end " >
                   
 
+                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Grade">
+                    <span class="d-none d-md-block">학점</span>
+                    
+                  </b-nav-item>
+
                   <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Award">
                     <span class="d-none d-md-block">수상</span>
                     
@@ -151,7 +156,7 @@
                     //this.edit=res.data.list[1].edit;
                     //this.edit=new Date().toJSON().slice(0,10).replace(/-/g,'.');
                     for(var i=0; i<res.data.list.length; i++){
-                    this.career[i].edit=new Date().toJSON().slice(0,10).replace(/-/g,'.')
+                    this.career[i].edit=this.career[i].edit.slice(0,10).replace(/-/g,'.');
                     }
                     console.log('career: ',this.career)
                     console.log('edit',this.edit);

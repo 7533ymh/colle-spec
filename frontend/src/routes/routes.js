@@ -41,6 +41,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/Basic_Information.vue')
       },
       {
+        path: '/Grade',
+        name: '학점정보',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/Grade.vue')
+      },
+      {
         path: '/Self_Introduction',
         name: '자기소개서',
         component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/Self_Introduction.vue')
@@ -83,6 +88,11 @@ const routes = [
       },
       //포트폴리오 작성 라우터
       {
+        path: '/Portfolio/gradeWrite',
+        name: '학점 등록',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/write/GradeWrite.vue')
+      },
+      {
         path: '/Portfolio/awardWrite',
         name: '수상 등록',
         component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/write/AwardWrite.vue')
@@ -123,6 +133,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/write/IntroductionWrite.vue')
       },
       /* 포트폴리오 수정페이지 */
+      {
+        path: '/Portfolio/Modify/Grade',
+        name: '학점정보 수정',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/modify/GradeModify.vue')
+      },
       {
         path: '/Portfolio/Modify/Award',
         name: '수상정보 수정',

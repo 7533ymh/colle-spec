@@ -24,6 +24,13 @@
                                 <b-nav-item
                                     link-classes="py-2 px-3"
                                     router-link="router-link"
+                                    to="/portfolio/gradeWrite">
+                                    <span class="d-none d-md-block">학점 등록</span>
+                                    
+                                </b-nav-item>
+                                <b-nav-item
+                                    link-classes="py-2 px-3"
+                                    router-link="router-link"
                                     to="/portfolio/awardWrite">
                                     <span class="d-none d-md-block">수상 등록</span>
                                     

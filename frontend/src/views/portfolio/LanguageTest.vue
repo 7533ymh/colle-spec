@@ -35,6 +35,11 @@
                 <b-nav class="nav-pills justify-content-end">
                  
 
+                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Grade">
+                    <span class="d-none d-md-block">학점</span>
+                    
+                  </b-nav-item>
+
                   <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Award">
                     <span class="d-none d-md-block">수상</span>
                     
@@ -134,7 +139,7 @@
       {key:'divsion',label:'언어'},
       {key:'exam',label:'시험'},
       {key:'exam_score',label:'점수'},
-      {key:'date',label:'date'},
+      {key:'date',label:'취득날짜'},
       {key:'edits',label:''}],
 
 
@@ -180,30 +185,7 @@
                 console.log('보낸데이터:',row)
               this.$router.push({path:'/Portfolio/Modify/Language',query:row.item})
             }
-            //상세페이지에 수정 기능 넣기
-    //         edit(item,index,event) {
-    //             var params = new URLSearchParams(); //파일업로드가 포함되어 formdata를 이용한다
-    //             params.append('title', this.certificate.title);
-    //             params.append('content', this.certificate.content);
-    //             params.append('publisher', this.certificate.publisher);
-    //             params.append('date', this.certificate.date);
-    //             axios.put(`${url}/certificate`,params,{
-    //                 headers:{
-    //                     'Content-Type' : 'multipart/form-data' //다중파일 업로드하기 위해 헤더 추가
-    //                 }
-    //             })
-    //             .then(certificate=>{
-    //                 console.log(certificate)
-    //                 alert(certificate.data.msg)
-    //                 window.location.reload()
-                    
-    //             })
-                
-    //             .catch(err=>{
-    //                 console.log(err)
-    //                 alert(err.response.data.msg)
-    //             })
-    // }
+          
     }
   }
 </script>

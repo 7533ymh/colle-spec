@@ -84,7 +84,7 @@ export default new Vuex.Store({
           .then(()=>{          
             if(this.state.isLogin===true){
               router.push({path:'/main'})
-              alert(this.state.userinfo.name+'님 반값습니다.')
+              alert(this.state.userinfo.name+'님 반갑습니다.')
               }
           })
           
