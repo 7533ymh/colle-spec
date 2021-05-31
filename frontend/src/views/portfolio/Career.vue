@@ -35,44 +35,49 @@
                  <b-nav class="nav-pills justify-content-end " >
                   
 
+                  <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Grade">
+                    <span class="d-none d-md-block">학점</span>
+                    
+                  </b-nav-item>
+
                   <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Award">
                     <span class="d-none d-md-block">수상</span>
-                    <span class="d-md-none">W</span>
+                    
                   </b-nav-item>
 
                   <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Career">
                     <span class="d-none d-md-block">경력</span>
-                    <span class="d-md-none">W</span>
+                    
                   </b-nav-item>
 
                   <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Education">
                     <span class="d-none d-md-block">교육이수</span>
-                    <span class="d-md-none">W</span>
+                    
                   </b-nav-item>
 
                   <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Experience">
                     <span class="d-none d-md-block">해외경험</span>
-                    <span class="d-md-none">W</span>
+                    
                   </b-nav-item>
 
                   <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Self_Introduction">
                     <span class="d-none d-md-block">자기소개서</span>
-                    <span class="d-md-none">W</span>
+                    
                   </b-nav-item>
 
                   <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/PortfolioAndDocument">
                     <span class="d-none d-md-block">프로젝트</span>
-                    <span class="d-md-none">W</span>
+                    
                   </b-nav-item>
 
                   <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/Certificate">
                     <span class="d-none d-md-block">자격증</span>
-                    <span class="d-md-none">W</span>
+                    
                   </b-nav-item>
                   
                   <b-nav-item link-classes="py-2 px-3 mt-1 mb-1" router-link to="/LanguageTest">
                     <span class="d-none d-md-block">어학시험</span>
-                    <span class="d-md-none">W</span>
+                    
                   </b-nav-item>
                 </b-nav>
               </b-col>
@@ -126,7 +131,7 @@
     export default {
       data(){return{
       career:[{}],
-      fields:[{key:'company',label:'기업이름'},{key:'department',label:'부서'},{key:'division',label:'업무'},{key:'score',label:'점수'},{key:'start_date',label:'시작날짜'},{key:'end_date',label:'종료날짜'},{key:'edit',label:'마지막수정날짜'},{key:'편집',label:''}],
+      fields:[{key:'company',label:'기업이름'},{key:'department',label:'부서'},{key:'division',label:'업무'},{key:'start_date',label:'시작날짜'},{key:'end_date',label:'종료날짜'},{key:'edit',label:'마지막수정날짜'},{key:'편집',label:''}],
       edit:'1',
       }},
       components: {
@@ -151,7 +156,7 @@
                     //this.edit=res.data.list[1].edit;
                     //this.edit=new Date().toJSON().slice(0,10).replace(/-/g,'.');
                     for(var i=0; i<res.data.list.length; i++){
-                    this.career[i].edit=new Date().toJSON().slice(0,10).replace(/-/g,'.')
+                    this.career[i].edit=this.career[i].edit.slice(0,10).replace(/-/g,'.');
                     }
                     console.log('career: ',this.career)
                     console.log('edit',this.edit);
@@ -174,8 +179,9 @@
                 })
                 console.log('delitem: ',item)
             },
-            mvedit(){
-              this.$router.push({path:'/portfolioModify',query:this.career})
+            mvedit(row){
+                console.log('보낸데이터:',row)
+              this.$router.push({path:'/Portfolio/Modify/Career',query:row.item})
             }
             //상세페이지에 수정 기능 넣기
     //         edit(item,index,event) {

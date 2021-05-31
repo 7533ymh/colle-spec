@@ -17,14 +17,14 @@
                         
                         <!-- 프로그레스바 리스트 들고오기 -->
                             <div>
-                              <!-- <div id="wrapper"> -->
                                 <div id="contents">
+                                    
                                     <h3>{{odata.name}}
-                                        합격 가능성</h3>
+                                        합격자와의 비교</h3>
                                     <!-- <p>변경 {{data}}</p> <p>원본 {{odata}}</p> -->
 
                                     <b-progress id="prog" :max="max" height="2rem" >
-                                        <b-progress-bar :variant="color.a" :value="data.award_rank">
+                                        <b-progress-bar :variant="color.a" :value="data.award_rank" :hover="msg0" >
                                             <span>수상:
                                                 <strong>{{ msg0 }}</strong>
                                             </span>
@@ -114,13 +114,14 @@
                                     <h4>{{message.language}}<router-link to="/languageinfo">&nbsp;&nbsp;&nbsp;{{adv.language}}</router-link></h4>
                                     <h4>{{message.grade}}</h4>
                                 </div>
-                            <!-- </div> -->
-        
+                          
+                            
                             </div>
                         </card>                       
                     </b-col>                 
                 </b-row>
-                <!-- End charts-->             
+                <!-- End charts-->    
+                
           </b-container>         
   </div>
 </template>
@@ -137,13 +138,12 @@
     // Tables
     import SocialTrafficTable from './Dashboard/SocialTrafficTable';
     import PageVisitsTable from './Dashboard/PageVisitsTable';
-
     export default {
         components: {
             BaseProgress,
             StatsCard,
             PageVisitsTable,
-            SocialTrafficTable
+            SocialTrafficTable,
         },
         data() {
             
@@ -154,7 +154,7 @@
                 },
                 color:{a:'',b:'',c:'',d:'',e:'',f:'',g:''},
 
-                data: { //원본데이터 프로그레스바 적용위해 등급 변환 
+                data: { //원본데이터를 프로그레스바 적용위해 등급 변환 
                     award_rank: '',
                     career_rank: '',
                     certificate_rank: '',
@@ -501,33 +501,10 @@
                             this.message.grade='학점 등급이 평균입니다.'
                         }
 
-                        // if (res.data.data.project_rank === 5) {
-                        //     this.data.project_rank = 1;
-                        //     this.msg7 = '매우낮음';
-                        //     this.color.g='danger';
-                        // } else if (res.data.data.project_rank === 4) {
-                        //     this.data.project_rank = 2;
-                        //     this.msg7 = '낮음';
-                        //     this.color.g='warning';
-                        // } else if (res.data.data.project_rank === 2) {
-                        //     this.data.project_rank = 4;
-                        //     this.msg7 = '높음';
-                        //     this.color.g='info';
-                        // } else if (res.data.data.project_rank === 1) {
-                        //     this.data.project_rank = 5;
-                        //     this.msg7 = '매우높음';
-                        //     this.color.g='green';
-                        // } else {
-                        //     this.data.project_rank = 3;
-                        //     this.msg7 = '평균';
-                        //     this.color.g='primary';
-                        // }
-
                     })
-                console.log('detailitem', row)
+                console.log('행데이터 값', row)
                 console.log('바뀐데이터', this.data)
-                // localStorage.setItem('company',JSON.stringify(row))
-                // this.$router.push({path:'/board/ProgramTeamDetail'});
+                
                 this.advice()
             }
         },
@@ -537,23 +514,13 @@
         }
     }
 </script>
-<style>
+<style style lang="scss" scoped>
+
 
     .el-table .cell {
         padding-left: 0;
         padding-right: 0;
     }
-
-    #wrapper {
-        /* border: 1px solid #FFBB00; */
-        width: 90%;
-        padding: 10px;
-        position: absolute;
-        top: 80%;
-        overflow: hidden;
-
-    }
-
     #contents {
         /* border: 1px solid #487BE1; */
         width: 65%;
@@ -581,15 +548,6 @@
 
     #sidebar2{
       margin-top:10px;
-    }
-    
-    #sidebar3 th,td{
-        border: 1px solid black;
-        text-align: center;
-    }
-    #sidebar3 th{
-        font:bold;
-        font-size: 17px;
     }
     #prog {
         margin-top: 1px;

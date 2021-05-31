@@ -106,14 +106,7 @@ let url=store.state.resourceHost; //서버주소 api
 export default {
     data(){
         return{
-            project: {
-                    title: '',      //제목
-                    content: '',    //내용
-                    success:'',     //성공여부 0 구현실패 1구현성공
-                    start_date:'',  //시작날
-                    end_date:'',    //종료날
-                    files:[]        //프로젝트 파일 저장
-                },
+            project: this.$route.query,
                 show:true,
         }
     },
@@ -123,7 +116,7 @@ export default {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
                 //수상 작성
                 var project = new FormData(); //파일업로드가 포함되어 formdata를 이용한다
-    
+                project.append('idx', this.project.idx);
                 project.append('title', this.project.title);
                 project.append('success', this.project.success);
                 project.append('content', this.project.content);

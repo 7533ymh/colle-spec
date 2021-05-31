@@ -17,7 +17,7 @@
         <sidebar-item
           :link="{
             name: '포트폴리오',
-            path: '/Basic_Information',    
+            path: '/Award',    
           }"
           >
           <span  @click="access('/Award')">
@@ -28,15 +28,15 @@
             
           }"/>
           </span>
-
-          <span @click="access('/basic')">
+          <span  @click="access('/basic')">
           <sidebar-item
           :link="{
             name: '등록하기',
             path: '/basic',
             
           }"/>
-           </span>
+          </span>
+
         </sidebar-item>
        
 
@@ -89,45 +89,8 @@
         >
         </sidebar-item>
         </span>
-    </sidebar-item>
-
-
-     <a href="" v-if="isAuthenticated" @click.prevent="onClickLogout" >
-           <sidebar-item :link="{name:'로그아웃',path:'/'}"></sidebar-item>
-           </a>  
-            <router-link to="/Login" v-else>
-            <sidebar-item  :link="{name:'로그인',path:'/Login'}"></sidebar-item>
-        </router-link>
-    
+    </sidebar-item>    
       </template>
-
-      <template slot="links-after">
-
-        
-        <hr class="my-3">
-        <h6 class="navbar-heading p-0 text-muted">Documentation</h6>
-
-        <b-nav class="navbar-nav mb-md-3">
-          <b-nav-item
-               href="https://www.creative-tim.com/learning-lab/bootstrap-vue/quick-start/argon-dashboard"
-               >
-              <i class="ni ni-spaceship"></i>
-              <b-nav-text class="p-0">Getting started</b-nav-text>
-          </b-nav-item>
-          <b-nav-item href="https://www.creative-tim.com/learning-lab/bootstrap-vue/colors/argon-dashboard">
-              <i class="ni ni-palette"></i>
-              <b-nav-text class="p-0">Foundation</b-nav-text>
-          </b-nav-item>
-          <b-nav-item href="https://www.creative-tim.com/learning-lab/bootstrap-vue/avatar/argon-dashboard">
-              <i class="ni ni-ui-04"></i>
-              <b-nav-text class="p-0">Components</b-nav-text>
-          </b-nav-item>
-        </b-nav>
-
--
-      </template>
-
-
     </side-bar>
     <div class="main-content">
       <dashboard-navbar :type="$route.meta.navbarType"></dashboard-navbar>

@@ -15,52 +15,20 @@ const routes = [
         component: () => import(/* webpackChunkName: "demo" */ '../views/Dashboard.vue')
       },
       {
-        path: '/linkLogin',
-        name: 'linkLogin',
-        
-        component: () => import(/* webpackChunkName: "demo" */ '../views/Pages/linkLogin.vue')
-      },
-
-      {
         path: '/main',
         name: 'main',
         
         component: () => import(/* webpackChunkName: "demo" */ '../views/main.vue')
       },
       {
-        path: '/chart',
-        name: 'chart',
-        
-        component: () => import(/* webpackChunkName: "demo" */ '@/mixins/chart.vue')
-      },
-      {
         path: '/basic',
         name: 'basic',
-        
+        //포트폴리오 작성 모음 페이지
         component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/basic.vue')
       },
-      {
-        path: '/cccc',
-        name: 'cccc',
-        
-        component: () => import(/* webpackChunkName: "demo" */ '@/testtest/examples/cccc.vue')
-      },
-
 
 
       /* 포트폴리오 관련 라우터*/
-      {
-        path: '/portfolio',
-        name: 'portfolio',
-        
-        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio.vue')
-      },
-      {
-        path: '/portfolioWrite',
-        name: 'portfolioWrite',
-        
-        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/portfolioWrite.vue')
-      },
       {
         path: '/portfolioModify',
         name: 'portfolioModify',
@@ -71,6 +39,11 @@ const routes = [
         path: '/Basic_Information',
         name: '기본정보',
         component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/Basic_Information.vue')
+      },
+      {
+        path: '/Grade',
+        name: '학점정보',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/Grade.vue')
       },
       {
         path: '/Self_Introduction',
@@ -115,6 +88,11 @@ const routes = [
       },
       //포트폴리오 작성 라우터
       {
+        path: '/Portfolio/gradeWrite',
+        name: '학점 등록',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/write/GradeWrite.vue')
+      },
+      {
         path: '/Portfolio/awardWrite',
         name: '수상 등록',
         component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/write/AwardWrite.vue')
@@ -154,8 +132,48 @@ const routes = [
         name: '자기소개서 등록',
         component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/write/IntroductionWrite.vue')
       },
-
-
+      /* 포트폴리오 수정페이지 */
+      {
+        path: '/Portfolio/Modify/Grade',
+        name: '학점정보 수정',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/modify/GradeModify.vue')
+      },
+      {
+        path: '/Portfolio/Modify/Award',
+        name: '수상정보 수정',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/modify/AwardModify.vue')
+      },
+      {
+        path: '/Portfolio/Modify/Career',
+        name: '경력정보 수정',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/modify/CareerModify.vue')
+      },
+      {
+        path: '/Portfolio/Modify/Certificate',
+        name: '자격증정보 수정',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/modify/CertificateModify.vue')
+      },
+      {
+        path: '/Portfolio/Modify/Education',
+        name: '교육이수정보 수정',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/modify/EducationModify.vue')
+      },
+      {
+        path: '/Portfolio/Modify/Experience',
+        name: '해외경험정보 수정',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/modify/ExperienceModify.vue')
+      },
+      {
+        path: '/Portfolio/Modify/Language',
+        name: '어학정보 수정',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/modify/LanguageModify.vue')
+      },
+      {
+        path: '/Portfolio/Modify/Project',
+        name: '프로젝트정보 수정',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/modify/ProjectModify.vue')
+      },
+      
 
 
       
@@ -207,6 +225,12 @@ const routes = [
         name: '팀구하기 상세페이지',
         
         component: () => import(/* webpackChunkName: "demo" */ '../views/CompetitionAndPrograms/ProgramListDetail.vue')
+      },
+      {
+        path: '/teamboardmodify',
+        name: '팀구하기 게시판수정',
+        
+        component: () => import(/* webpackChunkName: "demo" */ '../views/CompetitionAndPrograms/CompetitonTables/modify/TeamBoardModify.vue')
       },
       {
         path: '/ProgramList/ProgramTeamWrite',
@@ -280,6 +304,12 @@ const routes = [
         path: '/login',
         name: 'login',
         component: () => import(/* webpackChunkName: "demo" */ '../views/Pages/Login.vue')
+      },
+      {
+        path: '/linkLogin',
+        name: 'linkLogin',
+        //연동 로그인
+        component: () => import(/* webpackChunkName: "demo" */ '../views/Pages/linkLogin.vue')
       },
       {
         path: '/register',

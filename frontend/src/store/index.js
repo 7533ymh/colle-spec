@@ -83,9 +83,8 @@ export default new Vuex.Store({
           dispatch("a_rankView")
           .then(()=>{          
             if(this.state.isLogin===true){
-              alert(this.state.userinfo.name+'님 반값습니다.')
               router.push({path:'/main'})
-
+              alert(this.state.userinfo.name+'님 반갑습니다.')
               }
           })
           
@@ -122,6 +121,7 @@ export default new Vuex.Store({
                    if(res.data.data.award_rank==='1등급'){
                      //this.radarChartData.datasets[0].data[0]=5
                      var a1=5
+                     
                      
                    }
                    else if(res.data.data.award_rank==='2등급'){
@@ -324,11 +324,21 @@ export default new Vuex.Store({
                      
                    }
                    var result=[a1,a2,a3,a4,a5,a6,a7,a8]
-                   localStorage.setItem("rating",JSON.stringify(result))
+                   var mRank=[res.data.data.award_rank,
+                            res.data.data.career_rank,
+                            res.data.data.certificate_rank,
+                            res.data.data.education_rank,
+                            res.data.data.experience_rank,
+                            res.data.data.grade_rank,
+                            res.data.data.project_rank,
+                            res.data.data.language_rank]
+
+                   localStorage.setItem("mRating",JSON.stringify(result))
+                   localStorage.setItem("mRank",JSON.stringify(mRank))
                    commit('USERRANK',res.data.data)
              })
              .catch(err=>{
-               alert(err.response.data.msg)
+               console.log(err)
              })
      },
   }

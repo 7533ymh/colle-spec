@@ -189,10 +189,6 @@
     authorized() {	
       return store.getters.userid === this.items.user_id;
     },
-    // commauthorized() {
-		
-    //   return store.getters.userid === this.myid;
-    //   }
     }
 	,methods:{
 		// mycomm(){
@@ -215,9 +211,6 @@
 		handleNewLine(str) {    
        return String(str).replace(/(?:\r\n|\r|\n)/g,"</br>");
 		},
-		fnList(){
-			this.$router.push({path:'/board/list'});
-		},
 		del_board(){
 			axios.delete(`${url}/program/board`,{params:{
 						idx:this.items.idx
@@ -229,14 +222,8 @@
 					})
 		},
 		edit_board(){
-			var params=new URLSearchParams();
-					params.append('idx',this.items.idx)
-					params.append('title',this.title)
-					params.append('content',this.comment)
-			axios.put(`${url}/program/board`,params)
-					.then(res=>{
-						console.log(res.data.msg)
-					})
+			this.$router.push({path:'/teamboardmodify',query:{data:this.items,content:this.content}})
+			
 		},
 		async detail_view(){
 			await axios.get(`${url}/program/board`,{params:{

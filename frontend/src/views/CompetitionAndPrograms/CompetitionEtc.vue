@@ -40,17 +40,17 @@
                   
                   <b-nav-item link-classes="py-2 px-3" router-link to="/CompetitionProgram">
                     <span class="d-none d-md-block">프로그램</span>
-                    <span class="d-md-none">W</span>
+                    
                   </b-nav-item>
 
                   <b-nav-item link-classes="py-2 px-3" router-link to="/Volunteer">
                     <span class="d-none d-md-block">봉사활동</span>
-                    <span class="d-md-none">W</span>
+                    
                   </b-nav-item>
                   
                   <b-nav-item link-classes="py-2 px-3" router-link to="/CompetitionEtc">
                     <span class="d-none d-md-block">기타</span>
-                    <span class="d-md-none">W</span>
+                    
                   </b-nav-item>
                 </b-nav>
               </b-col>

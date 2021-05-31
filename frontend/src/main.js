@@ -19,13 +19,14 @@ import DashboardPlugin from './plugins/dashboard-plugin';
 import App from './App.vue';
 import store from './store'
 
-
+import VueMoment from 'vue-moment'
+Vue.use(VueMoment)
 // router setup
 import router from './routes/router';
 // plugin setup
-import VModal from 'vue-js-modal';
+// import VModal from 'vue-js-modal';
 Vue.use(DashboardPlugin);
-Vue.use(VModal, { dynamic: true });
+// Vue.use(VModal, { dynamic: true });
 export const eventBus =new Vue()
 /* eslint-disable no-new */
 new Vue({

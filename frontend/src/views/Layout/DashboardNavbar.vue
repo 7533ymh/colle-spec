@@ -52,17 +52,28 @@
          
           
           <div class="dropdown-divider"></div>
-          <b-dropdown-item href="#!">
+          <b-dropdown-item v-if="isAuthenticated" @click.prevent="onClickLogout">
             <i class="ni ni-user-run"></i>
-            <span><a href="" v-if="isAuthenticated" @click.prevent="onClickLogout">로그아웃</a>
-            <router-link to="/login" v-else>로그인</router-link></span>
+            <span>로그아웃</span>
+            
+          </b-dropdown-item>
+          <b-dropdown-item v-else @click="Login">
+            <i class="ni ni-user-run"></i>
+            <span>로그인</span>
           </b-dropdown-item>
 
-          <b-dropdown-item href="#!" v-if="isAuthenticated">
+
+          <span v-if="isAuthenticated">
+            <b-dropdown-item v-if="linkuser" @click="update">
             <i class="ni ni-user-run"></i>
-            <span v-if="linkuser" @click="update">업데이트</span>
-            <span v-else @click="linkon">연동</span>
+            <span>업데이트</span>
           </b-dropdown-item>
+          <b-dropdown-item v-else>
+            <i class="ni ni-user-run"></i>
+            <span @click="linkon">연동</span>
+          </b-dropdown-item>
+          </span>
+          
 
         </template>
       </base-dropdown>
@@ -128,11 +139,13 @@ export default {
   methods: {
     //로그아웃 메소드
       onClickLogout(){
-        store.dispatch('LOGOUT').then(res=>{this.$router.push('/')
-        location.reload()
+        store.dispatch('LOGOUT').then(res=>{this.$router.push('/Main')
+        
         })
       },
-
+      Login(){
+        this.$router.push({path:'/login'})
+      },
     update(){
       axios.get(`${url}/link/update`)
           .then(res=>{

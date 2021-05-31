@@ -76,12 +76,13 @@
 
 
                                 <div id="progress" class="col-md-8" style="padding-left: 0;" > <!-- 차트 UI -->
-                                    <!-- <mdb-container>
-                                        <mdb-radar-chart id="mychart"  :options="radarChartOptions" :data="chartdata"  :width="600" :height="400">
-
-                                        </mdb-radar-chart>
-                                    </mdb-container> -->
-                                    <!-- <radar-example :width="400" :height="400"/> -->
+                                     <b-progress id="prog" :max="max" height="2rem" >
+                                        <b-progress-bar :variant="color.a0" :value="data.all_rank">
+                                            <span>전체등급:
+                                                <strong>{{ msg00 }}</strong>
+                                            </span>
+                                        </b-progress-bar>
+                                    </b-progress>
                                           <b-progress id="prog" :max="max" height="2rem" >
                                         <b-progress-bar :variant="color.a" :value="data.award_rank">
                                             <span>수상:
@@ -184,6 +185,7 @@
           max:5,
           dataPoints: null,
           data: { //원본데이터 값 reverse
+                    all_rank:'',
                     award_rank: '',
                     career_rank: '',
                     certificate_rank: '',
@@ -194,7 +196,8 @@
                     project_rank: ''
 
                 },
-        color:{a:'',b:'',c:'',d:'',e:'',f:'',g:'',h:''},
+        color:{a0:'',a:'',b:'',c:'',d:'',e:'',f:'',g:'',h:''},
+        msg00:'',
         msg0: '', //수상메시지
         msg1: '', //경력메시지
         msg2: '', //자격증메시지
@@ -262,6 +265,37 @@
                       localStorage.setItem("rank",JSON.stringify(res.data.data))
                       this.viewRank=res.data.data
                       console.log(this.viewRank)
+                      if(res.data.data.all_rank==='1등급'){
+                        var a0=5
+                        this.color.a0='green'
+                        this.msg00='매우잘함'
+                        this.data.all_rank=5
+                      }
+                      else if(res.data.data.all_rank==='2등급'){
+                        var a0=4
+                        this.color.a0='info'
+                        this.msg00='잘함'
+                        this.data.all_rank=4
+                        }
+                      else if(res.data.data.all_rank==='4등급'){
+                        var a0=2
+                        this.color.a0='warning'
+                        this.msg00='부족'
+                        this.data.all_rank=2
+                      }
+                      else if(res.data.data.all_rank==='5등급'){
+                        var a0=1
+                        this.color.a0='danger'
+                        this.msg00='매우부족'
+                        this.data.all_rank=1
+                      }else{
+                        var a0=3
+                        this.color.a0='primary'
+                        this.msg00='평균'
+                        this.data.all_rank=3
+           
+                      }
+
                       if(res.data.data.award_rank==='1등급'){
                         //this.radarChartData.datasets[0].data[0]=5
                         var a1=5
@@ -546,7 +580,7 @@
                         this.msg7='평균'
                         this.data.language_rank=3
                       }
-                      var result=[a1,a2,a3,a4,a5,a6,a7,a8]
+                      var result=[a0,a1,a2,a3,a4,a5,a6,a7,a8]
                       localStorage.setItem("rating",JSON.stringify(result))
                       
                       
@@ -561,6 +595,36 @@
                       this.viewRank=res.data.data
                       localStorage.setItem("rank",JSON.stringify(res.data.data))
                       console.log(this.viewRank)
+                      if(res.data.data.all_rank==='1등급'){
+                        var a0=5
+                        this.color.a0='green'
+                        this.msg00='매우잘함'
+                        this.data.all_rank=5
+                      }
+                      else if(res.data.data.all_rank==='2등급'){
+                        var a0=4
+                        this.color.a0='info'
+                        this.msg00='잘함'
+                        this.data.all_rank=4
+                        }
+                      else if(res.data.data.all_rank==='4등급'){
+                        var a0=2
+                        this.color.a0='warning'
+                        this.msg00='부족'
+                        this.data.all_rank=2
+                      }
+                      else if(res.data.data.all_rank==='5등급'){
+                        var a0=1
+                        this.color.a0='danger'
+                        this.msg00='매우부족'
+                        this.data.all_rank=1
+                      }else{
+                        var a0=3
+                        this.color.a0='primary'
+                        this.msg00='평균'
+                        this.data.all_rank=3
+           
+                      }
                        if(res.data.data.award_rank==='1등급'){
                         //this.radarChartData.datasets[0].data[0]=5
                         var a1=5
@@ -845,7 +909,7 @@
                         this.msg7='평균'
                         this.data.language_rank=3
                       }
-                      var result=[a1,a2,a3,a4,a5,a6,a7,a8]
+                      var result=[a0,a1,a2,a3,a4,a5,a6,a7,a8]
                       localStorage.setItem("rating",JSON.stringify(result))
 
                       
@@ -861,6 +925,36 @@
                       this.viewRank=res.data.data
                       localStorage.setItem("rank",JSON.stringify(res.data.data))
                       console.log(this.viewRank)
+                      if(res.data.data.all_rank==='1등급'){
+                        var a0=5
+                        this.color.a0='green'
+                        this.msg00='매우잘함'
+                        this.data.all_rank=5
+                      }
+                      else if(res.data.data.all_rank==='2등급'){
+                        var a0=4
+                        this.color.a0='info'
+                        this.msg00='잘함'
+                        this.data.all_rank=4
+                        }
+                      else if(res.data.data.all_rank==='4등급'){
+                        var a0=2
+                        this.color.a0='warning'
+                        this.msg00='부족'
+                        this.data.all_rank=2
+                      }
+                      else if(res.data.data.all_rank==='5등급'){
+                        var a0=1
+                        this.color.a0='danger'
+                        this.msg00='매우부족'
+                        this.data.all_rank=1
+                      }else{
+                        var a0=3
+                        this.color.a0='primary'
+                        this.msg00='평균'
+                        this.data.all_rank=3
+           
+                      }
                       if(res.data.data.award_rank==='1등급'){
                         //this.radarChartData.datasets[0].data[0]=5
                         var a1=5
@@ -1145,7 +1239,7 @@
                         this.msg7='평균'
                         this.data.language_rank=3
                       }
-                      var result=[a1,a2,a3,a4,a5,a6,a7,a8]
+                      var result=[a0,a1,a2,a3,a4,a5,a6,a7,a8]
                       localStorage.setItem("rating",JSON.stringify(result))
                 })
                 .catch(err=>{
@@ -1158,6 +1252,37 @@
                       this.viewRank=res.data.data
                       localStorage.setItem("rank",JSON.stringify(res.data.data))
                       console.log(this.viewRank) 
+
+                      if(res.data.data.all_rank==='1등급'){
+                        var a0=5
+                        this.color.a0='green'
+                        this.msg00='매우잘함'
+                        this.data.all_rank=5
+                      }
+                      else if(res.data.data.all_rank==='2등급'){
+                        var a0=4
+                        this.color.a0='info'
+                        this.msg00='잘함'
+                        this.data.all_rank=4
+                        }
+                      else if(res.data.data.all_rank==='4등급'){
+                        var a0=2
+                        this.color.a0='warning'
+                        this.msg00='부족'
+                        this.data.all_rank=2
+                      }
+                      else if(res.data.data.all_rank==='5등급'){
+                        var a0=1
+                        this.color.a0='danger'
+                        this.msg00='매우부족'
+                        this.data.all_rank=1
+                      }else{
+                        var a0=3
+                        this.color.a0='primary'
+                        this.msg00='평균'
+                        this.data.all_rank=3
+           
+                      }
                        if(res.data.data.award_rank==='1등급'){
                         //this.radarChartData.datasets[0].data[0]=5
                         var a1=5
@@ -1442,7 +1567,7 @@
                         this.msg7='평균'
                         this.data.language_rank=3
                       }
-                      var result=[a1,a2,a3,a4,a5,a6,a7,a8]
+                      var result=[a0,a1,a2,a3,a4,a5,a6,a7,a8]
                       localStorage.setItem("rating",JSON.stringify(result))
                 })
                 .catch(err=>{
@@ -1492,7 +1617,7 @@
   
 }
 #progress{
-  margin-top: 7%;
+  margin-top: 1%;
 }
 #prog{
   margin-bottom: 4%;

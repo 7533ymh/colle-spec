@@ -50,19 +50,11 @@
                              prop="program_date_end"
                              min-width="60px">
             </el-table-column>
-           <el-table-column fixed="right" label="board" width="120px">
-      <template slot-scope="scope">
-        <el-button @click="team(scope.row)" size="small">
-         Team
-        </el-button>
-      </template>
-    </el-table-column>
+      
     
         </el-table>
 
-        <b-card-footer class="py-4 d-flex justify-content-end">
-            <base-pagination v-model="currentPage" :per-page="10" :total="50"></base-pagination>
-        </b-card-footer>
+        
     </b-card>
 </template>
 <script>

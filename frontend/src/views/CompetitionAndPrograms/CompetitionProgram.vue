@@ -35,23 +35,19 @@
                 <b-nav class="nav-pills justify-content-end">
                   <b-nav-item link-classes="py-2 px-3" router-link to="/Competition1">    
                     <span class="d-none d-md-block"> 공모전&대회</span>
-                    <span class="d-md-none">M</span>
+                    <span class="d-md-none">공모전&대회</span>
                   </b-nav-item>
 
                   <b-nav-item link-classes="py-2 px-3" router-link to="/CompetitionProgram">
                     <span class="d-none d-md-block">프로그램</span>
-                    <span class="d-md-none">W</span>
+                    <span class="d-md-none">프로그램</span>
                   </b-nav-item>
 
                   <b-nav-item link-classes="py-2 px-3" router-link to="/Volunteer">
                     <span class="d-none d-md-block">봉사활동</span>
-                    <span class="d-md-none">W</span>
+                    <span class="d-md-none">봉사활동</span>
                   </b-nav-item>
-                  
-                  <!-- <b-nav-item link-classes="py-2 px-3" router-link to="/CompetitionEtc">
-                    <span class="d-none d-md-block">기타</span>
-                    <span class="d-md-none">W</span>
-                  </b-nav-item> -->
+             
                 </b-nav>
               </b-col>
             </b-row>
