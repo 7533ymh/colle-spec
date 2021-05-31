@@ -1,13 +1,16 @@
 package com.example.backend.service.link;
 
 import com.example.backend.domain.grade.service.GradeService;
+import com.example.backend.domain.link.linkmapper.LinkMapper;
 import com.example.backend.domain.link.service.LinkService;
 import com.example.backend.domain.user.domain.User;
 import com.example.backend.domain.user.mapper.UserMapper;
+import com.example.backend.global.exception.exception.CUserLoginFailException;
 import com.example.backend.global.exception.exception.CUserNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,12 +26,18 @@ class LinkServiceTest {
     @Autowired
     GradeService gradeService;
 
+    @Autowired
+    LinkMapper linkMapper;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Test
     void 어플로그인() {
 
         //given
         String id = "test1";
-        String pw = "111";
+        String pw = "1234";
 
 
         //when
@@ -82,6 +91,23 @@ class LinkServiceTest {
 
     }
 
+    @Test
+    void 비밀번호(){
+
+
+        //given
+        String id = "qaws";
+        String pw = "qaws";
+
+        //when
+        User user = linkMapper.findById(id)
+                .orElseThrow(CUserNotFoundException::new);
+
+        if (!passwordEncoder.matches(pw, "{bcrypt}"+user.getPassword()))
+            throw new CUserLoginFailException();
+
+
+    }
 
 }
 

@@ -11,6 +11,7 @@ import com.example.backend.domain.grade.service.GradeService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class LinkService {
     private final UserMapper userMapper;
     private final GradeService gradeService;
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
+    private final PasswordEncoder passwordEncoder;
 
 
     public int linkLogin(String id , String pass){
@@ -32,9 +34,8 @@ public class LinkService {
         User user = linkMapper.findById(id)
                 .orElseThrow(CUserNotFoundException::new);
 
-        if (!pass.matches(user.getPass())) {
+        if (!passwordEncoder.matches(pass, "{bcrypt}"+user.getPassword()))
             throw new CUserLoginFailException();
-        }
 
         return user.getIdx();
 

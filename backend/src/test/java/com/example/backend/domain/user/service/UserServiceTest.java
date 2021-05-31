@@ -27,13 +27,11 @@ class UserServiceTest {
 
         for (int i = 81; i < 161; i++) {
 
-            if ( i >= 141) {
+            if (i >= 141) {
                 check = 4;
-            }
-            else if (i >= 121){
+            } else if (i >= 121) {
                 check = 3;
-            }
-            else if (i >= 101){
+            } else if (i >= 101) {
                 check = 2;
             }
 
@@ -53,18 +51,27 @@ class UserServiceTest {
             user.setRole("ROLE_USER");
 
 
-
             userService.signup(user);
 
             userMapper.updateLink(user);
 
 
-
-
-
-
         }
 
+
+    }
+
+    @Test
+    void 비밀번호(){
+
+        //given
+        String pw = "1234";
+
+        //when
+        String Encoding = passwordEncoder.encode(pw);
+
+        //then
+        System.out.println(Encoding);
 
 
 
