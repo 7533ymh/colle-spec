@@ -23,9 +23,9 @@ import store from './store'
 // router setup
 import router from './routes/router';
 // plugin setup
-import VModal from 'vue-js-modal';
+// import VModal from 'vue-js-modal';
 Vue.use(DashboardPlugin);
-Vue.use(VModal, { dynamic: true });
+// Vue.use(VModal, { dynamic: true });
 export const eventBus =new Vue()
 /* eslint-disable no-new */
 new Vue({

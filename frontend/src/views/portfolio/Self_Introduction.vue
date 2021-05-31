@@ -161,10 +161,12 @@
                     idx:idxx
                 }
                 ,responseType: 'blob'
-                ,contentType }
+                
+                }
                   
               )
                 .then(res=>{
+                    console.log('res',res)
                     const downurl = window.URL.createObjectURL(new Blob([res.data]));
                     const link = document.createElement('a');
                     link.href = downurl;

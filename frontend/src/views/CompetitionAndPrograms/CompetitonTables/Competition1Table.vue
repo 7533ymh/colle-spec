@@ -14,7 +14,7 @@
            
             <el-table-column label="번호"
                              prop='idx'
-                             min-width="30px">
+                             min-width="37px">
                               <template slot-scope="scope">
                                 {{scope.$index+1}} 
                               </template>
@@ -23,16 +23,12 @@
               <el-table-column 
                         label="제목"
                         prop="title"
-                        min-width="140px">
+                        min-width="120px">
                         <template slot-scope="scope">
-                          <a v-bind:href="scope.row.url" target="link.place">{{scope.row.title}}</a>
+                          <a v-bind:href="scope.row.url" target="blank">{{scope.row.title}}</a>
                         </template>
               </el-table-column>
-              
-
-           <!-- <template slot-scope="scope">
-              
-          </template> -->
+            
 
             <el-table-column label="접수시작"
                              prop="receive_date_start"

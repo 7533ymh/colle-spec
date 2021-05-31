@@ -17,7 +17,7 @@ const routes = [
       {
         path: '/linkLogin',
         name: 'linkLogin',
-        
+        //연동 로그인
         component: () => import(/* webpackChunkName: "demo" */ '../views/Pages/linkLogin.vue')
       },
 
@@ -28,39 +28,14 @@ const routes = [
         component: () => import(/* webpackChunkName: "demo" */ '../views/main.vue')
       },
       {
-        path: '/chart',
-        name: 'chart',
-        
-        component: () => import(/* webpackChunkName: "demo" */ '@/mixins/chart.vue')
-      },
-      {
         path: '/basic',
         name: 'basic',
-        
+        //포트폴리오 작성 모음 페이지
         component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/basic.vue')
       },
-      {
-        path: '/cccc',
-        name: 'cccc',
-        
-        component: () => import(/* webpackChunkName: "demo" */ '@/testtest/examples/cccc.vue')
-      },
-
 
 
       /* 포트폴리오 관련 라우터*/
-      {
-        path: '/portfolio',
-        name: 'portfolio',
-        
-        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio.vue')
-      },
-      {
-        path: '/portfolioWrite',
-        name: 'portfolioWrite',
-        
-        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/portfolioWrite.vue')
-      },
       {
         path: '/portfolioModify',
         name: 'portfolioModify',

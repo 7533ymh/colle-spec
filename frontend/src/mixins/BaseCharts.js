@@ -90,9 +90,10 @@ export function generateChart (chartId, chartType) {
 
 
 export const Radar = generateChart('radar-chart', 'radar')
+export const HorizontalBar = generateChart('horizontalbar-chart', 'horizontalBar')
 
 export default {
   
   Radar,
-
+  HorizontalBar
 }

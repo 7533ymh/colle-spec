@@ -25,7 +25,7 @@
                             :row-class-name="tableRow"
                             @row-click="detail">
 
-                            <el-table-column label="번호" prop='idx' min-width="15%">
+                            <el-table-column label="번호" prop='idx' min-width="30%">
                                 <template slot-scope="scope">
                                     {{scope.$index+1}}
                                 </template>
@@ -37,49 +37,8 @@
                                 </template>
                             </el-table-column>
 
-                            <!-- <template slot-scope="scope"> </template> -->
-                              <!-- <tr>
-                                                <th>회사이름</th>
-                                                <th>주소</th>
-                                                <th>구분</th>
-                                                <th>사원수</th>
-                                                
-                                                <th>산업</th>
-                                                <th>자본금</th>
-           
-                                            </tr>
-                                            <tr>
-                                                <td><a :href="odata.url" target="place">{{odata.name}}</a></td>
-                                                <td>{{odata.address}}</td>
-                                                <td>{{odata.division}}</td>
-                                                <td>{{odata.people}}</td>
-                                                <td>{{odata.industry}}</td>
-                                                <td>{{odata.capital}}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>설립일</th>
-                                                <th>주요사업</th>
-                                                <th>대표자</th>
-                                                <th>대졸초임</th>
-                                                <th>4대보험</th>
-                                                <th>매출액</th>
-                                            </tr>
-                                            <tr>
-                                                <td>{{odata.establishment}}</td>
-                                                <td>{{odata.bussiness}}</td>
-                                                <td>{{odata.representative}}</td>
-                                                <td>{{odata.salary}}</td>
-                                                <td>{{odata.insurance}}</td>
-                                                <td>{{odata.take}}</td>                                
-                                            </tr> -->
-
-                            
                             <el-table-column fixed="right" label="" width="120px">
-                                <template slot-scope="scope">
-                                    <el-button @click="detailinfo(scope.row)" size="small">
-                                        Detail
-                                    </el-button>
-                                </template>
+                               
                             </el-table-column>
 
                         </el-table>
@@ -157,13 +116,13 @@
                         console.log('company', res.data.data)
                         this.odata = res.data.data
                        localStorage.setItem('companyinfo',JSON.stringify(res.data.data))
-
+                        this.$router.push({path:'/Company/info/detail'})
                     })
                 console.log('row', row)
                 // this.$router.push({path:'/board/ProgramTeamDetail'});
             },
             detailinfo(){
-                this.$router.push({path:'/Company/info/detail'})
+                
             }
         },
         mounted() {

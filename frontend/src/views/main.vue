@@ -82,6 +82,8 @@
                   <!-- 여기다 보여줄 정보 작성하기 -->
                   
                   <radar-example id="radar"/>
+                  
+                  
            </span>  
            
             <router-link to="/login" v-else>
@@ -158,7 +160,6 @@
         isLogin:store.state.isLogin,
       p_count:0,
       rank:{},
-      reload:JSON.parse(localStorage.getItem("page")),
       page:false,
       user:{
         summary:{}

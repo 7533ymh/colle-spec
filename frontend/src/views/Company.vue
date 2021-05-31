@@ -19,12 +19,13 @@
                             <div>
                               <!-- <div id="wrapper"> -->
                                 <div id="contents">
+                                    
                                     <h3>{{odata.name}}
-                                        합격 가능성</h3>
+                                        합격자와의 비교</h3>
                                     <!-- <p>변경 {{data}}</p> <p>원본 {{odata}}</p> -->
 
                                     <b-progress id="prog" :max="max" height="2rem" >
-                                        <b-progress-bar :variant="color.a" :value="data.award_rank">
+                                        <b-progress-bar :variant="color.a" :value="data.award_rank" :hover="msg0" >
                                             <span>수상:
                                                 <strong>{{ msg0 }}</strong>
                                             </span>
@@ -115,12 +116,13 @@
                                     <h4>{{message.grade}}</h4>
                                 </div>
                             <!-- </div> -->
-        
+                            
                             </div>
                         </card>                       
                     </b-col>                 
                 </b-row>
-                <!-- End charts-->             
+                <!-- End charts-->    
+                
           </b-container>         
   </div>
 </template>
@@ -137,13 +139,12 @@
     // Tables
     import SocialTrafficTable from './Dashboard/SocialTrafficTable';
     import PageVisitsTable from './Dashboard/PageVisitsTable';
-
     export default {
         components: {
             BaseProgress,
             StatsCard,
             PageVisitsTable,
-            SocialTrafficTable
+            SocialTrafficTable,
         },
         data() {
             
@@ -154,7 +155,7 @@
                 },
                 color:{a:'',b:'',c:'',d:'',e:'',f:'',g:''},
 
-                data: { //원본데이터 프로그레스바 적용위해 등급 변환 
+                data: { //원본데이터를 프로그레스바 적용위해 등급 변환 
                     award_rank: '',
                     career_rank: '',
                     certificate_rank: '',
@@ -524,9 +525,16 @@
                         // }
 
                     })
-                console.log('detailitem', row)
+                console.log('행데이터 값', row)
                 console.log('바뀐데이터', this.data)
-                // localStorage.setItem('company',JSON.stringify(row))
+                // var changedata=[this.data.award_rank,
+                //                 this.data.career_rank,
+                //                 this.data.certificate_rank,
+                //                 this.data.education_rank,
+                //                 this.data.experience_rank,
+                //                 this.data.language_rank,
+                //                 this.data.grade_rank]
+                // localStorage.setItem('companyrank',JSON.stringify(changedata))
                 // this.$router.push({path:'/board/ProgramTeamDetail'});
                 this.advice()
             }
@@ -538,6 +546,7 @@
     }
 </script>
 <style>
+
 
     .el-table .cell {
         padding-left: 0;

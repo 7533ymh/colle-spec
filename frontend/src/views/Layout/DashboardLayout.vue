@@ -17,7 +17,7 @@
         <sidebar-item
           :link="{
             name: '포트폴리오',
-            path: '/Basic_Information',    
+            path: '/Award',    
           }"
           >
           <span  @click="access('/Award')">
@@ -28,15 +28,15 @@
             
           }"/>
           </span>
-
-          <span @click="access('/basic')">
+          <span  @click="access('/basic')">
           <sidebar-item
           :link="{
             name: '등록하기',
             path: '/basic',
             
           }"/>
-           </span>
+          </span>
+
         </sidebar-item>
        
 
@@ -101,7 +101,7 @@
     
       </template>
 
-      <template slot="links-after">
+      <!-- <template slot="links-after">
 
         
         <hr class="my-3">
@@ -125,7 +125,7 @@
         </b-nav>
 
 -
-      </template>
+      </template> -->
 
 
     </side-bar>
