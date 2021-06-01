@@ -88,7 +88,7 @@
 <!--
  여기에 자격증  넣으셈
 -->
-      <b-table responsive="sm" striped :fields="fields" hover :items="award" @row-clicked="click" >                        
+      <b-table responsive="sm" striped :fields="fields" hover :items="award" v-if="show"  @row-clicked="click" >                        
       
       <template #cell(편집)="row">
          <b-button size="sm" @click="mvedit(row)" class="mr-2">
@@ -127,6 +127,7 @@
   let url=store.state.resourceHost; //서버주소 api
     export default {
       data(){return{
+          show:false,
       award:[{}],
       fields:[{key:'title',label:'수상 명'},{key:'agency',label:'수여기관'},{key:'year',label:'수상년도'},{key:'edit',label:'마지막수정날짜'},{key:'편집',label:''}],
       edit:'1',
@@ -155,6 +156,7 @@
                     
                     for(var i=0; i<res.data.list.length; i++){
                     this.award[i].edit=this.award[i].edit.slice(0,10).replace(/-/g,'.');
+                    this.show=true
                     }
         })
       },

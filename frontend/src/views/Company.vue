@@ -14,6 +14,30 @@
               <b-row>
                 <b-col xl="12" class="mb-5 mb-xl-0">
                     <card header-classes="bg-transparent">
+                        <div v-if="odatashow===true">
+                            <div id="contents2">
+                        <h1><a :href="odata.url" target="place">{{odata.name}}</a></h1>
+                        <h3>대표자<br>{{odata.representative}}</h3>
+                        <h3>구분<br>{{odata.division}}</h3>
+                        
+                        
+                        <h3>산업<br>{{odata.industry}}</h3>
+                        
+                        <h3>주요사업<br>{{odata.bussiness}}</h3>
+                        <h3>4대보험<br>{{odata.insurance}}</h3>
+                                                
+                    </div>
+                    <!---content끝-->
+                    <!--contents2-->
+                    <div id="contents3">
+                        <h3>사원수: {{odata.people}}</h3>
+                        <h3>자본금: {{odata.capital}}</h3>
+                        <h3>매출액: {{odata.take}}</h3>
+                        <h3>대졸초임: {{odata.salary}}</h3>
+                        <h3>설립일: {{odata.establishment}}</h3>
+                        <h3>주소: {{odata.address}}</h3>
+                    </div>
+                        </div>
                         
                         <!-- 프로그레스바 리스트 들고오기 -->
                             <div>
@@ -166,6 +190,8 @@
 
                 },
                 odata: {}, //원본데이터
+                odatashow:false,
+                
 
                 msg0: '', //수상메시지
                 msg1: '', //경력메시지
@@ -306,6 +332,7 @@
                     .then(res => {
                         console.log('원본', res.data.data)
                         this.odata = res.data.data
+                        this.odatashow=true
 
                         if (res.data.data.award_rank === 5) {
                             this.data.award_rank = 1;
@@ -568,6 +595,19 @@
         display: block;
         padding-left: 0px;
     }
+ #contents2 {
+        /* border: 1px solid #487BE1; */
+        width: 70%;
+        float: left;
+        padding: 10px;
 
+    }
+     #contents3 {
+        /* border: 1px solid #487BE1; */
+        width: 30%;
+        float: left;
+        padding: 10px;
+
+    }
 
 </style>

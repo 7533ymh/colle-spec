@@ -87,7 +87,7 @@
 <div>포트폴리오, 문서 내용</div>
 <!--
  여기에 포트폴리오, 문서 넣으셈
---><b-table responsive="sm" striped :fields="fields" hover :items="myproject" @row-clicked="click" >                        
+--><b-table responsive="sm" striped :fields="fields" hover :items="myproject" v-if="show" @row-clicked="click" >                        
       <template #cell(edit&Del)="row">
         <b-button size="sm" @click="mvedit(row)" class="mr-2">
           수정
@@ -129,6 +129,7 @@
   let url=store.state.resourceHost; //서버주소 api
     export default {
       data(){return{
+        show:false,
    //fields:[{key:'origfilename',label:'파일이름'},{key:'down',label:'down'},{key:'Edit&Del', label:'수정 삭제'}],
       fields:[{key:'title',label:'제목'},{key:'success',label:'구현'},{key:'start_date',label:'시작날짜'},{key:'end_date',label:'종료날짜'},{key:'edit&Del',label:''}],
                 
@@ -159,7 +160,7 @@
                     this.myproject.filename=get.data.list[i].project_imgList
                     }
                     this.myproject=get.data.list
-                    console.log('myproject',this.myproject)
+                    this.show=true
                 })
         },
         //클릭시 상세페이지로 데이터넘기면서 이동
@@ -198,30 +199,7 @@
                 console.log('보낸데이터:',row)
               this.$router.push({path:'/Portfolio/Modify/Project',query:row.item})
             }
-            //상세페이지에 수정 기능 넣기
-    //         edit(item,index,event) {
-    //             var params = new URLSearchParams(); //파일업로드가 포함되어 formdata를 이용한다
-    //             params.append('title', this.certificate.title);
-    //             params.append('content', this.certificate.content);
-    //             params.append('publisher', this.certificate.publisher);
-    //             params.append('date', this.certificate.date);
-    //             axios.put(`${url}/certificate`,params,{
-    //                 headers:{
-    //                     'Content-Type' : 'multipart/form-data' //다중파일 업로드하기 위해 헤더 추가
-    //                 }
-    //             })
-    //             .then(certificate=>{
-    //                 console.log(certificate)
-    //                 alert(certificate.data.msg)
-    //                 window.location.reload()
-                    
-    //             })
-                
-    //             .catch(err=>{
-    //                 console.log(err)
-    //                 alert(err.response.data.msg)
-    //             })
-    // }
+           
     }
     
   }

@@ -88,7 +88,7 @@
 <!--
  여기에 자격증  넣으셈
 -->
-      <b-table responsive="sm" striped :fields="fields" hover :items="mycertificate" @row-clicked="click" >                        
+      <b-table responsive="sm" striped :fields="fields" hover :items="mycertificate" v-if="show" @row-clicked="click" >                        
       
       <template #cell(편집)="row">
          <b-button size="sm" @click="mvedit(row)" class="mr-2">
@@ -131,6 +131,7 @@
   let url=store.state.resourceHost; //서버주소 api
     export default {
       data(){return{
+        show:false,
       mycertificate:[{}],
       fields:[{key:'title',label:'자격증명'},{key:'publisher',label:'발급기관'},{key:'date',label:'취득날짜'},{key:'edit',label:'마지막수정날짜'},{key:'편집',label:''}],
       edit:'1',
@@ -159,8 +160,7 @@
                     for(var i=0; i<res.data.list.length; i++){
                     this.mycertificate[i].edit=this.mycertificate[i].edit.slice(0,10).replace(/-/g,'.');
                     }
-                    console.log('mycertificate: ',this.mycertificate)
-                    console.log('edit',this.edit);
+                    this.show=true
         })
       },
       

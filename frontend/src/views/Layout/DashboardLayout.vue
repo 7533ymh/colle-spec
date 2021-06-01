@@ -62,14 +62,7 @@
         </sidebar-item>
         </span>
 
-        <sidebar-item
-          :link="{
-            name: '기업 스펙 & 정보',
-            path: '/Company',
-            
-          }"
-        >
-        <span @click="access('/Company')">
+        <!-- <span @click="access('/Company')">
         <sidebar-item 
           :link="{
             name: '기업 스펙비교',
@@ -78,18 +71,18 @@
           }"
         >
         </sidebar-item>
-        </span>
+        </span> -->
         <span @click="access('/Company/info')">
         <sidebar-item
           :link="{
-            name: '기업 정보',
+            name: '기업정보',
             path: '/Company/info',
             
           }"
         >
         </sidebar-item>
         </span>
-    </sidebar-item>    
+     
       </template>
     </side-bar>
     <div class="main-content">

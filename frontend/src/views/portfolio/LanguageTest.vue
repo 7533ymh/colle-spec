@@ -88,7 +88,7 @@
 <!--
  여기에 어학시험  넣으셈
 -->
-<b-table responsive="sm" striped :fields="fields" hover :items="mylang" @row-clicked="langView" >                        
+<b-table responsive="sm" striped :fields="fields" hover :items="mylang" v-if="show" @row-clicked="langView" >                        
       <template #cell(edits)="row">
          <b-button size="sm" @click="mvedit(row)" class="mr-2">
           수정
@@ -134,6 +134,7 @@
 
     export default {
       data(){return{
+        show:false,
       mylang:[{}],
       fields:[
       {key:'divsion',label:'언어'},
@@ -160,7 +161,7 @@
           axios.get(`${url}/language`)
                     .then(res=>{
                     this.mylang=res.data.list
-                    console.log('lang: ',this.mylang)
+                    this.show=true
         })
       },
       deletepj(item){

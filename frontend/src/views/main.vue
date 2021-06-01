@@ -42,10 +42,10 @@
 
         </b-col>
         <b-col xl="3" md="6">
-          <span  @click="aceess('/Company')">
+          <span  @click="aceess('/Company/info')">
           <stats-card title=""
                       type="gradient-info"
-                      sub-title="기업 스펙 & 정보"
+                      sub-title="기업정보 & 합격자스펙"
                       id="headercard"
                       class="mb-3"
                       >
@@ -67,23 +67,30 @@
               <b-col>
                 
                 <h5 class="h3 mb-0">등급 요약</h5>
+
                 <!-- 로그인안되있으면 로그인 하라는 메시지와 클릭시 로그인페이지로 -->
+
+                <!--로그인된경우-->
+                <div id="chartinfo">
                 <span v-if="authorized">
+                  <span v-if="Rshow===true"><img class="imgbtn" type="button"  @click="reloadbtn" width="24" height="24" src="/reload.png" alt="">
                   <span class="allrank"><h3>전체등급: {{rank.all_rank}}</h3></span>
-                  <!-- 여기다 보여줄 정보 작성하기 -->
-                  
+                 
                   <radar-example id="radar"/>
-                  
-                  
-           </span>  
-           
+                </span>
+                <span v-else>포트폴리오 정보가 없습니다. 먼저 등록해주세요.</span>
+               </span>  
+           <!--로그인된경우-->
+
+           <!--로그인 안됐을 경우-->
             <router-link to="/login" v-else>
             <sidebar-item  :link="{name:'로그인이필요합니다',path:'/login'}"></sidebar-item>
-        </router-link>
+            </router-link>
+          <!--로그인 안됐을 경우-->
+                </div>
+
               </b-col>
             </b-row>
-
-            
           </card>
         </b-col>
 
@@ -138,13 +145,16 @@
   import axios from 'axios'
   import store from '@/store'
   import RadarExample from '@/mixins/Radar'
+  import $ from 'jquery';
+  import { Table, TableColumn, Button} from 'element-ui'
   let url=store.state.resourceHost;
   
   export default {
     components: {
       BaseProgress,
       StatsCard,
-      RadarExample
+      RadarExample,
+      [Button.name]: Button,
       
     },
     data() {
@@ -156,6 +166,7 @@
       user:{
         summary:{}
       },
+      Rshow:false
       }
     },
     computed:{
@@ -165,7 +176,7 @@
     },
      mounted() {
       this.getrank()
-      //this.a_rankView()
+      this.a_rankView()
       this.getsummary()
     },
     methods: {
@@ -174,13 +185,15 @@
         .then(res=>{
           console.log('success:',res.data.success)
           this.rank=res.data.data
+          this.Rshow=true
           
         
         })
         .catch(err=>{
           console.log('success:',err.response.data.success)
-          alert(err.response.data.msg)
-          this.$router.push({path:'/basic'})
+          //alert(err.response.data.msg)
+          //this.$router.push({path:'/basic'})
+          this.Rshow=false
         })
       },
       aceess(url){
@@ -203,225 +216,237 @@
       })
 
     },
-
+    reloadbtn(){
+      // $("#chartinfo").load(location.href + "#chartinfo");
+      location.reload()
+    },
     ////////
     async a_rankView(){
-         await axios.get(`${url}/rank`)
-                    .then(res=>{
-                      console.log('cha: ',JSON.parse(localStorage.getItem("rating")))
-                      localStorage.setItem("rank",JSON.stringify(res.data.data))
-                      if(res.data.data.award_rank==='1등급'){
-                        //this.radarChartData.datasets[0].data[0]=5
-                        var a1=5
-                        
-                      }
-                      else if(res.data.data.award_rank==='2등급'){
-                        var a1=4
-                        
-                        //this.radarChartData.datasets[0].data[0]=4                      
-                        }
-                      else if(res.data.data.award_rank==='4등급'){
-                        var a1=2
-                        
-                        //this.radarChartData.datasets[0].data[0]=2
-                      }
-                      else if(res.data.data.award_rank==='5등급'){
-                        var a1=1
-                        
-                        //this.radarChartData.datasets[0].data[0]=1
-                      }else{
-                        var a1=3
-                        
-                       //this.radarChartData.datasets[0].data[0]=3
-           
-                      }
+      await axios.get(`${url}/rank`)
+                 .then(res=>{
+                   localStorage.setItem("rank",JSON.stringify(res.data.data))
+                   if(res.data.data.award_rank==='1등급'){
+                     //this.radarChartData.datasets[0].data[0]=5
+                     var a1=5
+                     
+                     
+                   }
+                   else if(res.data.data.award_rank==='2등급'){
+                     var a1=4
+                     
+                     //this.radarChartData.datasets[0].data[0]=4                      
+                     }
+                   else if(res.data.data.award_rank==='4등급'){
+                     var a1=2
+                     
+                     //this.radarChartData.datasets[0].data[0]=2
+                   }
+                   else if(res.data.data.award_rank==='5등급'){
+                     var a1=1
+                     
+                     //this.radarChartData.datasets[0].data[0]=1
+                   }else{
+                     var a1=3
+                     
+                    //this.radarChartData.datasets[0].data[0]=3
+        
+                   }
 
-                      //경력
-                      if(res.data.data.career_rank==='1등급'){
-                        var a2=5
-                        
-                        //this.radarChartData.datasets[0].data[1]=5
-                      }
-                      else if(res.data.data.career_rank==='2등급'){
-                        var a2=4
-                        
-                        //this.radarChartData.datasets[0].data[1]=4
-                      }
-                      else if(res.data.data.career_rank==='4등급'){
-                        var a2=2
-                       
-                       //this.radarChartData.datasets[0].data[1]=2
-                      }
-                      else if(res.data.data.career_rank==='5등급'){
-                       var a2=1
-                        
-                        //this.radarChartData.datasets[0].data[1]=1
-                      }else{
-                        var a2=3
-                        
-                       // this.radarChartData.datasets[0].data[1]=3
-                      }
-                      
-                      //자격증
-                       if(res.data.data.certificate_rank==='1등급'){
-                       // this.radarChartData.datasets[0].data[2]=5
-                        var a3=5
-                        
-                      }
-                      else if(res.data.data.certificate_rank==='2등급'){
-                       // this.radarChartData.datasets[0].data[2]=4
-                       var a3=4
-                       
-                      }
-                      else if(res.data.data.certificate_rank==='4등급'){
-                      // this.radarChartData.datasets[0].data[2]=2
-                      var a3=2
-                       
-                      }
-                      else if(res.data.data.certificate_rank==='5등급'){
-                       // this.radarChartData.datasets[0].data[2]=1
-                        var a3=1
-                        
-                      }
-                      else{
-                       // this.radarChartData.datasets[0].data[2]=3
-                        var a3=3
-                        
-                      }
-
-                      //교육
-                      if(res.data.data.education_rank==='1등급'){
-                       // this.radarChartData.datasets[0].data[3]=5
-                        var a4=5
-                        
-                      }
-                      else if(res.data.data.education_rank==='2등급'){
-                       // this.radarChartData.datasets[0].data[3]=4
-                        var a4=4
-                        
-                      }
-                      else if(res.data.data.education_rank==='4등급'){
-                       // this.radarChartData.datasets[0].data[3]=2
-                        var a4=2
-                        
-                      }
-                      else if(res.data.data.education_rank==='5등급'){
-                       // this.radarChartData.datasets[0].data[3]=1
-                        var a4=1
-                        
-                      }else{
-                       // this.radarChartData.datasets[0].data[3]=3
-                        var a4=3
-                       
-                      }
-                      //해외경험
-                      if(res.data.data.experience_rank==='1등급'){
-                       // this.radarChartData.datasets[0].data[3]=5
-                        var a5=5
-                        
-                      }
-                      else if(res.data.data.experience_rank==='2등급'){
-                       // this.radarChartData.datasets[0].data[3]=4
-                        var a5=4
-                       
-                      }
-                      else if(res.data.data.experience_rank==='4등급'){
-                       // this.radarChartData.datasets[0].data[3]=2
-                        var a5=2
-                        
-                      }
-                      else if(res.data.data.experience_rank==='5등급'){
-                       // this.radarChartData.datasets[0].data[3]=1
-                        var a5=1
-                        
-                      }else{
-                       // this.radarChartData.datasets[0].data[3]=3
-                        var a5=3
-                        
-                      }
-                      //학점
-                      if(res.data.data.grade_rank==='1등급'){
-                       // this.radarChartData.datasets[0].data[3]=5
-                        var a6=5
-                        
-                      }
-                      else if(res.data.data.grade_rank==='2등급'){
-                       // this.radarChartData.datasets[0].data[3]=4
-                        var a6=4
-                        
-                      }
-                      else if(res.data.data.grade_rank==='4등급'){
-                       // this.radarChartData.datasets[0].data[3]=2
-                        var a6=2
-                        
-                      }
-                      else if(res.data.data.grade_rank==='5등급'){
-                       // this.radarChartData.datasets[0].data[3]=1
-                        var a6=1
-                        
-                      }else{
-                       // this.radarChartData.datasets[0].data[3]=3
-                        var a6=3
-                        
-                      }
-                      //프로젝트
-                      if(res.data.data.project_rank==='1등급'){
-                       // this.radarChartData.datasets[0].data[3]=5
-                        var a7=5
-                        
-                      }
-                      else if(res.data.data.project_rank==='2등급'){
-                       // this.radarChartData.datasets[0].data[3]=4
-                        var a7=4
-                        
-                      }
-                      else if(res.data.data.project_rank==='4등급'){
-                       // this.radarChartData.datasets[0].data[3]=2
-                        var a7=2
-                        
-                      }
-                      else if(res.data.data.project_rank==='5등급'){
-                       // this.radarChartData.datasets[0].data[3]=1
-                        var a7=1
-                        
-                      }else{
-                       // this.radarChartData.datasets[0].data[3]=3
-                        var a7=3
-                        
-                      }
-                      //어학
-                      if(res.data.data.language_rank==='1등급'){
-                       // this.radarChartData.datasets[0].data[3]=5
-                        var a8=5
-                        
-                      }
-                      else if(res.data.data.language_rank==='2등급'){
-                       // this.radarChartData.datasets[0].data[3]=4
-                        var a8=4
-                        
-                      }
-                      else if(res.data.data.language_rank==='4등급'){
-                       // this.radarChartData.datasets[0].data[3]=2
-                        var a8=2
-                        
-                      }
-                      else if(res.data.data.language_rank==='5등급'){
-                       // this.radarChartData.datasets[0].data[3]=1
-                        var a8=1
-                        
-                      }else{
-                       // this.radarChartData.datasets[0].data[3]=3
-                        var a8=3
-                        
-                      }
-                      var result=[a1,a2,a3,a4,a5,a6,a7,a8]
-                      localStorage.setItem("rating",JSON.stringify(result))
+                   //경력
+                   if(res.data.data.career_rank==='1등급'){
+                     var a2=5
+                     
+                     //this.radarChartData.datasets[0].data[1]=5
+                   }
+                   else if(res.data.data.career_rank==='2등급'){
+                     var a2=4
+                     
+                     //this.radarChartData.datasets[0].data[1]=4
+                   }
+                   else if(res.data.data.career_rank==='4등급'){
+                     var a2=2
                     
-                })
-                .catch(err=>{
-                  alert(err.response.data.msg)
-                })
-        },
+                    //this.radarChartData.datasets[0].data[1]=2
+                   }
+                   else if(res.data.data.career_rank==='5등급'){
+                    var a2=1
+                     
+                     //this.radarChartData.datasets[0].data[1]=1
+                   }else{
+                     var a2=3
+                     
+                    // this.radarChartData.datasets[0].data[1]=3
+                   }
+                   
+                   //자격증
+                    if(res.data.data.certificate_rank==='1등급'){
+                    // this.radarChartData.datasets[0].data[2]=5
+                     var a3=5
+                     
+                   }
+                   else if(res.data.data.certificate_rank==='2등급'){
+                    // this.radarChartData.datasets[0].data[2]=4
+                    var a3=4
+                    
+                   }
+                   else if(res.data.data.certificate_rank==='4등급'){
+                   // this.radarChartData.datasets[0].data[2]=2
+                   var a3=2
+                    
+                   }
+                   else if(res.data.data.certificate_rank==='5등급'){
+                    // this.radarChartData.datasets[0].data[2]=1
+                     var a3=1
+                     
+                   }
+                   else{
+                    // this.radarChartData.datasets[0].data[2]=3
+                     var a3=3
+                     
+                   }
+
+                   //교육
+                   if(res.data.data.education_rank==='1등급'){
+                    // this.radarChartData.datasets[0].data[3]=5
+                     var a4=5
+                     
+                   }
+                   else if(res.data.data.education_rank==='2등급'){
+                    // this.radarChartData.datasets[0].data[3]=4
+                     var a4=4
+                     
+                   }
+                   else if(res.data.data.education_rank==='4등급'){
+                    // this.radarChartData.datasets[0].data[3]=2
+                     var a4=2
+                     
+                   }
+                   else if(res.data.data.education_rank==='5등급'){
+                    // this.radarChartData.datasets[0].data[3]=1
+                     var a4=1
+                     
+                   }else{
+                    // this.radarChartData.datasets[0].data[3]=3
+                     var a4=3
+                    
+                   }
+                   //해외경험
+                   if(res.data.data.experience_rank==='1등급'){
+                    // this.radarChartData.datasets[0].data[3]=5
+                     var a5=5
+                     
+                   }
+                   else if(res.data.data.experience_rank==='2등급'){
+                    // this.radarChartData.datasets[0].data[3]=4
+                     var a5=4
+                    
+                   }
+                   else if(res.data.data.experience_rank==='4등급'){
+                    // this.radarChartData.datasets[0].data[3]=2
+                     var a5=2
+                     
+                   }
+                   else if(res.data.data.experience_rank==='5등급'){
+                    // this.radarChartData.datasets[0].data[3]=1
+                     var a5=1
+                     
+                   }else{
+                    // this.radarChartData.datasets[0].data[3]=3
+                     var a5=3
+                     
+                   }
+                   //학점
+                   if(res.data.data.grade_rank==='1등급'){
+                    // this.radarChartData.datasets[0].data[3]=5
+                     var a6=5
+                     
+                   }
+                   else if(res.data.data.grade_rank==='2등급'){
+                    // this.radarChartData.datasets[0].data[3]=4
+                     var a6=4
+                     
+                   }
+                   else if(res.data.data.grade_rank==='4등급'){
+                    // this.radarChartData.datasets[0].data[3]=2
+                     var a6=2
+                     
+                   }
+                   else if(res.data.data.grade_rank==='5등급'){
+                    // this.radarChartData.datasets[0].data[3]=1
+                     var a6=1
+                     
+                   }else{
+                    // this.radarChartData.datasets[0].data[3]=3
+                     var a6=3
+                     
+                   }
+                   //프로젝트
+                   if(res.data.data.project_rank==='1등급'){
+                    // this.radarChartData.datasets[0].data[3]=5
+                     var a7=5
+                     
+                   }
+                   else if(res.data.data.project_rank==='2등급'){
+                    // this.radarChartData.datasets[0].data[3]=4
+                     var a7=4
+                     
+                   }
+                   else if(res.data.data.project_rank==='4등급'){
+                    // this.radarChartData.datasets[0].data[3]=2
+                     var a7=2
+                     
+                   }
+                   else if(res.data.data.project_rank==='5등급'){
+                    // this.radarChartData.datasets[0].data[3]=1
+                     var a7=1
+                     
+                   }else{
+                    // this.radarChartData.datasets[0].data[3]=3
+                     var a7=3
+                     
+                   }
+                   //어학
+                   if(res.data.data.language_rank==='1등급'){
+                    // this.radarChartData.datasets[0].data[3]=5
+                     var a8=5
+                     
+                   }
+                   else if(res.data.data.language_rank==='2등급'){
+                    // this.radarChartData.datasets[0].data[3]=4
+                     var a8=4
+                     
+                   }
+                   else if(res.data.data.language_rank==='4등급'){
+                    // this.radarChartData.datasets[0].data[3]=2
+                     var a8=2
+                     
+                   }
+                   else if(res.data.data.language_rank==='5등급'){
+                    // this.radarChartData.datasets[0].data[3]=1
+                     var a8=1
+                     
+                   }else{
+                    // this.radarChartData.datasets[0].data[3]=3
+                     var a8=3
+                     
+                   }
+                   var result=[a1,a2,a3,a4,a5,a6,a7,a8]
+                   var mRank=[res.data.data.award_rank,
+                            res.data.data.career_rank,
+                            res.data.data.certificate_rank,
+                            res.data.data.education_rank,
+                            res.data.data.experience_rank,
+                            res.data.data.grade_rank,
+                            res.data.data.project_rank,
+                            res.data.data.language_rank]
+
+                   localStorage.setItem("mRating",JSON.stringify(result))
+                   localStorage.setItem("mRank",JSON.stringify(mRank))
+             })
+             .catch(err=>{
+               console.log(err)
+             })
+     },
   
     ///////
     },
@@ -494,5 +519,9 @@ input:invalid {
  
  #UserSummary span{
     font-weight:bold;
+}
+.imgbtn{
+  margin-left: 90%;
+
 }
 </style>

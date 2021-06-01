@@ -103,7 +103,7 @@
               label="대학교"
               placeholder="대학교이름"
               v-model="user.college"
-              :disabled="isDisabled"
+              :disabled="Disabled"
             >
             </base-input>
           </b-col>
@@ -114,7 +114,7 @@
               label="전공"
               placeholder="전공"
               v-model="user.major"
-              :disabled="isDisabled"
+              :disabled="Disabled"
             >
             </base-input>
           </b-col>
@@ -182,6 +182,7 @@ export default {
     return {
       user:this.$store.state.userinfo,
       link:'',
+      disa:false,
       modalshow:false,
       colleasy:{
       id:'',
@@ -195,6 +196,9 @@ export default {
     },
     isDisabled() {
     return this.link==='on';
+  },
+    Disabled() {
+    return this.disa===false;
   }
   },
   methods: {
