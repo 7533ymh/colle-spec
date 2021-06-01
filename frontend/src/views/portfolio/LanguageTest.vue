@@ -8,7 +8,7 @@
           <stats-card title=""
                       type="gradient-red"
                       sub-title="나의 포트폴리오 or 스펙"
-                      
+                      id="card"
                       class="mb-4">
 
             <template slot="footer">
@@ -91,7 +91,7 @@
 <b-table responsive="sm" striped :fields="fields" hover :items="mylang" @row-clicked="langView" >                        
       <template #cell(edits)="row">
          <b-button size="sm" @click="mvedit(row)" class="mr-2">
-          편집
+          수정
         </b-button>
          <b-button size="sm" @click="deletepj(row)" class="mr-2">
           삭제
@@ -198,5 +198,11 @@
 .el-table .cell{
   padding-left: 0px;
   padding-right: 0px;
+}
+#card{
+    margin-left: 50%;
+    width: 80%;
+    text-align: center;
+    height: 60%;
 }
 </style>

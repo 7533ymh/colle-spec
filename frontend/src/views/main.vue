@@ -11,7 +11,7 @@
           <stats-card title=""
                       type="gradient-red"
                       sub-title="나의 포트폴리오 or 스펙"
-                      class="mb-4"
+                      class="mb-3"
                       id="headercard"
                       >
           </stats-card>
@@ -23,7 +23,7 @@
           <stats-card title=""
                       type="gradient-orange"
                       sub-title="나의 등급제"                  
-                      class="mb-4"
+                      class="mb-3"
                       id="headercard"
                      >
           </stats-card>
@@ -34,7 +34,7 @@
           <stats-card title=""
                       type="gradient-green"
                       sub-title="공모전, 대회, 프로그램"
-                      class="mb-4"
+                      class="mb-3"
                       id="headercard"
                      >
           </stats-card>
@@ -47,7 +47,7 @@
                       type="gradient-info"
                       sub-title="기업 스펙 & 정보"
                       id="headercard"
-                      class="mb-4"
+                      class="mb-3"
                       >
           </stats-card>
           </span>
@@ -96,20 +96,22 @@
                 <h5 class="h3 mb-0">포트폴리오 요약</h5>
                 <span v-if="authorized">
                   <!-- 여기다 보여줄 정보 작성하기 -->
-                  <span>
-                  <h3>평점: {{user.summary.gradeAvg}}점</h3>
-                  <h3>수상횟수: {{user.summary.awardCount}}회</h3>
-                  <h3>경력횟수: {{user.summary.careerCount}}회</h3>
-                  <h3>자격증: {{user.summary.certificateCount}}개 보유</h3>
-                  <h3>교육이수: {{user.summary.educationCount}}회</h3>
-                  <h3>해외경험: {{user.summary.experienceCount}}회</h3>
-                  <h3>자기소개서: {{user.summary.introductionCount}}</h3>
-                  <h3>프로젝트: {{user.summary.projectCount}}회</h3>
-                  <span v-for="(list,i) in user.summary.languageSummaryList" :key="i">
-                  <h3>어학시험: {{user.summary.languageSummaryList[i].exam}} 
-                    -- {{user.summary.languageSummaryList[i].exam_score}}</h3>
-                  </span>
-                  </span>
+                  <b-list-group id ="UserSummary">
+                    <b-list-group-item class="p-2 pl-4" >평점 <span>{{user.summary.gradeAvg}}</span>점</b-list-group-item>
+                    <b-list-group-item class="p-2 pl-4">수상횟수: <span>{{user.summary.awardCount}}</span>회</b-list-group-item>
+                    <b-list-group-item class="p-2 pl-4">경력횟수: <span>{{user.summary.careerCount}}</span>회</b-list-group-item>
+                    <b-list-group-item class="p-2 pl-4">자격증: <span>{{user.summary.certificateCount}}</span>개 보유</b-list-group-item>
+                    <b-list-group-item class="p-2 pl-4">교육이수: <span>{{user.summary.educationCount}}</span>회</b-list-group-item>
+                    <b-list-group-item class="p-2 pl-4"> 해외경험: <span>{{user.summary.experienceCount}}</span>회</b-list-group-item>
+                    <b-list-group-item class="p-2 pl-4">자기소개서: <span>{{user.summary.introductionCount}}</span>개</b-list-group-item>
+
+                    <div v-for="(list,i) in user.summary.languageSummaryList" :key="i">
+                    <b-list-group-item class="p-2 pl-4">
+                    어학시험: {{user.summary.languageSummaryList[i].exam}} -- <span>{{user.summary.languageSummaryList[i].exam_score}}</span>
+                    </b-list-group-item>
+                    </div>
+                    
+                  </b-list-group>
            </span>  
             <router-link to="/login" v-else>
             <sidebar-item  :link="{name:'로그인이필요합니다',path:'/login'}"></sidebar-item>
@@ -482,5 +484,15 @@ input:invalid {
   }
   #headercard{
     text-align: center;
+    height: 70%;
+    cursor: pointer;
   }
+  #UserSummary{
+  margin: 3%;
+  
+  }
+ 
+ #UserSummary span{
+    font-weight:bold;
+}
 </style>

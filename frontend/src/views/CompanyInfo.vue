@@ -36,11 +36,6 @@
                                     {{scope.row.name}}
                                 </template>
                             </el-table-column>
-
-                            <el-table-column fixed="right" label="" width="120px">
-                               
-                            </el-table-column>
-
                         </el-table>
 
                     </div>
@@ -73,7 +68,7 @@
            
             [Table.name]: Table,
       [TableColumn.name]: TableColumn,
-      [Button.name]: Button,
+    //   [Button.name]: Button,
         },
         data() {
             
@@ -90,8 +85,9 @@
                 axios
                     .get(`${url}/companyList`) //회사리스트 조회
                     .then((res) => {
-                        console.log(res.data.list);
-                        console.log(res.data.list[0]);
+                        console.log("확인1",res.data.list);
+                        console.log("확인2",res.data.list[0]);
+                        console.log("확인3",res.data);
                         this.view = res.data.list;
 
                         // this.list = res.data.list; 	this.paging = res.data.paging; 	this.no =
@@ -106,31 +102,25 @@
           },
             async detail(row) { 
                 
-                await axios
-                    .get(`${url}/company`, {
-                        params: {
+                await axios.get(`${url}/company`, {params: {
                             company_idx: row.idx
                         }
                     })
                     .then(res => {
-                        console.log('company', res.data.data)
-                        this.odata = res.data.data
-                       localStorage.setItem('companyinfo',JSON.stringify(res.data.data))
+                        console.log('확인')
+                        //this.odata = res.data.data
+                        localStorage.setItem('companyinfo',JSON.stringify(res.data.data))
                         this.$router.push({path:'/Company/info/detail'})
                     })
                 console.log('row', row)
-                // this.$router.push({path:'/board/ProgramTeamDetail'});
             },
-            detailinfo(){
-                
-            }
         },
         mounted() {
             this.getList1();
         }
     }
 </script>
-<style>
+<style style lang="scss" scoped>
 
     /* .el-table .cell {
         padding-left: 0;

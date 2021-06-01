@@ -5,16 +5,16 @@
         <h3 class="mb-0">Edit profile </h3>
       </b-col>
       <b-col cols="4" class="text-right">
-        <button class="el-button" @click="com">적용</button>
+        
 
-        <span v-if="linkcheck"><button class="el-button" @click="update">업데이트</button></span>
+        <span v-if="linkcheck"><button class="el-button" @click="update">연동업데이트</button></span>
         <span v-else><button class="el-button" @click="linklo">연동하기</button></span>
 
       </b-col>
       
     </b-row>
 
-    <b-form @submit.prevent="updateProfile">
+    <b-form @submit.prevent="com">
       <h6 class="heading-small text-muted mb-4">User information</h6>
 
       <div class="pl-lg-4">
@@ -93,6 +93,7 @@
               label="학년"
               placeholder="학년"
               v-model="user.grade"
+              :disabled="isDisabled"
             >
             </base-input>
           </b-col>
@@ -102,6 +103,7 @@
               label="대학교"
               placeholder="대학교이름"
               v-model="user.college"
+              :disabled="isDisabled"
             >
             </base-input>
           </b-col>
@@ -112,6 +114,7 @@
               label="전공"
               placeholder="전공"
               v-model="user.major"
+              :disabled="isDisabled"
             >
             </base-input>
           </b-col>
@@ -140,9 +143,9 @@
       <hr class="my-4">
 
       <!-- Address -->
-      <h6 class="heading-small text-muted mb-4">Contact information</h6>
-
-      <div class="pl-lg-4">
+    </b-form>
+    <button class="el-button" style="margin-left:90%" @click.prevent="com">저장</button>
+    <div class="pl-lg-4">
         
           <form @submit.prevent="linklogin">
                 <div class="black-bg" v-if="modalshow == true">
@@ -168,7 +171,6 @@
           </div>
           </form>
       </div>
-    </b-form>
   </card>
 </template>
 <script>
@@ -181,7 +183,7 @@ export default {
       user:this.$store.state.userinfo,
       link:'',
       modalshow:false,
-    colleasy:{
+      colleasy:{
       id:'',
       pass:''
     }
@@ -190,7 +192,10 @@ export default {
   computed:{
     linkcheck(){
     return store.state.userinfo.link!==0
-    }
+    },
+    isDisabled() {
+    return this.link==='on';
+  }
   },
   methods: {
     //모달창닫기
@@ -238,9 +243,7 @@ export default {
         })
       },
 
-    updateProfile() {
-      alert('Your data: ' + JSON.stringify(this.user));
-    },
+   
 
     userlink(){
       if(this.$store.getters.userlink === 0){
@@ -249,10 +252,12 @@ export default {
         this.link="on"
       }
   },
-  com(){
+  com(event){
+    event.preventDefault()
     var result=confirm("변경하시겠습니까?");
     if(result){
       this.edituser();
+      
     }else{
       alert('취소하셨습니다.')
     }
@@ -260,6 +265,13 @@ export default {
     
     
   },
+  //로그아웃 메소드
+      onClickLogout(){
+        store.dispatch('LOGOUT')
+        .then(res=>{
+          this.$router.push({path:'/login'})
+        })
+      },
   edituser(){
     var params = new URLSearchParams();
                 params.append('id', this.user.id); 
@@ -271,11 +283,11 @@ export default {
                 params.append('phone', this.user.phone);
                 params.append('objective', this.user.objective);
                 params.append('enterprise', this.user.enterprise);
-    axios.put(`${url}/user`,params)
-    .then(response => {
+                axios.put(`${url}/user`,params)
+                .then(response => {
                         alert(response.data.msg)
                         console.log(response);
-                        location.reload()
+                        window.location.reload()
                     })
                     .catch(err => {
                         alert(err.response.data.msg)

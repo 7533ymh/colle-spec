@@ -8,7 +8,7 @@
           <stats-card title=""
                       type="gradient-red"
                       sub-title="나의 포트폴리오 or 스펙"
-                      
+                      id="card"
                       class="mb-4">
 
             <template slot="footer">
@@ -192,5 +192,11 @@
 .el-table .cell{
   padding-left: 0px;
   padding-right: 0px;
+}
+#card{
+    margin-left: 50%;
+    width: 80%;
+    text-align: center;
+    height: 60%;
 }
 </style>

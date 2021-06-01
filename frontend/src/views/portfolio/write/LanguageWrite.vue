@@ -13,9 +13,9 @@
     </b-col>
       
     </base-header>
-     <b-container fluid="fluid" class="mt--0">
+     <b-container fluid="fluid" class="mt--0" style="margin-left : 185px;">
         <b-row>
-            <b-col xl="11" class="mb-7 mb-xl-0">
+            <b-col xl="7" class="mb-7 mb-xl-0">
                 <card header-classes="bg-transparent">
                     <b-row align-v="center" slot="header">
 
@@ -23,11 +23,10 @@
                             
                         </b-col>
                     </b-row>
-                </card>
-            </b-col>
-        </b-row>
-    </b-container>
-     <b-form @submit.prevent="onSubmit"  v-if="show" style="width : 50%; margin-left : 10%;">
+
+
+
+                    <b-form @submit.prevent="onSubmit"  v-if="show" style="width : 50%; margin-left : 10%;">
             
             <b-form-group id="input-group-1" label="어학시험" label-for="input-1">
                    <b-form-select @change="optionclick" id="exam" name="select" v-model="lang.exam"  required="required" >
@@ -120,6 +119,16 @@
                 <b-button @click="clear" type="reset"  variant="danger">초기화</b-button>
 
             </b-form>
+
+
+
+
+
+                </card>
+            </b-col>
+        </b-row>
+    </b-container>
+     
     </div>
 </template>
 <script>
@@ -148,7 +157,6 @@ export default {
         }
     },
     created(){
-
     },
     methods:{
         clear(){
@@ -182,7 +190,6 @@ export default {
             else{
                 this.lang.division=""
             }
-
             if(this.lang.exam === "TOEIC"){
                     this.type="toeic"
                     this.place="토익 점수를 입력하세요"
@@ -219,7 +226,6 @@ export default {
                     this.view=false
                     alert("없는 시험입니다.")
                 }
-
         },
         onSubmit(event) {
             event.preventDefault()
@@ -240,9 +246,7 @@ export default {
                 .catch(err=>{
                     console.log(err)
                     alert(err.response.data.msg)
-
                 })
-
     },
     onReset(event) {
                 event.preventDefault()
@@ -252,7 +256,6 @@ export default {
                  this.division='',  
                  this.date='',      
                  this.exam_score='', 
-
                 // Trick to reset/clear native browser form validation state
                 this.show = false
                 this.$nextTick(() => {
@@ -292,17 +295,14 @@ export default {
 </script>
   <style scoped="scoped">
     #content {
-        width: 50%;
         height: 100px;
         resize: none;
     }
-    #agency,#division, #exam, #exam_score {
-        width: 50%;
+    /* #division, #exam, #exam_score {
     }
     #title,
     #year {
-        width: 20%;
-    }
+    } */
     .el-button{
         font-size:1pt;
         
