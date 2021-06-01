@@ -3,6 +3,7 @@ package com.example.backend.global.exception;
 import com.example.backend.domain.grade.exception.CFindSameGradeException;
 import com.example.backend.domain.language.exception.CFindSameExamException;
 import com.example.backend.domain.link.exception.CNotFoundInfoByLinkException;
+import com.example.backend.domain.rank.exception.CNotFoundRankException;
 import com.example.backend.domain.rank.exception.CNotFoundScoreException;
 import com.example.backend.domain.user.exception.CUserExistException;
 import com.example.backend.global.exception.exception.*;
@@ -136,6 +137,12 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     protected CommonResult CNotFoundDataException(HttpServletRequest request, CNotFoundScoreException e) {
         return responseService.getFailResult(Integer.parseInt(getMessage("NotFoundScore.code")), getMessage("NotFoundScore.msg"));
+    }
+
+    @ExceptionHandler(CNotFoundRankException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult CNotFoundRankException(HttpServletRequest request, CNotFoundRankException e) {
+        return responseService.getFailResult(Integer.parseInt(getMessage("NotFoundRank.code")), getMessage("NotFoundRank.msg"));
     }
 
     // code정보에 해당하는 메시지를 조회합니다.

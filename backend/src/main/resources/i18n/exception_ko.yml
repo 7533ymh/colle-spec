@@ -50,6 +50,9 @@ NotFoundData:
 NotFoundScore:
   code: "-1017"
   msg: "포트폴리오 정보가 없습니다. 먼저 등록해주세요."
+NotFoundRank:
+  code : "-1018"
+  msg: "랭크정보가 없습니다. 먼저 조회해주세요."
 
 
 

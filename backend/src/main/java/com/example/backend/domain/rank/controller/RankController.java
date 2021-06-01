@@ -1,13 +1,12 @@
 package com.example.backend.domain.rank.controller;
 
 import com.example.backend.domain.rank.domain.RankResult;
-import com.example.backend.global.response.SingleResult;
 import com.example.backend.domain.rank.service.RankService;
-import com.example.backend.global.response.ResponseService;
 import com.example.backend.domain.user.service.UserService;
+import com.example.backend.global.response.ResponseService;
+import com.example.backend.global.response.SingleResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -70,6 +69,18 @@ public class RankController {
         int user_idx = userService.findIdxById(AuthId);
 
         return  responseService.getSingleResult(rankService.change_Rank_College_Grade(user_idx));
+
+    }
+
+    @ApiOperation(value = "전체회원 랭크 조회 ", notes = "랭크정보(전체회원기준)를 데이터베이스에서 가져온다.")
+    @GetMapping("/rank/check")
+    public SingleResult<RankResult> rankcheck() {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String AuthId = authentication.getName();
+        int user_idx = userService.findIdxById(AuthId);
+
+        return responseService.getSingleResult(rankService.checkRank(user_idx));
 
     }
 

@@ -96,5 +96,16 @@ class RankServiceTest {
 
     }
 
+    @Test
+    void 조회(){
+
+
+        RankResult rankResult = rankService.checkRank(161);
+
+
+
+
+    }
+
 
 }

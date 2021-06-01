@@ -1,6 +1,7 @@
 package com.example.backend.domain.rank.service;
 
 import com.example.backend.domain.rank.domain.AvgCheck;
+import com.example.backend.domain.rank.exception.CNotFoundRankException;
 import com.example.backend.global.exception.exception.CLinkException;
 import com.example.backend.domain.rank.exception.CNotFoundScoreException;
 import com.example.backend.domain.rank.domain.Rank;
@@ -122,6 +123,13 @@ public class RankService {
         result.setProject_rank(rankchange(rank.getProject_rank()));
 
         return result;
+    }
+
+    public RankResult checkRank(int user_idx){
+
+        return rankMapper.findByUser_idxDivision(user_idx, 1).orElseThrow(CNotFoundRankException::new);
+
+
     }
 
     private String rankchange(double rank) {
