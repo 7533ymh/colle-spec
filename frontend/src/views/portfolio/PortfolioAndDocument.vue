@@ -89,6 +89,9 @@
  여기에 포트폴리오, 문서 넣으셈
 --><b-table responsive="sm" striped :fields="fields" hover :items="myproject" v-if="show" @row-clicked="click" >                        
       <template #cell(edit&Del)="row">
+        <b-button size="sm" @click="row.toggleDetails"  class="mr-2">
+          {{ row.detailsShowing ? '닫기' : '내용보기'}}
+        </b-button>
         <b-button size="sm" @click="mvedit(row)" class="mr-2">
           수정
         </b-button>
@@ -96,6 +99,25 @@
           삭제
         </b-button>
       </template>
+
+      <!--하이드 쇼-->
+      <template #row-details="row">
+        <b-card>
+          <b-row class="mb-2">
+            <b-col sm="3" class="text-sm-right"><b>title:</b></b-col>
+            <b-col>{{ row.item.title }}</b-col>
+          </b-row>
+
+          <b-row class="mb-2">
+            <b-col sm="3" class="text-sm-right"><b>content:</b></b-col>
+            <b-col>{{ row.item.content }}</b-col>
+          </b-row>
+          <b-button size="sm" @click="row.toggleDetails">닫기</b-button>
+        </b-card>
+      </template>
+
+      <!--하이드 쇼 끝-->
+
     </b-table> 
 
             <!-- 작성 폼으로 이동 시작-->

@@ -42,7 +42,7 @@
                                                 style="height:300px;"
                                                 id="content"
                                                 v-model="project.content"
-                                                placeholder="교육내용을 입력하세요"
+                                                placeholder="프로젝트를 진행하면서 인상깊었던 내용이나 느낀점을 적어주세요"
                                                 required="required"></b-form-textarea>
                                         </b-form-group>
 

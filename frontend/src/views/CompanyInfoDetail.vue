@@ -3,8 +3,9 @@
         <base-header class="pb-4 pt-md-6 bg-gradient-success">
             <!-- Card stats -->
             <b-row>
-                <b-col xl="4">
-                    <stats-card id="card" title="기업정보" type="gradient-red" :sub-title="odata.name" class=""></stats-card>
+                <b-col xl="6" md="6">
+                    
+                    <stats-card id="card" title="기업정보" type="gradient-red" :sub-title="odata.name" class="mb-4"></stats-card>
                 </b-col>
             </b-row>
         </base-header>
@@ -16,29 +17,76 @@
             <card header-classes="bg-transparent">
 
                 <div>
-                    <div id="contents">
-                        <h1><a :href="odata.url" target="place">{{odata.name}}</a></h1>
-                        <h3>대표자<br>{{odata.representative}}</h3>
-                        <h3>구분<br>{{odata.division}}</h3>
-                        
-                        
-                        <h3>산업<br>{{odata.industry}}</h3>
-                        
-                        <h3>주요사업<br>{{odata.bussiness}}</h3>
-                        <h3>4대보험<br>{{odata.insurance}}</h3>
-                                                
+                    
+                    <h1><a :href="odata.url" target="place">{{odata.name}}</a></h1>
+                    
+
+                     <!---content 시작-->
+                        <table id="contents" class="table table-bordered " >
+                            <colgroup>
+                                    <col width="10%" />
+                                    <col width="40%" />
+                                    <col width="10%" />
+                                    <col width="40%" />
+
+                            </colgroup>
+                            <tbody >
+
+                                <tr >
+                                <td> <span>대표자</span></td>
+                                <td> <h3>{{odata.representative}}</h3></td> 
+                                <td> <span>자본금</span></td>
+                                <td> <h3>{{odata.capital}}</h3></td>
+
+                                </tr>  
+                                <tr>
+                                <td> <span>구분</span></td>
+                                <td> <h3>{{odata.division}}</h3></td>
+                                <td> <span>매출액</span></td>
+                                <td> <h3>{{odata.take}}</h3></td>
+
+                                </tr>
+                                <tr>
+                                <td> <span>산업</span></td>
+                                <td> <h3>{{odata.industry}}</h3></td>
+                                <td> <span>대졸초임</span></td>
+                                <td> <h3>{{odata.salary}}</h3></td>
+
+                                </tr>  
+                                <tr>
+                                <td> <span>사원수</span></td>
+                                <td> <h3> {{odata.people}}</h3></td>
+                                <td> <span>설립일</span></td>
+                                <td> <h3>{{odata.establishment}}</h3></td>
+
+                                </tr>
+                                <tr>
+                                <td> <span>4대보험</span></td>
+                                <td> <h3>{{odata.insurance}}</h3></td>
+                                <td> <span>주소</span></td>
+                                <td> <h3>{{odata.address}}</h3></td>
+                                </tr>           
+                            </tbody>
+                        </table>
                     </div>
-                    <!---content끝-->
-                    <!--contents2-->
-                    <div id="contents2">
-                        <h3>사원수: {{odata.people}}</h3>
-                        <h3>자본금: {{odata.capital}}</h3>
-                        <h3>매출액: {{odata.take}}</h3>
-                        <h3>대졸초임: {{odata.salary}}</h3>
-                        <h3>설립일: {{odata.establishment}}</h3>
-                        <h3>주소: {{odata.address}}</h3>
-                    </div>
+                        <!---content 끝-->
+
+                        <!---content2 시작-->
+                        <div>
+                            <table id="contents2" class="table table-bordered" >
+                            <tbody >
+                                <tr >
+                                 <td> <span>주요사업 </span></td>
+                                 <td> <h3>{{odata.bussiness}}</h3></td> 
+                                </tr>  
+                            </tbody>
+                            </table>
             </div>
+                        <!---content2 끝-->
+
+                        
+   
+            
 
             <!-- 프로그레스바 리스트 들고오기 -->
                             <div>
@@ -175,21 +223,23 @@
 
     #contents {
         /* border: 1px solid #487BE1; */
-        width: 70%;
-        float: left;
+        width: 100%;
+        
         padding: 10px;
-
+        table-layout:fixed; 
     }
+
      #contents2 {
         /* border: 1px solid #487BE1; */
         width: 30%;
-        float: left;
+        text-align: left;
+         
         padding: 10px;
 
     }
     #contents3{
        width: 55%;
-        float: left;
+       float: left;
         padding: 10px; 
     }
      #contents4{

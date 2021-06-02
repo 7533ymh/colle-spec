@@ -1,10 +1,14 @@
 <template>
   <div>
-        <base-header  class="pb-6 pb-8 pt-5 pt-md-8 bg-gradient-success">
+        <base-header class="pb-4 pt-md-6 bg-gradient-success">
             <!-- Card stats -->
             <b-row>
                 <b-col xl="6" md="6">
-                    <stats-card title="" type="gradient-red" sub-title="기업 리스트" class="mb-4">
+                    <stats-card title=""
+                      type="gradient-red"
+                      sub-title="기업 리스트"
+                      id="card"
+                      class="mb-4">
                         <template slot="footer"></template>
                     </stats-card>
                 </b-col>

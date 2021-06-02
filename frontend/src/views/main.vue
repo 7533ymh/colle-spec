@@ -74,7 +74,7 @@
                 <div id="chartinfo">
                 <span v-if="authorized">
                   <span v-if="Rshow===true"><img class="imgbtn" type="button"  @click="reloadbtn" width="24" height="24" src="/reload.png" alt="">
-                  <span class="allrank"><h3>전체등급: {{rank.all_rank}}</h3></span>
+                  <!--<span class="allrank"><h3>전체등급: {{rank.all_rank}}</h3></span>-->
                  
                   <radar-example id="radar"/>
                 </span>
@@ -100,25 +100,29 @@
               <b-col>
                 
                 
-                <h5 class="h3 mb-0">포트폴리오 요약</h5>
+                <h5 class="h3 mb-3">포트폴리오 요약</h5>
                 <span v-if="authorized">
                   <!-- 여기다 보여줄 정보 작성하기 -->
-                  <b-list-group id ="UserSummary">
-                    <b-list-group-item class="p-2 pl-4" >평점 <span>{{user.summary.gradeAvg}}</span>점</b-list-group-item>
-                    <b-list-group-item class="p-2 pl-4">수상횟수: <span>{{user.summary.awardCount}}</span>회</b-list-group-item>
-                    <b-list-group-item class="p-2 pl-4">경력횟수: <span>{{user.summary.careerCount}}</span>회</b-list-group-item>
-                    <b-list-group-item class="p-2 pl-4">자격증: <span>{{user.summary.certificateCount}}</span>개 보유</b-list-group-item>
-                    <b-list-group-item class="p-2 pl-4">교육이수: <span>{{user.summary.educationCount}}</span>회</b-list-group-item>
-                    <b-list-group-item class="p-2 pl-4"> 해외경험: <span>{{user.summary.experienceCount}}</span>회</b-list-group-item>
-                    <b-list-group-item class="p-2 pl-4">자기소개서: <span>{{user.summary.introductionCount}}</span>개</b-list-group-item>
 
-                    <div v-for="(list,i) in user.summary.languageSummaryList" :key="i">
-                    <b-list-group-item class="p-2 pl-4">
-                    어학시험: {{user.summary.languageSummaryList[i].exam}} -- <span>{{user.summary.languageSummaryList[i].exam_score}}</span>
-                    </b-list-group-item>
-                    </div>
-                    
-                  </b-list-group>
+                      <table class="table table-bordered"   style="margin: auto;  " >
+                      <tbody id="RatingSystemTable" >
+
+                        <tr >
+                          <td> <span>{{user.summary.gradeAvg}}</span>점<br>평점</td>
+                          <td> <span>{{user.summary.awardCount}}</span>회<br>수상횟수</td> 
+                          <td> <span>{{user.summary.careerCount}}</span>회<br>경력횟수</td>
+                          <td> <span>{{user.summary.certificateCount}}</span>개<br>자격증</td>
+                        </tr>
+                        <tr>
+                          <td> <span>{{user.summary.educationCount}}</span>회<br>교육이수</td>
+                          <td> <span>{{user.summary.experienceCount}}</span>회<br>해외경험</td>
+                          <td> <span>{{user.summary.introductionCount}}</span>개<br>자기소개서</td>
+                          <td> <span>{{user.summary.languageSummaryList.length}}</span>개<br>어학시험</td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                  
            </span>  
             <router-link to="/login" v-else>
             <sidebar-item  :link="{name:'로그인이필요합니다',path:'/login'}"></sidebar-item>
@@ -454,7 +458,7 @@
 
   };
 </script>
-<style>
+<style lang="scss" scoped >
 .el-table .cell{
   padding-left: 0px;
   padding-right: 0px;
@@ -524,4 +528,24 @@ input:invalid {
   margin-left: 90%;
 
 }
+
+#RatingSystemTable table {
+    
+   border-collapse: collapse;
+    
+  }
+ #RatingSystemTable th, td {
+   text-align: center;
+   padding : 17px;
+   border: 1px solid;
+   border-color: #b1b1b4;
+   font-size: medium ;
+}
+
+#RatingSystemTable span{
+  color: #3235f5;
+  font-weight : bold;
+  font-size:  x-large ;
+}
+  
 </style>

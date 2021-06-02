@@ -2,27 +2,28 @@
   <card>
     <b-row align-v="center" slot="header" >
       <b-col cols="8">
-        <h3 class="mb-0">Edit profile </h3>
+        <h3 class="mb-0">회원정보 수정 </h3>
       </b-col>
       <b-col cols="4" class="text-right">
         
 
         <span v-if="linkcheck"><button class="el-button" @click="update">연동업데이트</button></span>
         <span v-else><button class="el-button" @click="linklo">연동하기</button></span>
+        
 
       </b-col>
       
     </b-row>
 
     <b-form @submit.prevent="com">
-      <h6 class="heading-small text-muted mb-4">User information</h6>
+      <!--<h6 class="heading-small text-muted mb-4">User information</h6>-->
 
       <div class="pl-lg-4">
         <b-row>
           <b-col lg="4">
             <base-input
               type="text"
-              label="Username"
+              label="이름"
               placeholder="Username"
               v-model="user.name"
             >
@@ -52,7 +53,7 @@
           <b-col lg="6">
             <base-input
               type="email"
-              label="Email address"
+              label="이메일"
               placeholder="ex)xxxx@email.com"
               v-model="user.mail"
             >
@@ -61,7 +62,7 @@
           <b-col md="4">
             <base-input
               type="text"
-              label="PhoneNum"
+              label="휴대폰 번호"
               placeholder="PhoneNum"
               v-model="user.phone"
             >
@@ -145,6 +146,7 @@
       <!-- Address -->
     </b-form>
     <button class="el-button" style="margin-left:90%" @click.prevent="com">저장</button>
+    
     <div class="pl-lg-4">
         
           <form @submit.prevent="linklogin">
