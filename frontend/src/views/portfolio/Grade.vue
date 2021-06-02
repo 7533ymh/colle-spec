@@ -7,7 +7,7 @@
         <b-col xl="6" md="6">
           <stats-card title=""
                       type="gradient-red"
-                      sub-title="나의 포트폴리오 or 스펙"
+                      sub-title="나의 포트폴리오"
                       id="card"
                       class="mb-4">
 
@@ -128,7 +128,7 @@
       data(){return{
       show:false,
       grade:[{}],
-      fields:[{key:'grade',label:'학년'},{key:'semester',label:'학기'},{key:'avg_score',label:'학점'},{key:'edit',label:'마지막수정날짜'},{key:'편집',label:''}],
+      fields:[{key:'grade',label:'학년'},{key:'semester',label:'학기'},{key:'avg_score',label:'학점'},{key:'edit',label:'작성일'},{key:'편집',label:''}],
       }},
       components: {
       

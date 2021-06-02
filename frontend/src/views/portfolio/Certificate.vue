@@ -7,7 +7,7 @@
         <b-col xl="6" md="6">
           <stats-card title=""
                       type="gradient-red"
-                      sub-title="나의 포트폴리오 or 스펙"
+                      sub-title="나의 포트폴리오"
                       id="card"
                       class="mb-4">
 
@@ -133,7 +133,7 @@
       data(){return{
         show:false,
       mycertificate:[{}],
-      fields:[{key:'title',label:'자격증명'},{key:'publisher',label:'발급기관'},{key:'date',label:'취득날짜'},{key:'edit',label:'마지막수정날짜'},{key:'편집',label:''}],
+      fields:[{key:'title',label:'자격증명'},{key:'publisher',label:'발급기관'},{key:'date',label:'취득날짜'},{key:'edit',label:'작성일'},{key:'편집',label:''}],
       edit:'1',
       }},
       components: {

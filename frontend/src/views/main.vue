@@ -10,7 +10,7 @@
           <span  @click="aceess('/Award')">
           <stats-card title=""
                       type="gradient-red"
-                      sub-title="나의 포트폴리오 or 스펙"
+                      sub-title="나의 포트폴리오"
                       class="mb-3"
                       id="headercard"
                       >

@@ -7,7 +7,7 @@
         <b-col xl="6" md="6">
           <stats-card title=""
                       type="gradient-red"
-                      sub-title="나의 포트폴리오 or 스펙"
+                      sub-title="나의 포트폴리오"
                       id="card"
                       class="mb-4">
 
@@ -130,7 +130,7 @@
       data(){return{
           show:false,
       award:[{}],
-      fields:[{key:'title',label:'수상 명'},{key:'agency',label:'수여기관'},{key:'year',label:'수상년도'},{key:'edit',label:'마지막수정날짜'},{key:'편집',label:''}],
+      fields:[{key:'title',label:'수상 명'},{key:'agency',label:'수여기관'},{key:'year',label:'수상년도'},{key:'edit',label:'작성일'},{key:'편집',label:''}],
       edit:'1',
       }},
       components: {
@@ -159,8 +159,8 @@
                     //this.edit=new Date().toJSON().slice(0,10).replace(/-/g,'.');
 
                     for(var i=0; i<res.data.list.length; i++){
-                    const startDateStr = moment(res.data.list[i].edit).format('YYYY-MM-DD')
-                    res.data.list[i].edit=startDateStr
+                    const editdate = moment(res.data.list[i].edit).format('YYYY-MM-DD')
+                    res.data.list[i].edit=editdate
                     //this.award[i].edit=this.award[i].edit.slice(0,10).replace(/-/g,'.');
                     this.show=true
                     }

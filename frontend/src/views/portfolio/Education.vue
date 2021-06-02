@@ -7,7 +7,7 @@
         <b-col xl="6" md="6">
           <stats-card title=""
                       type="gradient-red"
-                      sub-title="나의 포트폴리오 or 스펙"
+                      sub-title="나의 포트폴리오"
                       id="card"
                       class="mb-4">
 
@@ -133,7 +133,7 @@
       data(){return{
           show:false,
       myeducation:[{}],
-      fields:[{key:'title',label:'교육명'},{key:'agency',label:'교육기관'},{key:'start_date',label:'시작날짜'},{key:'end_date',label:'종료날짜'},{key:'edit',label:'마지막수정날짜'},{key:'편집',label:''}],
+      fields:[{key:'title',label:'교육명'},{key:'agency',label:'교육기관'},{key:'start_date',label:'시작날짜'},{key:'end_date',label:'종료날짜'},{key:'edit',label:'작성일'},{key:'편집',label:''}],
       edit:'1',
       }},
       components: {
