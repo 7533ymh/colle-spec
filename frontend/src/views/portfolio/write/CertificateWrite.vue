@@ -136,7 +136,7 @@ export default {
                 .then(certificate=>{
                     console.log(certificate)
                     alert(certificate.data.msg)
-                    this.$router.push({path:'Certificate'})
+                    this.$router.push({path:'/Certificate'})
                 })
                 .catch(err=>{
                     console.log(err)

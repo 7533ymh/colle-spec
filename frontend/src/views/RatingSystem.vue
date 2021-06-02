@@ -440,7 +440,7 @@
                        // this.radarChartData.datasets[0].data[2]=1
                         var a3=1
                         this.color.c='danger'
-                        this.msg2='매우못함'
+                        this.msg2='매우부족'
                         this.data.certificate_rank=1
                       }
                       else{

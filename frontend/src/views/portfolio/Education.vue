@@ -206,30 +206,7 @@
                 console.log('보낸데이터:',row)
               this.$router.push({path:'/Portfolio/Modify/Education',query:row.item})
             }
-            //상세페이지에 수정 기능 넣기
-    //         edit(item,index,event) {
-    //             var params = new URLSearchParams(); //파일업로드가 포함되어 formdata를 이용한다
-    //             params.append('title', this.education.title);
-    //             params.append('content', this.education.content);
-    //             params.append('publisher', this.education.publisher);
-    //             params.append('date', this.education.date);
-    //             axios.put(`${url}/education`,params,{
-    //                 headers:{
-    //                     'Content-Type' : 'multipart/form-data' //다중파일 업로드하기 위해 헤더 추가
-    //                 }
-    //             })
-    //             .then(education=>{
-    //                 console.log(education)
-    //                 alert(education.data.msg)
-    //                 window.location.reload()
-                    
-    //             })
-                
-    //             .catch(err=>{
-    //                 console.log(err)
-    //                 alert(err.response.data.msg)
-    //             })
-    // }
+            
   }
   }
 </script>

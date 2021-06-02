@@ -48,28 +48,11 @@
                                     </template>
                                 </div> <!-- 게시글 수정, 삭제 끝 -->
 
-
-
-                                 <!-- <form>  댓글 작성 시작  
-                                    <form>
-                                        <textarea class="comment" v-model="comment" placeholder="댓글입력"></textarea>
-                                        <button type="submit" @click="commWrite">댓글작성</button>
-                                    </form>
-                                    <form>
-                                        <textarea class="comment" v-model="edit.comment" placeholder="댓글입력"></textarea>
-                                        <button type="submit" @click="editcomm">댓글수정</button>
-                                    </form>
-                                </form>   댓글 작성 끝  -->
-
-
-
-
 								<form style="margin-top:30px;">    <!-- 댓글 작성 시작   -->
 									<div class="form-group">
 										
 										<textarea class="form-control" v-model="comment" id="comment-content" rows="3" placeholder="댓글입력"></textarea>
 									</div>
-									<!--<input type="hidden" id="comment-author" value="익명">-->
 									<button type="button" class="btn btn-primary" @click="commWrite"  id="comment-create-btn">댓글작성</button>
 								</form>  <!-- 댓글 작성 시작  끝  -->
 
@@ -97,14 +80,11 @@
 												{{view.view[i].content}}
 												</div>
 												<div v-else> <!-- 댓글이 수정 상태일때  -->
-													<!--<v-text-field
-														v-moel="view.view[i].content"
-														outlined
-														hide-details
-													/>-->
-													<textarea  class="comment" v-model="edit.comment" placeholder="댓글입력"></textarea>
+													
+													<textarea class="comment" v-model="edit.comment" placeholder="댓글입력"></textarea> 
 													<b-button type="submit" @click="editcomm" variant="primary" style="font-size: 10px;">댓글수정</b-button>
 												</div>
+
 
 											</td>
                                             <td > <!-- authorized랑 !authorized 차이가 뭐야? -->
@@ -125,13 +105,7 @@
                                         </tr>
                                     </table>
                                 </div>  <!-- 댓글 리스트 끝  -->
-
-
-
                             </div>
-
-
-
                             <div class="btnWrap">
                                 
 								<b-button href="javascript:;" @click="fnList" class="btn" variant="primary"  >목록</b-button>
@@ -139,8 +113,6 @@
                         </div>
                     </template>
                 </stats-card> <!-- 게시판 카드 끝  -->
-
-<!-- {{view.view[0].user_id}} -->
             </b-col>
         </b-row>
     </base-header>
@@ -177,6 +149,7 @@
 				view:{} //댓글리스트 저장
 				},
 			remove: false,
+		
 		//myid:'',
 		
 		}
@@ -191,19 +164,7 @@
     },
     }
 	,methods:{
-		// mycomm(){
-		// 	for(var i=0; i<this.view.user.length; i++){
-		// 		if(store.getters.userid===this.view.user[i].user_id){
-		// 			console.log("같은아이디 확인:",this.view.user[i].user_id)
-		// 			this.myid=this.view.user[i].user_id
-		// 		}else{
-		// 			console.log("같지않은아이디 확인:",this.view.user[i].user_id)
-		// 		}
-		// 	}
-		// 	var result=this.myid
-		// 	console.log("내댓글확인:",result)
-			
-		// },
+		
 		fnList(){
 			this.$router.push({path:'/board/list'});
 		},
@@ -279,7 +240,8 @@
 			})
 		},
 		btn_edit(item){
-			console.log(item)
+			console.log("item",item)
+			
 			if(item.user_id!==store.getters.userid){
 				alert("본인 댓글만 수정가능합니다.")
 			}else{

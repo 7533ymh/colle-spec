@@ -190,7 +190,7 @@
                 let del=item.item.idx
                 
                 console.log('del idx: ',del)
-                axios.delete(`${url}/certificate`,{params:{
+                axios.delete(`${url}/career`,{params:{
                     idx:del
                 }})
                 .then(res=>{

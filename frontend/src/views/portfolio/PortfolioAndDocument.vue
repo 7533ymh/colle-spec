@@ -160,6 +160,8 @@
                       imglist:{},
                       data:[]
                     }
+                    ,
+                    img:[]
       }},
       components: {
       
@@ -189,16 +191,20 @@
       async fnView(item) {
         console.log(item);
 			this.send.data=item
+      localStorage.removeItem('items')
                 for (var i = 0; i < item.project_imgList.length; i++) {
                 let idxx=item.project_imgList[i].idx
                 await axios.get(`${url}/project_img/download`,{params:{
                     idx:idxx
                 },responseType: 'arraybuffer'})
                 .then(res=>{
-                    this.send.imglist[i]=Buffer.from(res.data, 'binary').toString('base64')
+                    // this.send.imglist[i]=Buffer.from(res.data, 'binary').toString('base64')
+                    this.img[i]=Buffer.from(res.data, 'binary').toString('base64')
+                    console.log(i+'번'+this.img)
                 })
                 }
-                localStorage.setItem('items',JSON.stringify(this.send)); //클릭한 행의 데이터를 로컬스토리지 저장
+                console.log('이미지',this.send.imglist)
+                //localStorage.setItem('items',JSON.stringify(this.img)); //클릭한 행의 데이터를 로컬스토리지 저장
 	},
  
   deletepj(item,index,e){

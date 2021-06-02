@@ -206,30 +206,7 @@
                 console.log('보낸데이터:',row)
               this.$router.push({path:'/Portfolio/Modify/Experience',query:row.item})
             }
-            //상세페이지에 수정 기능 넣기
-    //         edit(item,index,event) {
-    //             var params = new URLSearchParams(); //파일업로드가 포함되어 formdata를 이용한다
-    //             params.append('title', this.experienceificate.title);
-    //             params.append('content', this.experienceificate.content);
-    //             params.append('publisher', this.experienceificate.publisher);
-    //             params.append('date', this.experienceificate.date);
-    //             axios.put(`${url}/experienceificate`,params,{
-    //                 headers:{
-    //                     'Content-Type' : 'multipart/form-data' //다중파일 업로드하기 위해 헤더 추가
-    //                 }
-    //             })
-    //             .then(experienceificate=>{
-    //                 console.log(experienceificate)
-    //                 alert(experienceificate.data.msg)
-    //                 window.location.reload()
-                    
-    //             })
-                
-    //             .catch(err=>{
-    //                 console.log(err)
-    //                 alert(err.response.data.msg)
-    //             })
-    // }
+     
   }
   }
 </script>
