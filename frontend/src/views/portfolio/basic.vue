@@ -1,21 +1,25 @@
 <template>
 <div>
-    <base-header class="pb-5 pt-md-5 bg-gradient-success" >
-    <b-col class="ml-9" xl="6">
-    <stats-card title=""
+     <base-header class="pb-6 pt-5 pt-md-8 bg-gradient-success" >
+      <!-- Card stats -->
+      <b-row>
+        <b-col xl="6" md="6" >
+          <stats-card title=""
                       type="gradient-red"
                       sub-title="포트폴리오 작성"
-                      align="center"
-                      class="mb-3 ml-5">
-
-            
+                      id="card"
+                      class="mb-4">
           </stats-card>
-    </b-col>
+        </b-col>
+        
+        
+        
+      </b-row> 
       
     </base-header>
     <b-container fluid="fluid" class="mt--0">
         <b-row>
-            <b-col xl="11" class="mb-7 mb-xl-0">
+            <b-col xl="12" class="mb-7 mb-xl-0">
                 <card header-classes="bg-transparent">
                     <b-row align-v="center" slot="header">
 
@@ -118,3 +122,11 @@ import BaseProgress from '@/components/BaseProgress';
       },
     }
 </script>
+<style>
+#card{
+    margin-left: 50%;
+    width: 80%;
+    text-align: center;
+    height: 60%;
+}
+</style>

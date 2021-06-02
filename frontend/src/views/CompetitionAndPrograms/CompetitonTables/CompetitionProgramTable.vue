@@ -54,7 +54,6 @@
     
         </el-table>
 
-        
     </b-card>
 </template>
 <script>

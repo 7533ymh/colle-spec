@@ -5,7 +5,11 @@
             <!-- Card stats -->
             <b-row>
                 <b-col xl="6" md="6">
-                    <stats-card title="" type="gradient-red" sub-title="나의 등급제" class="mb-4">
+                    <stats-card title=""
+                      type="gradient-red"
+                      sub-title="나의 등급제"
+                      id="card"
+                      class="mb-4">
                         <template slot="footer"></template>
                     </stats-card>
                 </b-col>
@@ -46,7 +50,6 @@
                             </b-nav>
                           </b-col>
                         </b-row> <!-- 등급제 버튼 끝-->
-
                         
                         <div>
                         </div>
@@ -59,92 +62,135 @@
                             <div class="row"> <!-- 등급제 내용-->
                          
 
-                                <b-list-group class="col-md-3" style=" text-align: justify;">  <!-- 등급제 등급 리스트-->
-
-                                    <b-list-group-item style="font-weight: bold;">전체등급 :{{viewRank.all_rank}} </b-list-group-item> 
-                                    <b-list-group-item>수상 : {{viewRank.award_rank}}</b-list-group-item>
-                                    <b-list-group-item>경력 : {{viewRank.career_rank}}</b-list-group-item>
-                                    <b-list-group-item>자격증 : {{viewRank.certificate_rank}}</b-list-group-item>
-                                    <b-list-group-item>교육이수 : {{viewRank.education_rank}}</b-list-group-item>
-                                    <b-list-group-item>해외경험 : {{viewRank.experience_rank}}</b-list-group-item>
-                                    <b-list-group-item>학점 : {{viewRank.grade_rank}}</b-list-group-item>
-                                    <b-list-group-item>프로젝트 : {{viewRank.project_rank}}</b-list-group-item>
-                                    <b-list-group-item>어학 : {{viewRank.language_rank}}</b-list-group-item>
-
-                                </b-list-group>  <!-- 등급제 등급 리스트 끝-->
+                                
+                  
 
 
+                             <div id="progress" class="col-md-10" style="padding-left: 0; " > <!--테이블 시작-->
+                              <table class="table table-bordered"  >
+                                <colgroup>
+                                  <col width="10%" />
+                                  <col width="90%" />
+                                </colgroup>
+                                <tbody id="RatingSystemTable1" >
 
-                                <div id="progress" class="col-md-8" style="padding-left: 0;" > <!-- 차트 UI -->
-                                     <b-progress id="prog" :max="max" height="2rem" >
+                                  <tr >
+                                    <td> <span  style="font-weight: bold; font-size:medium ;">전체등급 :{{viewRank.all_rank}}</span></td>
+                                    <td> 
+                                      <b-progress id="prog" :max="max" height="2rem" >
                                         <b-progress-bar :variant="color.a0" :value="data.all_rank">
                                             <span>전체등급:
                                                 <strong>{{ msg00 }}</strong>
                                             </span>
                                         </b-progress-bar>
-                                    </b-progress>
-                                          <b-progress id="prog" :max="max" height="2rem" >
+                                      </b-progress>
+                                    </td> 
+                                  </tr>
+
+                                  <tr>
+                                    <td> <span id="RatingSystemTable1">수상 : {{viewRank.award_rank}}</span></td>
+                                    <td> 
+                                      <b-progress id="prog" :max="max" height="2rem" >
                                         <b-progress-bar :variant="color.a" :value="data.award_rank">
                                             <span>수상:
                                                 <strong>{{ msg0 }}</strong>
                                             </span>
                                         </b-progress-bar>
-                                    </b-progress>
-                                    <b-progress id="prog" :max="max" height="2rem" >
+                                      </b-progress>
+                                    </td>
+                                  </tr>
+
+                                  <tr>
+                                    <td> <span id="RatingSystemTable1">경력 : {{viewRank.career_rank}}</span></td>
+                                    <td> 
+                                       <b-progress id="prog" :max="max" height="2rem" >
                                         <b-progress-bar :variant="color.b" :value="data.career_rank">
                                             <span>경력:
                                                 <strong>{{ msg1 }}</strong>
                                             </span>
                                         </b-progress-bar>
-                                    </b-progress>
-                                    <b-progress id="prog" :max="max" height="2rem" >
+                                      </b-progress>
+                                    </td>
+                                  </tr>
+
+                                  <tr>
+                                    <td> <span id="RatingSystemTable1">자격증 : {{viewRank.certificate_rank}}</span></td>
+                                    <td>
+                                       <b-progress id="prog" :max="max" height="2rem" >
                                         <b-progress-bar :variant="color.c" :value="data.certificate_rank">
                                             <span>자격증:
                                                 <strong>{{ msg2 }}</strong>
                                             </span>
                                         </b-progress-bar>
-                                    </b-progress>
-                                    <b-progress id="prog" :max="max" height="2rem" >
+                                      </b-progress> </td>
+                                  </tr>
+
+                                  <tr>
+                                    <td> <span id="RatingSystemTable1">교육이수 : {{viewRank.education_rank}}</span></td>
+                                    <td>
+                                      <b-progress id="prog" :max="max" height="2rem" >
                                         <b-progress-bar :variant="color.d" :value="data.education_rank">
                                             <span>교육이수:
                                                 <strong>{{ msg3 }}</strong>
                                             </span>
                                         </b-progress-bar>
-                                    </b-progress>
-                                    <b-progress id="prog" :max="max" height="2rem" >
+                                      </b-progress> </td>
+                                  </tr>
+
+                                  <tr>
+                                    <td> <span id="RatingSystemTable1">해외경험 : {{viewRank.experience_rank}}</span></td>
+                                    <td>
+                                      <b-progress id="prog" :max="max" height="2rem" >
                                         <b-progress-bar :variant="color.e" :value="data.experience_rank">
                                             <span>해외경험:
                                                 <strong>{{msg4}}</strong>
                                             </span>
                                         </b-progress-bar>
-                                    </b-progress>
-                                    <b-progress id="prog" :max="max" height="2rem" >
+                                      </b-progress> </td>
+                                  </tr>
+
+                                  <tr>
+                                    <td> <span id="RatingSystemTable1">학점 : {{viewRank.grade_rank}}</span></td>
+                                    <td> 
+                                      <b-progress id="prog" :max="max" height="2rem" >
                                        <b-progress-bar :variant="color.f" :value="data.grade_rank">
                                             <span>학점:
                                                 <strong>{{ msg5 }}</strong>
                                             </span>
                                         </b-progress-bar>
-                                          
-                                    </b-progress>
-                                    <b-progress id="prog" :max="max" height="2rem" >
-                                        
+                                      </b-progress>
+                                    </td>
+                                  </tr>
+
+                                  <tr>
+                                    <td> <span id="RatingSystemTable1">프로젝트 : {{viewRank.project_rank}}</span></td>
+                                    <td>
+                                      <b-progress id="prog" :max="max" height="2rem" >  
                                         <b-progress-bar :variant="color.g" :value="data.project_rank">
                                             <span>프로젝트:
                                                 <strong>{{ msg6 }}</strong>
                                             </span>
                                         </b-progress-bar>
-                                    </b-progress>
-                                    <b-progress id="prog" :max="max" height="2rem">
+                                      </b-progress> </td>
+                                  </tr>
+
+                                  <tr>
+                                    <td> <span id="RatingSystemTable1">어학 : {{viewRank.language_rank}}</span></td>
+                                    <td>
+                                       <b-progress id="prog" :max="max" height="2rem">
                                        <b-progress-bar :variant="color.h" :value="data.language_rank">
                                             <span>어학:
                                                 <strong>{{ msg7 }}</strong>
                                             </span>
                                         </b-progress-bar>
-                                    </b-progress>
-          
-                                </div> <!-- 차트 UI 끝 -->
+                                      </b-progress> </td>
+                                  </tr>
 
-                            
+                                </tbody>
+                              </table>
+                             </div>  <!--테이블 끝-->
+
+
                             </div> <!-- 등급제 내용 끝-->
                         </div>
                     </card>
@@ -1611,16 +1657,16 @@
     height: 500px;
     
   }
-  #RatingSystemImg {
-  width: 25px;
-  height: 30px;
+  
+
+#prog{
+  
+  width: 95%;
   
 }
-#progress{
-  margin-top: 1%;
-}
-#prog{
-  margin-bottom: 4%;
+
+#RatingSystemTable1{
+  font-size: medium;
 }
 </style>
 

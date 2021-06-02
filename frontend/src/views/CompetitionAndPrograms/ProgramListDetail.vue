@@ -82,7 +82,7 @@
                                     <table>
                                         <colgroup>
                                             <col width='1%'/>
-                                            <col width='70%'/>
+                                            <col width='60%'/>
                                             <col width='10%'/>
                                             <col width='10%'/>
                                             <col width='*%'/>
@@ -117,7 +117,7 @@
 												<b-button @click="btn_edit(row)" class="btn" variant="primary" style="font-size: 10px;"  >수정</b-button>
 												
                                             </td>
-                                            <td>수정날짜:{{new Date().toJSON(view.view[i].edit).slice(0,10).replace(/-/g,'.')}}</td>
+                                            <td>수정날짜:{{view.view[i].edit}}</td>
                                         </tr>
 
                                         <tr v-if="view.length == 0">
@@ -226,6 +226,7 @@
 			
 		},
 		async detail_view(){
+			const moment = require('moment')
 			await axios.get(`${url}/program/board`,{params:{
 				board_idx:this.items.idx
 			}})
@@ -234,8 +235,15 @@
 				this.view.view=res.data.data.commentList
         this.title=res.data.data.title;
         this.content=res.data.data.content;
-		this.editdate=res.data.data.edit;
-		this.editdate= new Date().toJSON().slice(0,10).replace(/-/g,'.'); //오늘날짜 출력
+		const editdate = moment(res.data.data.edit).format('YYYY-MM-DD')
+        this.editdate=editdate
+		console.log('dddddd',res.data.data.commentList)
+
+		for(var i=0; i<res.data.data.commentList.length; i++){
+			const editdate1 = moment(res.data.data.commentList[i]).format('YYYY-MM-DD')
+        	this.view.view[i].edit=editdate1
+		}
+
         localStorage.setItem("comment",JSON.stringify(res.data.data.commentList));
 			})
 		},

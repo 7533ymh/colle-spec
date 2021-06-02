@@ -8,7 +8,7 @@
           <stats-card title=""
                       type="gradient-red"
                       sub-title="공모전, 대회, 프로그램"
-                      
+                      id="card"
                       class="mb-4">
 
             <template slot="footer">

@@ -24,7 +24,8 @@
             
             <b-card-body class="px-lg-5 py-lg-5">
               <div class="text-center text-muted mb-4">
-                <h3>로그인하여 연동하기.</h3>
+                <img width="100px" height="100px" src="/colleasy.png" alt="">
+                <h3>Colleasy연동</h3>
               </div>
                 <b-form role="form" @submit.prevent="linklogin">
                   <base-input alternative

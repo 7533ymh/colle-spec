@@ -68,9 +68,9 @@
             <i class="ni ni-user-run"></i>
             <span>업데이트</span>
           </b-dropdown-item>
-          <b-dropdown-item v-else>
+          <b-dropdown-item v-else @click="linkon">
             <i class="ni ni-user-run"></i>
-            <span @click="linkon">연동</span>
+            <span >연동</span>
           </b-dropdown-item>
           </span>
           

@@ -7,8 +7,8 @@
         <b-col xl="6" md="6">
           <stats-card title=""
                       type="gradient-red"
-                      sub-title="나의 포트폴리오 or 스펙"
-                      
+                      sub-title="나의 포트폴리오"
+                      id="card"
                       class="mb-4">
 
             <template slot="footer">
@@ -88,7 +88,7 @@
 <!--
  여기에 자격증  넣으셈
 -->
-      <b-table responsive="sm" striped :fields="fields" hover :items="myeducation" @row-clicked="click" >                        
+      <b-table responsive="sm" striped :fields="fields" hover :items="myeducation" v-if="show" @row-clicked="click" >                        
       
       <template #cell(편집)="row">
          <b-button size="sm" @click="mvedit(row)" class="mr-2">
@@ -131,8 +131,9 @@
   let url=store.state.resourceHost; //서버주소 api
     export default {
       data(){return{
+          show:false,
       myeducation:[{}],
-      fields:[{key:'title',label:'교육명'},{key:'agency',label:'교육기관'},{key:'start_date',label:'시작날짜'},{key:'end_date',label:'종료날짜'},{key:'edit',label:'마지막수정날짜'},{key:'편집',label:''}],
+      fields:[{key:'title',label:'교육명'},{key:'agency',label:'교육기관'},{key:'start_date',label:'시작날짜'},{key:'end_date',label:'종료날짜'},{key:'edit',label:'작성일'},{key:'편집',label:''}],
       edit:'1',
       }},
       components: {
@@ -150,17 +151,18 @@
           console.log(row)
         },
         educationView(){
+            const moment = require('moment')
           axios.get(`${url}/education`)
                     .then(res=>{
                     this.myeducation=res.data.list
                     console.log(res)
-                    //this.edit=res.data.list[1].edit;
-                    //this.edit=new Date().toJSON().slice(0,10).replace(/-/g,'.');
+                  
                     for(var i=0; i<res.data.list.length; i++){
-                    this.myeducation[i].edit=this.myeducation[i].edit.slice(0,10).replace(/-/g,'.');
+                        const editdate = moment(res.data.list[i].edit).format('YYYY-MM-DD')
+                    res.data.list[i].edit=editdate
+                    // this.myeducation[i].edit=this.myeducation[i].edit.slice(0,10).replace(/-/g,'.');
                     }
-                    console.log('myeducation: ',this.myeducation)
-                    console.log('edit',this.edit);
+                    this.show=true
         })
       },
       
@@ -220,5 +222,11 @@
 .el-table .cell{
   padding-left: 0px;
   padding-right: 0px;
+}
+#card{
+    margin-left: 50%;
+    width: 80%;
+    text-align: center;
+    height: 60%;
 }
 </style>

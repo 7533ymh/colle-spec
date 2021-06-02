@@ -7,8 +7,8 @@
         <b-col xl="6" md="6">
           <stats-card title=""
                       type="gradient-red"
-                      sub-title="나의 포트폴리오 or 스펙"
-                      
+                      sub-title="나의 포트폴리오"
+                      id="card"
                       class="mb-4">
 
             <template slot="footer">
@@ -87,7 +87,7 @@
 <!--
  여기에 자격증  넣으셈
 -->
-      <b-table responsive="sm" striped :fields="fields" hover :items="grade" @row-clicked="click" >                        
+      <b-table responsive="sm" striped :fields="fields" hover :items="grade" v-if="show"  @row-clicked="click" >                        
       
       <template #cell(편집)="row">
          <b-button size="sm" @click="mvedit(row)" class="mr-2">
@@ -126,8 +126,9 @@
   let url=store.state.resourceHost; //서버주소 api
     export default {
       data(){return{
+      show:false,
       grade:[{}],
-      fields:[{key:'grade',label:'학년'},{key:'semester',label:'학기'},{key:'avg_score',label:'학점'},{key:'edit',label:'마지막수정날짜'},{key:'편집',label:''}],
+      fields:[{key:'grade',label:'학년'},{key:'semester',label:'학기'},{key:'avg_score',label:'학점'},{key:'edit',label:'작성일'},{key:'편집',label:''}],
       }},
       components: {
       
@@ -144,12 +145,17 @@
           console.log(row)
         },
         gradeView(){
+          const moment = require('moment')
           axios.get(`${url}/grade`)
                     .then(res=>{
                     this.grade=res.data.list
-                    console.log(res.data)
                     for(var i=0; i<res.data.list.length; i++){
-                    this.grade[i].edit=this.grade[i].edit.slice(0,10).replace(/-/g,'.');
+                    this.grade[i].grade +="학년";
+                    this.grade[i].semester +="학기";
+                    const editdate = moment(res.data.list[i].edit).format('YYYY-MM-DD')
+                    res.data.list[i].edit=editdate
+                    //this.grade[i].edit=this.grade[i].edit.slice(0,10).replace(/-/g,'.');
+                    this.show=true
                     }
         })
       },
@@ -187,5 +193,11 @@
 .el-table .cell{
   padding-left: 0px;
   padding-right: 0px;
+}
+#card{
+    margin-left: 50%;
+    width: 80%;
+    text-align: center;
+    height: 60%;
 }
 </style>

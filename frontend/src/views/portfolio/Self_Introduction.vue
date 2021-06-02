@@ -7,8 +7,8 @@
         <b-col xl="6" md="6">
           <stats-card title=""
                       type="gradient-red"
-                      sub-title="나의 포트폴리오 or 스펙"
-                      
+                      sub-title="나의 포트폴리오"
+                      id="card"
                       class="mb-4">
 
             <template slot="footer">
@@ -88,7 +88,7 @@
 <!--
  여기에 자기소개서 넣으셈
 -->
-              <b-table responsive="sm" :fields ="fields" striped hover :items="myIntro" @row-clicked="click">
+              <b-table responsive="sm" :fields ="fields" striped hover :items="myIntro" v-if="show" @row-clicked="click">
                   <template #cell(down)="row">
                     <b-button size="sm" @click="download(row)" class="mr-2">
                         다운
@@ -133,6 +133,7 @@
   let url=store.state.resourceHost; //서버주소 api
     export default {
       data(){return{
+        show:false,
       myIntro:[{}],
       fields:[{key:'origfilename',label:'파일이름'},{key:'down',label:''},{key:'edit',label:''}],
       }},
@@ -153,7 +154,7 @@
           axios.get(`${url}/introduction`)
                     .then(res=>{
                     this.myIntro=res.data.list
-                    console.log('myint: ',this.myIntro)
+                    this.show=true
         })
       },
       download(item,index,e){
@@ -213,5 +214,11 @@
 .el-table .cell{
   padding-left: 0px;
   padding-right: 0px;
+}
+#card{
+    margin-left: 50%;
+    width: 80%;
+    text-align: center;
+    height: 60%;
 }
 </style>

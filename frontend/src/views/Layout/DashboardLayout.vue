@@ -14,33 +14,15 @@
         >
         </sidebar-item>
 
-        <sidebar-item
-          :link="{
-            name: '포트폴리오',
-            path: '/Award',    
-          }"
-          >
-          <span  @click="access('/Award')">
+          <span  @click="access('/Grade')">
           <sidebar-item
           :link="{
             name: '나의 포트폴리오',
-            path: '/Award',
-            
-          }"/>
-          </span>
-          <span  @click="access('/basic')">
-          <sidebar-item
-          :link="{
-            name: '등록하기',
-            path: '/basic',
+            path: '/Grade',
             
           }"/>
           </span>
 
-        </sidebar-item>
-       
-
-        
       <span @click="access('/RatingSystem')">
         <sidebar-item 
           :link="{
@@ -62,34 +44,18 @@
         </sidebar-item>
         </span>
 
-        <sidebar-item
-          :link="{
-            name: '기업 스펙 & 정보',
-            path: '/Company',
-            
-          }"
-        >
-        <span @click="access('/Company')">
-        <sidebar-item 
-          :link="{
-            name: '기업 스펙비교',
-            path: '/Company',
-            
-          }"
-        >
-        </sidebar-item>
-        </span>
+       
         <span @click="access('/Company/info')">
         <sidebar-item
           :link="{
-            name: '기업 정보',
+            name: '기업정보',
             path: '/Company/info',
             
           }"
         >
         </sidebar-item>
         </span>
-    </sidebar-item>    
+     
       </template>
     </side-bar>
     <div class="main-content">

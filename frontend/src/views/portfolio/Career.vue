@@ -7,8 +7,8 @@
         <b-col xl="6" md="6">
           <stats-card title=""
                       type="gradient-red"
-                      sub-title="나의 포트폴리오 or 스펙"
-                      
+                      sub-title="나의 포트폴리오"
+                      id="card"
                       class="mb-4">
 
             <template slot="footer">
@@ -88,7 +88,7 @@
 <!--
  여기에 자격증  넣으셈
 -->
-      <b-table responsive="sm" striped :fields="fields" hover :items="career" @row-clicked="click" >                        
+      <b-table responsive="sm" striped :fields="fields" hover :items="career" v-if="show" @row-clicked="click" >                        
       
       <template #cell(편집)="row">
          <b-button size="sm" @click="mvedit(row)" class="mr-2">
@@ -130,8 +130,9 @@
   let url=store.state.resourceHost; //서버주소 api
     export default {
       data(){return{
+          show:false,
       career:[{}],
-      fields:[{key:'company',label:'기업이름'},{key:'department',label:'부서'},{key:'division',label:'업무'},{key:'start_date',label:'시작날짜'},{key:'end_date',label:'종료날짜'},{key:'edit',label:'마지막수정날짜'},{key:'편집',label:''}],
+      fields:[{key:'company',label:'기업이름'},{key:'department',label:'부서'},{key:'division',label:'업무'},{key:'start_date',label:'시작날짜'},{key:'end_date',label:'종료날짜'},{key:'edit',label:'작성일'},{key:'편집',label:''}],
       edit:'1',
       }},
       components: {
@@ -149,6 +150,7 @@
           console.log(row)
         },
         careerView(){
+            const moment = require('moment')
           axios.get(`${url}/career`)
                     .then(res=>{
                     this.career=res.data.list
@@ -156,10 +158,11 @@
                     //this.edit=res.data.list[1].edit;
                     //this.edit=new Date().toJSON().slice(0,10).replace(/-/g,'.');
                     for(var i=0; i<res.data.list.length; i++){
-                    this.career[i].edit=this.career[i].edit.slice(0,10).replace(/-/g,'.');
+                        const editdate = moment(res.data.list[i].edit).format('YYYY-MM-DD')
+                    res.data.list[i].edit=editdate
+                    // this.career[i].edit=this.career[i].edit.slice(0,10).replace(/-/g,'.');
                     }
-                    console.log('career: ',this.career)
-                    console.log('edit',this.edit);
+                    this.show=true
         })
       },
       
@@ -183,31 +186,7 @@
                 console.log('보낸데이터:',row)
               this.$router.push({path:'/Portfolio/Modify/Career',query:row.item})
             }
-            //상세페이지에 수정 기능 넣기
-    //         edit(item,index,event) {
-    //             var params = new URLSearchParams(); //파일업로드가 포함되어 formdata를 이용한다
-    //             params.append('title', this.certificate.title);
-    //             params.append('content', this.certificate.content);
-    //             params.append('publisher', this.certificate.publisher);
-    //             params.append('date', this.certificate.date);
-    //             axios.put(`${url}/certificate`,params,{
-    //                 headers:{
-    //                     'Content-Type' : 'multipart/form-data' //다중파일 업로드하기 위해 헤더 추가
-    //                 }
-    //             })
-    //             .then(certificate=>{
-    //                 console.log(certificate)
-    //                 alert(certificate.data.msg)
-    //                 window.location.reload()
-                    
-    //             })
-                
-    //             .catch(err=>{
-    //                 console.log(err)
-    //                 alert(err.response.data.msg)
-    //             })
-    // }
-  }
+              }
   }
 </script>
 
@@ -219,5 +198,11 @@
 .el-table .cell{
   padding-left: 0px;
   padding-right: 0px;
+}
+#card{
+    margin-left: 50%;
+    width: 80%;
+    text-align: center;
+    height: 60%;
 }
 </style>

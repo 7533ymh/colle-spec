@@ -85,7 +85,7 @@
                         </b-form-group>
                     </b-form>
 
-                        {{award}}
+                       
 
                 </card>
             </b-col>

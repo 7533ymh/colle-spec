@@ -157,7 +157,6 @@ export default {
         }
     },
     created(){
-
     },
     methods:{
         clear(){
@@ -191,7 +190,6 @@ export default {
             else{
                 this.lang.division=""
             }
-
             if(this.lang.exam === "TOEIC"){
                     this.type="toeic"
                     this.place="토익 점수를 입력하세요"
@@ -228,7 +226,6 @@ export default {
                     this.view=false
                     alert("없는 시험입니다.")
                 }
-
         },
         onSubmit(event) {
             event.preventDefault()
@@ -249,9 +246,7 @@ export default {
                 .catch(err=>{
                     console.log(err)
                     alert(err.response.data.msg)
-
                 })
-
     },
     onReset(event) {
                 event.preventDefault()
@@ -261,7 +256,6 @@ export default {
                  this.division='',  
                  this.date='',      
                  this.exam_score='', 
-
                 // Trick to reset/clear native browser form validation state
                 this.show = false
                 this.$nextTick(() => {
@@ -301,17 +295,14 @@ export default {
 </script>
   <style scoped="scoped">
     #content {
-        width: 50%;
         height: 100px;
         resize: none;
     }
-    #agency,#division, #exam, #exam_score {
-        width: 50%;
+    /* #division, #exam, #exam_score {
     }
     #title,
     #year {
-        width: 50%;
-    }
+    } */
     .el-button{
         font-size:1pt;
         
