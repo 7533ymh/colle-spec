@@ -151,14 +151,16 @@
           console.log(row)
         },
         certView(){
+          const moment = require('moment')
           axios.get(`${url}/certificate`)
                     .then(res=>{
                     this.mycertificate=res.data.list
                     console.log(res)
-                    //this.edit=res.data.list[1].edit;
-                    //this.edit=new Date().toJSON().slice(0,10).replace(/-/g,'.');this.$moment().format('YYYY-MM-DD');
+                    
                     for(var i=0; i<res.data.list.length; i++){
-                    this.mycertificate[i].edit=this.mycertificate[i].edit.slice(0,10).replace(/-/g,'.');
+                      const editdate = moment(res.data.list[i].edit).format('YYYY-MM-DD')
+                    res.data.list[i].edit=editdate
+                    // this.mycertificate[i].edit=this.mycertificate[i].edit.slice(0,10).replace(/-/g,'.');
                     }
                     this.show=true
         })

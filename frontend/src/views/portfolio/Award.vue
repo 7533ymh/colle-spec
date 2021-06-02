@@ -124,6 +124,7 @@
   import StatsCard from '@/components/Cards/StatsCard';
   import axios from 'axios';
   import store from '@/store';
+  
   let url=store.state.resourceHost; //서버주소 api
     export default {
       data(){return{
@@ -147,15 +148,20 @@
           console.log(row)
         },
         awardView(){
+            const moment = require('moment')
+
+           
           axios.get(`${url}/award`)
                     .then(res=>{
                     this.award=res.data.list
                     console.log(res)
                     //this.edit=res.data.list[1].edit;
                     //this.edit=new Date().toJSON().slice(0,10).replace(/-/g,'.');
-                    
+
                     for(var i=0; i<res.data.list.length; i++){
-                    this.award[i].edit=this.award[i].edit.slice(0,10).replace(/-/g,'.');
+                    const startDateStr = moment(res.data.list[i].edit).format('YYYY-MM-DD')
+                    res.data.list[i].edit=startDateStr
+                    //this.award[i].edit=this.award[i].edit.slice(0,10).replace(/-/g,'.');
                     this.show=true
                     }
         })

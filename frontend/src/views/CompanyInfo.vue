@@ -1,10 +1,12 @@
 <template>
   <div>
-        <base-header class="pb-5 pt-md-5 bg-gradient-success">
+        <base-header  class="pb-6 pb-8 pt-5 pt-md-8 bg-gradient-success">
             <!-- Card stats -->
             <b-row>
-                <b-col xl="4" md="6">
-                    <stats-card id="card" title="" type="gradient-red" sub-title="기업 리스트" class="mb-4"></stats-card>
+                <b-col xl="6" md="6">
+                    <stats-card title="" type="gradient-red" sub-title="기업 리스트" class="mb-4">
+                        <template slot="footer"></template>
+                    </stats-card>
                 </b-col>
             </b-row>
         </base-header>
@@ -23,7 +25,9 @@
                             header-row-class-name="thead-light"
                             :data="view"
                             :row-class-name="tableRow"
-                            @row-click="detail">
+                            @row-click="detail"
+                            :overflow="auto"
+                            >
 
                             <el-table-column label="번호" prop='idx' min-width="30%">
                                 <template slot-scope="scope">
@@ -36,9 +40,7 @@
                                     {{scope.row.name}}
                                 </template>
                             </el-table-column>
-                        </el-table>
-
-                    </div>
+                        </el-table>                    </div>
                     <!---content끝-->
             </div>
         </card>
@@ -69,6 +71,9 @@
             [Table.name]: Table,
       [TableColumn.name]: TableColumn,
     //   [Button.name]: Button,
+        },
+        computed:{
+           
         },
         data() {
             
@@ -529,9 +534,9 @@
         padding: 10px;
 
     }
-    #card{
-    margin-left: 100%;
-    width: 100%;
-    text-align: center;
-}
+//     #card{
+//     margin-left: 100%;
+//     width: 100%;
+//     text-align: center;
+// }
 </style>

@@ -145,13 +145,16 @@
           console.log(row)
         },
         gradeView(){
+          const moment = require('moment')
           axios.get(`${url}/grade`)
                     .then(res=>{
                     this.grade=res.data.list
                     for(var i=0; i<res.data.list.length; i++){
                     this.grade[i].grade +="학년";
                     this.grade[i].semester +="학기";
-                    this.grade[i].edit=this.grade[i].edit.slice(0,10).replace(/-/g,'.');
+                    const editdate = moment(res.data.list[i].edit).format('YYYY-MM-DD')
+                    res.data.list[i].edit=editdate
+                    //this.grade[i].edit=this.grade[i].edit.slice(0,10).replace(/-/g,'.');
                     this.show=true
                     }
         })

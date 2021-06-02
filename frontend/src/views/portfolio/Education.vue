@@ -151,14 +151,16 @@
           console.log(row)
         },
         educationView(){
+            const moment = require('moment')
           axios.get(`${url}/education`)
                     .then(res=>{
                     this.myeducation=res.data.list
                     console.log(res)
-                    //this.edit=res.data.list[1].edit;
-                    //this.edit=new Date().toJSON().slice(0,10).replace(/-/g,'.');
+                  
                     for(var i=0; i<res.data.list.length; i++){
-                    this.myeducation[i].edit=this.myeducation[i].edit.slice(0,10).replace(/-/g,'.');
+                        const editdate = moment(res.data.list[i].edit).format('YYYY-MM-DD')
+                    res.data.list[i].edit=editdate
+                    // this.myeducation[i].edit=this.myeducation[i].edit.slice(0,10).replace(/-/g,'.');
                     }
                     this.show=true
         })

@@ -150,6 +150,7 @@
           console.log(row)
         },
         careerView(){
+            const moment = require('moment')
           axios.get(`${url}/career`)
                     .then(res=>{
                     this.career=res.data.list
@@ -157,7 +158,9 @@
                     //this.edit=res.data.list[1].edit;
                     //this.edit=new Date().toJSON().slice(0,10).replace(/-/g,'.');
                     for(var i=0; i<res.data.list.length; i++){
-                    this.career[i].edit=this.career[i].edit.slice(0,10).replace(/-/g,'.');
+                        const editdate = moment(res.data.list[i].edit).format('YYYY-MM-DD')
+                    res.data.list[i].edit=editdate
+                    // this.career[i].edit=this.career[i].edit.slice(0,10).replace(/-/g,'.');
                     }
                     this.show=true
         })

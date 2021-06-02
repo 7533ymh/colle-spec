@@ -38,10 +38,18 @@
                <i class="ni ni-circle-08"></i>
                <span class="nav-link-inner--text">회원가입</span>
            </b-nav-item>
-           <b-nav-item to="/login">
+
+        <span>
+           <b-nav-item v-if="isLogin" @click.prevent="onClickLogout">
+               <i class="ni ni-key-25"></i>
+               <span class="nav-link-inner--text">로그아웃</span>
+           </b-nav-item>
+
+           <b-nav-item v v-else @click.prevent="Login">
                <i class="ni ni-key-25"></i>
                <span class="nav-link-inner--text">로그인</span>
            </b-nav-item>
+      </span>
            
        </b-navbar-nav>
      </template>
@@ -73,7 +81,7 @@
 <script>
   import { BaseNav } from '@/components';
   import { ZoomCenterTransition } from 'vue2-transitions';
-
+  import store from '@/store'
   export default {
     components: {
       BaseNav,
@@ -97,9 +105,20 @@
     computed: {
       title() {
         return `${this.$route.name} Page`;
+      },
+      isLogin(){
+        return store.getters.isAuthenticated
       }
     },
     methods: {
+      onClickLogout(){
+        store.dispatch('LOGOUT').then(res=>{this.$router.push('/login')
+        
+        })
+      },
+      Login(){
+        this.$router.push({path:'/login'})
+      },
       toggleNavbar() {
         document.body.classList.toggle('nav-open');
         this.showMenu = !this.showMenu;

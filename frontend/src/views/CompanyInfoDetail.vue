@@ -169,7 +169,7 @@
         }
     }
 </script>
-<style>
+<style style lang="scss" scoped>
 
 
 
@@ -201,9 +201,9 @@
         margin-left: 10px;
 
     }
-    #card{
-    margin-left: 100%;
-    width: 100%;
-    text-align: center;
-}
+//     #card{
+//     margin-left: 100%;
+//     width: 100%;
+//     text-align: center;
+// }
 </style>
