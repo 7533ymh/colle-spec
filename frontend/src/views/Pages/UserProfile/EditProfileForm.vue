@@ -239,6 +239,7 @@ export default {
           .then(res=>{
             alert(res.data.msg)
             this.modalshow=false;
+            location.reload()
           })
           .catch(err=>{
             alert(err.response.data.msg)

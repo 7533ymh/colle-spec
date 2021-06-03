@@ -10,26 +10,29 @@
                 <stats-card title="" type="gradient-red" sub-title="팀구하기 게시판" class="mb-4 "> <!-- 게시판 카드 시작  -->
                     <template slot="footer">
                         <div>
-                            <h1>게시판 상세보기</h1>
+                            <h1>{{title}}</h1>
                             <div class="AddWrap" >
 
                                 <form  class="  pt-1 pb-5 bg-gradient-success"> <!-- 게시판 글 시작  -->
-                                    <table class="tbAdd" style="border:1px solid ; font-size:20px;" > 
+                                    <table class="tbAdd" style=" font-size:20px;" > 
                                         <colgroup>
                                             <col  width="10%"/>
-                                            <col  width="*"/>
+											<col  width="10%"/>
+                                            <col  width="6%"/>
+											<col  width="10%"/>
+											<col  width="*"/>
                                         </colgroup>
-                                        <tr style="text-align: center;  border-bottom:1px solid; ">
-                                            <th>수정날짜</th>
-                                            <td>{{editdate}}</td>
+                                        <tr>
+											<th>작성자:</th>
+                                            <td>{{userid}}</td>
+											<td>|</td>
+                                            <th >작성일:</th>
+                                            <td style="text-align: left;">{{editdate}}</td>
+											
                                         </tr>
-                                        <tr style="text-align: center;  border-bottom:1px solid; " >
-                                            <th >제목</th>
-                                            <td class="ml-4">{{title}}</td>
-                                        </tr>
-                                        <tr style="text-align: center; height:500px;">
-                                            <th>내용</th>
-                                            <td>{{content}}</td>
+                                        <tr style="text-align: center; height:200px;">
+                                            
+                                            <td colspan="5">{{content}}</td>
                                         </tr>
                                     </table>
                                 </form>  <!-- 게시판 글 끝  -->
@@ -48,28 +51,11 @@
                                     </template>
                                 </div> <!-- 게시글 수정, 삭제 끝 -->
 
-
-
-                                 <!-- <form>  댓글 작성 시작  
-                                    <form>
-                                        <textarea class="comment" v-model="comment" placeholder="댓글입력"></textarea>
-                                        <button type="submit" @click="commWrite">댓글작성</button>
-                                    </form>
-                                    <form>
-                                        <textarea class="comment" v-model="edit.comment" placeholder="댓글입력"></textarea>
-                                        <button type="submit" @click="editcomm">댓글수정</button>
-                                    </form>
-                                </form>   댓글 작성 끝  -->
-
-
-
-
 								<form style="margin-top:30px;">    <!-- 댓글 작성 시작   -->
 									<div class="form-group">
 										
 										<textarea class="form-control" v-model="comment" id="comment-content" rows="3" placeholder="댓글입력"></textarea>
 									</div>
-									<!--<input type="hidden" id="comment-author" value="익명">-->
 									<button type="button" class="btn btn-primary" @click="commWrite"  id="comment-create-btn">댓글작성</button>
 								</form>  <!-- 댓글 작성 시작  끝  -->
 
@@ -97,14 +83,11 @@
 												{{view.view[i].content}}
 												</div>
 												<div v-else> <!-- 댓글이 수정 상태일때  -->
-													<!--<v-text-field
-														v-moel="view.view[i].content"
-														outlined
-														hide-details
-													/>-->
-													<textarea  class="comment" v-model="edit.comment" placeholder="댓글입력"></textarea>
+													
+													<textarea class="comment" v-model="edit.comment" placeholder="댓글입력"></textarea> 
 													<b-button type="submit" @click="editcomm" variant="primary" style="font-size: 10px;">댓글수정</b-button>
 												</div>
+
 
 											</td>
                                             <td > <!-- authorized랑 !authorized 차이가 뭐야? -->
@@ -125,13 +108,7 @@
                                         </tr>
                                     </table>
                                 </div>  <!-- 댓글 리스트 끝  -->
-
-
-
                             </div>
-
-
-
                             <div class="btnWrap">
                                 
 								<b-button href="javascript:;" @click="fnList" class="btn" variant="primary"  >목록</b-button>
@@ -139,8 +116,6 @@
                         </div>
                     </template>
                 </stats-card> <!-- 게시판 카드 끝  -->
-
-<!-- {{view.view[0].user_id}} -->
             </b-col>
         </b-row>
     </base-header>
@@ -168,6 +143,7 @@
 			content:'', //상세보기 내용
       title:'', //상세보기 제목
       comment:'', //댓글창 댓글내용
+	  userid:'',
 	  editdate:'',
 			edit:{
         		comment:'', //댓글수정 내용
@@ -177,6 +153,7 @@
 				view:{} //댓글리스트 저장
 				},
 			remove: false,
+		
 		//myid:'',
 		
 		}
@@ -191,19 +168,7 @@
     },
     }
 	,methods:{
-		// mycomm(){
-		// 	for(var i=0; i<this.view.user.length; i++){
-		// 		if(store.getters.userid===this.view.user[i].user_id){
-		// 			console.log("같은아이디 확인:",this.view.user[i].user_id)
-		// 			this.myid=this.view.user[i].user_id
-		// 		}else{
-		// 			console.log("같지않은아이디 확인:",this.view.user[i].user_id)
-		// 		}
-		// 	}
-		// 	var result=this.myid
-		// 	console.log("내댓글확인:",result)
-			
-		// },
+		
 		fnList(){
 			this.$router.push({path:'/board/list'});
 		},
@@ -235,6 +200,7 @@
 				this.view.view=res.data.data.commentList
         this.title=res.data.data.title;
         this.content=res.data.data.content;
+		this.userid=res.data.data.user_id
 		const editdate = moment(res.data.data.edit).format('YYYY-MM-DD')
         this.editdate=editdate
 		console.log('dddddd',res.data.data.commentList)
@@ -279,7 +245,8 @@
 			})
 		},
 		btn_edit(item){
-			console.log(item)
+			console.log("item",item)
+			
 			if(item.user_id!==store.getters.userid){
 				alert("본인 댓글만 수정가능합니다.")
 			}else{

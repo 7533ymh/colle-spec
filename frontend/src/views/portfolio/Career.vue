@@ -91,15 +91,35 @@
       <b-table responsive="sm" striped :fields="fields" hover :items="career" v-if="show" @row-clicked="click" >                        
       
       <template #cell(편집)="row">
-         <b-button size="sm" @click="mvedit(row)" class="mr-2">
+         <b-button size="sm" @click="row.toggleDetails"  class="mr-2">
+          {{ row.detailsShowing ? '닫기' : '내용보기'}}
+        </b-button>
+        <b-button size="sm" @click="mvedit(row)" class="mr-2">
           수정
         </b-button>
          <b-button size="sm" @click="deletepj(row)" class="mr-2">
           삭제
         </b-button>
-        
-        
       </template>
+
+      <!--하이드 쇼-->
+      <template #row-details="row">
+        <b-card>
+          <b-row class="mb-2">
+            <b-col sm="3" class="text-sm-right"><b>기업:</b></b-col>
+            <b-col>{{ row.item.company }}</b-col>
+          </b-row>
+
+          <b-row class="mb-2">
+            <b-col sm="3" class="text-sm-right"><b>내용:</b></b-col>
+            <b-col>{{ row.item.content }}</b-col>
+          </b-row>
+          <b-button size="sm" @click="row.toggleDetails">닫기</b-button>
+        </b-card>
+      </template>
+
+      <!--하이드 쇼 끝-->
+
     </b-table> 
             <!-- 작성 폼으로 이동 시작-->
             <div style="text-align: right; margin:10px;">
@@ -170,7 +190,7 @@
                 let del=item.item.idx
                 
                 console.log('del idx: ',del)
-                axios.delete(`${url}/certificate`,{params:{
+                axios.delete(`${url}/career`,{params:{
                     idx:del
                 }})
                 .then(res=>{

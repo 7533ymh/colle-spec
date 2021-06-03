@@ -91,15 +91,35 @@
       <b-table responsive="sm" striped :fields="fields" hover :items="myeducation" v-if="show" @row-clicked="click" >                        
       
       <template #cell(편집)="row">
-         <b-button size="sm" @click="mvedit(row)" class="mr-2">
+         <b-button size="sm" @click="row.toggleDetails"  class="mr-2">
+          {{ row.detailsShowing ? '닫기' : '내용보기'}}
+        </b-button>
+        <b-button size="sm" @click="mvedit(row)" class="mr-2">
           수정
         </b-button>
          <b-button size="sm" @click="deletepj(row)" class="mr-2">
           삭제
         </b-button>
-        
-        
       </template>
+
+      <!--하이드 쇼-->
+      <template #row-details="row">
+        <b-card>
+          <b-row class="mb-2">
+            <b-col sm="3" class="text-sm-right"><b>교육명:</b></b-col>
+            <b-col>{{ row.item.title }}</b-col>
+          </b-row>
+
+          <b-row class="mb-2">
+            <b-col sm="3" class="text-sm-right"><b>내용:</b></b-col>
+            <b-col>{{ row.item.content }}</b-col>
+          </b-row>
+          <b-button size="sm" @click="row.toggleDetails">닫기</b-button>
+        </b-card>
+      </template>
+
+      <!--하이드 쇼 끝-->
+
     </b-table> 
 
             <!-- 작성 폼으로 이동 시작-->
@@ -186,30 +206,7 @@
                 console.log('보낸데이터:',row)
               this.$router.push({path:'/Portfolio/Modify/Education',query:row.item})
             }
-            //상세페이지에 수정 기능 넣기
-    //         edit(item,index,event) {
-    //             var params = new URLSearchParams(); //파일업로드가 포함되어 formdata를 이용한다
-    //             params.append('title', this.education.title);
-    //             params.append('content', this.education.content);
-    //             params.append('publisher', this.education.publisher);
-    //             params.append('date', this.education.date);
-    //             axios.put(`${url}/education`,params,{
-    //                 headers:{
-    //                     'Content-Type' : 'multipart/form-data' //다중파일 업로드하기 위해 헤더 추가
-    //                 }
-    //             })
-    //             .then(education=>{
-    //                 console.log(education)
-    //                 alert(education.data.msg)
-    //                 window.location.reload()
-                    
-    //             })
-                
-    //             .catch(err=>{
-    //                 console.log(err)
-    //                 alert(err.response.data.msg)
-    //             })
-    // }
+            
   }
   }
 </script>

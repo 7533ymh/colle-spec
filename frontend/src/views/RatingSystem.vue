@@ -70,7 +70,8 @@
                               <table class="table table-bordered"  >
                                 <colgroup>
                                   <col width="10%" />
-                                  <col width="90%" />
+                                  <col width="80%" />
+                                  <col width="10%" />
                                 </colgroup>
                                 <tbody id="RatingSystemTable1" >
 
@@ -84,7 +85,9 @@
                                             </span>
                                         </b-progress-bar>
                                       </b-progress>
-                                    </td> 
+                                    
+
+                                    </td>
                                   </tr>
 
                                   <tr>
@@ -98,6 +101,10 @@
                                         </b-progress-bar>
                                       </b-progress>
                                     </td>
+                                    <td>
+                                      <h4><router-link to="/Competition1">&nbsp;&nbsp;&nbsp;{{adv.award}}</router-link></h4>
+                                    </td>
+                                    
                                   </tr>
 
                                   <tr>
@@ -111,6 +118,9 @@
                                         </b-progress-bar>
                                       </b-progress>
                                     </td>
+                                    <td>
+                                      <h4><a :href="advurl.career" target="_blank">&nbsp;&nbsp;&nbsp;{{adv.career}}</a></h4>
+                                    </td>
                                   </tr>
 
                                   <tr>
@@ -122,7 +132,11 @@
                                                 <strong>{{ msg2 }}</strong>
                                             </span>
                                         </b-progress-bar>
-                                      </b-progress> </td>
+                                      </b-progress> 
+                                    </td>
+                                    <td>
+                                      <h4><a :href="advurl.certificate" target="_blank">&nbsp;&nbsp;&nbsp;{{adv.certificate}}</a></h4>
+                                    </td>
                                   </tr>
 
                                   <tr>
@@ -134,7 +148,11 @@
                                                 <strong>{{ msg3 }}</strong>
                                             </span>
                                         </b-progress-bar>
-                                      </b-progress> </td>
+                                      </b-progress> 
+                                    </td>
+                                    <td>
+                                      <h4><router-link to="/CompetitionProgram">&nbsp;&nbsp;&nbsp;{{adv.education}}</router-link></h4>
+                                    </td>
                                   </tr>
 
                                   <tr>
@@ -146,7 +164,11 @@
                                                 <strong>{{msg4}}</strong>
                                             </span>
                                         </b-progress-bar>
-                                      </b-progress> </td>
+                                      </b-progress> 
+                                    </td>
+                                    <td>
+                                      <h4><a :href="advurl.experience" target="_blank">&nbsp;&nbsp;&nbsp;{{adv.experience}}</a></h4>
+                                    </td>
                                   </tr>
 
                                   <tr>
@@ -160,6 +182,9 @@
                                         </b-progress-bar>
                                       </b-progress>
                                     </td>
+                                    <td>
+                                      
+                                    </td>
                                   </tr>
 
                                   <tr>
@@ -171,7 +196,11 @@
                                                 <strong>{{ msg6 }}</strong>
                                             </span>
                                         </b-progress-bar>
-                                      </b-progress> </td>
+                                      </b-progress> 
+                                      </td>
+                                      <td>
+                                      
+                                    </td>
                                   </tr>
 
                                   <tr>
@@ -183,23 +212,37 @@
                                                 <strong>{{ msg7 }}</strong>
                                             </span>
                                         </b-progress-bar>
-                                      </b-progress> </td>
+                                      </b-progress> 
+                                    </td>
+                                    <td>
+                                      <h4><router-link to="/languageinfo">&nbsp;&nbsp;&nbsp;{{adv.language}}</router-link></h4>
+                                    </td>
                                   </tr>
 
                                 </tbody>
                               </table>
                              </div>  <!--테이블 끝-->
+                             <!--
 
+                             <div id="contents4" mt-4>
+                                    <h3>한줄 평가</h3>
+                                    <h4>{{message.award}}<router-link to="/Competition1">&nbsp;&nbsp;&nbsp;{{adv.award}}</router-link></h4>
+                                    <h4>{{message.career}}<a :href="advurl.career" target="_blank">&nbsp;&nbsp;&nbsp;{{adv.career}}</a></h4>
+                                    <h4>{{message.certificate}} <a :href="advurl.certificate" target="_blank">&nbsp;&nbsp;&nbsp;{{adv.certificate}}</a></h4>
+                                    <h4>{{message.education}} <router-link to="/CompetitionProgram">&nbsp;&nbsp;&nbsp;{{adv.education}}</router-link></h4>
+                                    <h4>{{message.experience}} <a :href="advurl.experience" target="_blank">&nbsp;&nbsp;&nbsp;{{adv.experience}}</a></h4>
+                                    <h4>{{message.grade}}</h4>
+                                    <h4>{{message.project}}</h4>
+                                    <h4>{{message.language}}<router-link to="/languageinfo">&nbsp;&nbsp;&nbsp;{{adv.language}}</router-link></h4>
+
+                                </div>
+                                -->
 
                             </div> <!-- 등급제 내용 끝-->
                         </div>
                     </card>
                 </b-col>
             </b-row>
-            <!-- End charts-->
-            <!-- {{radarChartData.datasets[0].data}} -->
-            <!-- <button @click="gogo">gogo</button> -->
-        
         </b-container>
     </div>
     
@@ -252,38 +295,41 @@
         msg5: '', //학점메시지
         msg6: '', //프로젝트
         msg7: '', //어학메시지
+
+        message:{
+                    award:'',
+                    career:'',
+                    certificate:'',
+                    education:'',
+                    experience:'',
+                    language:'',
+                    grade:'',
+                    project:''
+                },
+        adv:{
+                    award:'',
+                    career:'',
+                    certificate:'',
+                    education:'',
+                    experience:'',
+                    language:'',
+                    grade:'',
+                    project:''
+                },
+                advurl:{
+                    career:'https://www.jobkorea.co.kr/starter/?schLocal=&schPart=&schMajor=&schEduLevel=&schWork=2&schCType=&isSaved=1&LinkGubun=0&LinkNo=0&Page=1&schType=0&schGid=0&schOrderBy=0&schTxt='
+                    ,
+                    experience:'https://www.ef.co.kr/pg/courses/?source=007959,NVKRS_LAL_00_00_DESKTOP&NaPm=ct%3Dkpaovxso%7Cci%3D0zm0003R5pbuJsaF30Wh%7Ctr%3Dsa%7Chk%3D1d576b61c20a492046e0d65dfa47cf7a735d6613'
+                    ,
+                    language:'https://www.saha.go.kr/startup/contents.do?mId=0301000000'
+                    ,
+                    certificate:'http://www.q-net.or.kr/crf005.do?id=crf00501&gSite=Q&gId='
+                },
         viewRank:[{}],
         fields:[{key:"all_rank",label:'전체등급'},{key:'award_rank',label:'수상'},{key:'career_rank',label:'경력'},{key:'certificate_rank',label:'자격증'},{key:'education_rank',label:'교육이수'},{key:'experience_rank',label:'해외경험'},{key:'grade_rank',label:'학점'},{key:'project_rank',label:'프로젝트'},{key:'language_rank',label:'어학'}],
         
-      cha:JSON.parse(localStorage.getItem("rank")),
-      a1:3,a2:5,
-      chartdata:{
-      labels: ["수상",
-      "경력",
-      "자격증",
-      "교육이수",
-      "해외경험",
-      "학점",
-      "프로젝트",
-      "어학"],
-      datasets: [
-        {
-          label: '등급차트',
-          backgroundColor: "rgba(255, 99, 132, 0.1)",
-          borderColor: "rgba(255, 99, 132, 1)",
-          pointBackgroundColor: 'rgba(255,181,198,1)',
-          pointBorderColor: '#fff',
-          pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: 'rgba(179,181,198,1)',
-          borderWidth: 3,
-          data:[],
-        },
-        
-      ]
-    }, radarChartOptions: {
-          responsive: false,
-          maintainAspectRatio: false
-        }
+      // cha:JSON.parse(localStorage.getItem("rank")),
+      
         
       }},
         
@@ -300,9 +346,87 @@
       },
      
       methods:{
-        gogo(){
-          this.$router.push({path:'/chart'})
-        },
+        advice(){
+                if(this.message.award==='수상 등급이 합격자 평균 보다 낮습니다.')
+                {
+                    this.adv.award="등급 올리기"
+                }else if(this.message.award==='수상 등급이 합격자에 비해 매우 낮습니다.'){
+                    this.adv.award="등급 올리기"
+                }
+                else{
+                    this.adv.award=null
+                }
+
+                if(this.message.career==='경력 등급이 합격자 평균 보다 낮습니다.'){
+                    this.adv.career="등급 올리기"
+                }
+                else if(this.message.career==='경력 등급이 합격자에 비해 매우 낮습니다.'){
+                    this.adv.career="등급 올리기"
+                }
+                else{
+                    this.adv.career=null
+                }
+
+                if(this.message.certificate==='자격증 등급이 합격자 평균 보다 낮습니다.')
+                {
+                    this.adv.certificate="등급 올리기"
+
+                }else if(this.message.certificate==='자격증 등급이 합격자에 비해 매우 낮습니다.'){
+                    this.adv.certificate="등급 올리기"
+
+                }else{
+                    this.adv.certificate=null
+                }
+
+                if(this.message.education==='교육이수 등급이 합격자 평균 보다 낮습니다.'){
+                    this.adv.education="등급 올리기"
+                }
+                else if(this.message.education==='교육이수 등급이 합격자에 비해 매우 낮습니다.'){
+                    this.adv.education="등급 올리기"
+                }else{
+                    this.adv.education=null
+                }
+
+                if(this.message.experience==='해외경험 등급이 합격자 평균 보다 낮습니다.')
+                {
+                    this.adv.experience="등급 올리기"
+                }else if(this.message.experience==='해외경험 등급이 합격자에 비해 매우 낮습니다.'){
+                    this.adv.experience="등급 올리기"
+                }
+                else{
+                    this.adv.experience=null
+                }
+
+                if(this.message.language==='어학 등급이 합격자 평균 보다 낮습니다.'){
+                    this.adv.language="등급 올리기"
+                }
+                else if(this.message.language==='어학 등급이 합격자에 비해 매우 낮습니다.'){
+                    this.adv.language="등급 올리기"
+                }
+                else{
+                    this.adv.language=null
+                }
+
+                if(this.message.grade==='학점 등급이 합격자 평균 보다 낮습니다.'){
+                    this.adv.grade="등급 올리기"
+                }
+                else if(this.message.grade==='학점 등급이 합격자에 비해 매우 낮습니다.'){
+                    this.adv.grade="등급 올리기"
+                }
+                else{
+                    this.adv.grade=null
+                }
+
+                if(this.message.project==='프로젝트 등급이 합격자 평균 보다 낮습니다.'){
+                    this.adv.project="등급 올리기"
+                }
+                else if(this.message.project==='프로젝트 등급이 합격자에 비해 매우 낮습니다.'){
+                    this.adv.project="등급 올리기"
+                }
+                else{
+                    this.adv.project=null
+                }
+            },
         
        async a_rankView(){
          await axios.get(`${url}/rank`)
@@ -311,35 +435,41 @@
                       localStorage.setItem("rank",JSON.stringify(res.data.data))
                       this.viewRank=res.data.data
                       console.log(this.viewRank)
+
                       if(res.data.data.all_rank==='1등급'){
                         var a0=5
                         this.color.a0='green'
                         this.msg00='매우잘함'
                         this.data.all_rank=5
+                        //this.message.award='수상 등급이 합격자보다 매우 우수합니다.'
+
                       }
                       else if(res.data.data.all_rank==='2등급'){
                         var a0=4
                         this.color.a0='info'
                         this.msg00='잘함'
                         this.data.all_rank=4
+                        //this.message.award='수상 등급이 합격자 평균 보다 높습니다.'
                         }
                       else if(res.data.data.all_rank==='4등급'){
                         var a0=2
                         this.color.a0='warning'
                         this.msg00='부족'
                         this.data.all_rank=2
+                        //this.message.award='수상 등급이 합격자 평균 보다 낮습니다.'
                       }
                       else if(res.data.data.all_rank==='5등급'){
                         var a0=1
                         this.color.a0='danger'
                         this.msg00='매우부족'
                         this.data.all_rank=1
+                        //this.message.award='수상 등급이 합격자에 비해 매우 낮습니다.'
                       }else{
                         var a0=3
                         this.color.a0='primary'
                         this.msg00='평균'
                         this.data.all_rank=3
-           
+                        //this.message.award='수상 등급이 합격자와 비슷합니다.'
                       }
 
                       if(res.data.data.award_rank==='1등급'){
@@ -348,33 +478,35 @@
                         this.color.a='green'
                         this.msg0='매우잘함'
                         this.data.award_rank=5
+                        this.message.award='수상 등급이 합격자보다 매우 우수합니다'
                       }
                       else if(res.data.data.award_rank==='2등급'){
                         var a1=4
                         this.color.a='info'
                         this.msg0='잘함'
                         this.data.award_rank=4
-                        //this.radarChartData.datasets[0].data[0]=4                      
+                        this.message.award='수상 등급이 합격자 평균 보다 높습니다'
                         }
                       else if(res.data.data.award_rank==='4등급'){
                         var a1=2
                         this.color.a='warning'
                         this.msg0='부족'
                         this.data.award_rank=2
-                        //this.radarChartData.datasets[0].data[0]=2
+                        this.message.award='수상 등급이 합격자 평균 보다 낮습니다.'
+                        
                       }
                       else if(res.data.data.award_rank==='5등급'){
                         var a1=1
                         this.color.a='danger'
                         this.msg0='매우부족'
                         this.data.award_rank=1
-                        //this.radarChartData.datasets[0].data[0]=1
+                        this.message.award='수상 등급이 합격자에 비해 매우 낮습니다.'
                       }else{
                         var a1=3
                         this.color.a='primary'
                         this.msg0='평균'
                         this.data.award_rank=3
-                       //this.radarChartData.datasets[0].data[0]=3
+                        this.message.award='수상 등급이 합격자와 비슷합니다.'
            
                       }
 
@@ -384,34 +516,37 @@
                         this.color.b='green'
                         this.msg1='매우잘함'
                         this.data.career_rank=5
-                        //this.radarChartData.datasets[0].data[1]=5
+                                                    this.message.career='경력 등급이 합격자보다 매우 우수합니다'
+
                       }
                       else if(res.data.data.career_rank==='2등급'){
                         var a2=4
                         this.color.b='info'
                         this.msg1='잘함'
                         this.data.career_rank=4
-                        //this.radarChartData.datasets[0].data[1]=4
+                            this.message.career='경력 등급이 합격자 평균 보다 높습니다'
                       }
                       else if(res.data.data.career_rank==='4등급'){
                         var a2=2
                         this.color.b='warning'
                         this.msg1='부족'
                         this.data.career_rank=2
-                       //this.radarChartData.datasets[0].data[1]=2
+                                                   this.message.career='경력 등급이 합격자 평균 보다 낮습니다.'
+
                       }
                       else if(res.data.data.career_rank==='5등급'){
-      var a2=1
+                        var a2=1          
                         this.color.b='danger'
                         this.msg1='매우부족'
                         this.data.career_rank=1
-                        //this.radarChartData.datasets[0].data[1]=1
-                      }else{
+                            this.message.career='경력 등급이 합격자에 비해 매우 낮습니다.'
+                      }
+                      else{
                         var a2=3
                         this.color.b='primary'
                         this.msg1='평균'
                         this.data.career_rank=3
-                       // this.radarChartData.datasets[0].data[1]=3
+                        this.message.career='경력 등급이 합격자와 비슷합니다.'
                       }
                       
                       //자격증
@@ -421,6 +556,7 @@
                         this.color.c='green'
                         this.msg2='매우잘함'
                         this.data.certificate_rank=5
+                            this.message.certificate='자격증 등급이 합격자보다 매우 우수합니다.'
                       }
                       else if(res.data.data.certificate_rank==='2등급'){
                        // this.radarChartData.datasets[0].data[2]=4
@@ -428,6 +564,7 @@
                         this.color.c='info'
                         this.msg2='잘함'
                         this.data.certificate_rank=4
+                            this.message.certificate='자격증 등급이 합격자 평균 보다 높습니다.'
                       }
                       else if(res.data.data.certificate_rank==='4등급'){
                       // this.radarChartData.datasets[0].data[2]=2
@@ -435,13 +572,15 @@
                        this.color.c='warning'
                         this.msg2='부족'
                         this.data.certificate_rank=2
+                            this.message.certificate='자격증 등급이 합격자 평균 보다 낮습니다.'
                       }
                       else if(res.data.data.certificate_rank==='5등급'){
                        // this.radarChartData.datasets[0].data[2]=1
                         var a3=1
                         this.color.c='danger'
-                        this.msg2='매우못함'
+                        this.msg2='매우부족'
                         this.data.certificate_rank=1
+                            this.message.certificate='자격증 등급이 합격자에 비해 매우 낮습니다.'
                       }
                       else{
                        // this.radarChartData.datasets[0].data[2]=3
@@ -449,6 +588,7 @@
                         this.color.c='primary'
                         this.msg2='평균'
                         this.data.certificate_rank=3
+                            this.message.certificate='자격증 등급이 합격자와 비슷합니다.'
                       }
 
                       //교육
@@ -458,6 +598,8 @@
                         this.color.d='green'
                         this.msg3='매우잘함'
                         this.data.education_rank=5
+                                                    this.message.education='교육이수 등급이 합격자보다 매우 우수합니다.'
+
                       }
                       else if(res.data.data.education_rank==='2등급'){
                        // this.radarChartData.datasets[0].data[3]=4
@@ -465,6 +607,8 @@
                         this.color.d='info'
                         this.msg3='잘함'
                         this.data.education_rank=4
+                                                    this.message.education='교육이수 등급이 합격자 평균 보다 높습니다.'
+
                       }
                       else if(res.data.data.education_rank==='4등급'){
                        // this.radarChartData.datasets[0].data[3]=2
@@ -472,6 +616,8 @@
                         this.color.d='warning'
                         this.msg3='부족'
                         this.data.education_rank=2
+                                                    this.message.education='교육이수 등급이 합격자 평균 보다 낮습니다.'
+
                       }
                       else if(res.data.data.education_rank==='5등급'){
                        // this.radarChartData.datasets[0].data[3]=1
@@ -479,12 +625,16 @@
                         this.color.d='danger'
                         this.msg3='매우부족'
                         this.data.education_rank=1
+                                                    this.message.education='교육이수 등급이 합격자에 비해 매우 낮습니다.'
+
                       }else{
                        // this.radarChartData.datasets[0].data[3]=3
                         var a4=3
                        this.color.d='primary'
                         this.msg3='평균'
                         this.data.education_rank=3
+                                                    this.message.education='교육이수 등급이 합격자와 비슷합니다.'
+
                       }
                       //해외경험
                       if(res.data.data.experience_rank==='1등급'){
@@ -493,6 +643,7 @@
                         this.color.e='green'
                         this.msg4='매우잘함'
                         this.data.experience_rank=5
+                            this.message.experience='해외경험 등급이 합격자보다 매우 우수합니다.'
                       }
                       else if(res.data.data.experience_rank==='2등급'){
                        // this.radarChartData.datasets[0].data[3]=4
@@ -500,6 +651,7 @@
                         this.color.e='info'
                         this.msg4='잘함'
                         this.data.experience_rank=4
+                            this.message.experience='해외경험 등급이 합격자 평균 보다 높습니다.'
                       }
                       else if(res.data.data.experience_rank==='4등급'){
                        // this.radarChartData.datasets[0].data[3]=2
@@ -507,6 +659,7 @@
                         this.color.e='warning'
                         this.msg4='부족'
                         this.data.experience_rank=2
+                            this.message.experience='해외경험 등급이 합격자 평균 보다 낮습니다.'
                       }
                       else if(res.data.data.experience_rank==='5등급'){
                        // this.radarChartData.datasets[0].data[3]=1
@@ -514,12 +667,15 @@
                         this.color.e='danger'
                         this.msg4='매우부족'
                         this.data.experience_rank=1
+                            this.message.experience='해외경험 등급이 합격자에 비해 매우 낮습니다.'
                       }else{
                        // this.radarChartData.datasets[0].data[3]=3
                         var a5=3
                         this.color.e='primary'
                         this.msg4='평균'
                         this.data.experience_rank=3
+                                                    this.message.experience='해외경험 등급이 합격자와 비슷합니다.'
+
                       }
                       //학점
                       if(res.data.data.grade_rank==='1등급'){
@@ -528,6 +684,7 @@
                         this.color.f='green'
                         this.msg5='매우잘함'
                         this.data.grade_rank=5
+                            this.message.grade='학점 등급이 합격자보다 매우 우수합니다.'
                       }
                       else if(res.data.data.grade_rank==='2등급'){
                        // this.radarChartData.datasets[0].data[3]=4
@@ -535,6 +692,8 @@
                         this.color.f='info'
                         this.msg5='잘함'
                         this.data.grade_rank=4
+                                                    this.message.grade='학점 등급이 합격자 평균 보다 높습니다.'
+
                       }
                       else if(res.data.data.grade_rank==='4등급'){
                        // this.radarChartData.datasets[0].data[3]=2
@@ -542,6 +701,8 @@
                         this.color.f='warning'
                         this.msg5='부족'
                         this.data.grade_rank=2
+                                                    this.message.grade='학점 등급이 합격자 평균 보다 낮습니다.'
+
                       }
                       else if(res.data.data.grade_rank==='5등급'){
                        // this.radarChartData.datasets[0].data[3]=1
@@ -549,12 +710,16 @@
                         this.color.f='danger'
                         this.msg5='매우부족'
                         this.data.grade_rank=1
+                                                    this.message.grade='학점 등급이 합격자에 비해 매우 낮습니다.'
+
                       }else{
                        // this.radarChartData.datasets[0].data[3]=3
                         var a6=3
                         this.color.f='primary'
                         this.msg5='평균'
                         this.data.grade_rank=3
+                                                    this.message.grade='학점 등급이 합격자와 비슷합니다.'
+
                       }
                       //프로젝트
                       if(res.data.data.project_rank==='1등급'){
@@ -563,6 +728,7 @@
                         this.color.g='green'
                         this.msg6='매우잘함'
                         this.data.project_rank=5
+                            this.message.project='프로젝트 등급이 합격자보다 매우 우수합니다.'
                       }
                       else if(res.data.data.project_rank==='2등급'){
                        // this.radarChartData.datasets[0].data[3]=4
@@ -570,6 +736,7 @@
                         this.color.g='info'
                         this.msg6='잘함'
                         this.data.project_rank=4
+                            this.message.project='프로젝트 등급이 합격자 평균 보다 높습니다.'
                       }
                       else if(res.data.data.project_rank==='4등급'){
                        // this.radarChartData.datasets[0].data[3]=2
@@ -577,6 +744,8 @@
                         this.color.g='warning'
                         this.msg6='부족'
                         this.data.project_rank=2
+                        this.message.project='프로젝트 등급이 합격자 평균 보다 낮습니다.'
+
                       }
                       else if(res.data.data.project_rank==='5등급'){
                        // this.radarChartData.datasets[0].data[3]=1
@@ -584,12 +753,14 @@
                         this.color.g='danger'
                         this.msg6='매우부족'
                         this.data.project_rank=1
+                            this.message.project='프로젝트 등급이 합격자에 비해 매우 낮습니다.'
                       }else{
                        // this.radarChartData.datasets[0].data[3]=3
                         var a7=3
                         this.color.g='primary'
                         this.msg6='평균'
                         this.data.project_rank=3
+                            this.message.project='프로젝트 등급이 합격자와 비슷합니다.'
                       }
                       //어학
                       if(res.data.data.language_rank==='1등급'){
@@ -598,6 +769,7 @@
                         this.color.h='green'
                         this.msg7='매우잘함'
                         this.data.language_rank=5
+                        this.message.language='어학 등급이 합격자보다 매우 우수합니다.'
                       }
                       else if(res.data.data.language_rank==='2등급'){
                        // this.radarChartData.datasets[0].data[3]=4
@@ -605,6 +777,7 @@
                         this.color.h='info'
                         this.msg7='잘함'
                         this.data.language_rank=4
+                        this.message.language='어학 등급이 합격자 평균 보다 높습니다.'
                       }
                       else if(res.data.data.language_rank==='4등급'){
                        // this.radarChartData.datasets[0].data[3]=2
@@ -612,6 +785,7 @@
                         this.color.h='warning'
                         this.msg7='부족'
                         this.data.language_rank=2
+                            this.message.language='어학 등급이 합격자 평균 보다 낮습니다.'
                       }
                       else if(res.data.data.language_rank==='5등급'){
                        // this.radarChartData.datasets[0].data[3]=1
@@ -619,21 +793,25 @@
                         this.color.h='danger'
                         this.msg7='매우부족'
                         this.data.language_rank=1
+                            this.message.language='어학 등급이 합격자에 비해 매우 낮습니다.'
                       }else{
                        // this.radarChartData.datasets[0].data[3]=3
                         var a8=3
                         this.color.h='primary'
                         this.msg7='평균'
                         this.data.language_rank=3
+                        this.message.language='어학 등급이 합격자와 비슷합니다.'
                       }
                       var result=[a0,a1,a2,a3,a4,a5,a6,a7,a8]
                       localStorage.setItem("rating",JSON.stringify(result))
                       
-                      
+                      console.log('message:',this.message)
+                      console.log('adv',this.adv)
                 })
                 .catch(err=>{
                   alert(err.response.data.msg)
                 })
+                this.advice()
         },
       async  g_rankView(){
         await  axios.get(`${url}/rank/grade`)
@@ -677,33 +855,35 @@
                         this.color.a='green'
                         this.msg0='매우잘함'
                         this.data.award_rank=5
+                        this.message.award='수상 등급이 합격자보다 매우 우수합니다'
                       }
                       else if(res.data.data.award_rank==='2등급'){
                         var a1=4
                         this.color.a='info'
                         this.msg0='잘함'
                         this.data.award_rank=4
-                        //this.radarChartData.datasets[0].data[0]=4                      
+                        this.message.award='수상 등급이 합격자 평균 보다 높습니다'
                         }
                       else if(res.data.data.award_rank==='4등급'){
                         var a1=2
                         this.color.a='warning'
                         this.msg0='부족'
                         this.data.award_rank=2
-                        //this.radarChartData.datasets[0].data[0]=2
+                        this.message.award='수상 등급이 합격자 평균 보다 낮습니다.'
+                        
                       }
                       else if(res.data.data.award_rank==='5등급'){
                         var a1=1
                         this.color.a='danger'
                         this.msg0='매우부족'
                         this.data.award_rank=1
-                        //this.radarChartData.datasets[0].data[0]=1
+                        this.message.award='수상 등급이 합격자에 비해 매우 낮습니다.'
                       }else{
                         var a1=3
                         this.color.a='primary'
                         this.msg0='평균'
                         this.data.award_rank=3
-                       //this.radarChartData.datasets[0].data[0]=3
+                        this.message.award='수상 등급이 합격자와 비슷합니다.'
            
                       }
 
@@ -713,34 +893,37 @@
                         this.color.b='green'
                         this.msg1='매우잘함'
                         this.data.career_rank=5
-                        //this.radarChartData.datasets[0].data[1]=5
+                                                    this.message.career='경력 등급이 합격자보다 매우 우수합니다'
+
                       }
                       else if(res.data.data.career_rank==='2등급'){
                         var a2=4
                         this.color.b='info'
                         this.msg1='잘함'
                         this.data.career_rank=4
-                        //this.radarChartData.datasets[0].data[1]=4
+                            this.message.career='경력 등급이 합격자 평균 보다 높습니다'
                       }
                       else if(res.data.data.career_rank==='4등급'){
                         var a2=2
                         this.color.b='warning'
                         this.msg1='부족'
                         this.data.career_rank=2
-                       //this.radarChartData.datasets[0].data[1]=2
+                                                   this.message.career='경력 등급이 합격자 평균 보다 낮습니다.'
+
                       }
                       else if(res.data.data.career_rank==='5등급'){
-      var a2=1
+                        var a2=1          
                         this.color.b='danger'
                         this.msg1='매우부족'
                         this.data.career_rank=1
-                        //this.radarChartData.datasets[0].data[1]=1
-                      }else{
+                            this.message.career='경력 등급이 합격자에 비해 매우 낮습니다.'
+                      }
+                      else{
                         var a2=3
                         this.color.b='primary'
                         this.msg1='평균'
                         this.data.career_rank=3
-                       // this.radarChartData.datasets[0].data[1]=3
+                        this.message.career='경력 등급이 합격자와 비슷합니다.'
                       }
                       
                       //자격증
@@ -750,6 +933,7 @@
                         this.color.c='green'
                         this.msg2='매우잘함'
                         this.data.certificate_rank=5
+                            this.message.certificate='자격증 등급이 합격자보다 매우 우수합니다.'
                       }
                       else if(res.data.data.certificate_rank==='2등급'){
                        // this.radarChartData.datasets[0].data[2]=4
@@ -757,6 +941,7 @@
                         this.color.c='info'
                         this.msg2='잘함'
                         this.data.certificate_rank=4
+                            this.message.certificate='자격증 등급이 합격자 평균 보다 높습니다.'
                       }
                       else if(res.data.data.certificate_rank==='4등급'){
                       // this.radarChartData.datasets[0].data[2]=2
@@ -764,13 +949,15 @@
                        this.color.c='warning'
                         this.msg2='부족'
                         this.data.certificate_rank=2
+                            this.message.certificate='자격증 등급이 합격자 평균 보다 낮습니다.'
                       }
                       else if(res.data.data.certificate_rank==='5등급'){
                        // this.radarChartData.datasets[0].data[2]=1
                         var a3=1
                         this.color.c='danger'
-                        this.msg2='매우못함'
+                        this.msg2='매우부족'
                         this.data.certificate_rank=1
+                            this.message.certificate='자격증 등급이 합격자에 비해 매우 낮습니다.'
                       }
                       else{
                        // this.radarChartData.datasets[0].data[2]=3
@@ -778,6 +965,7 @@
                         this.color.c='primary'
                         this.msg2='평균'
                         this.data.certificate_rank=3
+                            this.message.certificate='자격증 등급이 합격자와 비슷합니다.'
                       }
 
                       //교육
@@ -787,6 +975,8 @@
                         this.color.d='green'
                         this.msg3='매우잘함'
                         this.data.education_rank=5
+                                                    this.message.education='교육이수 등급이 합격자보다 매우 우수합니다.'
+
                       }
                       else if(res.data.data.education_rank==='2등급'){
                        // this.radarChartData.datasets[0].data[3]=4
@@ -794,6 +984,8 @@
                         this.color.d='info'
                         this.msg3='잘함'
                         this.data.education_rank=4
+                                                    this.message.education='교육이수 등급이 합격자 평균 보다 높습니다.'
+
                       }
                       else if(res.data.data.education_rank==='4등급'){
                        // this.radarChartData.datasets[0].data[3]=2
@@ -801,6 +993,8 @@
                         this.color.d='warning'
                         this.msg3='부족'
                         this.data.education_rank=2
+                                                    this.message.education='교육이수 등급이 합격자 평균 보다 낮습니다.'
+
                       }
                       else if(res.data.data.education_rank==='5등급'){
                        // this.radarChartData.datasets[0].data[3]=1
@@ -808,12 +1002,16 @@
                         this.color.d='danger'
                         this.msg3='매우부족'
                         this.data.education_rank=1
+                                                    this.message.education='교육이수 등급이 합격자에 비해 매우 낮습니다.'
+
                       }else{
                        // this.radarChartData.datasets[0].data[3]=3
                         var a4=3
                        this.color.d='primary'
                         this.msg3='평균'
                         this.data.education_rank=3
+                                                    this.message.education='교육이수 등급이 합격자와 비슷합니다.'
+
                       }
                       //해외경험
                       if(res.data.data.experience_rank==='1등급'){
@@ -822,6 +1020,7 @@
                         this.color.e='green'
                         this.msg4='매우잘함'
                         this.data.experience_rank=5
+                            this.message.experience='해외경험 등급이 합격자보다 매우 우수합니다.'
                       }
                       else if(res.data.data.experience_rank==='2등급'){
                        // this.radarChartData.datasets[0].data[3]=4
@@ -829,6 +1028,7 @@
                         this.color.e='info'
                         this.msg4='잘함'
                         this.data.experience_rank=4
+                            this.message.experience='해외경험 등급이 합격자 평균 보다 높습니다.'
                       }
                       else if(res.data.data.experience_rank==='4등급'){
                        // this.radarChartData.datasets[0].data[3]=2
@@ -836,6 +1036,7 @@
                         this.color.e='warning'
                         this.msg4='부족'
                         this.data.experience_rank=2
+                            this.message.experience='해외경험 등급이 합격자 평균 보다 낮습니다.'
                       }
                       else if(res.data.data.experience_rank==='5등급'){
                        // this.radarChartData.datasets[0].data[3]=1
@@ -843,12 +1044,15 @@
                         this.color.e='danger'
                         this.msg4='매우부족'
                         this.data.experience_rank=1
+                            this.message.experience='해외경험 등급이 합격자에 비해 매우 낮습니다.'
                       }else{
                        // this.radarChartData.datasets[0].data[3]=3
                         var a5=3
                         this.color.e='primary'
                         this.msg4='평균'
                         this.data.experience_rank=3
+                                                    this.message.experience='해외경험 등급이 합격자와 비슷합니다.'
+
                       }
                       //학점
                       if(res.data.data.grade_rank==='1등급'){
@@ -857,6 +1061,7 @@
                         this.color.f='green'
                         this.msg5='매우잘함'
                         this.data.grade_rank=5
+                            this.message.grade='학점 등급이 합격자보다 매우 우수합니다.'
                       }
                       else if(res.data.data.grade_rank==='2등급'){
                        // this.radarChartData.datasets[0].data[3]=4
@@ -864,6 +1069,8 @@
                         this.color.f='info'
                         this.msg5='잘함'
                         this.data.grade_rank=4
+                                                    this.message.grade='학점 등급이 합격자 평균 보다 높습니다.'
+
                       }
                       else if(res.data.data.grade_rank==='4등급'){
                        // this.radarChartData.datasets[0].data[3]=2
@@ -871,6 +1078,8 @@
                         this.color.f='warning'
                         this.msg5='부족'
                         this.data.grade_rank=2
+                                                    this.message.grade='학점 등급이 합격자 평균 보다 낮습니다.'
+
                       }
                       else if(res.data.data.grade_rank==='5등급'){
                        // this.radarChartData.datasets[0].data[3]=1
@@ -878,12 +1087,16 @@
                         this.color.f='danger'
                         this.msg5='매우부족'
                         this.data.grade_rank=1
+                                                    this.message.grade='학점 등급이 합격자에 비해 매우 낮습니다.'
+
                       }else{
                        // this.radarChartData.datasets[0].data[3]=3
                         var a6=3
                         this.color.f='primary'
                         this.msg5='평균'
                         this.data.grade_rank=3
+                                                    this.message.grade='학점 등급이 합격자와 비슷합니다.'
+
                       }
                       //프로젝트
                       if(res.data.data.project_rank==='1등급'){
@@ -892,6 +1105,7 @@
                         this.color.g='green'
                         this.msg6='매우잘함'
                         this.data.project_rank=5
+                            this.message.project='프로젝트 등급이 합격자보다 매우 우수합니다.'
                       }
                       else if(res.data.data.project_rank==='2등급'){
                        // this.radarChartData.datasets[0].data[3]=4
@@ -899,6 +1113,7 @@
                         this.color.g='info'
                         this.msg6='잘함'
                         this.data.project_rank=4
+                            this.message.project='프로젝트 등급이 합격자 평균 보다 높습니다.'
                       }
                       else if(res.data.data.project_rank==='4등급'){
                        // this.radarChartData.datasets[0].data[3]=2
@@ -906,6 +1121,8 @@
                         this.color.g='warning'
                         this.msg6='부족'
                         this.data.project_rank=2
+                        this.message.project='프로젝트 등급이 합격자 평균 보다 낮습니다.'
+
                       }
                       else if(res.data.data.project_rank==='5등급'){
                        // this.radarChartData.datasets[0].data[3]=1
@@ -913,12 +1130,14 @@
                         this.color.g='danger'
                         this.msg6='매우부족'
                         this.data.project_rank=1
+                            this.message.project='프로젝트 등급이 합격자에 비해 매우 낮습니다.'
                       }else{
                        // this.radarChartData.datasets[0].data[3]=3
                         var a7=3
                         this.color.g='primary'
                         this.msg6='평균'
                         this.data.project_rank=3
+                            this.message.project='프로젝트 등급이 합격자와 비슷합니다.'
                       }
                       //어학
                       if(res.data.data.language_rank==='1등급'){
@@ -927,6 +1146,7 @@
                         this.color.h='green'
                         this.msg7='매우잘함'
                         this.data.language_rank=5
+                        this.message.language='어학 등급이 합격자보다 매우 우수합니다.'
                       }
                       else if(res.data.data.language_rank==='2등급'){
                        // this.radarChartData.datasets[0].data[3]=4
@@ -934,6 +1154,7 @@
                         this.color.h='info'
                         this.msg7='잘함'
                         this.data.language_rank=4
+                        this.message.language='어학 등급이 합격자 평균 보다 높습니다.'
                       }
                       else if(res.data.data.language_rank==='4등급'){
                        // this.radarChartData.datasets[0].data[3]=2
@@ -941,6 +1162,7 @@
                         this.color.h='warning'
                         this.msg7='부족'
                         this.data.language_rank=2
+                            this.message.language='어학 등급이 합격자 평균 보다 낮습니다.'
                       }
                       else if(res.data.data.language_rank==='5등급'){
                        // this.radarChartData.datasets[0].data[3]=1
@@ -948,12 +1170,14 @@
                         this.color.h='danger'
                         this.msg7='매우부족'
                         this.data.language_rank=1
+                            this.message.language='어학 등급이 합격자에 비해 매우 낮습니다.'
                       }else{
                        // this.radarChartData.datasets[0].data[3]=3
                         var a8=3
                         this.color.h='primary'
                         this.msg7='평균'
                         this.data.language_rank=3
+                        this.message.language='어학 등급이 합격자와 비슷합니다.'
                       }
                       var result=[a0,a1,a2,a3,a4,a5,a6,a7,a8]
                       localStorage.setItem("rating",JSON.stringify(result))
@@ -964,7 +1188,7 @@
                 .catch(err=>{
                   alert(err.response.data.msg)
                 })
-        },
+       this.advice() },
         c_rankView(){
           axios.get(`${url}/rank/college`)
                     .then(res=>{
@@ -1007,33 +1231,35 @@
                         this.color.a='green'
                         this.msg0='매우잘함'
                         this.data.award_rank=5
+                        this.message.award='수상 등급이 합격자보다 매우 우수합니다'
                       }
                       else if(res.data.data.award_rank==='2등급'){
                         var a1=4
                         this.color.a='info'
                         this.msg0='잘함'
                         this.data.award_rank=4
-                        //this.radarChartData.datasets[0].data[0]=4                      
+                        this.message.award='수상 등급이 합격자 평균 보다 높습니다'
                         }
                       else if(res.data.data.award_rank==='4등급'){
                         var a1=2
                         this.color.a='warning'
                         this.msg0='부족'
                         this.data.award_rank=2
-                        //this.radarChartData.datasets[0].data[0]=2
+                        this.message.award='수상 등급이 합격자 평균 보다 낮습니다.'
+                        
                       }
                       else if(res.data.data.award_rank==='5등급'){
                         var a1=1
                         this.color.a='danger'
                         this.msg0='매우부족'
                         this.data.award_rank=1
-                        //this.radarChartData.datasets[0].data[0]=1
+                        this.message.award='수상 등급이 합격자에 비해 매우 낮습니다.'
                       }else{
                         var a1=3
                         this.color.a='primary'
                         this.msg0='평균'
                         this.data.award_rank=3
-                       //this.radarChartData.datasets[0].data[0]=3
+                        this.message.award='수상 등급이 합격자와 비슷합니다.'
            
                       }
 
@@ -1043,34 +1269,37 @@
                         this.color.b='green'
                         this.msg1='매우잘함'
                         this.data.career_rank=5
-                        //this.radarChartData.datasets[0].data[1]=5
+                                                    this.message.career='경력 등급이 합격자보다 매우 우수합니다'
+
                       }
                       else if(res.data.data.career_rank==='2등급'){
                         var a2=4
                         this.color.b='info'
                         this.msg1='잘함'
                         this.data.career_rank=4
-                        //this.radarChartData.datasets[0].data[1]=4
+                            this.message.career='경력 등급이 합격자 평균 보다 높습니다'
                       }
                       else if(res.data.data.career_rank==='4등급'){
                         var a2=2
                         this.color.b='warning'
                         this.msg1='부족'
                         this.data.career_rank=2
-                       //this.radarChartData.datasets[0].data[1]=2
+                                                   this.message.career='경력 등급이 합격자 평균 보다 낮습니다.'
+
                       }
                       else if(res.data.data.career_rank==='5등급'){
-      var a2=1
+                        var a2=1          
                         this.color.b='danger'
                         this.msg1='매우부족'
                         this.data.career_rank=1
-                        //this.radarChartData.datasets[0].data[1]=1
-                      }else{
+                            this.message.career='경력 등급이 합격자에 비해 매우 낮습니다.'
+                      }
+                      else{
                         var a2=3
                         this.color.b='primary'
                         this.msg1='평균'
                         this.data.career_rank=3
-                       // this.radarChartData.datasets[0].data[1]=3
+                        this.message.career='경력 등급이 합격자와 비슷합니다.'
                       }
                       
                       //자격증
@@ -1080,6 +1309,7 @@
                         this.color.c='green'
                         this.msg2='매우잘함'
                         this.data.certificate_rank=5
+                            this.message.certificate='자격증 등급이 합격자보다 매우 우수합니다.'
                       }
                       else if(res.data.data.certificate_rank==='2등급'){
                        // this.radarChartData.datasets[0].data[2]=4
@@ -1087,6 +1317,7 @@
                         this.color.c='info'
                         this.msg2='잘함'
                         this.data.certificate_rank=4
+                            this.message.certificate='자격증 등급이 합격자 평균 보다 높습니다.'
                       }
                       else if(res.data.data.certificate_rank==='4등급'){
                       // this.radarChartData.datasets[0].data[2]=2
@@ -1094,13 +1325,15 @@
                        this.color.c='warning'
                         this.msg2='부족'
                         this.data.certificate_rank=2
+                            this.message.certificate='자격증 등급이 합격자 평균 보다 낮습니다.'
                       }
                       else if(res.data.data.certificate_rank==='5등급'){
                        // this.radarChartData.datasets[0].data[2]=1
                         var a3=1
                         this.color.c='danger'
-                        this.msg2='매우못함'
+                        this.msg2='매우부족'
                         this.data.certificate_rank=1
+                            this.message.certificate='자격증 등급이 합격자에 비해 매우 낮습니다.'
                       }
                       else{
                        // this.radarChartData.datasets[0].data[2]=3
@@ -1108,6 +1341,7 @@
                         this.color.c='primary'
                         this.msg2='평균'
                         this.data.certificate_rank=3
+                            this.message.certificate='자격증 등급이 합격자와 비슷합니다.'
                       }
 
                       //교육
@@ -1117,6 +1351,8 @@
                         this.color.d='green'
                         this.msg3='매우잘함'
                         this.data.education_rank=5
+                                                    this.message.education='교육이수 등급이 합격자보다 매우 우수합니다.'
+
                       }
                       else if(res.data.data.education_rank==='2등급'){
                        // this.radarChartData.datasets[0].data[3]=4
@@ -1124,6 +1360,8 @@
                         this.color.d='info'
                         this.msg3='잘함'
                         this.data.education_rank=4
+                                                    this.message.education='교육이수 등급이 합격자 평균 보다 높습니다.'
+
                       }
                       else if(res.data.data.education_rank==='4등급'){
                        // this.radarChartData.datasets[0].data[3]=2
@@ -1131,6 +1369,8 @@
                         this.color.d='warning'
                         this.msg3='부족'
                         this.data.education_rank=2
+                                                    this.message.education='교육이수 등급이 합격자 평균 보다 낮습니다.'
+
                       }
                       else if(res.data.data.education_rank==='5등급'){
                        // this.radarChartData.datasets[0].data[3]=1
@@ -1138,12 +1378,16 @@
                         this.color.d='danger'
                         this.msg3='매우부족'
                         this.data.education_rank=1
+                                                    this.message.education='교육이수 등급이 합격자에 비해 매우 낮습니다.'
+
                       }else{
                        // this.radarChartData.datasets[0].data[3]=3
                         var a4=3
                        this.color.d='primary'
                         this.msg3='평균'
                         this.data.education_rank=3
+                                                    this.message.education='교육이수 등급이 합격자와 비슷합니다.'
+
                       }
                       //해외경험
                       if(res.data.data.experience_rank==='1등급'){
@@ -1152,6 +1396,7 @@
                         this.color.e='green'
                         this.msg4='매우잘함'
                         this.data.experience_rank=5
+                            this.message.experience='해외경험 등급이 합격자보다 매우 우수합니다.'
                       }
                       else if(res.data.data.experience_rank==='2등급'){
                        // this.radarChartData.datasets[0].data[3]=4
@@ -1159,6 +1404,7 @@
                         this.color.e='info'
                         this.msg4='잘함'
                         this.data.experience_rank=4
+                            this.message.experience='해외경험 등급이 합격자 평균 보다 높습니다.'
                       }
                       else if(res.data.data.experience_rank==='4등급'){
                        // this.radarChartData.datasets[0].data[3]=2
@@ -1166,6 +1412,7 @@
                         this.color.e='warning'
                         this.msg4='부족'
                         this.data.experience_rank=2
+                            this.message.experience='해외경험 등급이 합격자 평균 보다 낮습니다.'
                       }
                       else if(res.data.data.experience_rank==='5등급'){
                        // this.radarChartData.datasets[0].data[3]=1
@@ -1173,12 +1420,15 @@
                         this.color.e='danger'
                         this.msg4='매우부족'
                         this.data.experience_rank=1
+                            this.message.experience='해외경험 등급이 합격자에 비해 매우 낮습니다.'
                       }else{
                        // this.radarChartData.datasets[0].data[3]=3
                         var a5=3
                         this.color.e='primary'
                         this.msg4='평균'
                         this.data.experience_rank=3
+                                                    this.message.experience='해외경험 등급이 합격자와 비슷합니다.'
+
                       }
                       //학점
                       if(res.data.data.grade_rank==='1등급'){
@@ -1187,6 +1437,7 @@
                         this.color.f='green'
                         this.msg5='매우잘함'
                         this.data.grade_rank=5
+                            this.message.grade='학점 등급이 합격자보다 매우 우수합니다.'
                       }
                       else if(res.data.data.grade_rank==='2등급'){
                        // this.radarChartData.datasets[0].data[3]=4
@@ -1194,6 +1445,8 @@
                         this.color.f='info'
                         this.msg5='잘함'
                         this.data.grade_rank=4
+                                                    this.message.grade='학점 등급이 합격자 평균 보다 높습니다.'
+
                       }
                       else if(res.data.data.grade_rank==='4등급'){
                        // this.radarChartData.datasets[0].data[3]=2
@@ -1201,6 +1454,8 @@
                         this.color.f='warning'
                         this.msg5='부족'
                         this.data.grade_rank=2
+                                                    this.message.grade='학점 등급이 합격자 평균 보다 낮습니다.'
+
                       }
                       else if(res.data.data.grade_rank==='5등급'){
                        // this.radarChartData.datasets[0].data[3]=1
@@ -1208,12 +1463,16 @@
                         this.color.f='danger'
                         this.msg5='매우부족'
                         this.data.grade_rank=1
+                                                    this.message.grade='학점 등급이 합격자에 비해 매우 낮습니다.'
+
                       }else{
                        // this.radarChartData.datasets[0].data[3]=3
                         var a6=3
                         this.color.f='primary'
                         this.msg5='평균'
                         this.data.grade_rank=3
+                                                    this.message.grade='학점 등급이 합격자와 비슷합니다.'
+
                       }
                       //프로젝트
                       if(res.data.data.project_rank==='1등급'){
@@ -1222,6 +1481,7 @@
                         this.color.g='green'
                         this.msg6='매우잘함'
                         this.data.project_rank=5
+                            this.message.project='프로젝트 등급이 합격자보다 매우 우수합니다.'
                       }
                       else if(res.data.data.project_rank==='2등급'){
                        // this.radarChartData.datasets[0].data[3]=4
@@ -1229,6 +1489,7 @@
                         this.color.g='info'
                         this.msg6='잘함'
                         this.data.project_rank=4
+                            this.message.project='프로젝트 등급이 합격자 평균 보다 높습니다.'
                       }
                       else if(res.data.data.project_rank==='4등급'){
                        // this.radarChartData.datasets[0].data[3]=2
@@ -1236,6 +1497,8 @@
                         this.color.g='warning'
                         this.msg6='부족'
                         this.data.project_rank=2
+                        this.message.project='프로젝트 등급이 합격자 평균 보다 낮습니다.'
+
                       }
                       else if(res.data.data.project_rank==='5등급'){
                        // this.radarChartData.datasets[0].data[3]=1
@@ -1243,12 +1506,14 @@
                         this.color.g='danger'
                         this.msg6='매우부족'
                         this.data.project_rank=1
+                            this.message.project='프로젝트 등급이 합격자에 비해 매우 낮습니다.'
                       }else{
                        // this.radarChartData.datasets[0].data[3]=3
                         var a7=3
                         this.color.g='primary'
                         this.msg6='평균'
                         this.data.project_rank=3
+                            this.message.project='프로젝트 등급이 합격자와 비슷합니다.'
                       }
                       //어학
                       if(res.data.data.language_rank==='1등급'){
@@ -1257,6 +1522,7 @@
                         this.color.h='green'
                         this.msg7='매우잘함'
                         this.data.language_rank=5
+                        this.message.language='어학 등급이 합격자보다 매우 우수합니다.'
                       }
                       else if(res.data.data.language_rank==='2등급'){
                        // this.radarChartData.datasets[0].data[3]=4
@@ -1264,6 +1530,7 @@
                         this.color.h='info'
                         this.msg7='잘함'
                         this.data.language_rank=4
+                        this.message.language='어학 등급이 합격자 평균 보다 높습니다.'
                       }
                       else if(res.data.data.language_rank==='4등급'){
                        // this.radarChartData.datasets[0].data[3]=2
@@ -1271,6 +1538,7 @@
                         this.color.h='warning'
                         this.msg7='부족'
                         this.data.language_rank=2
+                            this.message.language='어학 등급이 합격자 평균 보다 낮습니다.'
                       }
                       else if(res.data.data.language_rank==='5등급'){
                        // this.radarChartData.datasets[0].data[3]=1
@@ -1278,12 +1546,14 @@
                         this.color.h='danger'
                         this.msg7='매우부족'
                         this.data.language_rank=1
+                            this.message.language='어학 등급이 합격자에 비해 매우 낮습니다.'
                       }else{
                        // this.radarChartData.datasets[0].data[3]=3
                         var a8=3
                         this.color.h='primary'
                         this.msg7='평균'
                         this.data.language_rank=3
+                        this.message.language='어학 등급이 합격자와 비슷합니다.'
                       }
                       var result=[a0,a1,a2,a3,a4,a5,a6,a7,a8]
                       localStorage.setItem("rating",JSON.stringify(result))
@@ -1291,7 +1561,7 @@
                 .catch(err=>{
                   alert(err.response.data.msg)
                 })
-        },
+       this.advice() },
         c_g_rankView(){
           axios.get(`${url}/rank/college/grade`)
                     .then(res=>{
@@ -1335,33 +1605,35 @@
                         this.color.a='green'
                         this.msg0='매우잘함'
                         this.data.award_rank=5
+                        this.message.award='수상 등급이 합격자보다 매우 우수합니다'
                       }
                       else if(res.data.data.award_rank==='2등급'){
                         var a1=4
                         this.color.a='info'
                         this.msg0='잘함'
                         this.data.award_rank=4
-                        //this.radarChartData.datasets[0].data[0]=4                      
+                        this.message.award='수상 등급이 합격자 평균 보다 높습니다'
                         }
                       else if(res.data.data.award_rank==='4등급'){
                         var a1=2
                         this.color.a='warning'
                         this.msg0='부족'
                         this.data.award_rank=2
-                        //this.radarChartData.datasets[0].data[0]=2
+                        this.message.award='수상 등급이 합격자 평균 보다 낮습니다.'
+                        
                       }
                       else if(res.data.data.award_rank==='5등급'){
                         var a1=1
                         this.color.a='danger'
                         this.msg0='매우부족'
                         this.data.award_rank=1
-                        //this.radarChartData.datasets[0].data[0]=1
+                        this.message.award='수상 등급이 합격자에 비해 매우 낮습니다.'
                       }else{
                         var a1=3
                         this.color.a='primary'
                         this.msg0='평균'
                         this.data.award_rank=3
-                       //this.radarChartData.datasets[0].data[0]=3
+                        this.message.award='수상 등급이 합격자와 비슷합니다.'
            
                       }
 
@@ -1371,34 +1643,37 @@
                         this.color.b='green'
                         this.msg1='매우잘함'
                         this.data.career_rank=5
-                        //this.radarChartData.datasets[0].data[1]=5
+                                                    this.message.career='경력 등급이 합격자보다 매우 우수합니다'
+
                       }
                       else if(res.data.data.career_rank==='2등급'){
                         var a2=4
                         this.color.b='info'
                         this.msg1='잘함'
                         this.data.career_rank=4
-                        //this.radarChartData.datasets[0].data[1]=4
+                            this.message.career='경력 등급이 합격자 평균 보다 높습니다'
                       }
                       else if(res.data.data.career_rank==='4등급'){
                         var a2=2
                         this.color.b='warning'
                         this.msg1='부족'
                         this.data.career_rank=2
-                       //this.radarChartData.datasets[0].data[1]=2
+                                                   this.message.career='경력 등급이 합격자 평균 보다 낮습니다.'
+
                       }
                       else if(res.data.data.career_rank==='5등급'){
-      var a2=1
+                        var a2=1          
                         this.color.b='danger'
                         this.msg1='매우부족'
                         this.data.career_rank=1
-                        //this.radarChartData.datasets[0].data[1]=1
-                      }else{
+                            this.message.career='경력 등급이 합격자에 비해 매우 낮습니다.'
+                      }
+                      else{
                         var a2=3
                         this.color.b='primary'
                         this.msg1='평균'
                         this.data.career_rank=3
-                       // this.radarChartData.datasets[0].data[1]=3
+                        this.message.career='경력 등급이 합격자와 비슷합니다.'
                       }
                       
                       //자격증
@@ -1408,6 +1683,7 @@
                         this.color.c='green'
                         this.msg2='매우잘함'
                         this.data.certificate_rank=5
+                            this.message.certificate='자격증 등급이 합격자보다 매우 우수합니다.'
                       }
                       else if(res.data.data.certificate_rank==='2등급'){
                        // this.radarChartData.datasets[0].data[2]=4
@@ -1415,6 +1691,7 @@
                         this.color.c='info'
                         this.msg2='잘함'
                         this.data.certificate_rank=4
+                            this.message.certificate='자격증 등급이 합격자 평균 보다 높습니다.'
                       }
                       else if(res.data.data.certificate_rank==='4등급'){
                       // this.radarChartData.datasets[0].data[2]=2
@@ -1422,13 +1699,15 @@
                        this.color.c='warning'
                         this.msg2='부족'
                         this.data.certificate_rank=2
+                            this.message.certificate='자격증 등급이 합격자 평균 보다 낮습니다.'
                       }
                       else if(res.data.data.certificate_rank==='5등급'){
                        // this.radarChartData.datasets[0].data[2]=1
                         var a3=1
                         this.color.c='danger'
-                        this.msg2='매우못함'
+                        this.msg2='매우부족'
                         this.data.certificate_rank=1
+                            this.message.certificate='자격증 등급이 합격자에 비해 매우 낮습니다.'
                       }
                       else{
                        // this.radarChartData.datasets[0].data[2]=3
@@ -1436,6 +1715,7 @@
                         this.color.c='primary'
                         this.msg2='평균'
                         this.data.certificate_rank=3
+                            this.message.certificate='자격증 등급이 합격자와 비슷합니다.'
                       }
 
                       //교육
@@ -1445,6 +1725,8 @@
                         this.color.d='green'
                         this.msg3='매우잘함'
                         this.data.education_rank=5
+                                                    this.message.education='교육이수 등급이 합격자보다 매우 우수합니다.'
+
                       }
                       else if(res.data.data.education_rank==='2등급'){
                        // this.radarChartData.datasets[0].data[3]=4
@@ -1452,6 +1734,8 @@
                         this.color.d='info'
                         this.msg3='잘함'
                         this.data.education_rank=4
+                                                    this.message.education='교육이수 등급이 합격자 평균 보다 높습니다.'
+
                       }
                       else if(res.data.data.education_rank==='4등급'){
                        // this.radarChartData.datasets[0].data[3]=2
@@ -1459,6 +1743,8 @@
                         this.color.d='warning'
                         this.msg3='부족'
                         this.data.education_rank=2
+                                                    this.message.education='교육이수 등급이 합격자 평균 보다 낮습니다.'
+
                       }
                       else if(res.data.data.education_rank==='5등급'){
                        // this.radarChartData.datasets[0].data[3]=1
@@ -1466,12 +1752,16 @@
                         this.color.d='danger'
                         this.msg3='매우부족'
                         this.data.education_rank=1
+                                                    this.message.education='교육이수 등급이 합격자에 비해 매우 낮습니다.'
+
                       }else{
                        // this.radarChartData.datasets[0].data[3]=3
                         var a4=3
                        this.color.d='primary'
                         this.msg3='평균'
                         this.data.education_rank=3
+                                                    this.message.education='교육이수 등급이 합격자와 비슷합니다.'
+
                       }
                       //해외경험
                       if(res.data.data.experience_rank==='1등급'){
@@ -1480,6 +1770,7 @@
                         this.color.e='green'
                         this.msg4='매우잘함'
                         this.data.experience_rank=5
+                            this.message.experience='해외경험 등급이 합격자보다 매우 우수합니다.'
                       }
                       else if(res.data.data.experience_rank==='2등급'){
                        // this.radarChartData.datasets[0].data[3]=4
@@ -1487,6 +1778,7 @@
                         this.color.e='info'
                         this.msg4='잘함'
                         this.data.experience_rank=4
+                            this.message.experience='해외경험 등급이 합격자 평균 보다 높습니다.'
                       }
                       else if(res.data.data.experience_rank==='4등급'){
                        // this.radarChartData.datasets[0].data[3]=2
@@ -1494,6 +1786,7 @@
                         this.color.e='warning'
                         this.msg4='부족'
                         this.data.experience_rank=2
+                            this.message.experience='해외경험 등급이 합격자 평균 보다 낮습니다.'
                       }
                       else if(res.data.data.experience_rank==='5등급'){
                        // this.radarChartData.datasets[0].data[3]=1
@@ -1501,12 +1794,15 @@
                         this.color.e='danger'
                         this.msg4='매우부족'
                         this.data.experience_rank=1
+                            this.message.experience='해외경험 등급이 합격자에 비해 매우 낮습니다.'
                       }else{
                        // this.radarChartData.datasets[0].data[3]=3
                         var a5=3
                         this.color.e='primary'
                         this.msg4='평균'
                         this.data.experience_rank=3
+                                                    this.message.experience='해외경험 등급이 합격자와 비슷합니다.'
+
                       }
                       //학점
                       if(res.data.data.grade_rank==='1등급'){
@@ -1515,6 +1811,7 @@
                         this.color.f='green'
                         this.msg5='매우잘함'
                         this.data.grade_rank=5
+                            this.message.grade='학점 등급이 합격자보다 매우 우수합니다.'
                       }
                       else if(res.data.data.grade_rank==='2등급'){
                        // this.radarChartData.datasets[0].data[3]=4
@@ -1522,6 +1819,8 @@
                         this.color.f='info'
                         this.msg5='잘함'
                         this.data.grade_rank=4
+                                                    this.message.grade='학점 등급이 합격자 평균 보다 높습니다.'
+
                       }
                       else if(res.data.data.grade_rank==='4등급'){
                        // this.radarChartData.datasets[0].data[3]=2
@@ -1529,6 +1828,8 @@
                         this.color.f='warning'
                         this.msg5='부족'
                         this.data.grade_rank=2
+                                                    this.message.grade='학점 등급이 합격자 평균 보다 낮습니다.'
+
                       }
                       else if(res.data.data.grade_rank==='5등급'){
                        // this.radarChartData.datasets[0].data[3]=1
@@ -1536,12 +1837,16 @@
                         this.color.f='danger'
                         this.msg5='매우부족'
                         this.data.grade_rank=1
+                                                    this.message.grade='학점 등급이 합격자에 비해 매우 낮습니다.'
+
                       }else{
                        // this.radarChartData.datasets[0].data[3]=3
                         var a6=3
                         this.color.f='primary'
                         this.msg5='평균'
                         this.data.grade_rank=3
+                                                    this.message.grade='학점 등급이 합격자와 비슷합니다.'
+
                       }
                       //프로젝트
                       if(res.data.data.project_rank==='1등급'){
@@ -1550,6 +1855,7 @@
                         this.color.g='green'
                         this.msg6='매우잘함'
                         this.data.project_rank=5
+                            this.message.project='프로젝트 등급이 합격자보다 매우 우수합니다.'
                       }
                       else if(res.data.data.project_rank==='2등급'){
                        // this.radarChartData.datasets[0].data[3]=4
@@ -1557,6 +1863,7 @@
                         this.color.g='info'
                         this.msg6='잘함'
                         this.data.project_rank=4
+                            this.message.project='프로젝트 등급이 합격자 평균 보다 높습니다.'
                       }
                       else if(res.data.data.project_rank==='4등급'){
                        // this.radarChartData.datasets[0].data[3]=2
@@ -1564,6 +1871,8 @@
                         this.color.g='warning'
                         this.msg6='부족'
                         this.data.project_rank=2
+                        this.message.project='프로젝트 등급이 합격자 평균 보다 낮습니다.'
+
                       }
                       else if(res.data.data.project_rank==='5등급'){
                        // this.radarChartData.datasets[0].data[3]=1
@@ -1571,12 +1880,14 @@
                         this.color.g='danger'
                         this.msg6='매우부족'
                         this.data.project_rank=1
+                            this.message.project='프로젝트 등급이 합격자에 비해 매우 낮습니다.'
                       }else{
                        // this.radarChartData.datasets[0].data[3]=3
                         var a7=3
                         this.color.g='primary'
                         this.msg6='평균'
                         this.data.project_rank=3
+                            this.message.project='프로젝트 등급이 합격자와 비슷합니다.'
                       }
                       //어학
                       if(res.data.data.language_rank==='1등급'){
@@ -1585,6 +1896,7 @@
                         this.color.h='green'
                         this.msg7='매우잘함'
                         this.data.language_rank=5
+                        this.message.language='어학 등급이 합격자보다 매우 우수합니다.'
                       }
                       else if(res.data.data.language_rank==='2등급'){
                        // this.radarChartData.datasets[0].data[3]=4
@@ -1592,6 +1904,7 @@
                         this.color.h='info'
                         this.msg7='잘함'
                         this.data.language_rank=4
+                        this.message.language='어학 등급이 합격자 평균 보다 높습니다.'
                       }
                       else if(res.data.data.language_rank==='4등급'){
                        // this.radarChartData.datasets[0].data[3]=2
@@ -1599,6 +1912,7 @@
                         this.color.h='warning'
                         this.msg7='부족'
                         this.data.language_rank=2
+                            this.message.language='어학 등급이 합격자 평균 보다 낮습니다.'
                       }
                       else if(res.data.data.language_rank==='5등급'){
                        // this.radarChartData.datasets[0].data[3]=1
@@ -1606,12 +1920,14 @@
                         this.color.h='danger'
                         this.msg7='매우부족'
                         this.data.language_rank=1
+                            this.message.language='어학 등급이 합격자에 비해 매우 낮습니다.'
                       }else{
                        // this.radarChartData.datasets[0].data[3]=3
                         var a8=3
                         this.color.h='primary'
                         this.msg7='평균'
                         this.data.language_rank=3
+                        this.message.language='어학 등급이 합격자와 비슷합니다.'
                       }
                       var result=[a0,a1,a2,a3,a4,a5,a6,a7,a8]
                       localStorage.setItem("rating",JSON.stringify(result))
@@ -1619,7 +1935,7 @@
                 .catch(err=>{
                   alert(err.response.data.msg)
                 })
-        },
+       this.advice() },
         
         
     },
@@ -1668,6 +1984,15 @@
 #RatingSystemTable1{
   font-size: medium;
 }
+
+#contents4{
+
+        width: 60%;
+        float: left;
+        padding: 10px;
+        margin-left: 10px;
+
+    }
 </style>
 
 

@@ -3,7 +3,7 @@
 
     <base-header class="pb-6 pb-8 pt-5 pt-md-8 bg-gradient-success" >
       <!-- Card stats -->
-      <b-row>
+      <b-row  >
         <b-col xl="6" md="6">
           <stats-card title=""
                       type="gradient-red"
@@ -13,30 +13,32 @@
 
             <template slot="footer">
               <div>
-		<h1>게시판 등록</h1>
+		  <h1>게시판 등록</h1>
 
-		<div class="AddWrap">
+		<div class="AddWrap" >
 			<form>
 				<table class="tbAdd">
 					<colgroup>
-						<col width="50%" />
-						<col width="50%" />
+						<col width="15%" />
+						<col width="*%" />
 					</colgroup>
 					<tr>
-						<th>제목</th>
-						<td><input type="text" v-on:input="title_typing" v-model="board.title" id="title"/></td>
+						<th style="text-align: center; border-bottom:1px solid #eee; " >제목  </th>
+						<td><input type="text" v-on:input="title_typing" v-model="board.title" id="title" style="width:370px; height:50px;"/></td>
 					</tr>
 					<tr>
-						<th>내용</th>
-						<td><textarea v-model="board.content" id="content"></textarea></td>
+						<th style="text-align: center;">내용</th>
+						<td><textarea v-model="board.content" id="content" style="width:370px; height:400px;"></textarea></td>
 					</tr>
 				</table>
 			</form>
 		</div>
 
-		<div class="btnWrap">
-			<a href="javascript:;"  @click="fnList" class="btn">목록</a>
-			<a href="javascript:;"  @click="write" class="btn">등록</a>
+		<div class="btnWrap" style="margin-left: 120px ">
+
+      <b-button href="javascript:;"  @click="fnList" class="btn" variant="primary">목록</b-button>
+      <b-button href="javascript:;"  @click="write" class="btn" variant="primary">등록</b-button>
+
 		</div>	
 	</div>
               
