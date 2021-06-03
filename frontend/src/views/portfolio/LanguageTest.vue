@@ -105,13 +105,18 @@
       <template #row-details="row">
         <b-card>
           <b-row class="mb-2">
-            <b-col sm="3" class="text-sm-right"><b>exam:</b></b-col>
+            <b-col sm="3" class="text-sm-right"><b>시험 명:</b></b-col>
             <b-col>{{ row.item.exam }}</b-col>
           </b-row>
 
           <b-row class="mb-2">
-            <b-col sm="3" class="text-sm-right"><b>content:</b></b-col>
+            <b-col sm="3" class="text-sm-right"><b>내용 :</b></b-col>
             <b-col>{{ row.item.content }}</b-col>
+          </b-row>
+
+          <b-row class="mb-2">
+            <b-col sm="3" class="text-sm-right"><b>시험점수 :</b></b-col>
+            <b-col>{{ row.item.exam_score }}</b-col>
           </b-row>
           <b-button size="sm" @click="row.toggleDetails">닫기</b-button>
         </b-card>

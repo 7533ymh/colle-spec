@@ -106,12 +106,12 @@
       <template #row-details="row">
         <b-card>
           <b-row class="mb-2">
-            <b-col sm="3" class="text-sm-right"><b>company:</b></b-col>
+            <b-col sm="3" class="text-sm-right"><b>기업:</b></b-col>
             <b-col>{{ row.item.company }}</b-col>
           </b-row>
 
           <b-row class="mb-2">
-            <b-col sm="3" class="text-sm-right"><b>content:</b></b-col>
+            <b-col sm="3" class="text-sm-right"><b>내용:</b></b-col>
             <b-col>{{ row.item.content }}</b-col>
           </b-row>
           <b-button size="sm" @click="row.toggleDetails">닫기</b-button>
