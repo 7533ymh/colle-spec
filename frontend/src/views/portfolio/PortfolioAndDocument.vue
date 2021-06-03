@@ -16,14 +16,8 @@
             </template>
           </stats-card>
         </b-col>
-        
-        
-        
       </b-row> 
     </base-header>
-
-
-
     <!--Charts-->
     <b-container fluid class="mt--7">
       <b-row>
@@ -84,13 +78,13 @@
             </b-row>
             
 
-<div>포트폴리오, 문서 내용</div>
+<div>프로젝트</div>
 <!--
  여기에 포트폴리오, 문서 넣으셈
 --><b-table responsive="sm" striped :fields="fields" hover :items="myproject" v-if="show" @row-clicked="click" >                        
       <template #cell(edit&Del)="row">
-        <b-button size="sm" @click="row.toggleDetails"  class="mr-2">
-          {{ row.detailsShowing ? '닫기' : '내용보기'}}
+        <b-button size="sm" @click="fnView(row)"  class="mr-2">
+          내용보기
         </b-button>
         <b-button size="sm" @click="mvedit(row)" class="mr-2">
           수정
@@ -99,24 +93,6 @@
           삭제
         </b-button>
       </template>
-
-      <!--하이드 쇼-->
-      <template #row-details="row">
-        <b-card>
-          <b-row class="mb-2">
-            <b-col sm="3" class="text-sm-right"><b>title:</b></b-col>
-            <b-col>{{ row.item.title }}</b-col>
-          </b-row>
-
-          <b-row class="mb-2">
-            <b-col sm="3" class="text-sm-right"><b>content:</b></b-col>
-            <b-col>{{ row.item.content }}</b-col>
-          </b-row>
-          <b-button size="sm" @click="row.toggleDetails">닫기</b-button>
-        </b-card>
-      </template>
-
-      <!--하이드 쇼 끝-->
 
     </b-table> 
 
@@ -154,7 +130,6 @@
         show:false,
    //fields:[{key:'origfilename',label:'파일이름'},{key:'down',label:'down'},{key:'Edit&Del', label:'수정 삭제'}],
       fields:[{key:'title',label:'제목'},{key:'success',label:'구현'},{key:'start_date',label:'시작날짜'},{key:'end_date',label:'종료날짜'},{key:'edit&Del',label:''}],
-                
                 myproject:[{}],
                 send:{
                       imglist:{},
@@ -162,6 +137,7 @@
                     }
                     ,
                     img:[]
+                    
       }},
       components: {
       
@@ -171,6 +147,7 @@
       },
       mounted(){
         this.pjView();
+        
       },
       methods:{
         click(row){
@@ -180,31 +157,40 @@
         pjView(){
           axios.get(`${url}/project`)
                     .then(get=>{
-                    for(var i=0; i<get.data.list.length; i++){
-                    this.myproject.filename=get.data.list[i].project_imgList
-                    }
                     this.myproject=get.data.list
+                    for(var i=0; i<get.data.list.length; i++){
+                    // this.myproject.filename=get.data.list[i].project_imgList
+                    if(this.myproject[i].success===0){
+                       this.myproject[i].success="구현실패";
+                    }else{
+                       this.myproject[i].success="구현성공";
+                    }
+                   
+                    }
+                    
                     this.show=true
+                    console.log(get)
                 })
+                
         },
         //클릭시 상세페이지로 데이터넘기면서 이동
       async fnView(item) {
         console.log(item);
 			this.send.data=item
-      localStorage.removeItem('items')
-                for (var i = 0; i < item.project_imgList.length; i++) {
-                let idxx=item.project_imgList[i].idx
+                for (var i = 0; i < item.item.project_imgList.length; i++) {
+                let idxx=item.item.project_imgList[i].idx
                 await axios.get(`${url}/project_img/download`,{params:{
                     idx:idxx
                 },responseType: 'arraybuffer'})
                 .then(res=>{
                     // this.send.imglist[i]=Buffer.from(res.data, 'binary').toString('base64')
-                    this.img[i]=Buffer.from(res.data, 'binary').toString('base64')
-                    console.log(i+'번'+this.img)
+                    this.send.imglist[i]=Buffer.from(res.data, 'binary').toString('base64')
+                    
                 })
                 }
                 console.log('이미지',this.send.imglist)
-                //localStorage.setItem('items',JSON.stringify(this.img)); //클릭한 행의 데이터를 로컬스토리지 저장
+                localStorage.setItem('items',JSON.stringify(this.send)); //클릭한 행의 데이터를 로컬스토리지 저장
+                this.$router.push({path:'/PortfolioDetail'})
 	},
  
   deletepj(item,index,e){

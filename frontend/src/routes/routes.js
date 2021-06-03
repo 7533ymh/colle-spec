@@ -80,12 +80,18 @@ const routes = [
         name: '해외경험',
         component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/Experience.vue')
       },
-
+      
       {
         path: '/PortfolioAndDocument',
         name: '포트폴리오 & 문서',
         component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/PortfolioAndDocument.vue')
       },
+      {
+        path: '/PortfolioDetail',
+        name: '포트폴리오 상세보기',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/portfolio/PortfolioDetail.vue')
+      },
+
       //포트폴리오 작성 라우터
       {
         path: '/Portfolio/gradeWrite',
