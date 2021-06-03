@@ -25,7 +25,7 @@
     <!--Charts-->
     <b-container fluid class="mt--7">
       <b-row>
-        <b-col xl="10" class="mb-5 mb-xl-0">
+        <b-col xl="8" class="mb-5 mb-xl-0">
           <card  header-classes="bg-transparent">
             <b-row align-v="center" slot="header">
               
@@ -35,13 +35,12 @@
             </b-row>
             
 
-<form>
+<form >
 				<table class="tbAdd">
 					<colgroup>
 						<col width="20%"/>
             <col width="*" />
-            <col width="20%" />
-						<col width="20%" />
+            
             
 					</colgroup>
 					<tr>
@@ -52,14 +51,18 @@
           <tr>
               <th>개발기간</th>
               <td id="date">{{items.data.item.start_date}}~{{items.data.item.end_date}}</td>
-              <th>구현</th>
-              <td id="succ">{{items.data.item.success}}</td>
+          <tr>
+
           </tr>
+          
 					<tr>
 						<th>개발내용</th>
 						<td id="content" colspan="3" class="txt_content" v-html="items.data.item.content"></td>
 					</tr>
-
+          <tr>
+              <th>구현</th>
+              <td id="succ">{{items.data.item.success}}</td>
+          </tr>
           <tr>
 						<th>이미지</th>
 						<td colspan="3" class="img">
@@ -144,7 +147,10 @@
 }
 .tbAdd{
   border: 1px solid;
-  width: 100%;
+  width: 60%;
+  margin-left : 20%;
+  text-align: center; 
+  
 }
 .tbAdd tr,th{
   border: 1px solid;
