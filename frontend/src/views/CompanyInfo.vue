@@ -399,7 +399,7 @@
                             this.message.experience='해외경험 등급이 합격자보다 매우 우수합니다.'
                         } else {
                             this.data.experience_rank = 3;
-                            this.msg4 = '평균';
+                            this.msg4 = '평균 ';
                             this.color.e='primary';
                             this.message.experience='해외경험 등급이 합격자와 비슷합니다.'
                         }
