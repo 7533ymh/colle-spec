@@ -4,16 +4,15 @@ import com.example.backend.domain.program.domain.Board;
 import com.example.backend.domain.program.domain.BoardList;
 import com.example.backend.domain.program.domain.Comment;
 import com.example.backend.domain.program.domain.Program;
+import com.example.backend.domain.program.service.ProgramService;
+import com.example.backend.domain.user.service.UserService;
 import com.example.backend.global.response.CommonResult;
 import com.example.backend.global.response.ListResult;
-import com.example.backend.global.response.SingleResult;
-import com.example.backend.domain.program.service.ProgramService;
 import com.example.backend.global.response.ResponseService;
-import com.example.backend.domain.user.service.UserService;
+import com.example.backend.global.response.SingleResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,11 +31,6 @@ public class ProgramController {
     @ApiOperation(value = "프로그램 조회", notes = "프로그램 정보를 조회한다.")
     @GetMapping(value = "/program")
     public ListResult<Program> showProgram(@ApiParam(value = "프로그램 구분(공모전&대회, 프로그램, 봉사활동)", required = true) @RequestParam String division) {
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String AuthId = authentication.getName();
-        int user_idx = userService.findIdxById(AuthId);
-
 
         return responseService.getListResultMsg(programService.findByDivision(division), "프로그램 정보를 조회하였습니다.");
     }

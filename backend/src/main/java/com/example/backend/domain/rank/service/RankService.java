@@ -129,7 +129,6 @@ public class RankService {
 
         return rankMapper.findByUser_idxDivision(user_idx, 1).orElseThrow(CNotFoundRankException::new);
 
-
     }
 
     private String rankchange(double rank) {

@@ -9,7 +9,8 @@ import java.util.Optional;
 @Mapper
 public interface AwardMapper {
 
-    @Insert("INSERT INTO award(user_idx, title, agency, division, year, content, edit, score) VALUES (#{award.user_idx}, #{award.title}, #{award.agency} ,#{award.division}," +
+    @Insert("INSERT INTO award(user_idx, title, agency, division, year, content, edit, score) VALUES " +
+            "(#{award.user_idx}, #{award.title}, #{award.agency} ,#{award.division}," +
             "#{award.year}, #{award.content}, NOW(), #{award.score})")
     @Options(useGeneratedKeys = true, keyProperty = "award.idx")
     int save(@Param("award") Award award) ;
@@ -20,7 +21,8 @@ public interface AwardMapper {
     @Select("SELECT * FROM award WHERE idx = #{idx}")
     Optional<Award> findByIdx(@Param("idx") int idx);
 
-    @Update("UPDATE award SET title = #{award.title}, agency = #{award.agency}, division = #{award.division}, year = #{award.year}, content = #{award.content}, " +
+    @Update("UPDATE award SET title = #{award.title}, agency = #{award.agency}, division = #{award.division}, " +
+            "year = #{award.year}, content = #{award.content}, " +
             "edit = NOW(), score = #{award.score} WHERE idx = #{award.idx} AND user_idx = #{award.user_idx}")
     void update(@Param("award") Award award);
 

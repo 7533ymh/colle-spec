@@ -24,6 +24,14 @@ public class ResponseService {
             return msg;
         }
     }
+
+    // 성공 결과만 처리하는 메소드
+    public CommonResult getSuccessResult() {
+        CommonResult result = new CommonResult();
+        setSuccessResult(result);
+        return result;
+    }
+
     // 단일건 결과를 처리하는 메소드
     public <T> SingleResult<T> getSingleResult(T data) {
         SingleResult<T> result = new SingleResult<>();
@@ -44,12 +52,6 @@ public class ResponseService {
         result.setSuccess(true);
         result.setCode(CommonResponse.SUCCESS.getCode());
         result.setMsg(msg);
-        return result;
-    }
-    // 성공 결과만 처리하는 메소드
-    public CommonResult getSuccessResult() {
-        CommonResult result = new CommonResult();
-        setSuccessResult(result);
         return result;
     }
 
