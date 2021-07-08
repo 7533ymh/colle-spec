@@ -1,14 +1,13 @@
 package com.example.backend.domain.link.controller;
 
+import com.example.backend.domain.link.service.LinkService;
+import com.example.backend.domain.user.service.UserService;
 import com.example.backend.global.exception.exception.CLinkException;
 import com.example.backend.global.response.CommonResult;
-import com.example.backend.domain.link.service.LinkService;
 import com.example.backend.global.response.ResponseService;
-import com.example.backend.domain.user.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -51,6 +50,7 @@ public class LinkController {
         return responseService.getSuccessResultMsg("연동이 완료되었습니다.");
 
     }
+
 
     @ApiOperation(value = "연동 업데이트 ", notes = "연동정보를 데이터베이스에 업데이트한다.")
     @GetMapping("/link/update")

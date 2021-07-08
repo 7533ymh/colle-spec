@@ -12,14 +12,15 @@ import java.util.Optional;
 public interface RankMapper {
 
 
-    @Select("SELECT user_idx,award_rank, career_rank , certificate_rank, education_rank, experience_rank, grade_rank, language_rank, project_rank, all_rank FROM ( SELECT  user_idx, CUME_DIST() OVER (ORDER BY award_score DESC) AS award_rank, " +
-            "CUME_DIST() OVER (ORDER BY career_score DESC) AS career_rank, certificate_score AS certificate_rank, " +
-            "CUME_DIST() OVER (ORDER BY experience_score DESC) AS experience_rank, education_score AS education_rank, " +
+    @Select("SELECT user_idx,award_rank, career_rank , certificate_rank, education_rank, experience_rank, grade_rank, language_rank, project_rank, all_rank " +
+            " ( SELECT  user_idx, CUME_DIST() OVER (ORDER BY award_score DESC) AS award_rank, CUME_DIST() OVER (ORDER BY career_score DESC) AS career_rank, " +
+            "certificate_score AS certificate_rank, CUME_DIST() OVER (ORDER BY experience_score DESC) AS experience_rank, education_score AS education_rank, " +
             "grade_score AS grade_rank, CUME_DIST() OVER (ORDER BY language_score DESC) AS language_rank, " +
             "CUME_DIST() OVER (ORDER BY project_score DESC) AS project_rank , CUME_DIST() OVER (ORDER BY score DESC) AS all_rank FROM score )c WHERE user_idx = #{idx}")
     Rank checkRankAll(@Param("idx") int idx);
 
-    @Select("SELECT ROUND(avg(certificate_score),-2) AS avg_Certificate , ROUND(avg(education_score),-2) AS avg_Education, ROUND(avg(grade_score),-1) AS avg_Grade FROM score")
+    @Select("SELECT ROUND(avg(certificate_score),-2) AS avg_Certificate , " +
+            "ROUND(avg(education_score),-2) AS avg_Education, ROUND(avg(grade_score),-1) AS avg_Grade FROM score")
     AvgCheck checkAvgAll();
 
     @Select("SELECT user_idx,award_rank, career_rank , certificate_rank, education_rank, experience_rank, grade_rank, language_rank, project_rank, all_rank FROM ( SELECT  user_idx, grade, CUME_DIST() OVER (ORDER BY award_score DESC) AS award_rank, " +
@@ -30,7 +31,8 @@ public interface RankMapper {
             "score where grade = (SELECT grade FROM user WHERE idx = #{idx}) )c WHERE user_idx = #{idx}")
     Rank checkRankByGrade(@Param("idx") int idx);
 
-    @Select("SELECT ROUND(avg(certificate_score),-2) AS avg_Certificate , ROUND(avg(education_score),-2) AS avg_Education, ROUND(avg(grade_score),-1) AS avg_Grade FROM score where grade = (SELECT grade FROM user WHERE idx = #{idx})")
+    @Select("SELECT ROUND(avg(certificate_score),-2) AS avg_Certificate , ROUND(avg(education_score),-2) AS avg_Education, " +
+            "ROUND(avg(grade_score),-1) AS avg_Grade FROM score where grade = (SELECT grade FROM user WHERE idx = #{idx})")
     AvgCheck checkAvgByGrade(@Param("idx") int idx);
 
     @Select("SELECT user_idx,award_rank, career_rank , certificate_rank, education_rank, experience_rank, grade_rank, language_rank, project_rank, all_rank FROM ( SELECT  user_idx, grade ,college, CUME_DIST() OVER (ORDER BY award_score DESC) AS award_rank, " +

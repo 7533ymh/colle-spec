@@ -65,10 +65,10 @@ public class UserController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String AuthId = authentication.getName();
-        int idx = userService.findIdxById(AuthId);
+        int user_idx = userService.findIdxById(AuthId);
 
         userService.modify(User.builder()
-                .idx(idx)
+                .idx(user_idx)
                 .id(id)
                 .pass(passwordEncoder.encode(pass))
                 .name(name)
@@ -89,9 +89,9 @@ public class UserController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String AuthId = authentication.getName();
-        int idx = userService.findIdxById(AuthId);
+        int user_idx = userService.findIdxById(AuthId);
 
-        userService.delete(idx);
+        userService.delete(user_idx);
 
         return responseService.getSuccessResultMsg("회원 탈퇴가 완료되었습니다.");
     }

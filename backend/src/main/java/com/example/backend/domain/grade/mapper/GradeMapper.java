@@ -9,11 +9,13 @@ import java.util.Optional;
 @Mapper
 public interface GradeMapper {
 
-    @Insert("INSERT INTO grade(user_idx, grade, semester, avg_score, edit) VALUES (#{grade.user_idx}, #{grade.grade}, #{grade.semester} ,#{grade.avg_score}, NOW())")
+    @Insert("INSERT INTO grade(user_idx, grade, semester, avg_score, edit) VALUES " +
+            "(#{grade.user_idx}, #{grade.grade}, #{grade.semester} ,#{grade.avg_score}, NOW())")
     @Options(useGeneratedKeys = true, keyProperty = "grade.idx")
     int save(@Param("grade") Grade grade) ;
 
-    @Update("UPDATE score SET grade_score = #{score} WHERE user_idx = #{user_idx}")
+    @Update("UPDATE score SET grade_score = #{score} " +
+            "WHERE user_idx = #{user_idx}")
     void updateGradeScore(@Param("score") double score , @Param("user_idx") int user_idx );
 
     @Select("SELECT * FROM grade WHERE user_idx = #{user_idx} ORDER BY grade,semester ")
@@ -25,7 +27,8 @@ public interface GradeMapper {
     @Select("SELECT * FROM grade WHERE user_idx = #{grade.user_idx} and grade = #{grade.grade} and semester=#{grade.semester}")
     Optional<Grade> findsame(@Param("grade") Grade grade);
 
-    @Select("SELECT IFNULL(AVG(avg_score),0) FROM grade WHERE user_idx = #{user_idx}")
+    @Select("SELECT IFNULL(AVG(avg_score),0) FROM " +
+            "grade WHERE user_idx = #{user_idx}")
     double checkAvg(@Param("user_idx") int user_idx);
 
     @Update("UPDATE grade SET grade = #{grade.grade}, semester = #{grade.semester}, avg_score = #{grade.avg_score}, " +

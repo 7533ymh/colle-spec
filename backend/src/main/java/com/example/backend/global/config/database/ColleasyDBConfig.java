@@ -17,10 +17,9 @@ import javax.sql.DataSource;
 public class ColleasyDBConfig {
 
 
+    @Bean(name = "secondDataSource")
 
-    @Bean(name="secondDataSource")
-
-    @ConfigurationProperties(prefix="spring.second.datasource")
+    @ConfigurationProperties(prefix = "spring.second.datasource")
 
     public DataSource secondDataScource() {
 
@@ -29,10 +28,7 @@ public class ColleasyDBConfig {
     }
 
 
-
-
-
-    @Bean(name="secondSqlSessionFactory")
+    @Bean(name = "secondSqlSessionFactory")
 
     public SqlSessionFactory secondSqlSessionFactory(@Qualifier("secondDataSource") DataSource dataSource) throws Exception {
 
@@ -47,7 +43,6 @@ public class ColleasyDBConfig {
         return sessionFactory.getObject();
 
     }
-
 
 
     @Bean(name = "secondSqlSessionTemplate")
@@ -72,8 +67,6 @@ public class ColleasyDBConfig {
 
         return mapperScannerConfigurer;
     }
-
-
 
 
 }

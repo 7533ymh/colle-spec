@@ -57,20 +57,20 @@ public class AwardService {
 
     }
 
-    public void delete (int idx , int user_idx) {
+    public void delete(int idx, int user_idx) {
 
         logger.info("수상 삭제");
 
         checkAwardUserIdx(user_idx);
 
-        checkAll(idx,user_idx);
+        checkAll(idx, user_idx);
 
         awardMapper.delete(idx, user_idx);
 
     }
 
 
-    public int changetoNumber (Award award) {
+    public int changetoNumber(Award award) {
 
         switch (award.getDivision()) {
             case "대상":
@@ -95,20 +95,19 @@ public class AwardService {
     }
 
     public void checkAwardUserIdx(int user_idx) {
-        if ( awardMapper.findByUserIdx(user_idx).isEmpty()){
+        if (awardMapper.findByUserIdx(user_idx).isEmpty()) {
             throw new CNotFoundInfoByUserException("해당 회원의 수상 정보가 없습니다.");
         }
 
     }
 
 
-    public void checkAll(int idx , int user_idx) {
+    public void checkAll(int idx, int user_idx) {
 
-        if (awardMapper.findByIdx(idx).isPresent() ) {
+        if (awardMapper.findByIdx(idx).isPresent()) {
             if (awardMapper.findByIdx(idx).get().getUser_idx() != user_idx)
                 throw new CNotHaveAccessInfoException("해당 회원의 수상 번호가 아닙니다.");
-        }
-        else {
+        } else {
             throw new CNotFoundInfoByIdxException("해당 수상 번호의 정보가 없습니다.");
         }
     }
