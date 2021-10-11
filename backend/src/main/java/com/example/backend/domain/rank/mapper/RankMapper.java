@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface RankMapper {
 
 
-    @Select("SELECT user_idx,award_rank, career_rank , certificate_rank, education_rank, experience_rank, grade_rank, language_rank, project_rank, all_rank " +
+    @Select("SELECT user_idx,award_rank, career_rank , certificate_rank, education_rank, experience_rank, grade_rank, language_rank, project_rank, all_rank FROM" +
             " ( SELECT  user_idx, CUME_DIST() OVER (ORDER BY award_score DESC) AS award_rank, CUME_DIST() OVER (ORDER BY career_score DESC) AS career_rank, " +
             "certificate_score AS certificate_rank, CUME_DIST() OVER (ORDER BY experience_score DESC) AS experience_rank, education_score AS education_rank, " +
             "grade_score AS grade_rank, CUME_DIST() OVER (ORDER BY language_score DESC) AS language_rank, " +
