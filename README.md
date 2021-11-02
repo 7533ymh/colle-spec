@@ -107,20 +107,21 @@
    + 이후, 등급을 전달받은 클라이언트는 ProgressBar를 통해 한눈에 볼 수 있도록 하고 4,5등급 을 받은 포트폴리오의 경우 등급을 업그레이드할 수 있는 정보를 제공하여 포트폴리오를 강화 할 수 있도록 한다.
  
 ### 4) 다른 팀과의 연동 
- <p align="center"><img src="https://user-images.githubusercontent.com/65746780/139925052-6d8ffc58-f94d-4fb2-aa0d-e08671f18076.png" height="550" width="650"></p>
+ <p align="center"><img src="https://user-images.githubusercontent.com/65746780/139925053-20233f79-dcbf-4a65-8772-3071fc8d5265.png" height="550" width="650"></p>
  
    + Colleasy팀의 데이터를 가져오기 위해 다중 데이터베이스를 사용한다. 
    + Colleasy팀의 데이터베이스에 접속하여 입력한 ID, PASSWORD가 일치하다면 접속 권한을 부여하고 대학생활에 대한 정보를 받아와 Colle-spec팀의 데이터베이스에 저장하도록 한다. 이를 통해 등급 확인 시 대학교, 대학교&학년 등급을 확인할 수 있도록 한다.  
  
 ### 5) 프로그램 정보
- <p align="center"><img src="https://user-images.githubusercontent.com/65746780/139925053-20233f79-dcbf-4a65-8772-3071fc8d5265.png" height="550" width="650"></p>
+ <p align="center"><img src="https://user-images.githubusercontent.com/65746780/139925042-05364dcb-5fff-4cf7-b038-dfb0328af9be.png" height="550" width="650"></p>
  
    + 프로그램 정보의 경우 크롤링을 통하여 데이터를 가져온다. 
  + 크롤링을 매일 00시에 하도록 하여 정보를 최신상태로 유지하도록 한다.
  + 클라이언트에서 프로그램 정보를 요청하게 되면 서버에서는 원하는 프로그램 정보를 전달해주고 클라이언트는 이를 받아 테이블 형식으로 보여주도록 한다. 또한, 팀 게시판은 프로그램 번호와 게시판 번호를 통해 구분하여 저장하도록 한다.
 
 ### 6) 기업 정보 
-<p align="center"><img src="https://user-images.githubusercontent.com/65746780/139925042-05364dcb-5fff-4cf7-b038-dfb0328af9be.png" height="550" width="650"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/65746780/139925052-6d8ffc58-f94d-4fb2-aa0d-e08671f18076.png" height="550" width="650"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/65746780/139926459-5f73d7a1-ee59-4c77-99e2-78988c55db2e.png"></p>
      
    + 기업 정보의 경우 크롤링을 통하여 데이터를 가져온다. 
    + 크롤링한 데이터 중 기업 합격자 스펙은 수치화 알고리즘을 통해 수치화 시켜 데이터베이스에 저장한다.
