@@ -1,6 +1,8 @@
 # 대학생활 포트폴리오 관리 시스템
 > 2021-1학기 종합설계프로젝트 colle-spec
 
+:pushpin: [최종 보고서](https://github.com/yuminhwan/colle-spec/blob/main/%EB%B3%B4%EA%B3%A0%EC%84%9C%20%ED%8C%8C%EC%9D%BC/%EB%8C%80%ED%95%99%EC%83%9D%ED%99%9C%20%ED%8F%AC%ED%8A%B8%ED%8F%B4%EB%A6%AC%EC%98%A4%20%EA%B4%80%EB%A6%AC%20%EC%8B%9C%EC%8A%A4%ED%85%9C%20%EC%B5%9C%EC%A2%85%20%EB%B3%B4%EA%B3%A0%EC%84%9C.pdf)
+
 포트폴리오를 손쉽게 관리할 수 있고 등록한 포트폴리오로 등급을 확인할 수 있는 웹 시스템
 
 <br>
